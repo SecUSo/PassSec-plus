@@ -1,0 +1,8 @@
+Version 0.8.2
+ * Handle tabbing for opening warning popup
+
+Version 0.8.1
+ * Handle frames and iframes correctly
+ 
+Version 0.8
+ * Initial release

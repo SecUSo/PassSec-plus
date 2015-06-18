@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE firefoxpasswordwarningextension SYSTEM "chrome://firefoxpasswordwarningextension/locale/translations.dtd">
+
+	<window
+		title="&cookieSettingsWindowName;"
+		onload="ffpwwe.cookieOption.init();"
+		xmlns:html="http://www.w3.org/1999/xhtml"
+		xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+		<script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/lib/preferences.js"/>
+		<script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/cookieoption.js"/>
+
+		<html:h2 style="padding:5px; margin:0px;">&cookieSettingsHeader;</html:h2>
+
+		<html:table style="width:100%; padding-bottom:5px">
+  		<html:tr>
+    		<html:td><html:img width="48px" src="chrome://firefoxpasswordwarningextension/skin/consequence_large.png"></html:img></html:td>
+				<html:td><html:div style="padding:6px; width:535px;">&cookieSettingsHeaderText1;</html:div></html:td>
+  		</html:tr>
+  	</html:table>
+
+		<html:div style="padding-left:5px; width:550px;">&cookieSettingsHeaderText2;</html:div>
+		<html:fieldset style="padding:10px; width:550px; height:210px; margin:2px;">
+			<html:div style="font-weight:bold;">&preventThirdPartyCookies;</html:div>
+			<html:table style="width:100%; cellspacing:0px; cellpadding:0px; border:none; border-collapse: collapse;">
+				<html:tr style="padding:0px; margin: 0px;">
+					<html:td width="28px" style="padding:0px; margin: 0px;"><html:button type="button" id="ThirdPartyOn" style="width:28px; height:20px; background-color:white; border:0px" onclick="ffpwwe.cookieOption.setCookiesOptionThirdParty(1);">On</html:button></html:td>
+					<html:td width="28px" style="padding:0px; margin: 0px;"><html:button type="button" id="ThirdPartyOff" style="width:28px; height:20px; background-color:white; border:0px" onclick="ffpwwe.cookieOption.setCookiesOptionThirdParty(2);">Off</html:button></html:td>
+					<html:td><html:div style="padding-left:5px; width:500px;">&blockThirdPartyCookiesCaptionText;</html:div></html:td>
+				</html:tr>
+			</html:table>
+			<html:div style="margin-bottom: -1em; padding-top:10px; width:500px;">&blockThirdPartyCookiesAware;</html:div>
+			<html:ul>
+	    	<html:li>&blockThirdPartyCookiesEnum1;</html:li>
+	    	<html:li>&blockThirdPartyCookiesEnum2;</html:li>
+	    </html:ul>
+		</html:fieldset>
+		<html:fieldset style="padding:10px; width:550px; height:250px;">
+			<html:div style="font-weight:bold;">&deleteCookieAfterClosingTitle;</html:div>
+			<html:table style="padding:10px; width:100%; cellspacing:0px; cellpadding:0px; border:none; border-collapse: collapse;">
+				<html:tr style="padding:0px; margin: 0px;">
+					<html:td width="28px" style="padding:0px; margin: 0px;"><html:button type="button" id="CookieCloseOn" style="width:28px; height:20px; background-color:white; border:0px" onclick="ffpwwe.cookieOption.setCookiesOptionAfterClosing(1);">On</html:button></html:td>
+					<html:td width="28px" style="padding:0px; margin: 0px;"><html:button type="button" id="CookieCloseOff" style="width:28px; height:20px; background-color:white; border:0px" onclick="ffpwwe.cookieOption.setCookiesOptionAfterClosing(2);">Off</html:button></html:td>
+					<html:td><html:div style="padding-left:5px; width:500px;">&deleteCookieAfterClosingCaptionText;</html:div></html:td>
+				</html:tr>
+			</html:table>
+			<html:div style="margin-bottom: -1em; padding-top:10px; width:500px;">&deleteCookieAfterClosingAware;</html:div>
+			<html:ul>
+	    	<html:li>&deleteCookieAfterClosingEnum1;</html:li>
+				<html:li>&deleteCookieAfterClosingEnum2;</html:li>
+	    	<html:li>&deleteCookieAfterClosingEnum3;</html:li>
+				<html:li>&deleteCookieAfterClosingEnum4;</html:li>
+				<html:li>&deleteCookieAfterClosingEnum5;</html:li>
+	    </html:ul>
+		</html:fieldset>
+		<html:div align="right" style="padding-right:2px; padding-top:3px">
+			<html:button style="width:80px; height:30px" type="button" onclick="ffpwwe.cookieOption.closeCookieWindow()">Ok</html:button>
+		</html:div>
+	</window>

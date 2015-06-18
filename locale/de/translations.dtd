@@ -1,0 +1,92 @@
+<!-- Options Dialog: -->
+<!ENTITY optionswindowname "PassSec Einstellungen">
+<!ENTITY optionscaption1 "Datenübertragung">
+<!ENTITY optionscaption2 "Einstellungen">
+<!ENTITY maintabcaption "Optionen">
+<!ENTITY advancedtabcaption "Erweiterte Optionen">
+<!ENTITY border "Rahmen">
+<!ENTITY triangle "Dreieck">
+<!ENTITY notbar "Notification Bar">
+<!ENTITY background "Hintergrund">
+<!ENTITY popup "Popup">
+<!ENTITY popuponclick "Popup bei Klick">
+<!ENTITY optionscaption3 "Ursprungszustand wiederherstellen">
+<!ENTITY resetexceptions "Ursprungszustand wiederherstellen">
+<!ENTITY resetinfo "Diese Option ist relevant, wenn Sie bei der bisherigen Nutzung
+des Add-Ons für Webseiten den 'sicheren Modus' gewählt haben,
+bzw. entschieden haben, nicht mehr gewarnt zu werden. Wenn
+Sie diesen Button klicken, dann werden diese Einstellungen
+gelöscht und Sie sehen wieder bei allen Webseiten die nicht sicher
+sind die Warnung.">
+<!ENTITY optionscaption4 "Debug-Modus">
+<!ENTITY debug "Debug">
+<!ENTITY usephishingwotdetection "Informationen bei Web Of Trust abrufen">
+<!ENTITY phishingwotinfotext "Aktivieren Sie diese Option, um gewarnt zu werden, falls Sie eine Seite besuchen,
+die durch das Web Of Trust (mywot.com) als Phishing-Seite markiert wurde.">
+<!ENTITY usephishingsearchdetection "Informationen bei Suchmaschine abrufen">
+<!ENTITY phishingsearchengine "... dabei zu verwendende Suchmaschine:">
+<!ENTITY phishingdetection "Unterstützung bei der Erkennung von Phishing Angriffen">
+<!ENTITY phishingsearchgoogle "Die normale Google Suche zur Phishing Detection nutzen">
+<!ENTITY phishingsearchstartpage "Startpage nutzt einen Proxy um Anfragen an Google zu stellen.
+Dadurch erhöht sich die Verzögerung, aber die Anfragen werden anonymisiert.">
+<!ENTITY appearance "Aussehen">
+<!ENTITY defaulpw "***">
+<!ENTITY imagechange "Sie können das Symbol für die sichere Eingabe hier ändern:">
+<!ENTITY securecase-appearance "Aussehen, falls die Eingabe sicher ist:">
+<!ENTITY changesecureimage "Nächstes Symbol">
+<!-- <!ENTITY savesecureimage "Vorschlag übernehmen">  -->
+<!ENTITY unsecurecase "Aussehen, falls die Eingabe NICHT sicher ist:">
+<!ENTITY fielddetection "Arten von Feldern, die berücksichtig werden">
+<!ENTITY personalfields "Felder für weitere persönliche Daten (z.B. E-Mail Adressen)">
+<!ENTITY searchfields "Suchanfragefelder">
+<!ENTITY passwordfields "Passwortfelder">
+<!ENTITY paymentfields "Felder für Zahlungsdaten (z.B. Kreditkartennummern)">
+<!ENTITY isbrokensecure "BROKEN HTTPS-Verbindung als sicher einstufen">
+<!ENTITY isbrokensecuredesc "BROKEN-HTTPS bedeutet, dass die Webseite mit HTTPS verschlüsselt
+ist, jedoch auch Elemente enthält die unverschlüsselt sind und
+deswegen standardmäßig vom Browser blockiert werden.">
+<!ENTITY httpssecurity "HTTPS-Sicherheit">
+
+<!-- Cookie Settings: -->
+<!ENTITY blockThirdPartyCookiesCaption "Speichern von Drittanbieter Cookies zukünftig verhindern">
+<!ENTITY deleteCookieAfterClosingCaption "Alle Cookies nach Schließen des Browsers automatisch löschen">
+<!ENTITY cookieSettingsReset "Reset">
+<!ENTITY cookieSettingsExecute "Änderungen übernehmen">
+<!ENTITY cookieSettingsWindowName "Cookie-Einstellungen">
+<!ENTITY cookieSettingsHeader "Privatsphäre schützen: Cookie-Einstellungen ändern">
+<!ENTITY cookieSettingsHeaderText1 "Webseitenbetreiber sammeln Informationen über Sie und Ihre Interessen, Ihr Surf- und Kaufverhalten, in dem Sie auf ihrem Computer Cookies speichern. Diese Informationen werden zusammengeführt, um Profile über Sie, Ihre Interessen und Ihr Kaufverhalten zu erstellen. Die Informationen und die Profile werden für vielfältige Zwecke verwendet und verkauft und verletzen somit Ihre Privatsphäre.">
+
+<!ENTITY cookieSettingsHeaderText2 "Im Folgenden sehen Sie Ihre aktuellen Cookie Einstellungen. Ihre  Privatsphäre ist optimal geschützt, wenn beide Optionen aktiviert sind:">
+<!ENTITY preventThirdPartyCookies "Speichern von Drittanbieter Cookies zukünftig verhindern">
+<!ENTITY blockThirdPartyCookiesCaptionText "Eine Reihe von Webseiten möchten sogenannte Drittanbieter Cookies auf ihrem Rechner speichern. Durch das Aktivieren dieser Einstellung (On) verhindern Sie dies. Dadurch wird verhindert, dass Firmen, deren Webseiten Sie gar nicht besuchen, vielleicht sogar  gar nicht kennen,  Sie und Ihre Interessen, Ihr Surf- und Kaufverhalten auf einer Vielzahl von Webseiten verfolgen können.">
+<!ENTITY blockThirdPartyCookiesAware "Bitte beachten Sie:">
+<!ENTITY blockThirdPartyCookiesEnum1 "Die Funktionalität von Webseiten, die Sie besuchen wird durch das Blockieren von Drittanbieter Cookies nicht beeinträchtigt.">
+<!ENTITY blockThirdPartyCookiesEnum2 "Bereits gespeicherte Drittanbieter Cookies werden hierdurch nicht gelöscht. Wenn Sie möchten, dass bereits gespeicherter Drittanbieter Cookies gelöscht werden, aktivieren Sie hierfür auch die untere Option.">
+
+<!ENTITY deleteCookieAfterClosingCaptionText "Hierdurch verhindern Sie, dass Webseitenbetreiber Sie durch Cookies  (inklusive Drittanbieter Cookies)
+über das Schließen des Browsers hinaus verfolgen können. Mit dem Schließen des Browsers werden auch die bereits früher gespeicherten Cookies gelöscht.">
+<!ENTITY deleteCookieAfterClosingTitle "Jegliche Cookies nach Schließen des Browsers automatisch löschen">
+<!ENTITY deleteCookieAfterClosingAware "Bitte beachten Sie:">
+<!ENTITY deleteCookieAfterClosingEnum1 "Die Funktionalität von Webseiten, die Sie besuchen wird hierdurch nicht beeinflusst.">
+<!ENTITY deleteCookieAfterClosingEnum2 "Es ist technisch nicht möglich nur Drittanbieter Cookies, die bereits gespeichert sind, zu löschen.">
+<!ENTITY deleteCookieAfterClosingEnum3 "Sie werden allerdings mit dem Schließen des Browsers auch ausgeloggt und Sie müssen beim nächsten Aufruf der Webseite Ihr Passwort erneut eingeben (sofern nicht im Browser gespeichert) bzw. Ihren Warenkorb erneut füllen.">
+<!ENTITY deleteCookieAfterClosingEnum4 "Das Löschen erfolgt nur dann, wenn alle Browserfenster geschlossen sind.">
+<!ENTITY deleteCookieAfterClosingEnum5 "Sie können über die Einstellungen in Firefox auch alle Cookies direkt blockieren. Allerdings wird hierdurch die Funktionalität von Webseiten so sehr eingeschränkt, dass diese Option hier gar nicht angeboten wird.">
+
+<!ENTITY optionsCookies "Cookie Einstellungen">
+<!ENTITY buttonCookies "Cookie Einstellungen ändern">
+
+<!-- Reset Dialog: -->
+<!ENTITY resetDialogName "Cookie Einstellung Reset">
+<!ENTITY resetDialogText "Wollen Sie wirklich Ihre alten Einstellungen wiederherstellen?">
+
+<!-- Values of different Items (Popup, Notification Bar,...): -->
+<!ENTITY disableforthispage "Ausnahme hinzufügen">
+<!ENTITY standardwarning "Es ist unsicher, hier ein Passwort einzugeben!">
+<!ENTITY close "Warnung ausblenden">
+<!ENTITY AddException "Ausnahme hinzufügen">
+<!ENTITY AddPruneException "Ich habe die Angabe geprüft">
+<!ENTITY PopupHttpsLink "Sicherer Modus">
+<!ENTITY popuphttpslinkpre "">
+<!ENTITY popuphttpslinkpost "">
+<!ENTITY SwitchSite "Webseite wechseln">
