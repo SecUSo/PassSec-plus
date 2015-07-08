@@ -14,7 +14,6 @@ var ffpwwe = ffpwwe || {};
  */
 ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
 
-	var showPopupAutomaticInterval;
     ffpwwe.debug("Found password field " + element, true);
     // private functions
 
@@ -98,7 +97,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
         addClass(element, "firefox-password-secure-border");
     }
 
-    /**
+		/**
      * adds the popup behaviour to the element
      */
     function addPopup() {
@@ -113,24 +112,25 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
                     openOnClickPopup();
             }, false);
 
-						if (element.form && ffpwwe.loginManagerHandler.isLoginDataAvailable(page.href, element.form.action)) {
-								// POLLING There is at least one way, but it's not a very good one.
-								showPopupAutomaticInterval = setInterval(showPopupAutomatic, 300);
+			if (element.form && ffpwwe.loginManagerHandler.isLoginDataAvailable(page.href, element.form.action))
+			{
+				// POLLING There is at least one way, but it's not a very good one.
+
+				var showPopupAutomaticInterval = setInterval(function showPopupAutomatic()
+				{
+					if($(element).is(":visible") && element.value.length != 0)
+					{
+						clearInterval(showPopupAutomaticInterval);
+						if(ffpwwe.loginManagerHandler.isLoginDataAvailable(page.href,element.form.action))
+						{
+							openOnClickPopup();
 						}
+					}
+				}, 300);
+
+			}
         }
     }
-
-	function showPopupAutomatic()
-	{
-		if($(element).is(":visible") && element.value.length != 0)
-		{
-			clearInterval(showPopupAutomaticInterval);
-			if(ffpwwe.loginManagerHandler.isLoginDataAvailable(page.href,element.form.action))
-			{
-				openOnClickPopup();
-			}
-		}
-	}
 
     function updateText(sslAvailable) {
         var strbundle = document.getElementById("firefoxpasswordwarning-strings");
@@ -255,7 +255,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
                 // Check if the suggestion is not the actual domain just preceded by www
                 if (suggestion != "www." + domain && suggestion != "http://" + domain && suggestion != "http://www." + domain && suggestion != "https://" + domain && suggestion != "https://" + domain) {
                     detection.search = true;
-                    showPhishingBox("phishing_text_1", suggestion);
+                    showPhishingBox("phishing_text_1_s", suggestion);
                 }
             } else if (!domainInResponse) {
                 detection.search = true;
@@ -273,7 +273,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
                 detection.search = true;
                 let suggestion = suggestions[1].href.match(/q=((\w|-)*\.\w*)&/)[1];
 								alert(suggestion.textContent)
-                showPhishingBox("phishing_text_1", suggestion);
+                showPhishingBox("phishing_text_1_g", suggestion);
             } else if (!domainInResponse) {
                 detection.search = true;
                 showPhishingBox("phishing_text_2", undefined);
@@ -350,6 +350,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
 
                 // Show the warning
                 $(".phishing-warning").show();
+								$(".phishing-warning-switch").show();
             };
         }
 
@@ -366,10 +367,12 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
         //Hide all Panels/Boxes
         var $httpWarning = $(".http-warning");
         var $phishingWarning = $(".phishing-warning");
+				var $phishingWarningSwitch = $(".phishing-warning-switch");
         var $urlprunButtons = $(".urlprun-allow");
         $httpWarning.hide();
         $phishingWarning.hide();
         $urlprunButtons.hide();
+				$phishingWarningSwitch.hide();
 
         // prune the url
         var domain = page.domain || "???";

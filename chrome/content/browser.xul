@@ -77,7 +77,7 @@
                     <button class="safezone" label="&PopupHttpsLink;"
                             oncommand="ffpwwe.api.goToHttps(event.target)"
                             id="popuplink"/>
-                    <button class="custom" label="&SwitchSite;"
+                    <button class="phishing-warning-switch" label="&SwitchSite;"
                             oncommand="ffpwwe.api.goToPage(event.target)"
                             id="switchToSite" hidden="true"/>
                     <button class="unsafe" label="&AddException;" oncommand="ffpwwe.api.disableOnThisPage()"

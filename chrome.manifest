@@ -3,6 +3,7 @@ content firefoxpasswordwarningextension chrome/content/ contentaccessible=yes
 overlay chrome://browser/content/browser.xul chrome://firefoxpasswordwarningextension/content/browser.xul
 
 locale firefoxpasswordwarningextension de locale/de/
+locale firefoxpasswordwarningextension en locale/en/
 
 skin firefoxpasswordwarningextension classic/1.0 skin/
 style chrome://global/content/customizeToolbar.xul chrome://firefoxpasswordwarningextension/skin/skin.css

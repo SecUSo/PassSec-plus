@@ -23,7 +23,7 @@ description.passsecLink {
 	//color: black !important;
 }*/
 
-button.custom,.safezone ,.unsafe
+button.custom,.safezone ,.unsafe,.phishing-warning-switch
 {
 	-moz-appearance: none !important;
 	border: 1px solid !important;

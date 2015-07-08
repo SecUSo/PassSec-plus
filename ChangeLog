@@ -1,8 +1,7 @@
-Version 0.8.2
- * Handle tabbing for opening warning popup
-
-Version 0.8.1
- * Handle frames and iframes correctly
+Version .1.1
+ * Fixed problems with phishing detection
+ * Added some dialogues
+ * Improved some phrases
  
-Version 0.8
+Version 1.0
  * Initial release

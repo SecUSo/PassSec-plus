@@ -3,6 +3,12 @@ var ffpwwe = ffpwwe || {};
 ffpwwe.options = ffpwwe.options || {};
 
 ffpwwe.options.restoreInitialState = function () {
+  const windowWidth = 400;
+  const windowHeight = 80;
+
+  paramsConfirm = {out:{accept:false}}
+  window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/resetDialog.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+"", paramsConfirm);
+  if (paramsConfirm.out.accept) {
     // drop all database tables
     ffpwwe.db.dropTables();
 
@@ -12,7 +18,7 @@ ffpwwe.options.restoreInitialState = function () {
     // TODO is this necessary?
     if (content)
         content.document.location.reload();
-    alert("Ursprungszustand wurde wiederhergestellt.")
+  }
 };
 
 

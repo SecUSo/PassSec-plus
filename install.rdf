@@ -3,24 +3,40 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
 	<Description about="urn:mozilla:install-manifest">
-		<em:id>firefoxpasswordwarningextension@tu-darmstadt.de</em:id>
-
-		<em:name>PassSec+</em:name>
-		<em:version>1.0</em:version>
+    <em:id>firefoxpasswordwarningextension@tu-darmstadt.de</em:id>
+    <em:localized>
+      <Description>
+        <em:locale>de-DE</em:locale>
+        <em:name>PassSec+</em:name>
+        <em:description>Zeigt in einer Sidebar Vorschaubilder der Inhalte aller offenen Tabs an.</em:description>
+        <em:creator>TU Darmstadt - SecUSo</em:creator>
+        <em:homepageURL>https://www.secuso.informatik.tu-darmstadt.de/de/research/results/passsec/</em:homepageURL>
+      </Description>
+    </em:localized>
+    <em:localized>
+      <Description>
+        <em:locale>en-GB</em:locale>
+        <em:name>PassSec+</em:name>
+        <em:description>PassSec+ alerts the user to enter passwords on websites where the it could be compromised.</em:description>
+        <em:creator>TU Darmstadt - SecUSo</em:creator>
+        <em:homepageURL>https://www.secuso.informatik.tu-darmstadt.de/index.php?id=10387</em:homepageURL>
+      </Description>
+    </em:localized>
+    <em:name>PassSec+</em:name>
+    <em:description>PassSec+ alerts the user to enter passwords on websites where the it could be compromised.</em:description>
+    <em:creator>TU Darmstadt - SecUSo</em:creator>
+    <em:homepageURL>https://www.secuso.informatik.tu-darmstadt.de/index.php?id=10387</em:homepageURL>
+    <em:version>1.1</em:version>
 		<em:type>2</em:type>
-		<em:creator>TU Darmstadt - SecUSo</em:creator>
-
-		<em:description>PassSec warnt den Benutzer vor der Passworteingabe auf Seiten, wo das Passwort gefährdet sein könnte.</em:description>
-		<em:homepageURL>https://www.secuso.informatik.tu-darmstadt.de/de/research/results/passsec/</em:homepageURL>
-		<em:optionsURL>chrome://firefoxpasswordwarningextension/content/options.xul</em:optionsURL>
+    <em:optionsURL>chrome://firefoxpasswordwarningextension/content/options.xul</em:optionsURL>
 		<em:iconURL>chrome://firefoxpasswordwarningextension/skin/logo.png</em:iconURL>
-		<em:targetApplication>
+    <em:targetApplication>
 
-			<Description>
-				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-				<em:minVersion>23.0</em:minVersion>
-				<em:maxVersion>40.0</em:maxVersion>
-			</Description>
-		</em:targetApplication>
-</Description>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>23.0</em:minVersion>
+        <em:maxVersion>40.0</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+  </Description>
 </RDF>

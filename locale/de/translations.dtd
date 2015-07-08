@@ -1,5 +1,5 @@
 <!-- Options Dialog: -->
-<!ENTITY optionswindowname "PassSec Einstellungen">
+<!ENTITY optionswindowname "PassSec+ Einstellungen">
 <!ENTITY optionscaption1 "Datenübertragung">
 <!ENTITY optionscaption2 "Einstellungen">
 <!ENTITY maintabcaption "Optionen">
@@ -77,8 +77,7 @@ deswegen standardmäßig vom Browser blockiert werden.">
 <!ENTITY buttonCookies "Cookie Einstellungen ändern">
 
 <!-- Reset Dialog: -->
-<!ENTITY resetDialogName "Cookie Einstellung Reset">
-<!ENTITY resetDialogText "Wollen Sie wirklich Ihre alten Einstellungen wiederherstellen?">
+<!ENTITY resetDialogText "Wollen Sie wirklich Ihre ursprünglichen Einstellungen wiederherstellen?">
 
 <!-- Values of different Items (Popup, Notification Bar,...): -->
 <!ENTITY disableforthispage "Ausnahme hinzufügen">
@@ -90,3 +89,6 @@ deswegen standardmäßig vom Browser blockiert werden.">
 <!ENTITY popuphttpslinkpre "">
 <!ENTITY popuphttpslinkpost "">
 <!ENTITY SwitchSite "Webseite wechseln">
+
+<!ENTITY proceed "Fortfahren">
+<!ENTITY cancel "Abbrechen">

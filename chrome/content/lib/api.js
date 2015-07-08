@@ -11,8 +11,17 @@ ffpwwe.api.goToHttps = function (target) {
     var domain = ffpwwe.pruneURL(content.document.location);
     var strbundle = document.getElementById("firefoxpasswordwarning-strings");
     document.getElementById('warnpanel2').hidePopup();
-    var answer = window.confirm(strbundle.getString("confirm_url").replace("<insert-url>", domain));
-    if(answer) {
+
+    const windowWidth = 350;
+    const windowHeight = 200;
+
+    var domainDisplay = domain.split("").join(" ");
+	  var params = {inn:{question: strbundle.getString("confirm_url").replace(/<insert-url>/g, domainDisplay)}, out:{accept:false}};
+	  window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+"",params);
+
+
+	if(params.out.accept)
+	{
         // insert the new exception into the databases
         ffpwwe.db.insert("httpToHttpsRedirects", content.document.location.host);
         ffpwwe.db.insert("userVerifiedDomains", content.document.location.host);
@@ -88,8 +97,16 @@ ffpwwe.api.disableOnThisPage = function () {
     var domain = ffpwwe.pruneURL(content.document.location);
     var strbundle = document.getElementById("firefoxpasswordwarning-strings");
     document.getElementById('warnpanel2').hidePopup();
-    var disable = window.confirm(strbundle.getString("add_exception").replace("<insert-url>", domain));
-    if (disable) {
+
+    const windowWidth = 400;
+    const windowHeight = 270;
+
+    var domainDisplay = domain.split("").join(" ");
+	  var params = {inn:{question: strbundle.getString("add_exception").replace(/<insert-url>/g, domainDisplay)}, out:{accept:false}};
+	  window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.xul", "bmarks", "chrome, centerscreen, dialog, modal,width="+windowWidth+",height="+windowHeight+"",params);
+
+    //var disable = window.confirm(strbundle.getString("add_exception").replace("<insert-url>", domain));
+    if (params.out.accept) {
         ffpwwe.db.insert("pageExceptions", content.document.location.host);
         content.document.location.reload();
     }// else {

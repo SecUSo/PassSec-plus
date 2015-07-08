@@ -25,19 +25,49 @@ ffpwwe.db = function () {
 
             var dbConn = openConnection();
 
-            let statement = null;
-            try {
-                statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = '" + value + "'");
+            try 
+			{
+                let statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = '" + value + "'");
+				
+				statement.executeAsync({
+						handleResult: function(resultSet) 
+						{
+							//fire if resultSet is not empty
+							dbConn.close();
+						},				
+						handleError: function(error) 
+						{  
+							Application.console.log("insert row error:" + error);
+							dbConn.close();							
+						},      
+						handleCompletion: function(reason) 
+						{
+							if (reason == 0) 
+							{				
+								let insertStmt = dbConn.createStatement("INSERT INTO " + database + " VALUES ('" + value + "')");
+								insertStmt.executeAsync({   
+									handleError: function(error) 
+									{  
+										Application.console.log("insert row error:" + error); 
+									},      
+									handleCompletion: function(aReason) 
+									{
+										dbConn.close();
+									}  
+								}); 
+							}
+							else
+							{
+								dbConn.close();
+							}
+						}  
+					}); 
             }
-            catch (e) {
+            catch (e) 
+			{
                 Application.console.log("error statement:" + dbConn.lastErrorString);
             }
-
-            if (!statement.executeStep()) {
-                dbConn.executeSimpleSQL("INSERT INTO " + database + " VALUES ('" + value + "')");
-            }
-
-            dbConn.close();
+            
         },
         /**
          * checks whether a value is inside a database
@@ -51,33 +81,48 @@ ffpwwe.db = function () {
 
             dbConn.executeSimpleSQL("CREATE TABLE IF NOT EXISTS " + database + " (url VARCHAR(100))");
 
-            let statement = null;
-            try {
-                statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = '" + value + "'");
+            try 
+			{
+                let statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = '" + value + "'");
+				
+				let result = !!statement.executeStep();
+				statement.reset();
+				dbConn.close();
+							
+				return result;
             }
-            catch (e) {
+            catch (error) 
+			{
                 Application.console.log("error statement:" + dbConn.lastErrorString);
             }
-
-            let result = !!statement.executeStep();
-            dbConn.close();
-
-            return result;
+			
+			return false;
         },
         /**
          * drops all database tables
          */
-        dropTables: function () {
-
+        dropTables: function () 
+		{
+		
             var dbConn = openConnection();
-
-            dbConn.executeSimpleSQL("DROP TABLE IF EXISTS pageExceptions");
-            dbConn.executeSimpleSQL("DROP TABLE IF EXISTS httpToHttpsRedirects");
-            dbConn.executeSimpleSQL("DROP TABLE IF EXISTS userVerifiedDomains");
-            dbConn.executeSimpleSQL("DROP TABLE IF EXISTS errorHTTPS");
-            dbConn.executeSimpleSQL("DROP TABLE IF EXISTS httpsAvail");
-
-            dbConn.close();
+			
+			var statements = [dbConn.createStatement("DROP TABLE IF EXISTS pageExceptions"),
+					    dbConn.createStatement("DROP TABLE IF EXISTS httpToHttpsRedirects"),
+						dbConn.createStatement("DROP TABLE IF EXISTS userVerifiedDomains"),
+						dbConn.createStatement("DROP TABLE IF EXISTS errorHTTPS"),
+						dbConn.createStatement("DROP TABLE IF EXISTS httpsAvail")];
+			
+			dbConn.executeAsync(statements,statements.length,{  
+                    handleError: function(error) 
+					{  
+                        Application.console.log("drop table error:" + error);
+						dbConn.close();
+                    },      
+                    handleCompletion: function(reason) 
+					{
+                        dbConn.close();
+                    }  
+                }); 
         }
     };
 }();
