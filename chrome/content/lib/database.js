@@ -1,3 +1,23 @@
+/*=========================================================================
+ * PassSec+ is a Firefox extension which should prevent the user from
+ * entering sensitive data on insecure websites. Additionally it should
+ * help the user to choose privacy friendly cookie settings.
+ * Copyright (C) 2015 SecUSo
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *=========================================================================*/
+
 var ffpwwe = ffpwwe || {};
 
 ffpwwe.db = function () {
@@ -25,49 +45,49 @@ ffpwwe.db = function () {
 
             var dbConn = openConnection();
 
-            try 
+            try
 			{
                 let statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = '" + value + "'");
-				
+
 				statement.executeAsync({
-						handleResult: function(resultSet) 
+						handleResult: function(resultSet)
 						{
 							//fire if resultSet is not empty
 							dbConn.close();
-						},				
-						handleError: function(error) 
-						{  
-							Application.console.log("insert row error:" + error);
-							dbConn.close();							
-						},      
-						handleCompletion: function(reason) 
+						},
+						handleError: function(error)
 						{
-							if (reason == 0) 
-							{				
+							Application.console.log("insert row error:" + error);
+							dbConn.close();
+						},
+						handleCompletion: function(reason)
+						{
+							if (reason == 0)
+							{
 								let insertStmt = dbConn.createStatement("INSERT INTO " + database + " VALUES ('" + value + "')");
-								insertStmt.executeAsync({   
-									handleError: function(error) 
-									{  
-										Application.console.log("insert row error:" + error); 
-									},      
-									handleCompletion: function(aReason) 
+								insertStmt.executeAsync({
+									handleError: function(error)
+									{
+										Application.console.log("insert row error:" + error);
+									},
+									handleCompletion: function(aReason)
 									{
 										dbConn.close();
-									}  
-								}); 
+									}
+								});
 							}
 							else
 							{
 								dbConn.close();
 							}
-						}  
-					}); 
+						}
+					});
             }
-            catch (e) 
+            catch (e)
 			{
                 Application.console.log("error statement:" + dbConn.lastErrorString);
             }
-            
+
         },
         /**
          * checks whether a value is inside a database
@@ -81,48 +101,48 @@ ffpwwe.db = function () {
 
             dbConn.executeSimpleSQL("CREATE TABLE IF NOT EXISTS " + database + " (url VARCHAR(100))");
 
-            try 
+            try
 			{
                 let statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = '" + value + "'");
-				
+
 				let result = !!statement.executeStep();
 				statement.reset();
 				dbConn.close();
-							
+
 				return result;
             }
-            catch (error) 
+            catch (error)
 			{
                 Application.console.log("error statement:" + dbConn.lastErrorString);
             }
-			
+
 			return false;
         },
         /**
          * drops all database tables
          */
-        dropTables: function () 
+        dropTables: function ()
 		{
-		
+
             var dbConn = openConnection();
-			
+
 			var statements = [dbConn.createStatement("DROP TABLE IF EXISTS pageExceptions"),
 					    dbConn.createStatement("DROP TABLE IF EXISTS httpToHttpsRedirects"),
 						dbConn.createStatement("DROP TABLE IF EXISTS userVerifiedDomains"),
 						dbConn.createStatement("DROP TABLE IF EXISTS errorHTTPS"),
 						dbConn.createStatement("DROP TABLE IF EXISTS httpsAvail")];
-			
-			dbConn.executeAsync(statements,statements.length,{  
-                    handleError: function(error) 
-					{  
+
+			dbConn.executeAsync(statements,statements.length,{
+                    handleError: function(error)
+					{
                         Application.console.log("drop table error:" + error);
 						dbConn.close();
-                    },      
-                    handleCompletion: function(reason) 
+                    },
+                    handleCompletion: function(reason)
 					{
                         dbConn.close();
-                    }  
-                }); 
+                    }
+                });
         }
     };
 }();
