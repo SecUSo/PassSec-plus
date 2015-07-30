@@ -40,3 +40,24 @@ pref("extensions.firefoxpasswordwarning.passwordfields", true);
 pref("extensions.firefoxpasswordwarning.isbrokensecure", true);
 pref("extensions.firefoxpasswordwarning.cookieBehavior_backup", -1);
 pref("extensions.firefoxpasswordwarning.lifetimePolicy_backup", -1);
+
+// Sync add-on settings 
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.border", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.triangle", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.notbar", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.background",true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.popup", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.popuponclick",true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.usephishingwotdetection", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.usephishingsearchdetection", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.phishingsearchengine", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.styleokimage", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.styleEVimage", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.firstrun", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.personalfields", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.searchfields", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.paymentfields", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.passwordfields", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.isbrokensecure", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.cookieBehavior_backup", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.lifetimePolicy_backup", true);
