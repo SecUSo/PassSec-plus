@@ -89,6 +89,56 @@ ffpwwe.db = function () {
             }
 
         },
+        deleteItem: function (database, col, value) {
+
+                var dbConn = openConnection();
+
+                try
+    			{
+
+                    var statement = dbConn.createStatement("DELETE FROM " + database + " WHERE " + col + " = '" + value + "'");
+
+                    statement.executeAsync({
+                            handleError: function(error)
+        					{
+                                Application.console.log("delete entry error:" + error);
+        						dbConn.close();
+                            },
+                            handleCompletion: function(reason)
+        					{
+                                dbConn.close();
+                            }
+                    });
+                }
+                catch (e)
+    			{
+                    Application.console.log("error statement:" + dbConn.lastErrorString);
+                }
+        },
+        dropTable: function(database) {
+
+            var dbConn = openConnection();
+            try
+			{
+                let statement = dbConn.createStatement("DROP TABLE IF EXISTS " + database);
+
+                statement.executeAsync({
+                        handleError: function(error)
+                        {
+                            Application.console.log("drop table error:" + error);
+                            dbConn.close();
+                        },
+                        handleCompletion: function(reason)
+                        {
+                            dbConn.close();
+                        }
+                });
+            }
+            catch (e)
+			{
+                Application.console.log("error statement:" + dbConn.lastErrorString);
+            }
+        },
         /**
          * checks whether a value is inside a database
          * @param database the name of the database
@@ -119,6 +169,36 @@ ffpwwe.db = function () {
 			return false;
         },
         /**
+         *
+         *
+         */
+         getAll: function (database) {
+             var dbConn = openConnection();
+
+             dbConn.executeSimpleSQL("CREATE TABLE IF NOT EXISTS " + database + " (url VARCHAR(100))");
+
+             try
+ 			{
+                let statement = dbConn.createStatement("SELECT url FROM " + database);
+
+                var result = new Array();
+
+                while (statement.executeStep()) {
+                    result.push(statement.getString(0))
+                }
+ 				statement.reset();
+ 				dbConn.close();
+
+ 				return result;
+             }
+             catch (error)
+ 			{
+                 Application.console.log("error statement:" + dbConn.lastErrorString);
+             }
+
+ 			return [];
+         },
+        /**
          * drops all database tables
          */
         dropTables: function ()
@@ -142,7 +222,7 @@ ffpwwe.db = function () {
 					{
                         dbConn.close();
                     }
-                });
+            });
         }
     };
 }();

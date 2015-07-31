@@ -121,6 +121,38 @@ ffpwwe.options.imageStyleChanger = function () {
     }
 }();
 
+ffpwwe.options.removeHttpsItem = function () {
+    var list = document.getElementById("https_list");
+    var index = list.getSelectedItem();
+    var del = list.getItemAtIndex(index).label;
+    list.removeItemAt(index);
+    ffpwwe.db.deleteItem("httpToHttpsRedirects", "url", del);
+    ffpwwe.db.deleteItem("userVerifiedDomains", "url", del);
+};
+
+ffpwwe.options.clearHttpsList = function () {
+    var https_list = document.getElementById("https_list");
+    for (var i = https_list.getRowCount()-1; i >= 0; i--) {
+        https_list.removeItemAt(i);
+    }
+    ffpwwe.db.dropTable("httpToHttpsRedirects");
+    ffpwwe.db.dropTable("userVerifiedDomains");
+};
+
+ffpwwe.options.removePageExceptionItem = function () {
+    var list = document.getElementById("pageExceptions");
+    var index = list.getSelectedItem();
+    list.removeItemAt(index);
+};
+
+ffpwwe.options.clearPageExceptions = function () {
+    var pageExceptions = document.getElementById("pageExceptions");
+    for (var i = pageExceptions.getRowCount()-1; i >= 0; i--) {
+        https_list.removeItemAt(i);
+    }
+    ffpwwe.db.dropTable("pageExceptions");
+};
+
 window.onload = function () {
 
     // update the selected index in the phishing detection list
@@ -129,6 +161,18 @@ window.onload = function () {
     var index = phishingPrefOrdering.indexOf(phishingPref);
     if (index > 0)
         document.getElementById("phishing-menulist").selectedIndex = index;
+
+    var https_list = document.getElementById("https_list");
+    var items = ffpwwe.db.getAll("httpToHttpsRedirects");
+    for (var i = 0; i < items.length; i++) {
+        https_list.appendItem(items[i]);
+    }
+
+    var whitelist = document.getElementById("pageExceptions");
+    var items = ffpwwe.db.getAll("pageExceptions");
+    for (var i = 0; i < 15; i++) {
+        pageExceptions.appendItem(items[i])
+    }
 
     ffpwwe.options.imageStyleChanger.initImages();
 };
