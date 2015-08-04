@@ -40,7 +40,7 @@ pref("extensions.firefoxpasswordwarning.passwordfields", true);
 pref("extensions.firefoxpasswordwarning.isbrokensecure", true);
 pref("extensions.firefoxpasswordwarning.cookieBehavior_backup", -1);
 pref("extensions.firefoxpasswordwarning.lifetimePolicy_backup", -1);
-pref("extensions.firefoxpasswordwarning.forwardAutomatically", true);
+pref("extensions.firefoxpasswordwarning.forwardAutomatically", false);
 
 // Sync add-on settings
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.border", true);

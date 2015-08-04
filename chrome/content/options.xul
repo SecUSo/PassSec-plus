@@ -43,6 +43,8 @@
                         name="extensions.firefoxpasswordwarning.searchfields" type="bool"/>
             <preference id="firefox-password-warning-extension-isbrokensecure"
                         name="extensions.firefoxpasswordwarning.isbrokensecure" type="bool"/>
+            <preference id="firefox-password-warning-extension-forwardAutomatically"
+                        name="extensions.firefoxpasswordwarning.forwardAutomatically" type="bool"/>
         </preferences>
 
         <!--
@@ -179,7 +181,7 @@
                                     <label control="forwardAutomatically" value="Automatisch weiterleiten"
                                            tooltiptext="Test"/>
                                     <checkbox id="forwardAutomatically"
-                                              preference="firefox-password-warning-extension-usephishingwotdetection"
+                                              preference="firefox-password-warning-extension-forwardAutomatically"
                                               tooltiptext="Test"/>
                                 </row>
                             </rows>

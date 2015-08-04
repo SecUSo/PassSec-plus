@@ -50,7 +50,7 @@ ffpwwe.getHttpsRidirectState = function() {
 };
 
 ffpwwe.onTabChange = function (){
-    
+
     var statusButton = document.getElementById('toolbarButton');
     if(ffpwwe.getHttpsRidirectState()) {
         statusButton.setAttribute('value', 'redirectOn');
