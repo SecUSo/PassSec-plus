@@ -222,7 +222,6 @@ ffpwwe.pageHandler = function () {
         // if it is an http exception do nothing
         if (isHttpException()) return;
 
-
         ffpwwe.debug("----------------------------------------------------------------------------", true);
         ffpwwe.debug("Parsing Document: '" + page.href + "'", true);
         // get all Frames
@@ -231,6 +230,10 @@ ffpwwe.pageHandler = function () {
         // use the framehandler to parse the frames
 
         ffpwwe.debug("Found " + allFrames.length + " frames", true);
+
+        if (page.sslAvailableCheck.done)
+            if (page.sslAvailableCheck.sslAvailable)
+                ffpwwe.api.goToHttpsImmediately(page.sslAvailableCheck.sslUrl)
 
         page.frames = allFrames.map(function (frame) {
             return ffpwwe.frameHandler(page, frame.document || frame.contentDocument);

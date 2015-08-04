@@ -175,6 +175,13 @@
                                         </menupopup>
                                     </menulist>
                                 </row>
+                                <row>
+                                    <label control="forwardAutomatically" value="Automatisch weiterleiten"
+                                           tooltiptext="Test"/>
+                                    <checkbox id="forwardAutomatically"
+                                              preference="firefox-password-warning-extension-usephishingwotdetection"
+                                              tooltiptext="Test"/>
+                                </row>
                             </rows>
                         </grid>
                     </groupbox>

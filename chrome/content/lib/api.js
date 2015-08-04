@@ -61,6 +61,26 @@ ffpwwe.api.goToHttps = function (target) {
 };
 
 /**
+ * Changes the page to the https version and adds the url into the https-redirection-database
+ *
+ * @param target the button, which stores the https version of the url
+ */
+ffpwwe.api.goToHttpsImmediately = function (target) {
+    document.getElementById('warnpanel2').hidePopup();
+
+    // insert the new exception into the databases
+    ffpwwe.db.insert("httpToHttpsRedirects", content.document.location.host);
+    ffpwwe.db.insert("userVerifiedDomains", content.document.location.host);
+
+    // Not available without field
+	ffpwwe.loginManagerHandler.changeLoginDataToHttps(content.document.location.href,target.url,ffpwwe.fieldHandler.element.form.action);
+
+    // switch to the new ssl url
+    content.wrappedJSObject.location = target.url;
+
+};
+
+/**
  * Changes the page to the page stored in the argument
  *
  * @param target the button, which stores the url
@@ -82,7 +102,8 @@ ffpwwe.api.domainKnown = function () {
         // insert the new exception into the database
     ffpwwe.db.insert("userVerifiedDomains", content.document.location.host);
     document.getElementById('warnpanel2').hidePopup();
-    content.document.location.reload();
+    ffpwwe.processDOM();
+    //content.document.location.reload();
   //  } else {
   //      window.confirm(strbundle.getString("confirm_url_recommendation").replace("<insert-url>", domain));
   //  }

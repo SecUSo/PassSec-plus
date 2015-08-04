@@ -40,8 +40,9 @@ pref("extensions.firefoxpasswordwarning.passwordfields", true);
 pref("extensions.firefoxpasswordwarning.isbrokensecure", true);
 pref("extensions.firefoxpasswordwarning.cookieBehavior_backup", -1);
 pref("extensions.firefoxpasswordwarning.lifetimePolicy_backup", -1);
+pref("extensions.firefoxpasswordwarning.forwardAutomatically", true);
 
-// Sync add-on settings 
+// Sync add-on settings
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.border", true);
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.triangle", true);
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.notbar", true);
