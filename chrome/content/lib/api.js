@@ -73,7 +73,7 @@ ffpwwe.api.goToHttpsImmediately = function (target) {
     ffpwwe.db.insert("userVerifiedDomains", content.document.location.host);
 
     // Not available without field
-	ffpwwe.loginManagerHandler.changeLoginDataToHttps(content.document.location.href,target.url,ffpwwe.fieldHandler.element.form.action);
+	//ffpwwe.loginManagerHandler.changeLoginDataToHttps(content.document.location.href,target.url,ffpwwe.fieldHandler.element.form.action);
 
     // switch to the new ssl url
     content.wrappedJSObject.location = target.url;
