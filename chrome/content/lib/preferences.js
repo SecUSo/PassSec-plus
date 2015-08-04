@@ -20,6 +20,8 @@
 
 var ffpwwe = ffpwwe || {};
 
+ffpwwe.cookieOption = ffpwwe.cookieOption || {};
+
 ffpwwe.prefs = function () {
     const prefManager =
         Components.classes["@mozilla.org/preferences-service;1"]
@@ -52,6 +54,9 @@ ffpwwe.prefs = function () {
             prefManager.clearUserPref("passwordfields");
             prefManager.clearUserPref("isbrokensecure");
 			prefManager.clearUserPref("isbrokensecure");
+
+            ffpwwe.prefsNetworkCookie.setIntPref("cookieBehavior", prefManager.getIntPref("cookieBehavior_reset"));
+            ffpwwe.prefsNetworkCookie.setIntPref("lifetimePolicy", prefManager.getIntPref("lifetimePolicy_reset"));
         }
     };
 }();

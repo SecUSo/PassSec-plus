@@ -38,8 +38,8 @@ pref("extensions.firefoxpasswordwarning.searchfields", false);
 pref("extensions.firefoxpasswordwarning.paymentfields", true);
 pref("extensions.firefoxpasswordwarning.passwordfields", true);
 pref("extensions.firefoxpasswordwarning.isbrokensecure", true);
-pref("extensions.firefoxpasswordwarning.cookieBehavior_backup", -1);
-pref("extensions.firefoxpasswordwarning.lifetimePolicy_backup", -1);
+pref("extensions.firefoxpasswordwarning.cookieBehavior_reset", -1);
+pref("extensions.firefoxpasswordwarning.lifetimePolicy_reset", -1);
 pref("extensions.firefoxpasswordwarning.forwardAutomatically", true);
 
 // Sync add-on settings

@@ -25,6 +25,9 @@
         ffpwwe.prefs.setBoolPref("firstrun", false);
         //ffpwwe.cookieOption.showWindow();
 
+        ffpwwe.prefs.setIntPref("cookieBehavior_reset", ffpwwe.prefsNetworkCookie.getIntPref("cookieBehavior"));
+        ffpwwe.prefs.setIntPref("lifetimePolicy_reset", ffpwwe.prefsNetworkCookie.getIntPref("lifetimePolicy"));
+
         // change the secure-image to a random one
         var secureStyleImages = ffpwwe.options.secureStyleImages;
         var secureEVStyleImages = ffpwwe.options.secureEVStyleImages;
