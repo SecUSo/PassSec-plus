@@ -67,17 +67,10 @@ ffpwwe.api.goToHttps = function (target) {
  */
 ffpwwe.api.goToHttpsImmediately = function (target) {
     document.getElementById('warnpanel2').hidePopup();
-
-    // insert the new exception into the databases
-    ffpwwe.db.insert("httpToHttpsRedirects", content.document.location.host);
-    ffpwwe.db.insert("userVerifiedDomains", content.document.location.host);
-
     // Not available without field
 	//ffpwwe.loginManagerHandler.changeLoginDataToHttps(content.document.location.href,target.url,ffpwwe.fieldHandler.element.form.action);
-
     // switch to the new ssl url
-    content.wrappedJSObject.location = target.url;
-
+    content.wrappedJSObject.location = content.document.location.href.replace("http://", "https://");
 };
 
 /**

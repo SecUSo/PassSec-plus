@@ -23,10 +23,20 @@ var ffpwwe = ffpwwe || {};
 ffpwwe.httpsRedirectObserver = {
     observe: function (subject, topic, data) {
         var statusButton = document.getElementById('toolbarButton');
+
+        //var httpChannel = subject.QueryInterface(Ci.nsIHttpChannel);
+
         if (topic == "http-on-modify-request") {
             var httpChannel = subject.QueryInterface(Ci.nsIHttpChannel);
 
-            if (ffpwwe.db.isInside("httpToHttpsRedirects", httpChannel.URI.host) && httpChannel.URI.schemeIs("http") && ffpwwe.getHttpsRidirectState()) {
+            if (ffpwwe.prefs.getBoolPref("forwardAutomatically") && httpChannel.URI.schemeIs("http")){
+                Components.utils.import("resource://gre/modules/Services.jsm");
+                let newUrl = httpChannel.URI.asciiSpec.replace("http:", "https:");
+                ffpwwe.debug("redirect from '" + httpChannel.URI.asciiSpec + "' to '" + newUrl + "'");
+
+                httpChannel.redirectTo(Services.io.newURI(newUrl, null, null));
+            }
+            else if (ffpwwe.db.isInside("httpToHttpsRedirects", httpChannel.URI.host) && httpChannel.URI.schemeIs("http") && ffpwwe.getHttpsRidirectState()) {
                 Components.utils.import("resource://gre/modules/Services.jsm");
                 let newUrl = httpChannel.URI.asciiSpec.replace("http:", "https:");
                 ffpwwe.debug("redirect from '" + httpChannel.URI.asciiSpec + "' to '" + newUrl + "'");

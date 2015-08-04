@@ -231,10 +231,6 @@ ffpwwe.pageHandler = function () {
 
         ffpwwe.debug("Found " + allFrames.length + " frames", true);
 
-        if (page.sslAvailableCheck.done)
-            if (page.sslAvailableCheck.sslAvailable)
-                ffpwwe.api.goToHttpsImmediately(page.sslAvailableCheck.sslUrl)
-
         page.frames = allFrames.map(function (frame) {
             return ffpwwe.frameHandler(page, frame.document || frame.contentDocument);
         });
