@@ -99,4 +99,13 @@
         <stringbundle id="firefoxpasswordwarning-strings" src="chrome://firefoxpasswordwarningextension/locale/strings.properties"/>
     </stringbundleset>
 
+    <toolbarpalette id="BrowserToolbarPalette">
+        <toolbarbutton id="toolbarButton"
+          class="toolbarButtonClass"
+          label="Passsec+"
+          tooltiptext="Weiterleitung aktiv."
+          value="redirectOn"
+          onclick="ffpwwe.toolbarButtonClick(event);"/>
+    </toolbarpalette>
+
 </overlay>

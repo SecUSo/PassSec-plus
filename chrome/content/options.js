@@ -19,6 +19,7 @@
  *=========================================================================*/
 
 var ffpwwe = ffpwwe || {};
+var secusoWhitelist = ["www.google.de","www.amazon.de","www.sccrd.de"]
 
 ffpwwe.options = ffpwwe.options || {};
 
@@ -121,9 +122,18 @@ ffpwwe.options.imageStyleChanger = function () {
     }
 }();
 
+ffpwwe.options.loadHttpsList = function () {
+    var https_list = document.getElementById("https_list");
+    var items = ffpwwe.db.getAll("httpToHttpsRedirects");
+    for (var i = 0; i < items.length; i++) {
+        https_list.appendItem(items[i]);
+    }
+};
+
 ffpwwe.options.removeHttpsItem = function () {
     var list = document.getElementById("https_list");
-    var index = list.getSelectedItem();
+    var index = list.selectedIndex;
+    alert(index);
     var del = list.getItemAtIndex(index).label;
     list.removeItemAt(index);
     ffpwwe.db.deleteItem("httpToHttpsRedirects", "url", del);
@@ -139,18 +149,39 @@ ffpwwe.options.clearHttpsList = function () {
     ffpwwe.db.dropTable("userVerifiedDomains");
 };
 
+ffpwwe.options.loadPageExceptions = function () {
+    var whitelist = document.getElementById("pageExceptions");
+    var items = ffpwwe.db.getAll("pageExceptions");
+    for (var i = 0; i < items.length; i++) {
+        pageExceptions.appendItem(items[i])
+    }
+};
+
 ffpwwe.options.removePageExceptionItem = function () {
     var list = document.getElementById("pageExceptions");
-    var index = list.getSelectedItem();
+    var index = list.selectedIndex();
+    var del = list.getItemAtIndex(index).label;
     list.removeItemAt(index);
+    ffpwwe.db.deleteItem("pageExceptions", "url", del);
 };
 
 ffpwwe.options.clearPageExceptions = function () {
     var pageExceptions = document.getElementById("pageExceptions");
     for (var i = pageExceptions.getRowCount()-1; i >= 0; i--) {
-        https_list.removeItemAt(i);
+        pageExceptions.removeItemAt(i);
     }
     ffpwwe.db.dropTable("pageExceptions");
+};
+
+ffpwwe.options.insertSecusoWhitelist = function () {
+    var https_list = document.getElementById("https_list");
+        for (var i = 0; i < secusoWhitelist.length; i++) {
+            https_list.appendItem(secusoWhitelist[i]);
+            ffpwwe.db.insert("httpToHttpsRedirects", secusoWhitelist[i]);
+        }
+        for (var i = 0; i < secusoWhitelist.length; i++) {
+            ffpwwe.db.insert("userVerifiedDomains", secusoWhitelist[i]);
+        }
 };
 
 window.onload = function () {
@@ -162,17 +193,8 @@ window.onload = function () {
     if (index > 0)
         document.getElementById("phishing-menulist").selectedIndex = index;
 
-    var https_list = document.getElementById("https_list");
-    var items = ffpwwe.db.getAll("httpToHttpsRedirects");
-    for (var i = 0; i < items.length; i++) {
-        https_list.appendItem(items[i]);
-    }
-
-    var whitelist = document.getElementById("pageExceptions");
-    var items = ffpwwe.db.getAll("pageExceptions");
-    for (var i = 0; i < 15; i++) {
-        pageExceptions.appendItem(items[i])
-    }
+    ffpwwe.options.loadHttpsList();
+    ffpwwe.options.loadPageExceptions();
 
     ffpwwe.options.imageStyleChanger.initImages();
 };

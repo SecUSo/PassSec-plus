@@ -107,3 +107,20 @@ span[data-tooltip]:hover:before {
 .closebutton {
     min-width: 1em;
 }
+
+/*
+#toolbarButton{
+  list-style-image: url("./toolbar.png");
+}*/
+
+#toolbarButton[value='redirectOn']{
+  list-style-image: url("./redirectActive.png");
+}
+
+#toolbarButton[value='redirectOff']{
+  list-style-image: url("./redirectInactive.png");
+}
+
+#toolbarButton[value='redirected']{
+  list-style-image: url("./redirected.png");
+}

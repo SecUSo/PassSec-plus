@@ -92,7 +92,7 @@
             <tabs>
                 <tab label="&maintabcaption;"/>
                 <tab label="&advancedtabcaption;"/>
-                <tab label="&maintabcaption;"/>
+                <tab label="Ausnahmen"/>
             </tabs>
             <tabpanels>
                 <tabpanel id="maintab" height="420" orient="vertical">
@@ -235,6 +235,11 @@
                     <grid>
                         <rows>
                             <groupbox>
+                                <caption label="Emphohlene Ausnahmen"/>
+                                <description style="white-space: pre;">&secusoWhitelistText;</description>
+                                <button label="Hinzufügen" width="100%" oncommand="ffpwwe.options.insertSecusoWhitelist()"/>
+                            </groupbox>
+                            <groupbox>
                                 <caption label="Https Weiterleitung"/>
                                 <row><listbox id="https_list" width="400px"/></row>
                                 <row><button label="Löschen" oncommand="ffpwwe.options.removeHttpsItem()"/>
@@ -243,7 +248,7 @@
                             <groupbox>
                                 <caption label="Webseiten Ausnahmen"/>
                                 <row><listbox id="pageExceptions" width="400px"/></row>
-                                <row><button label="Löschen" oncommand="ffpwwe.options.removePageExceptionItem"/>
+                                <row><button label="Löschen" oncommand="ffpwwe.options.removePageExceptionItem()"/>
                                 <button label="Liste leeren" oncommand="ffpwwe.options.clearPageExceptions()"/></row>
                             </groupbox>
                         </rows>

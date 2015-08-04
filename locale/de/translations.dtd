@@ -46,6 +46,9 @@ Dadurch erhöht sich die Verzögerung, aber die Anfragen werden anonymisiert.">
 ist, jedoch auch Elemente enthält die unverschlüsselt sind und
 deswegen standardmäßig vom Browser blockiert werden.">
 <!ENTITY httpssecurity "HTTPS-Sicherheit">
+<!ENTITY secusoWhitelistText "Es besteht die Möglichkeit einige Standard-Ausnahmen hinzuzufügen,
+die SECUSO emphohlen sind. Weitere Informationen sowie eine Liste der
+Ausnahmen finden Sie hier.">
 
 <!-- Cookie Settings: -->
 <!ENTITY blockThirdPartyCookiesCaption "Speichern von Drittanbieter Cookies zukünftig verhindern">

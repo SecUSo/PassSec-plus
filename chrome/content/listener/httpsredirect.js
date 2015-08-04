@@ -22,13 +22,18 @@ var ffpwwe = ffpwwe || {};
 
 ffpwwe.httpsRedirectObserver = {
     observe: function (subject, topic, data) {
+        var statusButton = document.getElementById('toolbarButton');
         if (topic == "http-on-modify-request") {
             var httpChannel = subject.QueryInterface(Ci.nsIHttpChannel);
 
-            if (ffpwwe.db.isInside("httpToHttpsRedirects", httpChannel.URI.host) && httpChannel.URI.schemeIs("http")) {
+            if (ffpwwe.db.isInside("httpToHttpsRedirects", httpChannel.URI.host) && httpChannel.URI.schemeIs("http") && ffpwwe.getHttpsRidirectState()) {
                 Components.utils.import("resource://gre/modules/Services.jsm");
                 let newUrl = httpChannel.URI.asciiSpec.replace("http:", "https:");
                 ffpwwe.debug("redirect from '" + httpChannel.URI.asciiSpec + "' to '" + newUrl + "'");
+
+                statusButton.setAttribute('value', 'redirected');
+                statusButton.setAttribute('tooltiptext', 'Sie wurden automatisch weitergeleitet!');
+
                 httpChannel.redirectTo(Services.io.newURI(newUrl, null, null));
             }
         }

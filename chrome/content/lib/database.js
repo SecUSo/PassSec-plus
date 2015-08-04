@@ -45,6 +45,8 @@ ffpwwe.db = function () {
 
             var dbConn = openConnection();
 
+            dbConn.executeSimpleSQL("CREATE TABLE IF NOT EXISTS " + database + " (url VARCHAR(100))");
+
             try
 			{
                 let statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = '" + value + "'");
@@ -53,7 +55,7 @@ ffpwwe.db = function () {
 						handleResult: function(resultSet)
 						{
 							//fire if resultSet is not empty
-							dbConn.close();
+							dbConn.asyncClose();
 						},
 						handleError: function(error)
 						{
@@ -72,7 +74,7 @@ ffpwwe.db = function () {
 									},
 									handleCompletion: function(aReason)
 									{
-										dbConn.close();
+										dbConn.asyncClose();
 									}
 								});
 							}
@@ -130,7 +132,7 @@ ffpwwe.db = function () {
                         },
                         handleCompletion: function(reason)
                         {
-                            dbConn.close();
+                            dbConn.asyncClose();
                         }
                 });
             }

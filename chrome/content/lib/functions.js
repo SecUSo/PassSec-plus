@@ -79,4 +79,4 @@ ffpwwe.calcWindowPosition = function (windowWidth,windowHeight) {
     top: top,
     left: left
   };
-}
+};

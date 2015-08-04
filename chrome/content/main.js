@@ -20,6 +20,48 @@
 
 var ffpwwe = ffpwwe || {};
 
+var httpsRedirectEnabled = true;
+
+ffpwwe.toolbarButtonClick = function(event) {
+    var statusButton = document.getElementById('toolbarButton');
+    switch(event.button) {
+        case 0: // Left click
+            httpsRedirectEnabled = !httpsRedirectEnabled;
+            if(httpsRedirectEnabled) {
+                statusButton.setAttribute('value', 'redirectOn');
+                statusButton.setAttribute('tooltiptext', 'Weiterleitung aktiv.');
+            }
+            else {
+                statusButton.setAttribute('value', 'redirectOff');
+                statusButton.setAttribute('tooltiptext', 'Weiterleitung inaktiv.');
+            }
+            break;
+        case 1: // Middle click
+            //alert("Mittel Klick");
+            break;
+        case 2: // Right click
+            //alert("Rechts Klick");
+            break;
+    }
+};
+
+ffpwwe.getHttpsRidirectState = function() {
+    return httpsRedirectEnabled;
+};
+
+ffpwwe.onTabChange = function (){
+    
+    var statusButton = document.getElementById('toolbarButton');
+    if(ffpwwe.getHttpsRidirectState()) {
+        statusButton.setAttribute('value', 'redirectOn');
+        statusButton.setAttribute('tooltiptext', 'Weiterleitung aktiv.');
+    }
+    else {
+        statusButton.setAttribute('value', 'redirectOff');
+        statusButton.setAttribute('tooltiptext', 'Weiterleitung inaktiv.');
+    }
+};
+
 // A page ist build by page>frame>form>field
 
 ffpwwe.processDOM = function () {
@@ -45,3 +87,4 @@ window.addEventListener("DOMContentLoaded", ffpwwe.processDOM, false);
 //If the tab changes run our script again to prevent the tooltip from showing in other open tabs
 var container = gBrowser.tabContainer;
 container.addEventListener("TabShow", ffpwwe.processDOM, false);
+container.addEventListener("TabSelect", ffpwwe.onTabChange, false);
