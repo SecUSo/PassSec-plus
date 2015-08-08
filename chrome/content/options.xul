@@ -11,7 +11,7 @@
 	<script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/cookieoption.js"/>
 
 
-    <prefpane label="&optionswindowname;">
+    <prefpane label="&optionswindowname;" flex="1">
         <preferences>
             <preference id="firefox-password-warning-extension-border" name="extensions.firefoxpasswordwarning.border"
                         type="bool"/>
@@ -252,14 +252,19 @@
                                 <caption label="Https Weiterleitung"/>
                                 <row><listbox id="https_list" width="400px"/></row>
                                 <row><button label="Löschen" oncommand="ffpwwe.options.removeHttpsItem()"/>
-                                <button label="Liste leeren" oncommand="ffpwwe.options.clearHttpsList()"/></row>
+                                <button label="Liste leeren" oncommand="ffpwwe.options.clearHttpsList(true)"/></row>
                             </groupbox>
                             <groupbox>
                                 <caption label="Webseiten Ausnahmen"/>
                                 <row><listbox id="pageExceptions" width="400px"/></row>
-                                <row><button label="Löschen" oncommand="ffpwwe.options.removePageExceptionItem()"/>
-                                <button label="Liste leeren" oncommand="ffpwwe.options.clearPageExceptions()"/></row>
+                                <row>
+                                    <button label="Löschen" oncommand="ffpwwe.options.removePageExceptionItem()"/>
+                                    <button label="Liste leeren" oncommand="ffpwwe.options.clearPageExceptions(true)"/>
+                                    <button label="Ausnahmen überprüfen" oncommand="ffpwwe.options.checkForHttps()"/>
+                                </row>
+
                             </groupbox>
+
                         </rows>
                     </grid>
                 </tabpanel>

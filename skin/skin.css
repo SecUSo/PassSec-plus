@@ -124,3 +124,7 @@ span[data-tooltip]:hover:before {
 #toolbarButton[value='redirected']{
   list-style-image: url("./redirected.png");
 }
+
+#lists {
+    overflow: auto;
+}

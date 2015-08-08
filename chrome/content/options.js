@@ -19,7 +19,7 @@
  *=========================================================================*/
 
 var ffpwwe = ffpwwe || {};
-var secusoWhitelist = ["www.google.de","www.amazon.de","www.sccrd.de"]
+var secusoWhitelist = ["www.google.de","www.amazon.de","www.sccrd.de"];
 
 ffpwwe.options = ffpwwe.options || {};
 
@@ -27,7 +27,7 @@ ffpwwe.options.restoreInitialState = function () {
   const windowWidth = 400;
   const windowHeight = 80;
 
-  paramsConfirm = {out:{accept:false}}
+  paramsConfirm = {out:{accept:false}};
   window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/resetDialog.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+"", paramsConfirm);
   if (paramsConfirm.out.accept) {
     // drop all database tables
@@ -71,7 +71,7 @@ ffpwwe.options.imageStyleChanger = function () {
         element.style["background-repeat"] = 'no-repeat';
         element.style["background-size"] = 'contain';
         element.style["background-position"] = 'right center';
-        changeImage(element, imageUrl)
+        changeImage(element, imageUrl);
     }
 
 	function setSecureImage()
@@ -107,7 +107,7 @@ ffpwwe.options.imageStyleChanger = function () {
 
                 let imageString = secureEVStyleImages[currentImage];
                 if (imageString != ffpwwe.prefs.getStringPref("styleEVimage")) {
-                    changeSecureImage(imageString)
+                    changeSecureImage(imageString);
                 } else // FIXME might be infiniteloop with only one image
                     this.nextSecureImage();
 
@@ -119,7 +119,7 @@ ffpwwe.options.imageStyleChanger = function () {
 
 			setSecureImage();
         }
-    }
+    };
 }();
 
 ffpwwe.options.loadHttpsList = function () {
@@ -133,27 +133,29 @@ ffpwwe.options.loadHttpsList = function () {
 ffpwwe.options.removeHttpsItem = function () {
     var list = document.getElementById("https_list");
     var index = list.selectedIndex;
-    alert(index);
     var del = list.getItemAtIndex(index).label;
     list.removeItemAt(index);
     ffpwwe.db.deleteItem("httpToHttpsRedirects", "url", del);
     ffpwwe.db.deleteItem("userVerifiedDomains", "url", del);
 };
 
-ffpwwe.options.clearHttpsList = function () {
+ffpwwe.options.clearHttpsList = function (drop) {
     var https_list = document.getElementById("https_list");
     for (var i = https_list.getRowCount()-1; i >= 0; i--) {
         https_list.removeItemAt(i);
     }
-    ffpwwe.db.dropTable("httpToHttpsRedirects");
-    ffpwwe.db.dropTable("userVerifiedDomains");
+    if(drop) {
+        ffpwwe.db.dropTable("httpToHttpsRedirects");
+        ffpwwe.db.dropTable("userVerifiedDomains");
+    }
+
 };
 
 ffpwwe.options.loadPageExceptions = function () {
-    var whitelist = document.getElementById("pageExceptions");
+    var pageExceptions = document.getElementById("pageExceptions");
     var items = ffpwwe.db.getAll("pageExceptions");
     for (var i = 0; i < items.length; i++) {
-        pageExceptions.appendItem(items[i])
+        pageExceptions.appendItem(items[i]);
     }
 };
 
@@ -165,12 +167,14 @@ ffpwwe.options.removePageExceptionItem = function () {
     ffpwwe.db.deleteItem("pageExceptions", "url", del);
 };
 
-ffpwwe.options.clearPageExceptions = function () {
+ffpwwe.options.clearPageExceptions = function (drop) {
     var pageExceptions = document.getElementById("pageExceptions");
     for (var i = pageExceptions.getRowCount()-1; i >= 0; i--) {
         pageExceptions.removeItemAt(i);
     }
-    ffpwwe.db.dropTable("pageExceptions");
+    if(drop) {
+        ffpwwe.db.dropTable("pageExceptions");
+    }
 };
 
 ffpwwe.options.insertSecusoWhitelist = function () {
@@ -179,9 +183,70 @@ ffpwwe.options.insertSecusoWhitelist = function () {
             https_list.appendItem(secusoWhitelist[i]);
             ffpwwe.db.insert("httpToHttpsRedirects", secusoWhitelist[i]);
         }
-        for (var i = 0; i < secusoWhitelist.length; i++) {
+        for (var k = 0; k < secusoWhitelist.length; k++) {
             ffpwwe.db.insert("userVerifiedDomains", secusoWhitelist[i]);
         }
+};
+
+ffpwwe.options.checkForHttps = function () {
+    var pageExceptions = ffpwwe.db.getAll("pageExceptions");
+
+    for (var i = 0; i < pageExceptions.length; i++) {
+        ffpwwe.options.sslAvailableCheck(pageExceptions[i]);
+    }
+};
+
+ffpwwe.options.sslAvailableCheck = function (checkUrl) {
+    var url = checkUrl;
+
+    if(!url.startsWith("http://")) {
+        url = "http://" + url;
+    }
+
+    var sslUrl = url.replace("http://", "https://");
+    var sslAvailableCheckPromise = new Promise(function (resolve, reject) {
+        if (url.match(/http:/)) {
+
+            ffpwwe.debug("starting ssl availability check for '" + sslUrl + "'");
+            var httpsRequest = new XMLHttpRequest();
+            httpsRequest.open("HEAD", sslUrl);
+            httpsRequest.onreadystatechange = function () {
+                if (this.readyState == this.DONE) {
+                    let sslAvail = this.status >= 200 && this.status <= 299 && !!this.responseURL.match(/https:/);
+                    // test async
+                    //window.setTimeout(function () { resolve(sslAvail, sslUrl); }, 5000);
+                    ffpwwe.debug("ssl availability check done with result: " + sslAvail);
+                    resolve(sslAvail);
+                }
+            };
+            httpsRequest.send();
+        } else {
+            // if the page was not a http page, https cannot be available
+            resolve(false);
+        }
+    });
+    var sslAvailableCheck = {
+        promise: sslAvailableCheckPromise,
+        done: false,
+        sslAvailable: undefined,
+        sslUrl: undefined
+    };
+    sslAvailableCheckPromise.then(function (sslAvailable) {
+        sslAvailableCheck.done = true;
+        sslAvailableCheck.sslAvailable = sslAvailable;
+        sslAvailableCheck.sslUrl = sslUrl;
+        if(sslAvailable) {
+            ffpwwe.db.insert("httpToHttpsRedirects", url);
+            ffpwwe.db.insert("userVerifiedDomainshab", url);
+            ffpwwe.db.deleteItem("pageExceptions", "url", checkUrl);
+            var httpsList = document.getElementById("https_list");
+            httpsList.appendItem(url);
+            ffpwwe.options.clearPageExceptions(false);
+            ffpwwe.options.loadPageExceptions();
+        }
+    });
+
+    return sslAvailableCheck;
 };
 
 window.onload = function () {

@@ -60,7 +60,7 @@ ffpwwe.db = function () {
 						handleError: function(error)
 						{
 							Application.console.log("insert row error:" + error);
-							dbConn.close();
+							dbConn.asyncClose();
 						},
 						handleCompletion: function(reason)
 						{
@@ -80,7 +80,7 @@ ffpwwe.db = function () {
 							}
 							else
 							{
-								dbConn.close();
+								dbConn.asyncClose();
 							}
 						}
 					});
@@ -104,11 +104,11 @@ ffpwwe.db = function () {
                             handleError: function(error)
         					{
                                 Application.console.log("delete entry error:" + error);
-        						dbConn.close();
+        						dbConn.asyncClose();
                             },
                             handleCompletion: function(reason)
         					{
-                                dbConn.close();
+                                dbConn.asyncClose();
                             }
                     });
                 }
@@ -128,7 +128,7 @@ ffpwwe.db = function () {
                         handleError: function(error)
                         {
                             Application.console.log("drop table error:" + error);
-                            dbConn.close();
+                            dbConn.asyncClose();
                         },
                         handleCompletion: function(reason)
                         {
@@ -183,10 +183,10 @@ ffpwwe.db = function () {
  			{
                 let statement = dbConn.createStatement("SELECT url FROM " + database);
 
-                var result = new Array();
+                var result = [];
 
                 while (statement.executeStep()) {
-                    result.push(statement.getString(0))
+                    result.push(statement.getString(0));
                 }
  				statement.reset();
  				dbConn.close();
@@ -218,11 +218,11 @@ ffpwwe.db = function () {
                     handleError: function(error)
 					{
                         Application.console.log("drop table error:" + error);
-						dbConn.close();
+						dbConn.asyncClose();
                     },
                     handleCompletion: function(reason)
 					{
-                        dbConn.close();
+                        dbConn.asyncClose();
                     }
             });
         }

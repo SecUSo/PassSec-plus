@@ -83,6 +83,12 @@ ffpwwe.debug("STARTING...");
 //Everytime the DOMContent is loaded the .init method starts
 window.addEventListener("DOMContentLoaded", ffpwwe.processDOM, false);
 
+/* Debugging the exception checker
+ffpwwe.db.insert("pageExceptions","web.de");
+ffpwwe.db.insert("pageExceptions","http://www.gmx.net");
+ffpwwe.db.insert("pageExceptions","http://www.google.de");
+ffpwwe.db.insert("pageExceptions","http://www.kicker.de");
+*/
 
 //If the tab changes run our script again to prevent the tooltip from showing in other open tabs
 var container = gBrowser.tabContainer;
