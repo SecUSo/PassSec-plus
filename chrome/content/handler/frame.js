@@ -202,7 +202,7 @@ ffpwwe.frameHandler = function (page, document) {
 
         //Search all input fields and the button in the form
         for (let j = 0; j < formInputs.length; j++) {
-            if (formInputs[j].type == null)
+            if (formInputs[j].type === null)
                 continue;
 
             //If the field should be handled and the referring site is encrypted, set linkedSSL
@@ -227,14 +227,14 @@ ffpwwe.frameHandler = function (page, document) {
                 case "text":
                 case "email":
                     numOfOtherFields++;
-                    break
+                    break;
             }
         }
 
         // inject the information into the fields of the form
         formInputs.forEach(function (formInput) {
             var inputField = $(formInput);
-            if (inputField.attr("type") != undefined && matchesInputType(inputField.attr("type").toLowerCase())) {
+            if (inputField.attr("type") !== undefined && matchesInputType(inputField.attr("type").toLowerCase())) {
                 inputField.attr("data-numPW", numOfPwFields);
                 inputField.attr("data-numOther", numOfOtherFields);
                 inputField.attr("linked-ssl", linkedSSL);
@@ -266,9 +266,9 @@ ffpwwe.frameHandler = function (page, document) {
     documentInputs.forEach(function (inputElem) {
         var type = $(inputElem).attr("type");
 
-        if (type != undefined && matchesInputType(type.toLowerCase())) {
+        if (type !== undefined && matchesInputType(type.toLowerCase())) {
             let fieldType = determineFieldType(inputElem);
-            if (fieldType != undefined) {
+            if (fieldType !== undefined) {
 
                 let $inputElem = $(inputElem);
                 let numOfPWFields = $inputElem.attr("data-numPW") || 1;

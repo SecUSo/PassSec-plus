@@ -95,6 +95,7 @@ ffpwwe.api.domainKnown = function () {
         // insert the new exception into the database
     ffpwwe.db.insert("userVerifiedDomains", content.document.location.host);
     document.getElementById('warnpanel2').hidePopup();
+    ffpwwe.setuserVerified(true);
     ffpwwe.processDOM();
     //content.document.location.reload();
   //  } else {

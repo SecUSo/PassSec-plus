@@ -19,7 +19,12 @@
  *=========================================================================*/
 
 var ffpwwe = ffpwwe || {};
+var userVerified = false;
 
+ffpwwe.getuserVerified = function () { return userVerified;};
+ffpwwe.setuserVerified = function (buttonClicked) {
+    userVerified = buttonClicked;
+};
 
 /**
  * Handles the behavior of a field, i.e.
@@ -34,6 +39,16 @@ var ffpwwe = ffpwwe || {};
  */
 ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
 
+    var openPopupClosed1 = function(event) {
+        page.popupClosedBefore = false;
+        openOnClickPopup();
+    };
+
+    var  openPopupClosed2 = function(event) {
+        if (!page.popupClosedBefore)
+            openOnClickPopup();
+    };
+
     ffpwwe.debug("Found password field " + element, true);
     // private functions
 
@@ -44,7 +59,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
         var charCounter = 0;
 
         for (var i = 0; i < words.length; i++) {
-            if (i != 0)
+            if (i !== 0)
                 output += " ";
             if (words[i].indexOf("<html:br") != -1) {
                 charCounter = 0;
@@ -123,14 +138,8 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
     function addPopup() {
         // Add listener to the input field to show popup if it is set by the user
         if (ffpwwe.prefs.getBoolPref("popuponclick")) {
-            element.addEventListener("click", function () {
-                page.popupClosedBefore = false;
-                openOnClickPopup();
-            }, false);
-            element.addEventListener("focus", function () {
-                if (!page.popupClosedBefore)
-                    openOnClickPopup();
-            }, false);
+            element.addEventListener("click", openPopupClosed1, false);
+            element.addEventListener("focus", openPopupClosed2, false);
 
 			if (element.form && ffpwwe.loginManagerHandler.isLoginDataAvailable(page.href, element.form.action))
 			{
@@ -138,7 +147,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
 
 				var showPopupAutomaticInterval = setInterval(function showPopupAutomatic()
 				{
-					if($(element).is(":visible") && element.value.length != 0)
+					if($(element).is(":visible") && element.value.length !== 0)
 					{
 						clearInterval(showPopupAutomaticInterval);
 						if(ffpwwe.loginManagerHandler.isLoginDataAvailable(page.href,element.form.action))
@@ -151,6 +160,20 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
 			}
         }
     }
+
+    /**
+     * adds the popup behaviour to the element
+     */
+    function removePopup() {
+        // Add listener to the input field to show popup if it is set by the user
+        if (ffpwwe.prefs.getBoolPref("popuponclick")) {
+
+            var old_element = element;
+            var new_element = old_element.cloneNode(true);
+            old_element.parentNode.replaceChild(new_element, old_element);
+            addEVSecureStyle();
+        }
+}
 
     function updateText(sslAvailable) {
         var strbundle = document.getElementById("firefoxpasswordwarning-strings");
@@ -218,7 +241,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
 
         if (page.sslAvailableCheck.done) {
             gotoHttpsLink.url = page.sslAvailableCheck.sslUrl;
-            updateView(page.sslAvailableCheck.sslAvailable)
+            updateView(page.sslAvailableCheck.sslAvailable);
         } else {
             updateView(false);
             page.sslAvailableCheck.promise.then(function (sslAvailable) {
@@ -271,7 +294,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
 
             if (suggestions.length > 0) {
                 let suggestion = suggestions[0].innerHTML;
-								suggestion = suggestion.match(/<b>(.*)<\/b>/)[1]
+								suggestion = suggestion.match(/<b>(.*)<\/b>/)[1];
                 // Check if the suggestion is not the actual domain just preceded by www
                 if (suggestion != "www." + domain && suggestion != "http://" + domain && suggestion != "http://www." + domain && suggestion != "https://" + domain && suggestion != "https://" + domain) {
                     detection.search = true;
@@ -292,7 +315,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
             if (suggestions.length == 4) {
                 detection.search = true;
                 let suggestion = suggestions[1].href.match(/q=((\w|-)*\.\w*)&/)[1];
-								alert(suggestion.textContent)
+								alert(suggestion.textContent);
                 showPhishingBox("phishing_text_1_g", suggestion);
             } else if (!domainInResponse) {
                 detection.search = true;
@@ -302,7 +325,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
 
         page.phishingDetectionPromise.search.then(function ([searchEngine, domain, response]) {
             if (detection.wot) {
-                ffpwwe.debug("phishing detection search cancelled, because wot already found")
+                ffpwwe.debug("phishing detection search cancelled, because wot already found");
             } else if (analyzesMap[searchEngine])
                 analyzesMap[searchEngine](domain, response);
             else
@@ -326,7 +349,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
                 if (warningElements[i]) {
                     let linkElements = warningElements[i].getElementsByTagName("a");
                     if (linkElements.length > 0 &&
-                        linkElements[0].childNodes[0].nodeValue != null &&
+                        linkElements[0].childNodes[0].nodeValue !== null &&
                         linkElements[0].childNodes[0].nodeValue.search("Phishing") != -1) {
                         detection.wot = true;
                         showPhishingBox("phishing_text_2", undefined);
@@ -356,7 +379,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
             phishingPageHandler.showPhishingBox = function () {
                 $(".http-warning").hide();
                 $(".urlprun-allow").hide();
-                if (suggestion != undefined) {
+                if (suggestion !== undefined) {
                     $("#phishingtext").html(strbundle.getString(text).replace("<insert-url>", suggestion));
                     let switchSite = document.getElementById('switchToSite');
                     switchSite.url = "http://" + suggestion;
@@ -428,12 +451,20 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
     // validated: extended validation SSL or the user has checked the page
     var validated = page.verifiedSSL || isURLPrun;
 
+    if (ffpwwe.getuserVerified()){
+        ffpwwe.setuserVerified(false);
+        addEVSecureStyle();
+        removePopup();
+    }
+
     if (insecure)
         addWarningStyle();
     else if (!validated)
         addSecureStyle();
-    else
+    else {
         addEVSecureStyle();
+        removePopup();
+    }
 
     if ((insecure && showHttp) || !validated)
         addPopup();
@@ -442,5 +473,5 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
         processPhishingDetection();
 
 
-    return {}
+    return {};
 };

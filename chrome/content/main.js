@@ -66,7 +66,7 @@ ffpwwe.onTabChange = function (){
 
 ffpwwe.processDOM = function () {
 
-    if (content == null) return;
+    if (content === null) return;
 
     //Hide the popup initially
     document.getElementById('warnpanel2').hidePopup();

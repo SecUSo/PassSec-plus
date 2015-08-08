@@ -49,7 +49,7 @@ ffpwwe.cookieOption.setCookiesOptionThirdParty = function (buttonStatus)
 		ffpwwe.prefsNetworkCookie.setIntPref("cookieBehavior", 1);
 	}
 	else if (buttonStatus == 2){
-		ffpwwe.cookieOption.changeColorOfButton("ThirdParty", 2)
+		ffpwwe.cookieOption.changeColorOfButton("ThirdParty", 2);
 		ffpwwe.prefsNetworkCookie.setIntPref("cookieBehavior", 0);
 	}
 };
@@ -68,7 +68,7 @@ ffpwwe.cookieOption.changeColorOfButton = function (buttonID, status)
 		document.getElementById(buttonID + "Off").disabled = true;
 		document.getElementById(buttonID + "Off").style.backgroundColor = "red";
 	}
-}
+};
 
 ffpwwe.cookieOption.setCookiesOptionAfterClosing = function (buttonStatus)
 {
@@ -86,7 +86,7 @@ ffpwwe.cookieOption.setCookiesOptionAfterClosing = function (buttonStatus)
 // called by window onLoad
 ffpwwe.cookieOption.init = function ()
 {
-	if (ffpwwe.prefsNetworkCookie.getIntPref("cookieBehavior") == 0){
+	if (ffpwwe.prefsNetworkCookie.getIntPref("cookieBehavior") === 0){
 		document.getElementById("ThirdPartyOff").disabled = true;
 		document.getElementById("ThirdPartyOn").disabled = false;
 		document.getElementById("ThirdPartyOn").style.backgroundColor = "white";
@@ -98,7 +98,7 @@ ffpwwe.cookieOption.init = function ()
 		document.getElementById("ThirdPartyOff").style.backgroundColor = "white";
 		document.getElementById("ThirdPartyOn").style.backgroundColor = "rgb(37,226,103)";
 	}
-	if (ffpwwe.prefsNetworkCookie.getIntPref("lifetimePolicy") == 0){
+	if (ffpwwe.prefsNetworkCookie.getIntPref("lifetimePolicy") === 0){
 		document.getElementById("CookieCloseOff").disabled = true;
 		document.getElementById("CookieCloseOn").disabled = false;
 		document.getElementById("CookieCloseOn").style.backgroundColor = "white";

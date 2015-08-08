@@ -64,7 +64,7 @@ ffpwwe.pageHandler = function () {
                 httpsRequest.send();
             } else {
                 // if the page was not a http page, https cannot be available
-                resolve(false)
+                resolve(false);
             }
         });
         var sslAvailableCheck = {
@@ -76,7 +76,7 @@ ffpwwe.pageHandler = function () {
         sslAvailableCheckPromise.then(function (sslAvailable) {
             sslAvailableCheck.done = true;
             sslAvailableCheck.sslAvailable = sslAvailable;
-            sslAvailableCheck.sslUrl = sslUrl
+            sslAvailableCheck.sslUrl = sslUrl;
         });
 
         return sslAvailableCheck;
@@ -121,13 +121,13 @@ ffpwwe.pageHandler = function () {
                         $.get("https://www.google.de/search?q=" + domain, processResult);
                         break;
                     default:
-                        ffpwwe.debug("phishing detection search unkown search engine: '" + searchEngine + "'")
+                        ffpwwe.debug("phishing detection search unkown search engine: '" + searchEngine + "'");
                 }
 
             });
 
             searchPromise.then(function () {
-                ffpwwe.debug("phishing detection search request done")
+                ffpwwe.debug("phishing detection search request done");
             });
 
             return searchPromise;
@@ -155,7 +155,7 @@ ffpwwe.pageHandler = function () {
             });
 
             wotPromise.then(function () {
-                ffpwwe.debug("phishing detection wot request done")
+                ffpwwe.debug("phishing detection wot request done");
             });
 
             return wotPromise;

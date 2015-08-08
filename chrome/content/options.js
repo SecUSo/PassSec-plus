@@ -32,6 +32,7 @@ ffpwwe.options.restoreInitialState = function () {
   if (paramsConfirm.out.accept) {
     // drop all database tables
     ffpwwe.db.dropTables();
+    ffpwwe.options.clearHttpsList();
 
     // reset options
     ffpwwe.prefs.resetPrefs();

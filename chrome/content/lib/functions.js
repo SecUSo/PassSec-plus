@@ -39,7 +39,7 @@ ffpwwe.debug = function (text, verbose) {
 ffpwwe.convertObjToArray = function (obj) {
     return [].map.call(obj, function (element) {
         return element;
-    })
+    });
 };
 
 ffpwwe.pruneURL = function (url) {
@@ -60,8 +60,8 @@ ffpwwe.pruneFirstPartURL = function (url) {
 };
 
 ffpwwe.calcWindowPosition = function (windowWidth,windowHeight) {
-  var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
-  var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+  var dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
+  var dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
 
   width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
   height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
