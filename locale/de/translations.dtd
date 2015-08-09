@@ -12,12 +12,11 @@
 <!ENTITY popuponclick "Popup bei Klick">
 <!ENTITY optionscaption3 "Ursprungszustand wiederherstellen">
 <!ENTITY resetexceptions "Ursprungszustand wiederherstellen">
-<!ENTITY resetinfo "Diese Option ist relevant, wenn Sie bei der bisherigen Nutzung
-des Add-Ons für Webseiten den 'sicheren Modus' gewählt haben,
-bzw. entschieden haben, nicht mehr gewarnt zu werden. Wenn
-Sie diesen Button klicken, dann werden diese Einstellungen
-gelöscht und Sie sehen wieder bei allen Webseiten die nicht sicher
-sind die Warnung.">
+<!ENTITY resetinfo "Diese Option ist relevant, wenn Sie bei der bisherigen Nutzung des Add-Ons
+für Webseiten den 'sicheren Modus' gewählt haben, bzw. entschieden haben,
+nicht mehr gewarnt zu werden. Wenn Sie diesen Button klicken, dann werden
+diese Einstellungen gelöscht und Sie sehen wieder bei allen Webseiten die
+nicht sicher sind die Warnung.">
 <!ENTITY optionscaption4 "Debug-Modus">
 <!ENTITY debug "Debug">
 <!ENTITY usephishingwotdetection "Informationen bei Web Of Trust abrufen">
@@ -42,9 +41,9 @@ Dadurch erhöht sich die Verzögerung, aber die Anfragen werden anonymisiert.">
 <!ENTITY passwordfields "Passwortfelder">
 <!ENTITY paymentfields "Felder für Zahlungsdaten (z.B. Kreditkartennummern)">
 <!ENTITY isbrokensecure "BROKEN HTTPS-Verbindung als sicher einstufen">
-<!ENTITY isbrokensecuredesc "BROKEN-HTTPS bedeutet, dass die Webseite mit HTTPS verschlüsselt
-ist, jedoch auch Elemente enthält die unverschlüsselt sind und
-deswegen standardmäßig vom Browser blockiert werden.">
+<!ENTITY isbrokensecuredesc "BROKEN-HTTPS bedeutet, dass die Webseite mit HTTPS verschlüsselt ist,
+jedoch auch Elemente enthält die unverschlüsselt sind und deswegen
+standardmäßig vom Browser blockiert werden.">
 <!ENTITY httpssecurity "HTTPS-Sicherheit">
 <!ENTITY secusoWhitelistText "Es besteht die Möglichkeit einige Standard-Ausnahmen hinzuzufügen,
 die SECUSO emphohlen sind. Weitere Informationen sowie eine Liste der

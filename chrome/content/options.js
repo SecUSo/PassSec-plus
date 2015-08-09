@@ -257,7 +257,7 @@ window.onload = function () {
     var phishingPref = ffpwwe.prefs.getStringPref("phishingsearchengine");
     var index = phishingPrefOrdering.indexOf(phishingPref);
     if (index > 0)
-        document.getElementById("phishing-menulist").selectedIndex = index;
+        document.getElementById("phishing-radiolist").selectedIndex = index;
 
     ffpwwe.options.loadHttpsList();
     ffpwwe.options.loadPageExceptions();

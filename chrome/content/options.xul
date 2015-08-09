@@ -43,8 +43,6 @@
                         name="extensions.firefoxpasswordwarning.searchfields" type="bool"/>
             <preference id="firefox-password-warning-extension-isbrokensecure"
                         name="extensions.firefoxpasswordwarning.isbrokensecure" type="bool"/>
-            <preference id="firefox-password-warning-extension-forwardAutomatically"
-                        name="extensions.firefoxpasswordwarning.forwardAutomatically" type="bool"/>
         </preferences>
 
         <!--
@@ -154,35 +152,22 @@
                             </columns>
                             <rows>
                                 <row>
-                                    <label control="usephishingwotdetection" value="&usephishingwotdetection;"
-                                           tooltiptext="&phishingwotinfotext;"/>
-                                    <checkbox id="usephishingwotdetection"
+                                    <checkbox id="usephishingwotdetection" label="&usephishingwotdetection;"
                                               preference="firefox-password-warning-extension-usephishingwotdetection"
                                               tooltiptext="&phishingwotinfotext;"/>
                                 </row>
                                 <row>
-                                    <label control="usephishingsearchdetection" value="&usephishingsearchdetection;"/>
-                                    <checkbox id="usephishingsearchdetection"
+                                    <checkbox id="usephishingsearchdetection" label="&usephishingsearchdetection;"
                                               preference="firefox-password-warning-extension-usephishingsearchdetection"/>
                                 </row>
                                 <row>
                                     <label value="&phishingsearchengine;"/>
-                                    <menulist id="phishing-menulist">
-                                        <menupopup>
-                                            <menuitem label="Google" tooltiptext="&phishingsearchgoogle;" value="google"
-                                                      preference="firefox-password-warning-extension-phishingsearchengine"/>
-                                            <menuitem label="Startpage" tooltiptext="&phishingsearchstartpage;"
-                                                      value="startpage"
-                                                      preference="firefox-password-warning-extension-phishingsearchengine"/>
-                                        </menupopup>
-                                    </menulist>
                                 </row>
                                 <row>
-                                    <label control="forwardAutomatically" value="Automatisch weiterleiten"
-                                           tooltiptext="Test"/>
-                                    <checkbox id="forwardAutomatically"
-                                              preference="firefox-password-warning-extension-forwardAutomatically"
-                                              tooltiptext="Test"/>
+                                    <radiogroup id="phishing-radiolist">
+                                      <radio id="orange" label="Google" value="google" preference="firefox-password-warning-extension-phishingsearchengine"/>
+                                      <radio id="violet" label="Startpage"  value="startpage" preference="firefox-password-warning-extension-phishingsearchengine"/>
+                                    </radiogroup>
                                 </row>
                             </rows>
                         </grid>
@@ -198,23 +183,19 @@
                             </columns>
                             <rows>
                                 <row>
-                                    <label control="passwordfields" value="&passwordfields;"/>
-                                    <checkbox id="passwordfields"
+                                    <checkbox id="passwordfields" label="&passwordfields;"
                                               preference="firefox-password-warning-extension-passwordfields"/>
                                 </row>
                                 <row>
-                                    <label control="paymentfields" value="&paymentfields;"/>
-                                    <checkbox id="paymentfields"
+                                    <checkbox id="paymentfields" label="&paymentfields;"
                                               preference="firefox-password-warning-extension-paymentfields"/>
                                 </row>
                                 <row>
-                                    <label control="personalfields" value="&personalfields;"/>
-                                    <checkbox id="personalfields"
+                                    <checkbox id="personalfields" label="&personalfields;"
                                               preference="firefox-password-warning-extension-personalfields"/>
                                 </row>
                                 <row>
-                                    <label control="searchfields" value="&searchfields;"/>
-                                    <checkbox id="searchfields"
+                                    <checkbox id="searchfields" label="&searchfields;"
                                               preference="firefox-password-warning-extension-searchfields"/>
                                 </row>
                             </rows>
@@ -230,8 +211,7 @@
                             </columns>
                             <rows>
                                 <row>
-                                    <label control="isbrokensecure" value="&isbrokensecure;"/>
-                                    <checkbox id="isbrokensecure"
+                                    <checkbox id="isbrokensecure" label="&isbrokensecure;"
                                               preference="firefox-password-warning-extension-isbrokensecure"/>
                                 </row>
                             </rows>
