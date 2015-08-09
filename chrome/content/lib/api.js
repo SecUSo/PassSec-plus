@@ -36,12 +36,10 @@ ffpwwe.api.goToHttps = function (target) {
     const windowHeight = 200;
 
     var domainDisplay = domain.split("").join(" ");
-	  var params = {inn:{question: strbundle.getString("confirm_url").replace(/<insert-url>/g, domainDisplay)}, out:{accept:false}};
-	  window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+"",params);
+    var params = {inn:{question: strbundle.getString("confirm_url").replace(/<insert-url>/g, domainDisplay)}, out:{accept:false}};
+    window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+"",params);
 
-
-	if(params.out.accept)
-	{
+	if(params.out.accept) {
         // insert the new exception into the databases
         ffpwwe.db.insert("httpToHttpsRedirects", content.document.location.host);
         ffpwwe.db.insert("userVerifiedDomains", content.document.location.host);
@@ -54,23 +52,7 @@ ffpwwe.api.goToHttps = function (target) {
 
         // switch to the new ssl url
         content.wrappedJSObject.location = target.url;
-    } //else {
-      //  window.confirm(strbundle.getString("confirm_url_recommendation").replace("<insert-url>", domain));
-    //}
-
-};
-
-/**
- * Changes the page to the https version and adds the url into the https-redirection-database
- *
- * @param target the button, which stores the https version of the url
- */
-ffpwwe.api.goToHttpsImmediately = function (target) {
-    document.getElementById('warnpanel2').hidePopup();
-    // Not available without field
-	//ffpwwe.loginManagerHandler.changeLoginDataToHttps(content.document.location.href,target.url,ffpwwe.fieldHandler.element.form.action);
-    // switch to the new ssl url
-    content.wrappedJSObject.location = content.document.location.href.replace("http://", "https://");
+    }
 };
 
 /**
@@ -90,17 +72,14 @@ ffpwwe.api.domainKnown = function () {
     var domain = ffpwwe.pruneURL(content.document.location);
     var strbundle = document.getElementById("firefoxpasswordwarning-strings");
     document.getElementById('warnpanel2').hidePopup();
-  //  var answer = window.confirm(strbundle.getString("confirm_url").replace("<insert-url>", domain)); => Prompt to check URL when HTTPS if EV
-  //  if(answer) {
-        // insert the new exception into the database
+    //  var answer = window.confirm(strbundle.getString("confirm_url").replace("<insert-url>", domain)); => Prompt to check URL when HTTPS if EV
+    //  if(answer) {
+    // insert the new exception into the database
     ffpwwe.db.insert("userVerifiedDomains", content.document.location.host);
     document.getElementById('warnpanel2').hidePopup();
     ffpwwe.setuserVerified(true);
     ffpwwe.processDOM();
     //content.document.location.reload();
-  //  } else {
-  //      window.confirm(strbundle.getString("confirm_url_recommendation").replace("<insert-url>", domain));
-  //  }
 };
 
 /**
@@ -137,8 +116,8 @@ ffpwwe.api.disableOnThisPage = function () {
     const windowHeight = 270;
 
     var domainDisplay = domain.split("").join(" ");
-	  var params = {inn:{question: strbundle.getString("add_exception").replace(/<insert-url>/g, domainDisplay)}, out:{accept:false}};
-	  window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.xul", "bmarks", "chrome, centerscreen, dialog, modal,width="+windowWidth+",height="+windowHeight+"",params);
+    var params = {inn:{question: strbundle.getString("add_exception").replace(/<insert-url>/g, domainDisplay)}, out:{accept:false}};
+	window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.xul", "bmarks", "chrome, centerscreen, dialog, modal,width="+windowWidth+",height="+windowHeight+"",params);
 
     //var disable = window.confirm(strbundle.getString("add_exception").replace("<insert-url>", domain));
     if (params.out.accept) {

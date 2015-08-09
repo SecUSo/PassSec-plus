@@ -29,6 +29,7 @@ ffpwwe.securityStateListener = {
     init: function () {
         gBrowser.addProgressListener(this);
     },
+
     uninit: function () {
         gBrowser.removeProgressListener(this);
     },
@@ -41,6 +42,7 @@ ffpwwe.securityStateListener = {
         verifiedSSL: false,
         usingSSL: false
     },
+
     onSecurityChange: function (aWebProgress, aRequest, aState) {
         var wb = Ci.nsIWebProgressListener;
 
@@ -66,6 +68,7 @@ ffpwwe.securityStateListener = {
 window.addEventListener("load", function () {
     ffpwwe.securityStateListener.init();
 }, false);
+
 window.addEventListener("unload", function () {
     ffpwwe.securityStateListener.uninit();
 }, false);

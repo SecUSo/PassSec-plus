@@ -48,7 +48,6 @@ ffpwwe.pageHandler = function () {
         var sslUrl = url.replace("http://", "https://");
         var sslAvailableCheckPromise = new Promise(function (resolve, reject) {
             if (url.match(/http:/)) {
-
                 ffpwwe.debug("starting ssl availability check for '" + sslUrl + "'");
                 var httpsRequest = new XMLHttpRequest();
                 httpsRequest.open("HEAD", sslUrl);
@@ -98,10 +97,9 @@ ffpwwe.pageHandler = function () {
 
         if (!executeSearch || !domain) {
             return new Promise(function (resolve, reject) {
-                    if (executeSearch) ffpwwe.debug("no phishing detection search ist running, not a valid DOMAIN");
-                    else ffpwwe.debug("no phishing detection search ist running, option is disabled");
-                }
-            );
+                if (executeSearch) ffpwwe.debug("no phishing detection search ist running, not a valid DOMAIN");
+                else ffpwwe.debug("no phishing detection search ist running, option is disabled");
+            });
         } else {
 
             let searchPromise = new Promise(function (resolve, reject) {
@@ -181,8 +179,7 @@ ffpwwe.pageHandler = function () {
     var correctPage = firstHref == firstSecHref;
 
     if (!correctPage)
-        ffpwwe.debug("Security state is for wrong page, is: \n" + firstSecHref +
-        ", but should be:\n" + firstHref);
+        ffpwwe.debug("Security state is for wrong page, is: \n" + firstSecHref + ", but should be:\n" + firstHref);
 
     // if it is an http exception do nothing
     var isHttpException = function () {

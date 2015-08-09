@@ -45,11 +45,11 @@ ffpwwe.toolbarButtonClick = function(event) {
     }
 };
 
-ffpwwe.getHttpsRidirectState = function() {
+ffpwwe.getHttpsRidirectState = function () {
     return httpsRedirectEnabled;
 };
 
-ffpwwe.onTabChange = function (){
+ffpwwe.onTabChange = function () {
 
     var statusButton = document.getElementById('toolbarButton');
     if(ffpwwe.getHttpsRidirectState()) {
@@ -70,7 +70,6 @@ ffpwwe.processDOM = function () {
 
     //Hide the popup initially
     document.getElementById('warnpanel2').hidePopup();
-
     var location = content.document.location;
 
     ffpwwe.page = ffpwwe.page || ffpwwe.pageHandler();

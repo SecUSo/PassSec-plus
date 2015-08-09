@@ -23,7 +23,6 @@
     if (firstrun) {
         // the next run wont be the firstrun
         ffpwwe.prefs.setBoolPref("firstrun", false);
-        //ffpwwe.cookieOption.showWindow();
 
         ffpwwe.prefs.setIntPref("cookieBehavior_reset", ffpwwe.prefsNetworkCookie.getIntPref("cookieBehavior"));
         ffpwwe.prefs.setIntPref("lifetimePolicy_reset", ffpwwe.prefsNetworkCookie.getIntPref("lifetimePolicy"));

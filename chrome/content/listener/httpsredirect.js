@@ -36,7 +36,8 @@ ffpwwe.httpsRedirectObserver = {
 
                 httpChannel.redirectTo(Services.io.newURI(newUrl, null, null));
             }
-            else*/ if (ffpwwe.db.isInside("httpToHttpsRedirects", httpChannel.URI.host) && httpChannel.URI.schemeIs("http") && ffpwwe.getHttpsRidirectState()) {
+            else*/
+            if (ffpwwe.db.isInside("httpToHttpsRedirects", httpChannel.URI.host) && httpChannel.URI.schemeIs("http") && ffpwwe.getHttpsRidirectState()) {
                 Components.utils.import("resource://gre/modules/Services.jsm");
                 let newUrl = httpChannel.URI.asciiSpec.replace("http:", "https:");
                 ffpwwe.debug("redirect from '" + httpChannel.URI.asciiSpec + "' to '" + newUrl + "'");
@@ -65,6 +66,7 @@ ffpwwe.httpsRedirectObserver = {
 window.addEventListener("load", function () {
     ffpwwe.httpsRedirectObserver.register();
 }, false);
+
 window.addEventListener("unload", function () {
     ffpwwe.httpsRedirectObserver.unregister();
 }, false);

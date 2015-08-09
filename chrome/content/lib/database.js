@@ -31,7 +31,6 @@ ffpwwe.db = function () {
     function openConnection() {
         let file = FileUtils.getFile("ProfD", ["PostPasswordExtensionExceptions.sqlite"]);
         let dbConn = Services.storage.openDatabase(file); // Will also create the file if it does not exist
-
         return dbConn;
     }
 
@@ -42,102 +41,80 @@ ffpwwe.db = function () {
          * @param value the value to insert into the database
          */
         insert: function (database, value) {
-
             var dbConn = openConnection();
-
             dbConn.executeSimpleSQL("CREATE TABLE IF NOT EXISTS " + database + " (url VARCHAR(100))");
 
-            try
-			{
+            try {
                 let statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = '" + value + "'");
 
 				statement.executeAsync({
-						handleResult: function(resultSet)
-						{
+						handleResult: function(resultSet) {
 							//fire if resultSet is not empty
 							dbConn.asyncClose();
 						},
-						handleError: function(error)
-						{
+						handleError: function(error) {
 							Application.console.log("insert row error:" + error);
 							dbConn.asyncClose();
 						},
-						handleCompletion: function(reason)
-						{
-							if (reason === 0)
-							{
+						handleCompletion: function(reason) {
+							if (reason === 0) {
 								let insertStmt = dbConn.createStatement("INSERT INTO " + database + " VALUES ('" + value + "')");
 								insertStmt.executeAsync({
-									handleError: function(error)
-									{
+									handleError: function(error) {
 										Application.console.log("insert row error:" + error);
 									},
-									handleCompletion: function(aReason)
-									{
+									handleCompletion: function(aReason) {
 										dbConn.asyncClose();
 									}
 								});
 							}
-							else
-							{
+							else {
 								dbConn.asyncClose();
 							}
 						}
 					});
             }
-            catch (e)
-			{
+            catch (e) {
                 Application.console.log("error statement:" + dbConn.lastErrorString);
             }
 
         },
         deleteItem: function (database, col, value) {
-
-                var dbConn = openConnection();
-
-                try
-    			{
-
-                    var statement = dbConn.createStatement("DELETE FROM " + database + " WHERE " + col + " = '" + value + "'");
-
-                    statement.executeAsync({
-                            handleError: function(error)
-        					{
-                                Application.console.log("delete entry error:" + error);
-        						dbConn.asyncClose();
-                            },
-                            handleCompletion: function(reason)
-        					{
-                                dbConn.asyncClose();
-                            }
-                    });
-                }
-                catch (e)
-    			{
-                    Application.console.log("error statement:" + dbConn.lastErrorString);
-                }
-        },
-        dropTable: function(database) {
-
             var dbConn = openConnection();
-            try
-			{
-                let statement = dbConn.createStatement("DROP TABLE IF EXISTS " + database);
 
+            try {
+                var statement = dbConn.createStatement("DELETE FROM " + database + " WHERE " + col + " = '" + value + "'");
                 statement.executeAsync({
-                        handleError: function(error)
-                        {
-                            Application.console.log("drop table error:" + error);
-                            dbConn.asyncClose();
+                        handleError: function(error) {
+                            Application.console.log("delete entry error:" + error);
+    						dbConn.asyncClose();
                         },
-                        handleCompletion: function(reason)
-                        {
+                        handleCompletion: function(reason) {
                             dbConn.asyncClose();
                         }
                 });
             }
-            catch (e)
-			{
+            catch (e) {
+                Application.console.log("error statement:" + dbConn.lastErrorString);
+            }
+        },
+        dropTable: function(database) {
+
+            var dbConn = openConnection();
+            try	{
+                let statement = dbConn.createStatement("DROP TABLE IF EXISTS " + database);
+
+                statement.executeAsync({
+                        handleError: function(error) {
+                            Application.console.log("drop table error:" + error);
+                            dbConn.asyncClose();
+                        },
+                        handleCompletion: function(reason) {
+                            dbConn.asyncClose();
+                        }
+                });
+            }
+            catch (e) {
                 Application.console.log("error statement:" + dbConn.lastErrorString);
             }
         },
@@ -148,13 +125,10 @@ ffpwwe.db = function () {
          * @returns {boolean}
          */
         isInside: function (database, value) {
-
             var dbConn = openConnection();
-
             dbConn.executeSimpleSQL("CREATE TABLE IF NOT EXISTS " + database + " (url VARCHAR(100))");
 
-            try
-			{
+            try	{
                 let statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = '" + value + "'");
 
 				let result = !!statement.executeStep();
@@ -163,8 +137,7 @@ ffpwwe.db = function () {
 
 				return result;
             }
-            catch (error)
-			{
+            catch (error) {
                 Application.console.log("error statement:" + dbConn.lastErrorString);
             }
 
@@ -176,11 +149,9 @@ ffpwwe.db = function () {
          */
          getAll: function (database) {
              var dbConn = openConnection();
-
              dbConn.executeSimpleSQL("CREATE TABLE IF NOT EXISTS " + database + " (url VARCHAR(100))");
 
-             try
- 			{
+             try {
                 let statement = dbConn.createStatement("SELECT url FROM " + database);
 
                 var result = [];
@@ -193,8 +164,7 @@ ffpwwe.db = function () {
 
  				return result;
              }
-             catch (error)
- 			{
+             catch (error) {
                  Application.console.log("error statement:" + dbConn.lastErrorString);
              }
 
@@ -203,11 +173,8 @@ ffpwwe.db = function () {
         /**
          * drops all database tables
          */
-        dropTables: function ()
-		{
-
+        dropTables: function () {
             var dbConn = openConnection();
-
 			var statements = [dbConn.createStatement("DROP TABLE IF EXISTS pageExceptions"),
 					    dbConn.createStatement("DROP TABLE IF EXISTS httpToHttpsRedirects"),
 						dbConn.createStatement("DROP TABLE IF EXISTS userVerifiedDomains"),
@@ -215,13 +182,11 @@ ffpwwe.db = function () {
 						dbConn.createStatement("DROP TABLE IF EXISTS httpsAvail")];
 
 			dbConn.executeAsync(statements,statements.length,{
-                    handleError: function(error)
-					{
+                    handleError: function(error) {
                         Application.console.log("drop table error:" + error);
 						dbConn.asyncClose();
                     },
-                    handleCompletion: function(reason)
-					{
+                    handleCompletion: function(reason) {
                         dbConn.asyncClose();
                     }
             });

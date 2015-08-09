@@ -112,7 +112,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
     function removeSecureStyle() {
         removeClass(element, "firefox-password-ok-check");
         removeClass(element, "firefox-password-ok-border");
-				removeClass(element, "firefox-password-EV-check");
+		removeClass(element, "firefox-password-EV-check");
         removeClass(element, "firefox-password-secure-border");
     }
 
@@ -132,7 +132,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
         addClass(element, "firefox-password-secure-border");
     }
 
-		/**
+	/**
      * adds the popup behaviour to the element
      */
     function addPopup() {
@@ -141,39 +141,33 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
             element.addEventListener("click", openPopupClosed1, false);
             element.addEventListener("focus", openPopupClosed2, false);
 
-			if (element.form && ffpwwe.loginManagerHandler.isLoginDataAvailable(page.href, element.form.action))
-			{
+			if (element.form && ffpwwe.loginManagerHandler.isLoginDataAvailable(page.href, element.form.action)) {
 				// POLLING There is at least one way, but it's not a very good one.
 
-				var showPopupAutomaticInterval = setInterval(function showPopupAutomatic()
-				{
-					if($(element).is(":visible") && element.value.length !== 0)
-					{
+				var showPopupAutomaticInterval = setInterval(function showPopupAutomatic() {
+					if($(element).is(":visible") && element.value.length !== 0) {
 						clearInterval(showPopupAutomaticInterval);
-						if(ffpwwe.loginManagerHandler.isLoginDataAvailable(page.href,element.form.action))
-						{
+						if(ffpwwe.loginManagerHandler.isLoginDataAvailable(page.href,element.form.action)) {
 							openOnClickPopup();
 						}
 					}
 				}, 300);
-
 			}
         }
     }
 
     /**
-     * adds the popup behaviour to the element
+     * removes the popup behaviour from the element
      */
     function removePopup() {
         // Add listener to the input field to show popup if it is set by the user
         if (ffpwwe.prefs.getBoolPref("popuponclick")) {
-
             var old_element = element;
             var new_element = old_element.cloneNode(true);
             old_element.parentNode.replaceChild(new_element, old_element);
             addEVSecureStyle();
         }
-}
+    }
 
     function updateText(sslAvailable) {
         var strbundle = document.getElementById("firefoxpasswordwarning-strings");
@@ -315,7 +309,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
             if (suggestions.length == 4) {
                 detection.search = true;
                 let suggestion = suggestions[1].href.match(/q=((\w|-)*\.\w*)&/)[1];
-								alert(suggestion.textContent);
+				alert(suggestion.textContent);
                 showPhishingBox("phishing_text_1_g", suggestion);
             } else if (!domainInResponse) {
                 detection.search = true;
@@ -410,12 +404,12 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
         //Hide all Panels/Boxes
         var $httpWarning = $(".http-warning");
         var $phishingWarning = $(".phishing-warning");
-				var $phishingWarningSwitch = $(".phishing-warning-switch");
+		var $phishingWarningSwitch = $(".phishing-warning-switch");
         var $urlprunButtons = $(".urlprun-allow");
         $httpWarning.hide();
         $phishingWarning.hide();
         $urlprunButtons.hide();
-				$phishingWarningSwitch.hide();
+		$phishingWarningSwitch.hide();
 
         // prune the url
         var domain = page.domain || "???";
@@ -451,7 +445,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
     // validated: extended validation SSL or the user has checked the page
     var validated = page.verifiedSSL || isURLPrun;
 
-    if (ffpwwe.getuserVerified()){
+    if (ffpwwe.getuserVerified()) {
         ffpwwe.setuserVerified(false);
         addEVSecureStyle();
         removePopup();
@@ -471,7 +465,6 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
 
     if (!validated)
         processPhishingDetection();
-
 
     return {};
 };

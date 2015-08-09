@@ -7,17 +7,17 @@
 	xmlns:html="http://www.w3.org/1999/xhtml"
 	persist="screenX screenY width height"
 	orient="vertical"
-  buttons="accept,cancel"
+	buttons="accept,cancel"
 		buttonlabelcancel="&cancel;"
 		buttonlabelaccept="&proceed;"
 	onload="onLoad();"
-		ondialogaccept="return pressedOK();"
+	ondialogaccept="return pressedOK();"
     ondialogcancel="return true;"
-		style="background-color:#FEFFCC;"
-		windowtype="myDialogWindowType">
+	style="background-color:#FEFFCC;"
+	windowtype="myDialogWindowType">
 
-		<script type="application/javascript"  src="chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.js"></script>
-		<html:div>
-			<html:description  style="-moz-user-select: text;" id="question" />
-		</html:div>
+	<script type="application/javascript"  src="chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.js"></script>
+	<html:div>
+		<html:description  style="-moz-user-select: text;" id="question" />
+	</html:div>
 </dialog>
