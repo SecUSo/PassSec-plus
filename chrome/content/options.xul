@@ -230,13 +230,13 @@
                             </groupbox>
                             <groupbox>
                                 <caption label="Https Weiterleitung"/>
-                                <row><listbox id="https_list" width="400px"/></row>
+                                <row><listbox id="https_list" width="410px" height="80px"/></row>
                                 <row><button label="Löschen" oncommand="ffpwwe.options.removeHttpsItem()"/>
                                 <button label="Liste leeren" oncommand="ffpwwe.options.clearHttpsList(true)"/></row>
                             </groupbox>
                             <groupbox>
                                 <caption label="Webseiten Ausnahmen"/>
-                                <row><listbox id="pageExceptions" width="400px"/></row>
+                                <row><listbox id="pageExceptions" width="410px" height="80px"/></row>
                                 <row>
                                     <button label="Löschen" oncommand="ffpwwe.options.removePageExceptionItem()"/>
                                     <button label="Liste leeren" oncommand="ffpwwe.options.clearPageExceptions(true)"/>
