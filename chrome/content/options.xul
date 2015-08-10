@@ -93,7 +93,7 @@
             <tabs>
                 <tab label="&maintabcaption;"/>
                 <tab label="&advancedtabcaption;"/>
-                <tab label="Ausnahmen"/>
+                <tab label="&exceptions;"/>
             </tabs>
             <tabpanels>
                 <tabpanel id="maintab" height="420" orient="vertical">
@@ -227,11 +227,11 @@
                             <groupbox>
                                 <caption label="&captionWhitelist;"/>
                                 <description style="white-space: pre;">&secusoWhitelistText;</description>
-                                <button label="&addWhitelist;" width="100%" oncommand="ffpwwe.options.insertSecusoWhitelist()"/>
+                                <button label="&addWhitelist;" width="100px" oncommand="ffpwwe.options.insertSecusoWhitelist()"/>
                             </groupbox>
                             <groupbox>
                                 <caption label="&captionHttps;"/>
-                                <row><listbox id="https_list" width="410px" height="80px"/></row>
+                                <row><listbox id="https_list" width="349px" height="80px"/></row>
                                 <row>
                                     <button id="deleteHttps" label="&deleteHttps;" oncommand="ffpwwe.options.removeHttpsItem()"/>
                                     <button id="clearHttps" label="&clearHttps;" oncommand="ffpwwe.options.clearHttpsList(true)"/>
@@ -239,7 +239,7 @@
                             </groupbox>
                             <groupbox>
                                 <caption label="&captionExceptions;"/>
-                                <row><listbox id="pageExceptions" width="410px" height="80px"/></row>
+                                <row><listbox id="pageExceptions" width="349px" height="80px"/></row>
                                 <row>
                                     <button id="deleteException" label="&deleteException;" oncommand="ffpwwe.options.removePageExceptionItem()"/>
                                     <button id="clearExceptions" label="&clearExceptions;" oncommand="ffpwwe.options.clearPageExceptions(true)"/>

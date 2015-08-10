@@ -12,10 +12,11 @@
 <!ENTITY popuponclick "Popup on click">
 <!ENTITY optionscaption3 "Restore original state">
 <!ENTITY resetexceptions "Restore original state">
-<!ENTITY resetinfo "This option is relevant if you have previously used 'secure mode' on websites,
-or have decided that you no longer want to be warned. When you click this
-button, these settings will be deleted and you will see the warnings again for
-all insecure all websites.">
+<!ENTITY resetinfo "This option is relevant if you have previously used 'secure mode'
+on websites, or have decided that you no longer want to be
+warned. When you click this button, these settings will be
+deleted and you will see the warnings again for all insecure all
+websites.">
 <!ENTITY optionscaption4 "Debug mode">
 <!ENTITY debug "Debug">
 <!ENTITY usephishingwotdetection "Retrieve information from Web of Trust">
@@ -40,9 +41,9 @@ This increases website loading time, but also ensures that requests are made ano
 <!ENTITY passwordfields "Password fields">
 <!ENTITY paymentfields "Fields with payment information (E.g. credit card numbers)">
 <!ENTITY isbrokensecure "Classify BROKEN HTTPS connection as safe">
-<!ENTITY isbrokensecuredesc "BROKEN-HTTPS means that the website is encrypted with HTTPS, but also
-contains elements that are not encrypted and are therefore blocked by default
-by the browser.">
+<!ENTITY isbrokensecuredesc "BROKEN-HTTPS means that the website is encrypted with HTTPS,
+but also contains elements that are not encrypted and are
+therefore blocked by default by the browser.">
 <!ENTITY httpssecurity "HTTPS Security">
 
 <!-- Cookie Settings: -->
@@ -116,9 +117,10 @@ websites, and this option is consequently not offered here.">
 <!ENTITY cancel "Cancel">
 
 <!-- Exceptions Tab: -->
-<!ENTITY secusoWhitelistText "Es besteht die Möglichkeit einige Standard-Ausnahmen hinzuzufügen, die
-von SECUSO empfohlen werden. Weitere Informationen sowie eine Liste der
-Ausnahmen finden Sie auf www.secuso.org/passsec.">
+<!ENTITY exceptions "Exceptions">
+<!ENTITY secusoWhitelistText "It is possible to add some standard exceptions recommended
+by SECUSO. More information and a list of exceptions can be
+found on www.secuso.org/passsec">
 
 <!ENTITY captionWhitelist "Recommended exceptions">
 <!ENTITY addWhitelist "Add">
