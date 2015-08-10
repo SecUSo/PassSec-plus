@@ -156,9 +156,9 @@ ffpwwe.options.clearHttpsList = function (drop) {
     if(drop) {
         ffpwwe.db.dropTable("httpToHttpsRedirects");
         ffpwwe.db.dropTable("userVerifiedDomains");
+        document.getElementById("deleteHttps").disabled = true;
+        document.getElementById("clearHttps").disabled = true;
     }
-    document.getElementById("deleteHttps").disabled = true;
-    document.getElementById("clearHttps").disabled = true;
 };
 
 ffpwwe.options.loadPageExceptions = function () {
@@ -207,7 +207,6 @@ ffpwwe.options.insertSecusoWhitelist = function () {
         for (var k = 0; k < secusoWhitelist.length; k++) {
             ffpwwe.db.insert("userVerifiedDomains", secusoWhitelist[i]);
         }
-
 
     document.getElementById("deleteHttps").disabled = false;
     document.getElementById("clearHttps").disabled = false;
