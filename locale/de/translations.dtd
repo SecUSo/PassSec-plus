@@ -23,7 +23,7 @@ nicht sicher sind die Warnung.">
 <!ENTITY phishingwotinfotext "Aktivieren Sie diese Option, um gewarnt zu werden, falls Sie eine Seite besuchen,
 die durch das Web Of Trust (mywot.com) als Phishing-Seite markiert wurde.">
 <!ENTITY usephishingsearchdetection "Informationen bei Suchmaschine abrufen">
-<!ENTITY phishingsearchengine "... dabei zu verwendende Suchmaschine:">
+<!ENTITY phishingsearchengine "... dabei zu verwendende Suchmaschine">
 <!ENTITY phishingdetection "Unterstützung bei der Erkennung von Phishing Angriffen">
 <!ENTITY phishingsearchgoogle "Die normale Google Suche zur Phishing Detection nutzen">
 <!ENTITY phishingsearchstartpage "Startpage nutzt einen Proxy um Anfragen an Google zu stellen.
@@ -93,13 +93,13 @@ standardmäßig vom Browser blockiert werden.">
 <!ENTITY cancel "Abbrechen">
 
 <!-- Exceptions Tab: -->
-<!ENTITY secusoWhitelistText "Es besteht die Möglichkeit einige Standard-Ausnahmen hinzuzufügen,
-die SECUSO emphohlen sind. Weitere Informationen sowie eine Liste der
-Ausnahmen finden Sie hier.">
+<!ENTITY secusoWhitelistText "Es besteht die Möglichkeit einige Standard-Ausnahmen hinzuzufügen, die
+von SECUSO empfohlen werden. Weitere Informationen sowie eine Liste der
+Ausnahmen finden Sie auf www.secuso.org/passsec.">
 
-<!ENTITY captionWhitelist "Emphohlene Ausnahmen">
+<!ENTITY captionWhitelist "Empfohlene Ausnahmen">
 <!ENTITY addWhitelist "Hinzufügen">
-<!ENTITY captionHttps "Https Weiterleitung">
+<!ENTITY captionHttps "Https Weiterleitungen">
 <!ENTITY deleteHttps "Löschen">
 <!ENTITY clearHttps "Liste leeren">
 <!ENTITY captionExceptions "Webseiten Ausnahmen">
