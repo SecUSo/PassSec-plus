@@ -129,15 +129,23 @@ ffpwwe.options.loadHttpsList = function () {
     for (var i = 0; i < items.length; i++) {
         https_list.appendItem(items[i]);
     }
+    if (https_list.getRowCount() === 0) {
+        document.getElementById("deleteHttps").disabled = true;
+        document.getElementById("clearHttps").disabled = true;
+    }
 };
 
 ffpwwe.options.removeHttpsItem = function () {
-    var list = document.getElementById("https_list");
-    var index = list.selectedIndex;
-    var del = list.getItemAtIndex(index).label;
-    list.removeItemAt(index);
+    var https_list = document.getElementById("https_list");
+    var index = https_list.selectedIndex;
+    var del = https_list.getItemAtIndex(index).label;
+    https_list.removeItemAt(index);
     ffpwwe.db.deleteItem("httpToHttpsRedirects", "url", del);
     ffpwwe.db.deleteItem("userVerifiedDomains", "url", del);
+    if (https_list.getRowCount() === 0) {
+        document.getElementById("deleteHttps").disabled = true;
+        document.getElementById("clearHttps").disabled = true;
+    }
 };
 
 ffpwwe.options.clearHttpsList = function (drop) {
@@ -149,7 +157,8 @@ ffpwwe.options.clearHttpsList = function (drop) {
         ffpwwe.db.dropTable("httpToHttpsRedirects");
         ffpwwe.db.dropTable("userVerifiedDomains");
     }
-
+    document.getElementById("deleteHttps").disabled = true;
+    document.getElementById("clearHttps").disabled = true;
 };
 
 ffpwwe.options.loadPageExceptions = function () {
@@ -158,14 +167,23 @@ ffpwwe.options.loadPageExceptions = function () {
     for (var i = 0; i < items.length; i++) {
         pageExceptions.appendItem(items[i]);
     }
+    if (pageExceptions.getRowCount() === 0) {
+        document.getElementById("deleteException").disabled = true;
+        document.getElementById("clearExceptions").disabled = true;
+        document.getElementById("checkExceptions").disabled = true;
+    }
 };
 
 ffpwwe.options.removePageExceptionItem = function () {
-    var list = document.getElementById("pageExceptions");
-    var index = list.selectedIndex;
-    var del = list.getItemAtIndex(index).label;
-    list.removeItemAt(index);
+    var pageExceptions = document.getElementById("pageExceptions");
+    var index = pageExceptions.selectedIndex;
+    var del = pageExceptions.getItemAtIndex(index).label;
+    pageExceptions.removeItemAt(index);
     ffpwwe.db.deleteItem("pageExceptions", "url", del);
+    if (pageExceptions.getRowCount() === 0)
+        document.getElementById("deleteException").disabled = true;
+        document.getElementById("clearExceptions").disabled = true;
+        document.getElementById("checkExceptions").disabled = true;
 };
 
 ffpwwe.options.clearPageExceptions = function (drop) {
@@ -176,6 +194,9 @@ ffpwwe.options.clearPageExceptions = function (drop) {
     if(drop) {
         ffpwwe.db.dropTable("pageExceptions");
     }
+    document.getElementById("clearExceptions").disabled = true;
+    document.getElementById("deleteException").disabled = true;
+    document.getElementById("checkExceptions").disabled = true;
 };
 
 ffpwwe.options.insertSecusoWhitelist = function () {

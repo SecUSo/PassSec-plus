@@ -232,16 +232,18 @@
                             <groupbox>
                                 <caption label="&captionHttps;"/>
                                 <row><listbox id="https_list" width="410px" height="80px"/></row>
-                                <row><button label="&deleteHttps;" oncommand="ffpwwe.options.removeHttpsItem()"/>
-                                <button label="&clearHttps;" oncommand="ffpwwe.options.clearHttpsList(true)"/></row>
+                                <row>
+                                    <button id="deleteHttps" label="&deleteHttps;" oncommand="ffpwwe.options.removeHttpsItem()"/>
+                                    <button id="clearHttps" label="&clearHttps;" oncommand="ffpwwe.options.clearHttpsList(true)"/>
+                                </row>
                             </groupbox>
                             <groupbox>
                                 <caption label="&captionExceptions;"/>
                                 <row><listbox id="pageExceptions" width="410px" height="80px"/></row>
                                 <row>
-                                    <button label="&deleteException;" oncommand="ffpwwe.options.removePageExceptionItem()"/>
-                                    <button label="&clearExceptions;" oncommand="ffpwwe.options.clearPageExceptions(true)"/>
-                                    <button label="&checkExceptions;" oncommand="ffpwwe.options.checkForHttps()"/>
+                                    <button id="deleteException" label="&deleteException;" oncommand="ffpwwe.options.removePageExceptionItem()"/>
+                                    <button id="clearExceptions" label="&clearExceptions;" oncommand="ffpwwe.options.clearPageExceptions(true)"/>
+                                    <button id="checkExceptions" label="&checkExceptions;" oncommand="ffpwwe.options.checkForHttps()"/>
                                 </row>
 
                             </groupbox>
