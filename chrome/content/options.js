@@ -202,12 +202,18 @@ ffpwwe.options.clearPageExceptions = function (drop) {
 ffpwwe.options.insertSecusoWhitelist = function () {
     var https_list = document.getElementById("https_list");
         for (var i = 0; i < secusoWhitelist.length; i++) {
-            https_list.appendItem(secusoWhitelist[i]);
             ffpwwe.db.insert("httpToHttpsRedirects", secusoWhitelist[i]);
         }
         for (var k = 0; k < secusoWhitelist.length; k++) {
             ffpwwe.db.insert("userVerifiedDomains", secusoWhitelist[i]);
         }
+
+
+    document.getElementById("deleteHttps").disabled = false;
+    document.getElementById("clearHttps").disabled = false;
+
+    ffpwwe.options.clearHttpsList(false);
+    ffpwwe.options.loadHttpsList();
 };
 
 ffpwwe.options.checkForHttps = function () {

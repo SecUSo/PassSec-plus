@@ -57,7 +57,7 @@ ffpwwe.db = function () {
 							dbConn.asyncClose();
 						},
 						handleCompletion: function(reason) {
-							if (reason === 0) {
+							if (reason === 0 && !statement.executeStep()) {
 								let insertStmt = dbConn.createStatement("INSERT INTO " + database + " VALUES ('" + value + "')");
 								insertStmt.executeAsync({
 									handleError: function(error) {
