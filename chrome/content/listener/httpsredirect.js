@@ -35,7 +35,7 @@ ffpwwe.httpsRedirectObserver = {
                 ffpwwe.debug("redirect from '" + httpChannel.URI.asciiSpec + "' to '" + newUrl + "'");
 
                 statusButton.setAttribute('value', 'redirected');
-                statusButton.setAttribute('tooltiptext', 'Sie wurden automatisch weitergeleitet!');
+                statusButton.setAttribute('tooltiptext', document.getElementById("firefoxpasswordwarning-strings").getString("forward_done"));
 
                 httpChannel.redirectTo(Services.io.newURI(newUrl, null, null));
             }

@@ -2,6 +2,7 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://firefoxpasswordwarningextension/skin/skin.css" type="text/css"?>
 <!DOCTYPE prefwindow SYSTEM "chrome://firefoxpasswordwarningextension/locale/translations.dtd">
+
 <prefwindow title="&optionswindowname;" id="options" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/lib/preferences.js"/>
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/lib/database.js"/>
@@ -224,23 +225,23 @@
                     <grid>
                         <rows>
                             <groupbox>
-                                <caption label="Emphohlene Ausnahmen"/>
+                                <caption label="&captionWhitelist;"/>
                                 <description style="white-space: pre;">&secusoWhitelistText;</description>
-                                <button label="Hinzufügen" width="100%" oncommand="ffpwwe.options.insertSecusoWhitelist()"/>
+                                <button label="&addWhitelist;" width="100%" oncommand="ffpwwe.options.insertSecusoWhitelist()"/>
                             </groupbox>
                             <groupbox>
-                                <caption label="Https Weiterleitung"/>
+                                <caption label="&captionHttps;"/>
                                 <row><listbox id="https_list" width="410px" height="80px"/></row>
-                                <row><button label="Löschen" oncommand="ffpwwe.options.removeHttpsItem()"/>
-                                <button label="Liste leeren" oncommand="ffpwwe.options.clearHttpsList(true)"/></row>
+                                <row><button label="&deleteHttps;" oncommand="ffpwwe.options.removeHttpsItem()"/>
+                                <button label="&clearHttps;" oncommand="ffpwwe.options.clearHttpsList(true)"/></row>
                             </groupbox>
                             <groupbox>
-                                <caption label="Webseiten Ausnahmen"/>
+                                <caption label="&captionExceptions;"/>
                                 <row><listbox id="pageExceptions" width="410px" height="80px"/></row>
                                 <row>
-                                    <button label="Löschen" oncommand="ffpwwe.options.removePageExceptionItem()"/>
-                                    <button label="Liste leeren" oncommand="ffpwwe.options.clearPageExceptions(true)"/>
-                                    <button label="Ausnahmen überprüfen" oncommand="ffpwwe.options.checkForHttps()"/>
+                                    <button label="&deleteException;" oncommand="ffpwwe.options.removePageExceptionItem()"/>
+                                    <button label="&clearExceptions;" oncommand="ffpwwe.options.clearPageExceptions(true)"/>
+                                    <button label="&checkExceptions;" oncommand="ffpwwe.options.checkForHttps()"/>
                                 </row>
 
                             </groupbox>
@@ -269,5 +270,9 @@
 
 
     </prefpane>
+
+    <stringbundleset id="stringbundleset">
+           <stringbundle id="firefoxpasswordwarning-strings" src="chrome://firefoxpasswordwarningextension/locale/strings.properties"/>
+    </stringbundleset>
 
 </prefwindow>

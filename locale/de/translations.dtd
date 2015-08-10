@@ -45,9 +45,6 @@ Dadurch erhöht sich die Verzögerung, aber die Anfragen werden anonymisiert.">
 jedoch auch Elemente enthält die unverschlüsselt sind und deswegen
 standardmäßig vom Browser blockiert werden.">
 <!ENTITY httpssecurity "HTTPS-Sicherheit">
-<!ENTITY secusoWhitelistText "Es besteht die Möglichkeit einige Standard-Ausnahmen hinzuzufügen,
-die SECUSO emphohlen sind. Weitere Informationen sowie eine Liste der
-Ausnahmen finden Sie hier.">
 
 <!-- Cookie Settings: -->
 <!ENTITY blockThirdPartyCookiesCaption "Speichern von Drittanbieter Cookies zukünftig verhindern">
@@ -94,3 +91,19 @@ Ausnahmen finden Sie hier.">
 
 <!ENTITY proceed "Fortfahren">
 <!ENTITY cancel "Abbrechen">
+
+<!-- Exceptions Tab: -->
+<!ENTITY secusoWhitelistText "Es besteht die Möglichkeit einige Standard-Ausnahmen hinzuzufügen,
+die SECUSO emphohlen sind. Weitere Informationen sowie eine Liste der
+Ausnahmen finden Sie hier.">
+
+<!ENTITY captionWhitelist "Emphohlene Ausnahmen">
+<!ENTITY addWhitelist "Hinzufügen">
+<!ENTITY captionHttps "Https Weiterleitung">
+<!ENTITY deleteHttps "Löschen">
+<!ENTITY clearHttps "Liste leeren">
+<!ENTITY captionExceptions "Webseiten Ausnahmen">
+<!ENTITY deleteException "Löschen">
+<!ENTITY clearExceptions "Liste leeren">
+<!ENTITY checkExceptions "Ausnahmen überprüfen">
+<!ENTITY textToolbarButton "Weiterleitung aktiv.">

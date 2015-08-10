@@ -24,16 +24,17 @@ var httpsRedirectEnabled = true;
 
 ffpwwe.toolbarButtonClick = function(event) {
     var statusButton = document.getElementById('toolbarButton');
+
     switch(event.button) {
         case 0: // Left click
             httpsRedirectEnabled = !httpsRedirectEnabled;
             if(httpsRedirectEnabled) {
                 statusButton.setAttribute('value', 'redirectOn');
-                statusButton.setAttribute('tooltiptext', 'Weiterleitung aktiv.');
+                statusButton.setAttribute('tooltiptext', document.getElementById("firefoxpasswordwarning-strings").getString("forward_active"));
             }
             else {
                 statusButton.setAttribute('value', 'redirectOff');
-                statusButton.setAttribute('tooltiptext', 'Weiterleitung inaktiv.');
+                statusButton.setAttribute('tooltiptext', document.getElementById("firefoxpasswordwarning-strings").getString("forward_inactive"));
             }
             break;
         case 1: // Middle click
@@ -54,11 +55,11 @@ ffpwwe.onTabChange = function () {
     var statusButton = document.getElementById('toolbarButton');
     if(ffpwwe.getHttpsRidirectState()) {
         statusButton.setAttribute('value', 'redirectOn');
-        statusButton.setAttribute('tooltiptext', 'Weiterleitung aktiv.');
+        statusButton.setAttribute('tooltiptext', document.getElementById("firefoxpasswordwarning-strings").getString("forward_active"));
     }
     else {
         statusButton.setAttribute('value', 'redirectOff');
-        statusButton.setAttribute('tooltiptext', 'Weiterleitung inaktiv.');
+        statusButton.setAttribute('tooltiptext', document.getElementById("firefoxpasswordwarning-strings").getString("forward_inactive"));
     }
 };
 
@@ -82,12 +83,12 @@ ffpwwe.debug("STARTING...");
 //Everytime the DOMContent is loaded the .init method starts
 window.addEventListener("DOMContentLoaded", ffpwwe.processDOM, false);
 
-/* Debugging the exception checker
+/*Debugging the exception checker*/
 ffpwwe.db.insert("pageExceptions","web.de");
 ffpwwe.db.insert("pageExceptions","http://www.gmx.net");
 ffpwwe.db.insert("pageExceptions","http://www.google.de");
 ffpwwe.db.insert("pageExceptions","http://www.kicker.de");
-*/
+/**/
 
 //If the tab changes run our script again to prevent the tooltip from showing in other open tabs
 var container = gBrowser.tabContainer;

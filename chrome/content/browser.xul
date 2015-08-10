@@ -103,7 +103,7 @@
         <toolbarbutton id="toolbarButton"
           class="toolbarButtonClass"
           label="Passsec+"
-          tooltiptext="Weiterleitung aktiv."
+          tooltiptext=&textToolbarButton;"
           value="redirectOn"
           onclick="ffpwwe.toolbarButtonClick(event);"/>
     </toolbarpalette>

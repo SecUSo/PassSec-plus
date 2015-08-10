@@ -162,7 +162,7 @@ ffpwwe.options.loadPageExceptions = function () {
 
 ffpwwe.options.removePageExceptionItem = function () {
     var list = document.getElementById("pageExceptions");
-    var index = list.selectedIndex();
+    var index = list.selectedIndex;
     var del = list.getItemAtIndex(index).label;
     list.removeItemAt(index);
     ffpwwe.db.deleteItem("pageExceptions", "url", del);
@@ -193,11 +193,16 @@ ffpwwe.options.checkForHttps = function () {
     var pageExceptions = ffpwwe.db.getAll("pageExceptions");
 
     for (var i = 0; i < pageExceptions.length; i++) {
-        ffpwwe.options.sslAvailableCheck(pageExceptions[i]);
+        if(i == (pageExceptions.length - 1)) {
+            ffpwwe.options.sslAvailableCheck(pageExceptions[i], true);
+        }
+        else {
+            ffpwwe.options.sslAvailableCheck(pageExceptions[i], false);
+        }
     }
 };
 
-ffpwwe.options.sslAvailableCheck = function (checkUrl) {
+ffpwwe.options.sslAvailableCheck = function (checkUrl, isLast) {
     var url = checkUrl;
 
     if(!url.startsWith("http://")) {
@@ -244,6 +249,13 @@ ffpwwe.options.sslAvailableCheck = function (checkUrl) {
             httpsList.appendItem(url);
             ffpwwe.options.clearPageExceptions(false);
             ffpwwe.options.loadPageExceptions();
+        }
+        if(isLast) {
+            var checkDone = {inn:{message: document.getElementById("firefoxpasswordwarning-strings").getString("exception_check_done")}};
+            const windowWidth = 300;
+            const windowHeight = 100;
+
+            window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/messageInformation.xul", "bmarks", "chrome, centerscreen, dialog,resizable=no, modal,width="+windowWidth+",height="+windowHeight+"",checkDone);
         }
     });
 
