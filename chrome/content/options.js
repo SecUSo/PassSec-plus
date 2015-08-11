@@ -270,7 +270,7 @@ ffpwwe.options.sslAvailableCheck = function (checkUrl) {
         sslAvailableCheck.sslUrl = sslUrl;
         if(sslAvailable) {
             ffpwwe.db.insert("httpToHttpsRedirects", url);
-            ffpwwe.db.insert("userVerifiedDomainshab", url);
+            ffpwwe.db.insert("userVerifiedDomains", url);
             ffpwwe.db.deleteItem("pageExceptions", "url", checkUrl);
             var httpsList = document.getElementById("https_list");
             httpsList.appendItem(url);
