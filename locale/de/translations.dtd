@@ -83,7 +83,7 @@ blockiert werden.">
 <!-- Values of different Items (Popup, Notification Bar,...): -->
 <!ENTITY disableforthispage "Ausnahme hinzufügen">
 <!ENTITY standardwarning "Es ist unsicher, hier ein Passwort einzugeben!">
-<!ENTITY close "Warnung ausblenden">
+<!ENTITY close "Ok, verstanden">
 <!ENTITY AddException "Ausnahme hinzufügen">
 <!ENTITY AddPruneException "Ich habe die Angabe geprüft">
 <!ENTITY PopupHttpsLink "Sicherer Modus">

@@ -446,7 +446,6 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
     var validated = page.verifiedSSL || isURLPrun;
 
     if (ffpwwe.getuserVerified()) {
-        ffpwwe.setuserVerified(false);
         addEVSecureStyle();
         removePopup();
     }
@@ -455,10 +454,8 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
         addWarningStyle();
     else if (!validated)
         addSecureStyle();
-    else {
+    else
         addEVSecureStyle();
-        removePopup();
-    }
 
     if ((insecure && showHttp) || !validated)
         addPopup();

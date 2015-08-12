@@ -79,6 +79,7 @@ ffpwwe.api.domainKnown = function () {
     document.getElementById('warnpanel2').hidePopup();
     ffpwwe.setuserVerified(true);
     ffpwwe.processDOM();
+    ffpwwe.setuserVerified(false);
     //content.document.location.reload();
 };
 

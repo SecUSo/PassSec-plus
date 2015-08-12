@@ -105,7 +105,7 @@ websites, and this option is consequently not offered here.">
 <!-- Values of different Items (Popup, Notification Bar,...): -->
 <!ENTITY disableforthispage "Add an exception">
 <!ENTITY standardwarning "It is insecure to enter a password here!">
-<!ENTITY close "Hide warning">
+<!ENTITY close "Ok, got it">
 <!ENTITY AddException "Add an exception">
 <!ENTITY AddPruneException "I have checked the information">
 <!ENTITY PopupHttpsLink "Secure Mode">

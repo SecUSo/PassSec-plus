@@ -47,7 +47,6 @@ ffpwwe.prefs = function () {
             prefManager.clearUserPref("usephishingwotdetection");
             prefManager.clearUserPref("usephishingsearchdetection");
             prefManager.clearUserPref("phishingsearchengine");
-            prefManager.clearUserPref("firstrun");
             prefManager.clearUserPref("personalfields");
             prefManager.clearUserPref("searchfields");
             prefManager.clearUserPref("paymentfields");
