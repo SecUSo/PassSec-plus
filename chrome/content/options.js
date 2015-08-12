@@ -19,7 +19,7 @@
  *=========================================================================*/
 
 var ffpwwe = ffpwwe || {};
-var secusoWhitelist = ["www.google.de","www.amazon.de","www.sccrd.de"];
+var secusoWhitelist = ["www.google.de","www.facebook.com","www.youtube.com", "www.google.com", "de.wikipedia.org", "wikipedia.de", "yahoo.com", "login.yahoo.com", "www.tumblr.com"];
 
 ffpwwe.options = ffpwwe.options || {};
 
@@ -205,7 +205,7 @@ ffpwwe.options.insertSecusoWhitelist = function () {
             ffpwwe.db.insert("httpToHttpsRedirects", secusoWhitelist[i]);
         }
         for (var k = 0; k < secusoWhitelist.length; k++) {
-            ffpwwe.db.insert("userVerifiedDomains", secusoWhitelist[i]);
+            ffpwwe.db.insert("userVerifiedDomains", secusoWhitelist[k]);
         }
 
     document.getElementById("deleteHttps").disabled = false;
