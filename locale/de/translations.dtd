@@ -102,7 +102,7 @@ blockiert werden.">
 
 <!ENTITY captionWhitelist "Empfohlene Ausnahmen">
 <!ENTITY addWhitelist "Hinzufügen">
-<!ENTITY captionHttps "Https Weiterleitungen">
+<!ENTITY captionHttps "Https Weiterleitungen (Sicherer Modus)">
 <!ENTITY deleteHttps "Löschen">
 <!ENTITY clearHttps "Liste leeren">
 <!ENTITY captionExceptions "Webseiten Ausnahmen">

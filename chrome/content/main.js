@@ -84,8 +84,10 @@ ffpwwe.processDOM = function () {
         ffpwwe.prefs.setIntPref("starts", 0);
         const windowWidth = 300;
         const windowHeight = 120;
+        var dimension = ffpwwe.calcWindowPosition(windowWidth,windowHeight);
+
         var params = {inn:{question: document.getElementById("firefoxpasswordwarning-strings").getString("check_Exceptions")}, out:{accept:false}};
-        window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/checkExceptions.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+"",params);
+        window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/checkExceptions.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"",params);
 
         if(params.out.accept) {
             ffpwwe.checkForHttps();
@@ -103,8 +105,9 @@ ffpwwe.checkForHttps = function () {
     var checkDone = {inn:{message: document.getElementById("firefoxpasswordwarning-strings").getString("exception_check_done")}};
     const windowWidth = 300;
     const windowHeight = 100;
+    var dimension = ffpwwe.calcWindowPosition(windowWidth,windowHeight);
 
-    window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/messageInformation.xul", "bmarks", "chrome, centerscreen, dialog,resizable=no, modal,width="+windowWidth+",height="+windowHeight+"",checkDone);
+    window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/messageInformation.xul", "bmarks", "chrome, centerscreen, dialog,resizable=no, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"",checkDone);
 };
 
 ffpwwe.sslAvailableCheck = function (checkUrl) {

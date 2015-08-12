@@ -43,9 +43,9 @@
             var paramsFirstrun = {inn:{message: document.getElementById("firefoxpasswordwarning-strings").getString("first_start_message")}};
             const windowWidth = 300;
             const windowHeight = 100;
-
             var dimension = ffpwwe.calcWindowPosition(windowWidth,windowHeight);
-            window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/messageInformation.xul", "bmarks", "chrome, centerscreen, dialog,resizable=no, modal,width="+windowWidth+",height="+windowHeight+"",paramsFirstrun);
+
+            window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/messageInformation.xul", "bmarks", "chrome, centerscreen, dialog,resizable=no, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"",paramsFirstrun);
             window.openDialog('chrome://firefoxpasswordwarningextension/content/options.xul');
         }, 1000);
     }

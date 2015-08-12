@@ -98,7 +98,7 @@
                 <tab label="&exceptions;"/>
             </tabs>
             <tabpanels>
-                <tabpanel id="maintab" height="420" orient="vertical">
+                <tabpanel id="maintab" height="421" orient="vertical">
                     <groupbox>
                         <caption label="&appearance;"/>
                         <description value="&securecase-appearance;"/>
@@ -251,7 +251,7 @@
                             <groupbox>
                                 <caption label="&captionWhitelist;"/>
                                 <description style="white-space: pre;">&secusoWhitelistText;</description>
-                                <button label="&addWhitelist;" width="100px" oncommand="ffpwwe.options.insertSecusoWhitelist()"/>
+                                <button label="&addWhitelist;" oncommand="ffpwwe.options.insertSecusoWhitelist()"/>
                             </groupbox>
                         </rows>
                     </grid>

@@ -126,7 +126,7 @@ found on www.secuso.org/passsec">
 
 <!ENTITY captionWhitelist "Recommended exceptions">
 <!ENTITY addWhitelist "Add">
-<!ENTITY captionHttps "Https forwarding">
+<!ENTITY captionHttps "Https forwarding (secure mode)">
 <!ENTITY deleteHttps "Delete">
 <!ENTITY clearHttps "Clear list">
 <!ENTITY captionExceptions "Website exceptions">

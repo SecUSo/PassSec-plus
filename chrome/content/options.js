@@ -19,16 +19,17 @@
  *=========================================================================*/
 
 var ffpwwe = ffpwwe || {};
-var secusoWhitelist = ["www.google.de","www.facebook.com","www.youtube.com", "www.google.com", "de.wikipedia.org", "wikipedia.de", "yahoo.com", "login.yahoo.com", "www.tumblr.com"];
+var secusoWhitelist = ["www.google.de","de-de.facebook.com","www.youtube.com", "www.google.com", "de.wikipedia.org", "wikipedia.de", "de.yahoo.com", "login.yahoo.com", "www.tumblr.com"];
 
 ffpwwe.options = ffpwwe.options || {};
 
 ffpwwe.options.restoreInitialState = function () {
   const windowWidth = 400;
   const windowHeight = 80;
+  var dimension = ffpwwe.calcWindowPosition(windowWidth,windowHeight);
 
   paramsConfirm = {out:{accept:false}};
-  window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/resetDialog.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+"", paramsConfirm);
+  window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/resetDialog.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"", paramsConfirm);
   if (paramsConfirm.out.accept) {
     // drop all database tables
     ffpwwe.db.dropTables();
@@ -212,6 +213,15 @@ ffpwwe.options.insertSecusoWhitelist = function () {
     document.getElementById("clearHttps").disabled = false;
 
     ffpwwe.options.clearHttpsList(false);
+
+
+        var addDone = {inn:{message: document.getElementById("firefoxpasswordwarning-strings").getString("secuso_whitelist_add")}};
+        const windowWidth = 300;
+        const windowHeight = 100;
+        var dimension = ffpwwe.calcWindowPosition(windowWidth,windowHeight);
+
+        window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/messageInformation.xul", "bmarks", "chrome, centerscreen, dialog,resizable=no, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"",addDone);
+
     ffpwwe.options.loadHttpsList();
 };
 
@@ -225,8 +235,9 @@ ffpwwe.options.checkForHttps = function () {
     var checkDone = {inn:{message: document.getElementById("firefoxpasswordwarning-strings").getString("exception_check_done")}};
     const windowWidth = 300;
     const windowHeight = 100;
+    var dimension = ffpwwe.calcWindowPosition(windowWidth,windowHeight);
 
-    window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/messageInformation.xul", "bmarks", "chrome, centerscreen, dialog,resizable=no, modal,width="+windowWidth+",height="+windowHeight+"",checkDone);
+    window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/messageInformation.xul", "bmarks", "chrome, centerscreen, dialog,resizable=no, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"",checkDone);
 };
 
 ffpwwe.options.sslAvailableCheck = function (checkUrl) {

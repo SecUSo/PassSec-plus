@@ -34,10 +34,11 @@ ffpwwe.api.goToHttps = function (target) {
 
     const windowWidth = 350;
     const windowHeight = 200;
+    var dimension = ffpwwe.calcWindowPosition(windowWidth,windowHeight);
 
     var domainDisplay = domain.split("").join(" ");
     var params = {inn:{question: strbundle.getString("confirm_url").replace(/<insert-url>/g, domainDisplay)}, out:{accept:false}};
-    window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+"",params);
+    window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"",params);
 
 	if(params.out.accept) {
         // insert the new exception into the databases
@@ -115,10 +116,11 @@ ffpwwe.api.disableOnThisPage = function () {
 
     const windowWidth = 400;
     const windowHeight = 270;
+    var dimension = ffpwwe.calcWindowPosition(windowWidth,windowHeight);
 
     var domainDisplay = domain.split("").join(" ");
     var params = {inn:{question: strbundle.getString("add_exception").replace(/<insert-url>/g, domainDisplay)}, out:{accept:false}};
-	window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.xul", "bmarks", "chrome, centerscreen, dialog, modal,width="+windowWidth+",height="+windowHeight+"",params);
+	window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.xul", "bmarks", "chrome, centerscreen, dialog, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"",params);
 
     //var disable = window.confirm(strbundle.getString("add_exception").replace("<insert-url>", domain));
     if (params.out.accept) {
