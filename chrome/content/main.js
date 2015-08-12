@@ -42,6 +42,7 @@ ffpwwe.toolbarButtonClick = function(event) {
             break;
         case 2: // Right click
             //alert("Rechts Klick");
+            window.openDialog('chrome://firefoxpasswordwarningextension/content/options.xul');
             break;
     }
 };
@@ -66,9 +67,9 @@ ffpwwe.onTabChange = function () {
 // A page ist build by page>frame>form>field
 
 ffpwwe.processDOM = function () {
-
     if (content === null) return;
 
+    //ffpwwe.prefs.setIntPref("starts", 0);
     //Hide the popup initially
     document.getElementById('warnpanel2').hidePopup();
     var location = content.document.location;
@@ -76,7 +77,85 @@ ffpwwe.processDOM = function () {
     ffpwwe.page = ffpwwe.page || ffpwwe.pageHandler();
     ffpwwe.page = (ffpwwe.page.href == location.href) ? ffpwwe.page : ffpwwe.pageHandler();
     ffpwwe.page.parseDocument();
+
+    var starts = ffpwwe.prefs.getIntPref("starts");
+    var interval = ffpwwe.prefs.getIntPref("exception_interval");
+    if(starts > interval - 1) {
+        ffpwwe.prefs.setIntPref("starts", 0);
+        const windowWidth = 300;
+        const windowHeight = 120;
+        var params = {inn:{question: document.getElementById("firefoxpasswordwarning-strings").getString("check_Exceptions")}, out:{accept:false}};
+        window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/checkExceptions.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+"",params);
+
+        if(params.out.accept) {
+            ffpwwe.checkForHttps();
+        }
+    }
 };
+
+ffpwwe.checkForHttps = function () {
+    var pageExceptions = ffpwwe.db.getAll("pageExceptions");
+
+    for (var i = 0; i < pageExceptions.length; i++) {
+        ffpwwe.sslAvailableCheck(pageExceptions[i]);
+    }
+
+    var checkDone = {inn:{message: document.getElementById("firefoxpasswordwarning-strings").getString("exception_check_done")}};
+    const windowWidth = 300;
+    const windowHeight = 100;
+
+    window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/messageInformation.xul", "bmarks", "chrome, centerscreen, dialog,resizable=no, modal,width="+windowWidth+",height="+windowHeight+"",checkDone);
+};
+
+ffpwwe.sslAvailableCheck = function (checkUrl) {
+    var url = checkUrl;
+
+    if(!url.startsWith("http://")) {
+        url = "http://" + url;
+    }
+
+    var sslUrl = url.replace("http://", "https://");
+    var sslAvailableCheckPromise = new Promise(function (resolve, reject) {
+        if (url.match(/http:/)) {
+
+            ffpwwe.debug("starting ssl availability check for '" + sslUrl + "'");
+            var httpsRequest = new XMLHttpRequest();
+            httpsRequest.open("HEAD", sslUrl);
+            httpsRequest.onreadystatechange = function () {
+                if (this.readyState == this.DONE) {
+                    let sslAvail = this.status >= 200 && this.status <= 299 && !!this.responseURL.match(/https:/);
+                    // test async
+                    //window.setTimeout(function () { resolve(sslAvail, sslUrl); }, 5000);
+                    ffpwwe.debug("ssl availability check done with result: " + sslAvail);
+                    resolve(sslAvail);
+                }
+            };
+            httpsRequest.send();
+        } else {
+            // if the page was not a http page, https cannot be available
+            resolve(false);
+        }
+    });
+    var sslAvailableCheck = {
+        promise: sslAvailableCheckPromise,
+        done: false,
+        sslAvailable: undefined,
+        sslUrl: undefined
+    };
+    sslAvailableCheckPromise.then(function (sslAvailable) {
+        sslAvailableCheck.done = true;
+        sslAvailableCheck.sslAvailable = sslAvailable;
+        sslAvailableCheck.sslUrl = sslUrl;
+        if(sslAvailable) {
+            ffpwwe.db.insert("httpToHttpsRedirects", url);
+            ffpwwe.db.insert("userVerifiedDomains", url);
+            ffpwwe.db.deleteItem("pageExceptions", "url", checkUrl);
+        }
+    });
+
+    return sslAvailableCheck;
+};
+
 
 ffpwwe.debug("STARTING...");
 

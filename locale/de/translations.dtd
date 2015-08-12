@@ -10,16 +10,18 @@
 <!ENTITY background "Hintergrund">
 <!ENTITY popup "Popup">
 <!ENTITY popuponclick "Popup bei Klick">
-<!ENTITY optionscaption3 "Ursprungszustand wiederherstellen">
-<!ENTITY resetexceptions "Ursprungszustand wiederherstellen">
+<!ENTITY optionscaption3 "Einstellungen zurücksetzen">
+<!ENTITY resetexceptions "Einstellungen zurücksetzen">
 <!ENTITY resetinfo "Diese Option ist relevant, wenn Sie bei der bisherigen Nutzung
 des Add-Ons für Webseiten den 'sicheren Modus' gewählt haben,
 bzw. entschieden haben, nicht mehr gewarnt zu werden. Wenn
 Sie diesen Button klicken, dann werden diese Einstellungen
-gelöscht und Sie sehen wieder bei allen Webseiten die nicht
-sicher sind die Warnung.">
+zurückgesetzt und Sie sehen bei allen Webseiten, die nicht
+sicher sind, wieder die Warnung.">
 <!ENTITY optionscaption4 "Debug-Modus">
 <!ENTITY debug "Debug">
+<!ENTITY checkExceptionsAuto "Bei jedem 20. Start von Firefox Ausnahmen prüfen.">
+<!ENTITY checkExceptionsAutoTooltip "Diese Überprüfung deint dazu, die Liste von Ausnahmen aktuell zu halten.">
 <!ENTITY usephishingwotdetection "Informationen bei Web Of Trust abrufen">
 <!ENTITY phishingwotinfotext "Aktivieren Sie diese Option, um gewarnt zu werden, falls Sie eine Seite besuchen,
 die durch das Web Of Trust (mywot.com) als Phishing-Seite markiert wurde.">
@@ -78,7 +80,7 @@ blockiert werden.">
 <!ENTITY buttonCookies "Cookie Einstellungen ändern">
 
 <!-- Reset Dialog: -->
-<!ENTITY resetDialogText "Wollen Sie wirklich Ihre ursprünglichen Einstellungen wiederherstellen?">
+<!ENTITY resetDialogText "Wollen Sie wirklich Ihre Einstellungen zurücksetzen?">
 
 <!-- Values of different Items (Popup, Notification Bar,...): -->
 <!ENTITY disableforthispage "Ausnahme hinzufügen">

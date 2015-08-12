@@ -44,6 +44,8 @@
                         name="extensions.firefoxpasswordwarning.searchfields" type="bool"/>
             <preference id="firefox-password-warning-extension-isbrokensecure"
                         name="extensions.firefoxpasswordwarning.isbrokensecure" type="bool"/>
+            <preference id="firefox-password-warning-extension-checkExeptionAuto"
+                        name="extensions.firefoxpasswordwarning.checkExeptionAuto" type="bool"/>
         </preferences>
 
         <!--
@@ -225,11 +227,6 @@
                     <grid>
                         <rows>
                             <groupbox>
-                                <caption label="&captionWhitelist;"/>
-                                <description style="white-space: pre;">&secusoWhitelistText;</description>
-                                <button label="&addWhitelist;" width="100px" oncommand="ffpwwe.options.insertSecusoWhitelist()"/>
-                            </groupbox>
-                            <groupbox>
                                 <caption label="&captionHttps;"/>
                                 <row><listbox id="https_list" width="349px" height="80px"/></row>
                                 <row>
@@ -245,9 +242,17 @@
                                     <button id="clearExceptions" label="&clearExceptions;" oncommand="ffpwwe.options.clearPageExceptions(true)"/>
                                     <button id="checkExceptions" label="&checkExceptions;" oncommand="ffpwwe.options.checkForHttps()"/>
                                 </row>
-
+                                <row>
+                                    <checkbox id="checkExceptionBox" label="&checkExceptionsAuto;"
+                                              preference="firefox-password-warning-extension-checkExeptionAuto"
+                                              tooltiptext="&checkExceptionsAutoTooltip;"/>
+                                </row>
                             </groupbox>
-
+                            <groupbox>
+                                <caption label="&captionWhitelist;"/>
+                                <description style="white-space: pre;">&secusoWhitelistText;</description>
+                                <button label="&addWhitelist;" width="100px" oncommand="ffpwwe.options.insertSecusoWhitelist()"/>
+                            </groupbox>
                         </rows>
                     </grid>
                 </tabpanel>

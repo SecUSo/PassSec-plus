@@ -49,4 +49,8 @@
             window.openDialog('chrome://firefoxpasswordwarningextension/content/options.xul');
         }, 1000);
     }
+    else {
+        var starts = ffpwwe.prefs.getIntPref("starts");
+        ffpwwe.prefs.setIntPref("starts", starts+=1);
+    }
 })();
