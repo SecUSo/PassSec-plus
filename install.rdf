@@ -8,9 +8,9 @@
       <Description>
         <em:locale>de-DE</em:locale>
         <em:name>PassSec+</em:name>
-        <em:description>Zeigt in einer Sidebar Vorschaubilder der Inhalte aller offenen Tabs an.</em:description>
+        <em:description>PassSec + warnt den Benutzer davor Kennwörter auf unsicheren Webseiten einzugeben.</em:description>
         <em:creator>TU Darmstadt - SecUSo</em:creator>
-        <em:homepageURL>https://www.secuso.informatik.tu-darmstadt.de/de/research/results/passsec/</em:homepageURL>
+        <em:homepageURL>https://secuso.org/passsec</em:homepageURL>
       </Description>
     </em:localized>
     <em:localized>
