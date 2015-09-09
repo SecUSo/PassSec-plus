@@ -45,8 +45,8 @@ ffpwwe.db = function () {
             dbConn.executeSimpleSQL("CREATE TABLE IF NOT EXISTS " + database + " (url VARCHAR(100))");
 
             try {
-                let statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = '" + value + "'");
-
+                let statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = :url");
+				statement.params.url = value;
 				statement.executeAsync({
 						handleResult: function(resultSet) {
 							//fire if resultSet is not empty
@@ -58,7 +58,8 @@ ffpwwe.db = function () {
 						},
 						handleCompletion: function(reason) {
 							if (reason === 0 && !statement.executeStep()) {
-								let insertStmt = dbConn.createStatement("INSERT INTO " + database + " VALUES ('" + value + "')");
+								let insertStmt = dbConn.createStatement("INSERT INTO " + database + " VALUES (:url)");
+								insertStmt.params.url = value;
 								insertStmt.executeAsync({
 									handleError: function(error) {
 										Application.console.log("insert row error:" + error);
@@ -83,7 +84,8 @@ ffpwwe.db = function () {
             var dbConn = openConnection();
 
             try {
-                var statement = dbConn.createStatement("DELETE FROM " + database + " WHERE " + col + " = '" + value + "'");
+                var statement = dbConn.createStatement("DELETE FROM " + database + " WHERE " + col + " = :url");
+				statement.params.url = value;
                 statement.executeAsync({
                         handleError: function(error) {
                             Application.console.log("delete entry error:" + error);
@@ -129,8 +131,8 @@ ffpwwe.db = function () {
             dbConn.executeSimpleSQL("CREATE TABLE IF NOT EXISTS " + database + " (url VARCHAR(100))");
 
             try	{
-                let statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = '" + value + "'");
-
+                let statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = :url");
+				statement.params.url = value;
 				let result = !!statement.executeStep();
 				statement.reset();
 				dbConn.close();
