@@ -20,6 +20,8 @@
 
 var ffpwwe = ffpwwe || {};
 
+
+
 /**
  * Adds the stylesheet to the document, if not present
  *
@@ -27,6 +29,7 @@ var ffpwwe = ffpwwe || {};
  * @param head the head of the document
  */
 ffpwwe.addStylesheet = function (document, head) {
+	
     if (!head) {
         ffpwwe.debug("no head available to add the stylesheet");
         return;
@@ -73,14 +76,16 @@ ffpwwe.addStylesheet = function (document, head) {
         '    background-size: contain !important;' +
         '    background-position: right center !important;' +
         '}\n';
-
-    var dynamicStyle = document.getElementById("firefox-password-warning-style-dynamic");
-    //If the css is not in the document, add the css to the current document
-    if (!dynamicStyle) {
-        dynamicStyle = document.createElement("style");
-        dynamicStyle.id = "firefox-password-warning-style-dynamic";
-        dynamicStyle.type = "text/css";
-        dynamicStyle.innerHTML = okImageStyle + warningImageStyle + EVImageStyle;
-        head.appendChild(dynamicStyle);
-    }
+	
+	var dynamicStyle = document.getElementById("firefox-password-warning-style-dynamic");
+	//If the css is not in the document, add the css to the current document
+	if (!dynamicStyle) {
+		dynamicStyle = document.createElement("style");
+		dynamicStyle.id = "firefox-password-warning-style-dynamic";
+		dynamicStyle.type = "text/css";
+		//dynamicStyle.innerHTML = escapeHTML(okImageStyle + warningImageStyle + EVImageStyle);
+		//dynamicStyle.innerHTML = okImageStyle + warningImageStyle + EVImageStyle;
+		$(dynamicStyle).html(okImageStyle + warningImageStyle + EVImageStyle);
+		head.appendChild(dynamicStyle);
+	}
 };
