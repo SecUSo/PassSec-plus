@@ -53,7 +53,8 @@ ffpwwe.db = function () {
 							dbConn.asyncClose();
 						},
 						handleError: function(error) {
-							Application.console.log("insert row error:" + error);
+							//Application.console.log("insert row error:" + error);
+							console.log("select row error:" + error);
 							dbConn.asyncClose();
 						},
 						handleCompletion: function(reason) {
@@ -62,7 +63,8 @@ ffpwwe.db = function () {
 								insertStmt.params.url = value;
 								insertStmt.executeAsync({
 									handleError: function(error) {
-										Application.console.log("insert row error:" + error);
+										//Application.console.log("insert row error:" + error);
+										console.log("insert row error:" + error);
 									},
 									handleCompletion: function(aReason) {
 										dbConn.asyncClose();
@@ -76,7 +78,8 @@ ffpwwe.db = function () {
 					});
             }
             catch (e) {
-                Application.console.log("error statement:" + dbConn.lastErrorString);
+                //Application.console.log("error statement:" + dbConn.lastErrorString);
+				console.log("error statement:" + dbConn.lastErrorString);
             }
 
         },
@@ -88,7 +91,8 @@ ffpwwe.db = function () {
 				statement.params.url = value;
                 statement.executeAsync({
                         handleError: function(error) {
-                            Application.console.log("delete entry error:" + error);
+                            //Application.console.log("delete entry error:" + error);
+							console.log("delete entry error:" + error);
     						dbConn.asyncClose();
                         },
                         handleCompletion: function(reason) {
@@ -97,7 +101,8 @@ ffpwwe.db = function () {
                 });
             }
             catch (e) {
-                Application.console.log("error statement:" + dbConn.lastErrorString);
+                //Application.console.log("error statement:" + dbConn.lastErrorString);
+				console.log("error statement:" + dbConn.lastErrorString);
             }
         },
         dropTable: function(database) {
@@ -108,7 +113,8 @@ ffpwwe.db = function () {
 
                 statement.executeAsync({
                         handleError: function(error) {
-                            Application.console.log("drop table error:" + error);
+                            //Application.console.log("drop table error:" + error);
+							console.log("drop table error:" + error);
                             dbConn.asyncClose();
                         },
                         handleCompletion: function(reason) {
@@ -117,7 +123,8 @@ ffpwwe.db = function () {
                 });
             }
             catch (e) {
-                Application.console.log("error statement:" + dbConn.lastErrorString);
+                //Application.console.log("error statement:" + dbConn.lastErrorString);
+				console.log("error statement:" + dbConn.lastErrorString);
             }
         },
         /**
@@ -140,7 +147,8 @@ ffpwwe.db = function () {
 				return result;
             }
             catch (error) {
-                Application.console.log("error statement:" + dbConn.lastErrorString);
+                //Application.console.log("error statement:" + dbConn.lastErrorString);
+				console.log("error statement:" + dbConn.lastErrorString);
             }
 
 			return false;
@@ -167,7 +175,8 @@ ffpwwe.db = function () {
  				return result;
              }
              catch (error) {
-                 Application.console.log("error statement:" + dbConn.lastErrorString);
+                 //Application.console.log("error statement:" + dbConn.lastErrorString);
+				 console.log("error statement:" + dbConn.lastErrorString);
              }
 
  			return [];
@@ -185,7 +194,8 @@ ffpwwe.db = function () {
 
 			dbConn.executeAsync(statements,statements.length,{
                     handleError: function(error) {
-                        Application.console.log("drop table error:" + error);
+                        //Application.console.log("drop table error:" + error);
+						console.log("drop table error:" + error);
 						dbConn.asyncClose();
                     },
                     handleCompletion: function(reason) {
