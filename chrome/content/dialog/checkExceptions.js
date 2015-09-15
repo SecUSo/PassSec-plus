@@ -26,5 +26,5 @@ function pressedOK() {
 
 function onLoad() {
   // Use the arguments passed to us by the caller
-  document.getElementById("question").innerHTML = window.arguments[0].inn.question;
+  $("#question").html(window.arguments[0].inn.question);
 }

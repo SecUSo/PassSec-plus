@@ -38,6 +38,8 @@ ffpwwe.api.goToHttps = function (target) {
 
     var domainDisplay = domain.split("").join(" ");
     var params = {inn:{question: strbundle.getString("confirm_url").replace(/<insert-url>/g, domainDisplay)}, out:{accept:false}};
+	
+	
     window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"",params);
 
 	if(params.out.accept) {
