@@ -31,7 +31,7 @@ ffpwwe.debug = function (text, verbose) {
     }
 
     if (ffpwwe.prefs.getBoolPref("debug")) {
-        Application.console.log(ffpwwe.prefs.getBoolPref("debug.verbose"));
+        console.log(ffpwwe.prefs.getBoolPref("debug.verbose"));
         dump("FirefoxPasswordWarningExtension: " + text + "\n");
     }
 };
