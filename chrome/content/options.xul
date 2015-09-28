@@ -98,7 +98,7 @@
                 <tab label="&exceptions;"/>
             </tabs>
             <tabpanels>
-                <tabpanel id="maintab" height="421" orient="vertical">
+                <tabpanel id="maintab" height="455" orient="vertical">
                     <groupbox>
                         <caption label="&appearance;"/>
                         <description value="&securecase-appearance;"/>

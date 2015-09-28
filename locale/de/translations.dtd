@@ -98,7 +98,9 @@ blockiert werden.">
 
 <!-- Exceptions Tab: -->
 <!ENTITY exceptions "Ausnahmen">
-<!ENTITY secusoWhitelistText "TEST">
+<!ENTITY secusoWhitelistText "Es besteht die Möglichkeit einige von SECUSO ausgewählten
+Standard-Ausnahmen hinzuzufügen. Eine Liste mit
+Ausnahmen ist unter www.secuso.org/passsec verfügbar.">
 
 <!ENTITY captionWhitelist "Empfohlene Ausnahmen">
 <!ENTITY addWhitelist "Hinzufügen">

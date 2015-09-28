@@ -19,7 +19,7 @@ deleted and you will see the warnings again for all insecure all
 websites.">
 <!ENTITY optionscaption4 "Debug mode">
 <!ENTITY debug "Debug">
-<!ENTITY checkExceptionsAuto "Bei jedem 20. Start von Firefox Ausnahmen prüfen.">
+<!ENTITY checkExceptionsAuto "Check exeptions automatically after 20 Firefox starts.">
 <!ENTITY checkExceptionsAutoTooltip "Diese Überprüfung deint dazu, die Liste von Ausnahmen aktuell zu halten.">
 <!ENTITY usephishingwotdetection "Retrieve information from Web of Trust">
 <!ENTITY phishingwotinfotext "Enable this option to see warnings in the future if you visit
