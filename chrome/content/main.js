@@ -54,13 +54,16 @@ ffpwwe.getHttpsRidirectState = function () {
 ffpwwe.onTabChange = function () {
 
     var statusButton = document.getElementById('toolbarButton');
-    if(ffpwwe.getHttpsRidirectState()) {
-        statusButton.setAttribute('value', 'redirectOn');
-        statusButton.setAttribute('tooltiptext', document.getElementById("firefoxpasswordwarning-strings").getString("forward_active"));
-    }
-    else {
-        statusButton.setAttribute('value', 'redirectOff');
-        statusButton.setAttribute('tooltiptext', document.getElementById("firefoxpasswordwarning-strings").getString("forward_inactive"));
+
+    if (statusButton != null) {
+        if(ffpwwe.getHttpsRidirectState()) {
+            statusButton.setAttribute('value', 'redirectOn');
+            statusButton.setAttribute('tooltiptext', document.getElementById("firefoxpasswordwarning-strings").getString("forward_active"));
+        }
+        else {
+            statusButton.setAttribute('value', 'redirectOff');
+            statusButton.setAttribute('tooltiptext', document.getElementById("firefoxpasswordwarning-strings").getString("forward_inactive"));
+        }
     }
 };
 
