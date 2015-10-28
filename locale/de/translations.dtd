@@ -16,8 +16,8 @@
 des Add-Ons für Webseiten den 'sicheren Modus' gewählt haben,
 bzw. entschieden haben, nicht mehr gewarnt zu werden. Wenn
 Sie diesen Button klicken, dann werden diese Einstellungen
-zurückgesetzt und Sie sehen bei allen Webseiten, die nicht
-sicher sind, wieder die Warnung.">
+zurückgesetzt und Sie sehen bei allen Webseiten, die nicht sicher
+sind, wieder die Warnung.">
 <!ENTITY optionscaption4 "Debug-Modus">
 <!ENTITY debug "Debug">
 <!ENTITY checkExceptionsAuto "Bei jedem 20. Start von Firefox Ausnahmen prüfen.">
@@ -45,8 +45,8 @@ Dadurch erhöht sich die Verzögerung, aber die Anfragen werden anonymisiert.">
 <!ENTITY paymentfields "Felder für Zahlungsdaten (z.B. Kreditkartennummern)">
 <!ENTITY isbrokensecure "BROKEN HTTPS-Verbindung als sicher einstufen">
 <!ENTITY isbrokensecuredesc "BROKEN-HTTPS bedeutet, dass die Webseite mit HTTPS
-verschlüsselt ist, jedoch auch Elemente enthält die un-
-verschlüsselt sind und deswegen standardmäßig vom Browser
+verschlüsselt ist, jedoch auch Elemente enthält die unver-
+schlüsselt sind und deswegen standardmäßig vom Browser
 blockiert werden.">
 <!ENTITY httpssecurity "HTTPS-Sicherheit">
 
@@ -98,9 +98,15 @@ blockiert werden.">
 
 <!-- Exceptions Tab: -->
 <!ENTITY exceptions "Ausnahmen">
+<<<<<<< HEAD
 <!ENTITY secusoWhitelistText "Es besteht die Möglichkeit einige von SECUSO ausgewählten
 Standard-Ausnahmen hinzuzufügen. Eine Liste mit
 Ausnahmen ist unter www.secuso.org/passsec verfügbar.">
+=======
+<!ENTITY secusoWhitelistText "Hier können Sie  Ausnahmen hinzufügen die von SECUSO
+empfohlen werden. Mehr Informationen und eine Liste der
+Ausnahmen finden Sie auf www.secuso.org/passsec.">
+>>>>>>> origin/master
 
 <!ENTITY captionWhitelist "Empfohlene Ausnahmen">
 <!ENTITY addWhitelist "Hinzufügen">

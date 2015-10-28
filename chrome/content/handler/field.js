@@ -307,10 +307,11 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
             var domainInResponse = isDomainInResponse(doc, "r", domain);
 
             if (suggestions.length == 4) {
-                detection.search = true;
-                let suggestion = suggestions[1].href.match(/q=((\w|-)*\.\w*)&/)[1];
-				alert(suggestion.textContent);
-                showPhishingBox("phishing_text_1_g", suggestion);
+                let suggestion = suggestions[1].href.match(/q=(\S*)&spell/)[1];
+                if (suggestion != "www." + domain && suggestion != "http://" + domain && suggestion != "http://www." + domain && suggestion != "https://" + domain && suggestion != "https://" + domain) {
+                    detection.search = true;
+                    showPhishingBox("phishing_text_1_g", suggestion);
+                }
             } else if (!domainInResponse) {
                 detection.search = true;
                 showPhishingBox("phishing_text_2", undefined);

@@ -50,7 +50,9 @@
         }, 1000);
     }
     else {
-        var starts = ffpwwe.prefs.getIntPref("starts");
-        ffpwwe.prefs.setIntPref("starts", starts+=1);
+        if (ffpwwe.prefs.getBoolPref("checkExceptionAuto")) {
+            var starts = ffpwwe.prefs.getIntPref("starts");
+            ffpwwe.prefs.setIntPref("starts", starts+=1);
+        }
     }
 })();
