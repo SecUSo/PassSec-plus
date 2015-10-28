@@ -44,8 +44,8 @@
                         name="extensions.firefoxpasswordwarning.searchfields" type="bool"/>
             <preference id="firefox-password-warning-extension-isbrokensecure"
                         name="extensions.firefoxpasswordwarning.isbrokensecure" type="bool"/>
-            <preference id="firefox-password-warning-extension-checkExeptionAuto"
-                        name="extensions.firefoxpasswordwarning.checkExeptionAuto" type="bool"/>
+            <preference id="firefox-password-warning-extension-checkExceptionAuto"
+                        name="extensions.firefoxpasswordwarning.checkExceptionAuto" type="bool"/>
         </preferences>
 
         <!--
@@ -132,9 +132,9 @@
                     </groupbox>
 
                     <groupbox>
-          						<caption label="&optionsCookies;"/>
-          						<button label="&buttonCookies;" oncommand="ffpwwe.cookieOption.showWindow();"/>
-          					</groupbox>
+  						<caption label="&optionsCookies;"/>
+  						<button label="&buttonCookies;" oncommand="ffpwwe.cookieOption.showWindow();"/>
+  					</groupbox>
 
                     <groupbox>
                         <caption label="&optionscaption3;"/>
@@ -228,7 +228,7 @@
                         <rows>
                             <groupbox>
                                 <caption label="&captionHttps;"/>
-                                <row><listbox id="https_list" width="349px" height="80px"/></row>
+                                <row><listbox id="https_list" width="410px" height="80px"/></row>
                                 <row>
                                     <button id="deleteHttps" label="&deleteHttps;" oncommand="ffpwwe.options.removeHttpsItem()"/>
                                     <button id="clearHttps" label="&clearHttps;" oncommand="ffpwwe.options.clearHttpsList(true)"/>
@@ -236,7 +236,7 @@
                             </groupbox>
                             <groupbox>
                                 <caption label="&captionExceptions;"/>
-                                <row><listbox id="pageExceptions" width="349px" height="80px"/></row>
+                                <row><listbox id="pageExceptions" width="410px" height="80px"/></row>
                                 <row>
                                     <button id="deleteException" label="&deleteException;" oncommand="ffpwwe.options.removePageExceptionItem()"/>
                                     <button id="clearExceptions" label="&clearExceptions;" oncommand="ffpwwe.options.clearPageExceptions(true)"/>
@@ -244,7 +244,7 @@
                                 </row>
                                 <row>
                                     <checkbox id="checkExceptionBox" label="&checkExceptionsAuto;"
-                                              preference="firefox-password-warning-extension-checkExeptionAuto"
+                                              preference="firefox-password-warning-extension-checkExceptionAuto"
                                               tooltiptext="&checkExceptionsAutoTooltip;"/>
                                 </row>
                             </groupbox>

@@ -77,23 +77,28 @@ ffpwwe.processDOM = function () {
     document.getElementById('warnpanel2').hidePopup();
     var location = content.document.location;
 
+    if (location == "about:home")
+        return;
+
     ffpwwe.page = ffpwwe.page || ffpwwe.pageHandler();
     ffpwwe.page = (ffpwwe.page.href == location.href) ? ffpwwe.page : ffpwwe.pageHandler();
     ffpwwe.page.parseDocument();
 
-    var starts = ffpwwe.prefs.getIntPref("starts");
-    var interval = ffpwwe.prefs.getIntPref("exception_interval");
-    if(starts > interval - 1) {
-        ffpwwe.prefs.setIntPref("starts", 0);
-        const windowWidth = 300;
-        const windowHeight = 120;
-        var dimension = ffpwwe.calcWindowPosition(windowWidth,windowHeight);
+    if (ffpwwe.prefs.getBoolPref("checkExceptionAuto")){
+        var starts = ffpwwe.prefs.getIntPref("starts");
+        var interval = ffpwwe.prefs.getIntPref("exception_interval");
+        if(starts > interval - 1) {
+            ffpwwe.prefs.setIntPref("starts", 0);
+            const windowWidth = 300;
+            const windowHeight = 120;
+            var dimension = ffpwwe.calcWindowPosition(windowWidth,windowHeight);
 
-        var params = {inn:{question: document.getElementById("firefoxpasswordwarning-strings").getString("check_Exceptions")}, out:{accept:false}};
-        window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/checkExceptions.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"",params);
+            var params = {inn:{question: document.getElementById("firefoxpasswordwarning-strings").getString("check_Exceptions")}, out:{accept:false}};
+            window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/checkExceptions.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"",params);
 
-        if(params.out.accept) {
-            ffpwwe.checkForHttps();
+            if(params.out.accept) {
+                ffpwwe.checkForHttps();
+            }
         }
     }
 };

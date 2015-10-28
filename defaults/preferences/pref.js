@@ -35,7 +35,7 @@ pref("extensions.firefoxpasswordwarning.styleEVimage", "chrome://firefoxpassword
 pref("extensions.firefoxpasswordwarning.firstrun", true);
 pref("extensions.firefoxpasswordwarning.starts", 0);
 pref("extensions.firefoxpasswordwarning.exception_interval", 20);
-pref("extensions.firefoxpasswordwarning.checkExeptionAuto", false);
+pref("extensions.firefoxpasswordwarning.checkExceptionAuto", false);
 pref("extensions.firefoxpasswordwarning.personalfields", false);
 pref("extensions.firefoxpasswordwarning.searchfields", false);
 pref("extensions.firefoxpasswordwarning.paymentfields", true);
@@ -59,7 +59,7 @@ pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.styleEVimage", 
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.firstrun", true);
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.starts", 0);
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.exception_interval", 20);
-pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.checkExeptionAuto", false);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.checkExceptionAuto", false);
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.personalfields", true);
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.searchfields", true);
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.paymentfields", true);
