@@ -52,7 +52,6 @@ ffpwwe.getHttpsRidirectState = function () {
 };
 
 ffpwwe.onTabChange = function () {
-
     var statusButton = document.getElementById('toolbarButton');
 
     if (statusButton != null) {
@@ -77,7 +76,7 @@ ffpwwe.processDOM = function () {
     document.getElementById('warnpanel2').hidePopup();
     var location = content.document.location;
 
-    if (location == "about:home")
+    if (location == "about:home" || location == "about:newtab")
         return;
 
     ffpwwe.page = ffpwwe.page || ffpwwe.pageHandler();
@@ -87,10 +86,11 @@ ffpwwe.processDOM = function () {
     if (ffpwwe.prefs.getBoolPref("checkExceptionAuto")){
         var starts = ffpwwe.prefs.getIntPref("starts");
         var interval = ffpwwe.prefs.getIntPref("exception_interval");
+        
         if(starts > interval - 1) {
             ffpwwe.prefs.setIntPref("starts", 0);
             const windowWidth = 300;
-            const windowHeight = 120;
+            const windowHeight = 140;
             var dimension = ffpwwe.calcWindowPosition(windowWidth,windowHeight);
 
             var params = {inn:{question: document.getElementById("firefoxpasswordwarning-strings").getString("check_Exceptions")}, out:{accept:false}};
@@ -113,7 +113,6 @@ ffpwwe.checkForHttps = function () {
     const windowWidth = 300;
     const windowHeight = 100;
     var dimension = ffpwwe.calcWindowPosition(windowWidth,windowHeight);
-
     var checkDone = {inn:{message: document.getElementById("firefoxpasswordwarning-strings").getString("exception_check_done")}};
     window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/messageInformation.xul", "bmarks", "chrome, centerscreen, dialog,resizable=no, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"",checkDone);
 };
@@ -127,12 +126,13 @@ ffpwwe.sslAvailableCheck = function (checkUrl) {
 
     var sslUrl = url.replace("http://", "https://");
     var sslAvailableCheckPromise = new Promise(function (resolve, reject) {
+        
         if (url.match(/http:/)) {
-
             ffpwwe.debug("starting ssl availability check for '" + sslUrl + "'");
             var httpsRequest = new XMLHttpRequest();
             httpsRequest.open("HEAD", sslUrl);
             httpsRequest.onreadystatechange = function () {
+                
                 if (this.readyState == this.DONE) {
                     let sslAvail = this.status >= 200 && this.status <= 299 && !!this.responseURL.match(/https:/);
                     // test async
@@ -157,6 +157,7 @@ ffpwwe.sslAvailableCheck = function (checkUrl) {
         sslAvailableCheck.done = true;
         sslAvailableCheck.sslAvailable = sslAvailable;
         sslAvailableCheck.sslUrl = sslUrl;
+        
         if(sslAvailable) {
             ffpwwe.db.insert("httpToHttpsRedirects", url);
             ffpwwe.db.insert("userVerifiedDomains", url);
@@ -172,13 +173,6 @@ ffpwwe.debug("STARTING...");
 
 //Everytime the DOMContent is loaded the .init method starts
 window.addEventListener("DOMContentLoaded", ffpwwe.processDOM, false);
-
-/*Debugging the exception checker
-ffpwwe.db.insert("pageExceptions","web.de");
-ffpwwe.db.insert("pageExceptions","http://www.gmx.net");
-ffpwwe.db.insert("pageExceptions","http://www.google.de");
-ffpwwe.db.insert("pageExceptions","http://www.kicker.de");
-*/
 
 //If the tab changes run our script again to prevent the tooltip from showing in other open tabs
 var container = gBrowser.tabContainer;

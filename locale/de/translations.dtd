@@ -103,7 +103,7 @@ empfohlen werden. Mehr Informationen und eine Liste der
 Ausnahmen finden Sie auf www.secuso.org/passsec.">
 
 <!ENTITY captionWhitelist "Empfohlene Ausnahmen">
-<!ENTITY addWhitelist "Hinzufügen">
+<!ENTITY addWhitelist "Empfohlene Ausnahmen hinzufügen">
 <!ENTITY captionHttps "Https Weiterleitungen (Sicherer Modus)">
 <!ENTITY deleteHttps "Löschen">
 <!ENTITY clearHttps "Liste leeren">

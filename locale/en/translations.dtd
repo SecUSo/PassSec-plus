@@ -15,11 +15,11 @@
 <!ENTITY resetinfo "This option is relevant if you have previously used 'secure mode'
 on websites, or have decided that you no longer want to be
 warned. When you click this button, these settings will be deleted
-and you will see the warnings again for all insecure all websites.">
+and you will see the warnings again for all insecure websites.">
 <!ENTITY optionscaption4 "Debug mode">
 <!ENTITY debug "Debug">
-<!ENTITY checkExceptionsAuto "Check exeptions automatically after 20 Firefox starts.">
-<!ENTITY checkExceptionsAutoTooltip "Diese Überprüfung deint dazu, die Liste von Ausnahmen aktuell zu halten.">
+<!ENTITY checkExceptionsAuto "Check exceptions automatically after 20 Firefox starts.">
+<!ENTITY checkExceptionsAutoTooltip "This check is used to keep the list of exceptions up to date.">
 <!ENTITY usephishingwotdetection "Retrieve information from Web of Trust">
 <!ENTITY phishingwotinfotext "Enable this option to see warnings in the future if you visit
 a page that has been marked as a phishing site by the Web of trust (mywot.com).">
@@ -29,7 +29,7 @@ a page that has been marked as a phishing site by the Web of trust (mywot.com)."
 <!ENTITY phishingsearchgoogle "Use the Google search engine to detect phishing">
 <!ENTITY phishingsearchstartpage "Startpage uses a proxy to make requests to Google.
 This increases website loading time, but also ensures that requests are made anonymously.">
-<!ENTITY appearance "Appearance">
+<!ENTITY appearance "General appearance">
 <!ENTITY defaulpw "***">
 <!ENTITY imagechange "You can change the icon for secure input here:">
 <!ENTITY securecase-appearance "Appearance, if the input is secure:">
@@ -37,7 +37,7 @@ This increases website loading time, but also ensures that requests are made ano
 <!-- <!ENTITY savesecureimage "">  -->
 <!ENTITY unsecurecase "Appearance, if the input is not secure:">
 <!ENTITY fielddetection "Types of fields, which are taken into consideration">
-<!ENTITY personalfields "Fields with further personal data (E.g. E-Mail addresses)">
+<!ENTITY personalfields "Fields with further personal data (E.g. e-mail addresses)">
 <!ENTITY searchfields "Search query fields">
 <!ENTITY passwordfields "Password fields">
 <!ENTITY paymentfields "Fields with payment information (E.g. credit card numbers)">
@@ -45,7 +45,7 @@ This increases website loading time, but also ensures that requests are made ano
 <!ENTITY isbrokensecuredesc "BROKEN-HTTPS means that the website is encrypted with HTTPS,
 but also contains elements that are not encrypted and are therefore
 blocked by default by the browser.">
-<!ENTITY httpssecurity "HTTPS Security">
+<!ENTITY httpssecurity "HTTPS security">
 
 <!-- Cookie Settings: -->
 <!ENTITY blockThirdPartyCookiesCaption "Prevent third-party cookies from being
@@ -124,7 +124,7 @@ More information and a list of exceptions can be found on
 www.secuso.org/passsec.">
 
 <!ENTITY captionWhitelist "Recommended exceptions">
-<!ENTITY addWhitelist "Add">
+<!ENTITY addWhitelist "Add recommended exceptions">
 <!ENTITY captionHttps "Https forwarding (secure mode)">
 <!ENTITY deleteHttps "Delete">
 <!ENTITY clearHttps "Clear list">

@@ -4,12 +4,21 @@
 
 	<Description about="urn:mozilla:install-manifest">
     <em:id>firefoxpasswordwarningextension@tu-darmstadt.de</em:id>
+    <em:name>PassSec+</em:name>
+    <em:description>PassSec+ alerts the user to enter passwords on websites where it could be compromised.</em:description>
+    <em:creator>TU Darmstadt - SECUSO</em:creator>
+    <em:homepageURL>https://www.secuso.informatik.tu-darmstadt.de/en/secuso-home/research/results/passsec/</em:homepageURL>
+    <em:version>1.1.5</em:version>
+    <em:type>2</em:type>
+    <em:optionsURL>chrome://firefoxpasswordwarningextension/content/options.xul</em:optionsURL>
+    <em:iconURL>chrome://firefoxpasswordwarningextension/skin/logo.png</em:iconURL>
+    
     <em:localized>
       <Description>
         <em:locale>de-DE</em:locale>
         <em:name>PassSec+</em:name>
         <em:description>PassSec + warnt den Benutzer davor Kennwörter auf unsicheren Webseiten einzugeben.</em:description>
-        <em:creator>TU Darmstadt - SecUSo</em:creator>
+        <em:creator>TU Darmstadt - SECUSO</em:creator>
         <em:homepageURL>https://secuso.org/passsec</em:homepageURL>
       </Description>
     </em:localized>
@@ -17,25 +26,17 @@
       <Description>
         <em:locale>en-GB</em:locale>
         <em:name>PassSec+</em:name>
-        <em:description>PassSec+ alerts the user to enter passwords on websites where the it could be compromised.</em:description>
-        <em:creator>TU Darmstadt - SecUSo</em:creator>
+        <em:description>PassSec+ alerts the user to enter passwords on websites where it could be compromised.</em:description>
+        <em:creator>TU Darmstadt - SECUSO</em:creator>
         <em:homepageURL>https://www.secuso.informatik.tu-darmstadt.de/en/secuso-home/research/results/passsec/</em:homepageURL>
       </Description>
     </em:localized>
-    <em:name>PassSec+</em:name>
-    <em:description>PassSec+ alerts the user to enter passwords on websites where the it could be compromised.</em:description>
-    <em:creator>TU Darmstadt - SecUSo</em:creator>
-    <em:homepageURL>https://www.secuso.informatik.tu-darmstadt.de/en/secuso-home/research/results/passsec/</em:homepageURL>
-    <em:version>1.1.4</em:version>
-		<em:type>2</em:type>
-    <em:optionsURL>chrome://firefoxpasswordwarningextension/content/options.xul</em:optionsURL>
-		<em:iconURL>chrome://firefoxpasswordwarningextension/skin/logo.png</em:iconURL>
-    <em:targetApplication>
 
+    <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>23.0</em:minVersion>
-        <em:maxVersion>42.*</em:maxVersion>
+        <em:maxVersion>43.*</em:maxVersion>
       </Description>
     </em:targetApplication>
   </Description>
