@@ -2,7 +2,7 @@
  * PassSec+ is a Firefox extension which should prevent the user from
  * entering sensitive data on insecure websites. Additionally it should
  * help the user to choose privacy friendly cookie settings.
- * Copyright (C) 2015 SecUSo
+ * Copyright (C) 2015 SECUSO
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -177,4 +177,5 @@ window.addEventListener("DOMContentLoaded", ffpwwe.processDOM, false);
 //If the tab changes run our script again to prevent the tooltip from showing in other open tabs
 var container = gBrowser.tabContainer;
 container.addEventListener("TabShow", ffpwwe.processDOM, false);
+container.addEventListener("TabClose", ffpwwe.processDOM, false);
 container.addEventListener("TabSelect", ffpwwe.onTabChange, false);
