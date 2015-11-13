@@ -28,7 +28,7 @@ pref("extensions.firefoxpasswordwarning.statistics", true);
 pref("extensions.firefoxpasswordwarning.debug", false);
 pref("extensions.firefoxpasswordwarning.debug.verbose", false);
 pref("extensions.firefoxpasswordwarning.usephishingwotdetection", true);
-pref("extensions.firefoxpasswordwarning.usephishingsearchdetection", true);
+pref("extensions.firefoxpasswordwarning.usephishingsearchdetection", false);
 pref("extensions.firefoxpasswordwarning.phishingsearchengine", "startpage");
 pref("extensions.firefoxpasswordwarning.styleokimage", "chrome://firefoxpasswordwarningextension/skin/check/orange/o_icon1.png");
 pref("extensions.firefoxpasswordwarning.styleEVimage", "chrome://firefoxpasswordwarningextension/skin/check/gruen/gr_icon1.png");
@@ -52,7 +52,7 @@ pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.background",tru
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.popup", true);
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.popuponclick",true);
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.usephishingwotdetection", true);
-pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.usephishingsearchdetection", true);
+pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.usephishingsearchdetection", false);
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.phishingsearchengine", true);
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.styleokimage", true);
 pref("services.sync.prefs.sync.extensions.firefoxpasswordwarning.styleEVimage", true);
