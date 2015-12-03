@@ -47,7 +47,7 @@ ffpwwe.toolbarButtonClick = function(event) {
     }
 };
 
-ffpwwe.getHttpsRidirectState = function () {
+ffpwwe.getHttpsRedirectState = function () {
     return httpsRedirectEnabled;
 };
 
@@ -55,7 +55,7 @@ ffpwwe.onTabChange = function () {
     var statusButton = document.getElementById('toolbarButton');
 
     if (statusButton != null) {
-        if(ffpwwe.getHttpsRidirectState()) {
+        if(ffpwwe.getHttpsRedirectState()) {
             statusButton.setAttribute('value', 'redirectOn');
             statusButton.setAttribute('tooltiptext', document.getElementById("firefoxpasswordwarning-strings").getString("forward_active"));
         }
@@ -76,7 +76,7 @@ ffpwwe.processDOM = function () {
     document.getElementById('warnpanel2').hidePopup();
     var location = content.document.location;
 
-    if (location == "about:home" || location == "about:newtab")
+    if (location == "about:home" || location == "about:newtab" ||  String(location).slice(0, 7) == "file://" ||  String(location).slice(0, 11) == "resource://")
         return;
 
     ffpwwe.page = ffpwwe.page || ffpwwe.pageHandler();

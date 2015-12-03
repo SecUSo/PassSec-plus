@@ -85,7 +85,7 @@ ffpwwe.addStylesheet = function (document, head) {
 		dynamicStyle.type = "text/css";
 		//dynamicStyle.innerHTML = escapeHTML(okImageStyle + warningImageStyle + EVImageStyle);
 		//dynamicStyle.innerHTML = okImageStyle + warningImageStyle + EVImageStyle;
-		$(dynamicStyle).html(okImageStyle + warningImageStyle + EVImageStyle);
+		$(dynamicStyle).text(okImageStyle + warningImageStyle + EVImageStyle);
 		head.appendChild(dynamicStyle);
 	}
 };

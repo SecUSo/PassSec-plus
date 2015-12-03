@@ -38,7 +38,7 @@ Dadurch erhöht sich die Verzögerung, aber die Anfragen werden anonymisiert.">
 <!ENTITY changesecureimage "Nächstes Symbol">
 <!-- <!ENTITY savesecureimage "Vorschlag übernehmen">  -->
 <!ENTITY unsecurecase "Aussehen, falls die Eingabe NICHT sicher ist:">
-<!ENTITY fielddetection "Arten von Feldern, die berücksichtig werden">
+<!ENTITY fielddetection "Arten von Feldern, die berücksichtigt werden">
 <!ENTITY personalfields "Felder für weitere persönliche Daten (z.B. E-Mail Adressen)">
 <!ENTITY searchfields "Suchanfragefelder">
 <!ENTITY passwordfields "Passwortfelder">

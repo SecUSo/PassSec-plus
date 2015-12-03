@@ -112,11 +112,11 @@ ffpwwe.pageHandler = function () {
 
                 switch (searchEngine) {
                     case "startpage":
-                        var postData = "cat=web&cmd=process_search&language=english&engine0=v1all&query=" + domain + "&abp=-1&x=0&y=0";
+                        var postData = encodeURIComponent("cat=web&cmd=process_search&language=english&engine0=v1all&query=" + domain + "&abp=-1&x=0&y=0");
                         $.post("https://startpage.com/do/search", postData, processResult);
                         break;
                     case "google":
-                        $.get("https://www.google.de/search?q=" + domain, processResult);
+                        $.get(encodeURIComponent("https://www.google.de/search?q=" + domain), processResult);
                         break;
                     default:
                         ffpwwe.debug("phishing detection search unkown search engine: '" + searchEngine + "'");
@@ -149,7 +149,7 @@ ffpwwe.pageHandler = function () {
                     resolve([response]);
                 };
 
-                $.get("https://www.mywot.com/en/scorecard/" + domain, processResult);
+                $.get(encodeURIComponent("https://www.mywot.com/en/scorecard/" + domain), processResult);
             });
 
             wotPromise.then(function () {

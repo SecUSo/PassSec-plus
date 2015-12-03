@@ -29,14 +29,16 @@ ffpwwe.httpsRedirectObserver = {
         if (topic == "http-on-modify-request") {
             var httpChannel = subject.QueryInterface(Ci.nsIHttpChannel);
 
-            if (ffpwwe.db.isInside("httpToHttpsRedirects", httpChannel.URI.host) && httpChannel.URI.schemeIs("http") && ffpwwe.getHttpsRidirectState()) {
+            if (ffpwwe.db.isInside("httpToHttpsRedirects", httpChannel.URI.host) && httpChannel.URI.schemeIs("http") && ffpwwe.getHttpsRedirectState()) {
                 Components.utils.import("resource://gre/modules/Services.jsm");
-                let newUrl = httpChannel.URI.asciiSpec.replace("http:", "https:");
+                let newUrl = httpChannel.URI.spec.replace("http:", "https:");
                 ffpwwe.debug("redirect from '" + httpChannel.URI.asciiSpec + "' to '" + newUrl + "'");
 
-                statusButton.setAttribute('value', 'redirected');
-                statusButton.setAttribute('tooltiptext', document.getElementById("firefoxpasswordwarning-strings").getString("forward_done"));
-
+                if (statusButton != null) {
+                    statusButton.setAttribute('value', 'redirected');
+                    statusButton.setAttribute('tooltiptext', document.getElementById("firefoxpasswordwarning-strings").getString("forward_done"));
+                }
+                
                 httpChannel.redirectTo(Services.io.newURI(newUrl, null, null));
             }
         }
