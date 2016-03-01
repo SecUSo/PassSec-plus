@@ -114,15 +114,15 @@ span[data-tooltip]:hover:before {
 }*/
 
 #toolbarButton[value='redirectOn']{
-  list-style-image: url("./redirectActive.png");
+  list-style-image: url("chrome://firefoxpasswordwarningextension/skin/redirectActive.png");
 }
 
 #toolbarButton[value='redirectOff']{
-  list-style-image: url("./redirectInactive.png");
+  list-style-image: url("chrome://firefoxpasswordwarningextension/skin/redirectInactive.png");
 }
 
 #toolbarButton[value='redirected']{
-  list-style-image: url("./redirected.png");
+  list-style-image: url("chrome://firefoxpasswordwarningextension/skin/redirected.png");
 }
 
 #lists {

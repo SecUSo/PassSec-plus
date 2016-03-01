@@ -2,7 +2,7 @@
  * PassSec+ is a Firefox extension which should prevent the user from
  * entering sensitive data on insecure websites. Additionally it should
  * help the user to choose privacy friendly cookie settings.
- * Copyright (C) 2015 SECUSO
+ * Copyright (C) 2016 SECUSO
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -86,7 +86,7 @@ ffpwwe.processDOM = function () {
     if (ffpwwe.prefs.getBoolPref("checkExceptionAuto")){
         var starts = ffpwwe.prefs.getIntPref("starts");
         var interval = ffpwwe.prefs.getIntPref("exception_interval");
-        
+
         if(starts > interval - 1) {
             ffpwwe.prefs.setIntPref("starts", 0);
             const windowWidth = 300;
@@ -126,13 +126,13 @@ ffpwwe.sslAvailableCheck = function (checkUrl) {
 
     var sslUrl = url.replace("http://", "https://");
     var sslAvailableCheckPromise = new Promise(function (resolve, reject) {
-        
+
         if (url.match(/http:/)) {
             ffpwwe.debug("starting ssl availability check for '" + sslUrl + "'");
             var httpsRequest = new XMLHttpRequest();
             httpsRequest.open("HEAD", sslUrl);
             httpsRequest.onreadystatechange = function () {
-                
+
                 if (this.readyState == this.DONE) {
                     let sslAvail = this.status >= 200 && this.status <= 299 && !!this.responseURL.match(/https:/);
                     // test async
@@ -157,7 +157,7 @@ ffpwwe.sslAvailableCheck = function (checkUrl) {
         sslAvailableCheck.done = true;
         sslAvailableCheck.sslAvailable = sslAvailable;
         sslAvailableCheck.sslUrl = sslUrl;
-        
+
         if(sslAvailable) {
             ffpwwe.db.insert("httpToHttpsRedirects", url);
             ffpwwe.db.insert("userVerifiedDomains", url);

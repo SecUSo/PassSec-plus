@@ -2,7 +2,7 @@
  * PassSec+ is a Firefox extension which should prevent the user from
  * entering sensitive data on insecure websites. Additionally it should
  * help the user to choose privacy friendly cookie settings.
- * Copyright (C) 2015 SECUSO
+ * Copyright (C) 2016 SECUSO
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ var ffpwwe = ffpwwe || {};
  * @param head the head of the document
  */
 ffpwwe.addStylesheet = function (document, head) {
-	
+
     if (!head) {
         ffpwwe.debug("no head available to add the stylesheet");
         return;
@@ -76,15 +76,13 @@ ffpwwe.addStylesheet = function (document, head) {
         '    background-size: contain !important;' +
         '    background-position: right center !important;' +
         '}\n';
-	
+
 	var dynamicStyle = document.getElementById("firefox-password-warning-style-dynamic");
 	//If the css is not in the document, add the css to the current document
 	if (!dynamicStyle) {
 		dynamicStyle = document.createElement("style");
 		dynamicStyle.id = "firefox-password-warning-style-dynamic";
 		dynamicStyle.type = "text/css";
-		//dynamicStyle.innerHTML = escapeHTML(okImageStyle + warningImageStyle + EVImageStyle);
-		//dynamicStyle.innerHTML = okImageStyle + warningImageStyle + EVImageStyle;
 		$(dynamicStyle).text(okImageStyle + warningImageStyle + EVImageStyle);
 		head.appendChild(dynamicStyle);
 	}

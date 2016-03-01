@@ -2,7 +2,7 @@
  * PassSec+ is a Firefox extension which should prevent the user from
  * entering sensitive data on insecure websites. Additionally it should
  * help the user to choose privacy friendly cookie settings.
- * Copyright (C) 2015 SECUSO
+ * Copyright (C) 2016 SECUSO
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ ffpwwe.prefs = function () {
             prefManager.clearUserPref("paymentfields");
             prefManager.clearUserPref("passwordfields");
             prefManager.clearUserPref("isbrokensecure");
-			prefManager.clearUserPref("isbrokensecure");
+			      prefManager.clearUserPref("isbrokensecure");
 
             ffpwwe.prefsNetworkCookie.setIntPref("cookieBehavior", prefManager.getIntPref("cookieBehavior_reset"));
             ffpwwe.prefsNetworkCookie.setIntPref("lifetimePolicy", prefManager.getIntPref("lifetimePolicy_reset"));

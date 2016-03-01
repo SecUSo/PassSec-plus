@@ -5,7 +5,7 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript"
-            src="chrome://firefoxpasswordwarningextension/content/jquery-1.11.3.min.js"/>
+            src="chrome://firefoxpasswordwarningextension/content/jquery-1.12.0.min.js"/>
     <script type="application/x-javascript"
             src="chrome://firefoxpasswordwarningextension/content/listener/securitystatelistener.js"/>
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/lib/preferences.js"/>

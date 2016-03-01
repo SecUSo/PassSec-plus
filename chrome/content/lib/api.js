@@ -2,7 +2,7 @@
  * PassSec+ is a Firefox extension which should prevent the user from
  * entering sensitive data on insecure websites. Additionally it should
  * help the user to choose privacy friendly cookie settings.
- * Copyright (C) 2015 SECUSO
+ * Copyright (C) 2016 SECUSO
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,9 +37,16 @@ ffpwwe.api.goToHttps = function (target) {
     var dimension = ffpwwe.calcWindowPosition(windowWidth,windowHeight);
 
     var domainDisplay = domain.split("").join(" ");
-    var params = {inn:{question: strbundle.getString("confirm_url").replace(/<insert-url>/g, domainDisplay)}, out:{accept:false}};
-	
-	
+    conf_url_1 = strbundle.getString("confirm_url_1");
+    conf_url_2 = strbundle.getString("confirm_url_2").replace(/<insert-url>/g, domainDisplay);
+    conf_url_3 = strbundle.getString("confirm_url_3");
+    conf_url_4 = strbundle.getString("confirm_url_4");
+    conf_url_5 = strbundle.getString("confirm_url_5").replace(/<insert-url>/g, domainDisplay);
+    conf_url_6 = strbundle.getString("confirm_url_6");
+    quest = conf_url_1 + " <html:b>" + ffpwwe.escapeHTML(conf_url_2) + "</html:b> " + conf_url_3 + "<html:br /><html:br />" + conf_url_4 + " <html:b>" + ffpwwe.escapeHTML(conf_url_5) + "</html:b> " + conf_url_6;
+
+    var params = {inn:{question: quest}, out:{accept:false}};
+
     window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"",params);
 
 	if(params.out.accept) {
@@ -121,8 +128,15 @@ ffpwwe.api.disableOnThisPage = function () {
     var dimension = ffpwwe.calcWindowPosition(windowWidth,windowHeight);
 
     var domainDisplay = domain.split("").join(" ");
-    var params = {inn:{question: strbundle.getString("add_exception").replace(/<insert-url>/g, domainDisplay)}, out:{accept:false}};
-	window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.xul", "bmarks", "chrome, centerscreen, dialog, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"",params);
+    add_excp_1 = strbundle.getString("add_exception_1");
+    add_excp_2 = strbundle.getString("add_exception_2");
+    add_excp_3 = strbundle.getString("add_exception_3");
+    add_excp_4 = strbundle.getString("add_exception_4").replace(/<insert-url>/g, domainDisplay);
+    add_excp_5 = strbundle.getString("add_exception_5");
+    quest = add_excp_1 + "<html:br /><html:br />" + add_excp_2 + "<html:br /><html:br />" + add_excp_3 + " <html:b>" + ffpwwe.escapeHTML(add_excp_4) + "</html:b>" + add_excp_5;
+
+    var params = {inn:{question: quest}, out:{accept:false}};
+    window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/confirmURL.xul", "bmarks", "chrome, centerscreen, dialog, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"",params);
 
     //var disable = window.confirm(strbundle.getString("add_exception").replace("<insert-url>", domain));
     if (params.out.accept) {

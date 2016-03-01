@@ -2,7 +2,7 @@
  * PassSec+ is a Firefox extension which should prevent the user from
  * entering sensitive data on insecure websites. Additionally it should
  * help the user to choose privacy friendly cookie settings.
- * Copyright (C) 2015 SECUSO
+ * Copyright (C) 2016 SECUSO
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -292,7 +292,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
                 // Check if the suggestion is not the actual domain just preceded by www
                 if (suggestion != "www." + domain && suggestion != "http://" + domain && suggestion != "http://www." + domain && suggestion != "https://" + domain && suggestion != "https://" + domain) {
                     detection.search = true;
-                    showPhishingBox("phishing_text_1_s", suggestion);
+                    showPhishingBox("phishing_text_1_s", ffpwwe.escapeHTML(suggestion));
                 }
             } else if (!domainInResponse) {
                 detection.search = true;
@@ -310,7 +310,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
                 let suggestion = suggestions[1].href.match(/q=(\S*)&spell/)[1];
                 if (suggestion != "www." + domain && suggestion != "http://" + domain && suggestion != "http://www." + domain && suggestion != "https://" + domain && suggestion != "https://" + domain) {
                     detection.search = true;
-                    showPhishingBox("phishing_text_1_g", suggestion);
+                    showPhishingBox("phishing_text_1_g", ffpwwe.escapeHTML(suggestion));
                 }
             } else if (!domainInResponse) {
                 detection.search = true;
@@ -405,19 +405,26 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
         //Hide all Panels/Boxes
         var $httpWarning = $(".http-warning");
         var $phishingWarning = $(".phishing-warning");
-		var $phishingWarningSwitch = $(".phishing-warning-switch");
+		    var $phishingWarningSwitch = $(".phishing-warning-switch");
         var $urlprunButtons = $(".urlprun-allow");
         $httpWarning.hide();
         $phishingWarning.hide();
         $urlprunButtons.hide();
-		$phishingWarningSwitch.hide();
+		    $phishingWarningSwitch.hide();
 
         // prune the url
         var domain = page.domain || "???";
 
         // insert whitespaces
         var domainDisplay = domain.split("").join(" ");
-        $("#urlpruningtext").html(strbundle.getString("url_pruning_text").replace("<insert-url>", domainDisplay));
+
+
+        url_prun_1 = strbundle.getString("url_pruning_text_1");
+        url_prun_2 = strbundle.getString("url_pruning_text_2").replace(/<insert-url>/g, domainDisplay);
+        url_prun_3 = strbundle.getString("url_pruning_text_3");
+        url_prun = url_prun_1 + " <html:b>" + ffpwwe.escapeHTML(url_prun_2) + "</html\:b>.<html\:br />" + url_prun_3;
+
+        $("#urlpruningtext").html(url_prun);
 
         // Update the Standard-Warning to the appropriate fieldType
         $("#standardwarning").html(strbundle.getString(fieldType + "_warning"));
