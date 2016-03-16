@@ -14,8 +14,8 @@
 	ondialogaccept="return pressedOK();"
     ondialogcancel="return true;"
 	windowtype="myDialogWindowType">
-	
-	<script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/jquery-1.12.0.min.js" />
+
+	<script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/jquery-1.12.1.min.js" />
 	<script type="application/javascript"  src="chrome://firefoxpasswordwarningextension/content/dialog/checkExceptions.js"></script>
 	<html:div>
 		<html:description  style="-moz-user-select: text;" id="question" />

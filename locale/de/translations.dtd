@@ -2,8 +2,8 @@
 <!ENTITY optionswindowname "PassSec+ Einstellungen">
 <!ENTITY optionscaption1 "Datenübertragung">
 <!ENTITY optionscaption2 "Einstellungen">
-<!ENTITY maintabcaption "Optionen">
-<!ENTITY advancedtabcaption "Erweiterte Optionen">
+<!ENTITY maintabcaption "Allgemein">
+<!ENTITY advancedtabcaption "Erweitert">
 <!ENTITY border "Rahmen">
 <!ENTITY triangle "Dreieck">
 <!ENTITY notbar "Notification Bar">
@@ -12,12 +12,11 @@
 <!ENTITY popuponclick "Popup bei Klick">
 <!ENTITY optionscaption3 "Einstellungen zurücksetzen">
 <!ENTITY resetexceptions "Einstellungen zurücksetzen">
-<!ENTITY resetinfo "Diese Option ist relevant, wenn Sie bei der bisherigen Nutzung
-des Add-Ons für Webseiten den 'sicheren Modus' gewählt haben,
-bzw. entschieden haben, nicht mehr gewarnt zu werden. Wenn
-Sie diesen Button klicken, dann werden diese Einstellungen
-zurückgesetzt und Sie sehen bei allen Webseiten, die nicht sicher
-sind, wieder die Warnung.">
+<!ENTITY resetinfo "Diese Option ist relevant, wenn Sie bei der bisherigen Nutzung des Add-Ons
+für Webseiten den 'sicheren Modus' gewählt haben, bzw. entschieden
+haben, nicht mehr gewarnt zu werden. Wenn Sie diesen Button klicken,
+dann werden diese Einstellungen zurückgesetzt und Sie sehen bei allen
+Webseiten, die nicht sicher sind, wieder die Warnung.">
 <!ENTITY optionscaption4 "Debug-Modus">
 <!ENTITY debug "Debug">
 <!ENTITY checkExceptionsAuto "Bei jedem 20. Start von Firefox Ausnahmen prüfen.">
@@ -25,29 +24,28 @@ sind, wieder die Warnung.">
 <!ENTITY usephishingwotdetection "Informationen bei Web Of Trust abrufen">
 <!ENTITY phishingwotinfotext "Aktivieren Sie diese Option, um gewarnt zu werden, falls Sie eine Seite besuchen,
 die durch das Web Of Trust (mywot.com) als Phishing-Seite markiert wurde.">
-<!ENTITY usephishingsearchdetection "Informationen bei Suchmaschine abrufen">
+<!ENTITY usephishingsearchdetection "Informationen bei einer Suchmaschine abrufen">
 <!ENTITY phishingsearchengine "... dabei zu verwendende Suchmaschine">
 <!ENTITY phishingdetection "Unterstützung bei der Erkennung von Phishing Angriffen">
 <!ENTITY phishingsearchgoogle "Die normale Google Suche zur Phishing Detection nutzen">
 <!ENTITY phishingsearchstartpage "Startpage nutzt einen Proxy um Anfragen an Google zu stellen.
 Dadurch erhöht sich die Verzögerung, aber die Anfragen werden anonymisiert.">
-<!ENTITY appearance "Aussehen">
+<!ENTITY appearance "Darstellung">
 <!ENTITY defaulpw "***">
 <!ENTITY imagechange "Sie können das Symbol für die sichere Eingabe hier ändern:">
-<!ENTITY securecase-appearance "Aussehen, falls die Eingabe sicher ist:">
+<!ENTITY securecase-appearance "Darstellung, falls die Eingabe sicher ist:">
 <!ENTITY changesecureimage "Nächstes Symbol">
 <!-- <!ENTITY savesecureimage "Vorschlag übernehmen">  -->
-<!ENTITY unsecurecase "Aussehen, falls die Eingabe NICHT sicher ist:">
+<!ENTITY unsecurecase "Darstellung, falls die Eingabe NICHT sicher ist:">
 <!ENTITY fielddetection "Arten von Feldern, die berücksichtigt werden">
 <!ENTITY personalfields "Felder für weitere persönliche Daten (z.B. E-Mail Adressen)">
 <!ENTITY searchfields "Suchanfragefelder">
 <!ENTITY passwordfields "Passwortfelder">
 <!ENTITY paymentfields "Felder für Zahlungsdaten (z.B. Kreditkartennummern)">
 <!ENTITY isbrokensecure "BROKEN HTTPS-Verbindung als sicher einstufen">
-<!ENTITY isbrokensecuredesc "BROKEN-HTTPS bedeutet, dass die Webseite mit HTTPS
-verschlüsselt ist, jedoch auch Elemente enthält die unver-
-schlüsselt sind und deswegen standardmäßig vom Browser
-blockiert werden.">
+<!ENTITY isbrokensecuredesc "BROKEN-HTTPS bedeutet, dass die Webseite mit HTTPS verschlüsselt ist,
+jedoch auch Elemente enthält die unverschlüsselt sind und deswegen
+standardmäßig vom Browser blockiert werden.">
 <!ENTITY httpssecurity "HTTPS-Sicherheit">
 
 <!-- Cookie Settings: -->
@@ -98,13 +96,13 @@ blockiert werden.">
 
 <!-- Exceptions Tab: -->
 <!ENTITY exceptions "Ausnahmen">
-<!ENTITY secusoWhitelistText "Hier können Sie  Ausnahmen hinzufügen die von SECUSO
-empfohlen werden. Mehr Informationen und eine Liste der
-Ausnahmen finden Sie auf www.secuso.org/passsec.">
+<!ENTITY secusoWhitelistText "Hier können Sie  Ausnahmen hinzufügen die von SECUSO empfohlen werden.
+Mehr Informationen und eine Liste der Ausnahmen finden Sie auf
+www.secuso.org/passsec.">
 
 <!ENTITY captionWhitelist "Empfohlene Ausnahmen">
 <!ENTITY addWhitelist "Empfohlene Ausnahmen hinzufügen">
-<!ENTITY captionHttps "Https Weiterleitungen (Sicherer Modus)">
+<!ENTITY captionHttps "HTTPS Weiterleitungen (Sicherer Modus)">
 <!ENTITY deleteHttps "Löschen">
 <!ENTITY clearHttps "Liste leeren">
 <!ENTITY captionExceptions "Webseiten Ausnahmen">

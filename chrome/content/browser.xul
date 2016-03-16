@@ -5,11 +5,11 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript"
-            src="chrome://firefoxpasswordwarningextension/content/jquery-1.12.0.min.js"/>
+            src="chrome://firefoxpasswordwarningextension/content/jquery-1.12.1.min.js"/>
     <script type="application/x-javascript"
             src="chrome://firefoxpasswordwarningextension/content/listener/securitystatelistener.js"/>
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/lib/preferences.js"/>
-	<script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/lib/loginmanager.js"/>
+    <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/lib/loginmanager.js"/>
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/listener/httpsredirect.js"/>
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/handler/field.js"/>
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/handler/frame.js"/>
@@ -18,18 +18,16 @@
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/lib/database.js"/>
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/skin.js"/>
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/lib/api.js"/>
-	<script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/cookieoption.js"/>
+    <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/cookieoption.js"/>
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/main.js"/>
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/options-shared.js"/>
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/firstrun.js"/>
 
     <popupset>
-
         <panel id="warnpanel2" noautohide="false" level="floating" noautofocus="true">
             <vbox style="padding: 2px; width: 35px; background-color: rgb(255, 254, 204)">
                 <hbox height="5"/>
                 <hbox id="warn-box" class="http-warning phishing-warning" height="20">
-                    <!--<label class="firefox-password-warning-red-text" control="warning" value="&password_warning;"/>-->
                     <description style="color:#000000;" id="standardwarning"/>
                 </hbox>
                 <hbox height="5"/>
@@ -92,7 +90,6 @@
                 </hbox>
             </vbox>
         </panel>
-
     </popupset>
 
     <stringbundleset id="stringbundleset">

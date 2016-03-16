@@ -45,6 +45,11 @@ ffpwwe.convertObjToArray = function (obj) {
 ffpwwe.pruneURL = function (url) {
   var eTLDService = Components.classes["@mozilla.org/network/effective-tld-service;1"].getService(Components.interfaces.nsIEffectiveTLDService);
   var tempURI = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService).newURI(""+url, null, null);
+  var isIP = String(url).match(/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/g);
+
+  if (isIP) {
+    return isIP[0]
+  }
 
   try {
     return eTLDService.getBaseDomain(tempURI);

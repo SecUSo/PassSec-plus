@@ -48,54 +48,11 @@
                         name="extensions.firefoxpasswordwarning.checkExceptionAuto" type="bool"/>
         </preferences>
 
-        <!--
-        <groupbox>
-            <caption label="&optionscaption3;"/>
-            <grid>
-                <columns>
-                    <column flex="4"/>
-
-                    <column flex="1"/>
-                </columns>
-                <rows>
-                    <row>
-                        <label control="border" value="&border;"/>
-                        <checkbox id="border" preference="firefox-password-warning-extension-border"/>
-                    </row>
-
-                    <row>
-                        <label control="triangle" value="&triangle;"/>
-                        <checkbox id="triangle" preference="firefox-password-warning-extension-triangle"/>
-                    </row>
-
-                    <row>
-                        <label control="notbar" value="&notbar;"/>
-                        <checkbox id="notbar" preference="firefox-password-warning-extension-notbar"/>
-                    </row>
-
-                    <row>
-                        <label control="background" value="&background;"/>
-                        <checkbox id="background" preference="firefox-password-warning-extension-background"/>
-                    </row>
-
-                    <row>
-                        <label control="popup" value="&popup;"/>
-                        <checkbox id="popup" preference="firefox-password-warning-extension-popup"/>
-                    </row>
-
-                    <row>
-                        <label control="popuponclick" value="&popuponclick;"/>
-                        <checkbox id="popuponclick" preference="firefox-password-warning-extension-popuponclick"/>
-                    </row>
-                </rows>
-            </grid>
-        </groupbox>
-        -->
         <tabbox>
             <tabs>
                 <tab label="&maintabcaption;"/>
-                <tab label="&advancedtabcaption;"/>
                 <tab label="&exceptions;"/>
+                <tab label="&advancedtabcaption;"/>
             </tabs>
             <tabpanels>
                 <tabpanel id="maintab" height="455" orient="vertical">
@@ -123,12 +80,6 @@
                                 <column flex="6"/>
                             </columns>
                         </grid>
-                        <!--<description class="firefox-password-ok-border firefox-password-ok-example" value="&defaulpw;"/>-->
-                        <!--<description id="display-unsecurecase"-->
-                        <!--class="firefox-password-warning-border firefox-password-warning-background firefox-password-warning-example"-->
-                        <!--style='background-image: url("chrome://firefoxpasswordwarningextension/skin/yellow_triangle.png") !important; background-repeat: no-repeat !important; background-size: contain !important; background-position: right center !important;'-->
-                        <!--value="&defaulpw;"/>-->
-
                     </groupbox>
 
                     <groupbox>
@@ -142,6 +93,40 @@
 
                         <description style="white-space: pre;">&resetinfo;</description>
                     </groupbox>
+                </tabpanel>
+
+                <tabpanel id="lists" orientation="vertical">
+                    <grid>
+                        <rows>
+                            <groupbox>
+                                <caption label="&captionHttps;"/>
+                                <row><listbox id="https_list" width="410px" height="80px"/></row>
+                                <row>
+                                    <button id="deleteHttps" label="&deleteHttps;" oncommand="ffpwwe.options.removeHttpsItem()"/>
+                                    <button id="clearHttps" label="&clearHttps;" oncommand="ffpwwe.options.clearHttpsList(true)"/>
+                                </row>
+                            </groupbox>
+                            <groupbox>
+                                <caption label="&captionExceptions;"/>
+                                <row><listbox id="pageExceptions" width="410px" height="80px"/></row>
+                                <row>
+                                    <button id="deleteException" label="&deleteException;" oncommand="ffpwwe.options.removePageExceptionItem()"/>
+                                    <button id="clearExceptions" label="&clearExceptions;" oncommand="ffpwwe.options.clearPageExceptions(true)"/>
+                                    <button id="checkExceptions" label="&checkExceptions;" oncommand="ffpwwe.options.checkForHttps()"/>
+                                </row>
+                                <row>
+                                    <checkbox id="checkExceptionBox" label="&checkExceptionsAuto;"
+                                              preference="firefox-password-warning-extension-checkExceptionAuto"
+                                              tooltiptext="&checkExceptionsAutoTooltip;"/>
+                                </row>
+                            </groupbox>
+                            <groupbox>
+                                <caption label="&captionWhitelist;"/>
+                                <description style="white-space: pre;">&secusoWhitelistText;</description>
+                                <button label="&addWhitelist;" oncommand="ffpwwe.options.insertSecusoWhitelist()"/>
+                            </groupbox>
+                        </rows>
+                    </grid>
                 </tabpanel>
 
                 <tabpanel id="advancedtab" orient="vertical">
@@ -223,57 +208,8 @@
                     </groupbox>
                 </tabpanel>
 
-                <tabpanel id="lists" orientation="vertical">
-                    <grid>
-                        <rows>
-                            <groupbox>
-                                <caption label="&captionHttps;"/>
-                                <row><listbox id="https_list" width="410px" height="80px"/></row>
-                                <row>
-                                    <button id="deleteHttps" label="&deleteHttps;" oncommand="ffpwwe.options.removeHttpsItem()"/>
-                                    <button id="clearHttps" label="&clearHttps;" oncommand="ffpwwe.options.clearHttpsList(true)"/>
-                                </row>
-                            </groupbox>
-                            <groupbox>
-                                <caption label="&captionExceptions;"/>
-                                <row><listbox id="pageExceptions" width="410px" height="80px"/></row>
-                                <row>
-                                    <button id="deleteException" label="&deleteException;" oncommand="ffpwwe.options.removePageExceptionItem()"/>
-                                    <button id="clearExceptions" label="&clearExceptions;" oncommand="ffpwwe.options.clearPageExceptions(true)"/>
-                                    <button id="checkExceptions" label="&checkExceptions;" oncommand="ffpwwe.options.checkForHttps()"/>
-                                </row>
-                                <row>
-                                    <checkbox id="checkExceptionBox" label="&checkExceptionsAuto;"
-                                              preference="firefox-password-warning-extension-checkExceptionAuto"
-                                              tooltiptext="&checkExceptionsAutoTooltip;"/>
-                                </row>
-                            </groupbox>
-                            <groupbox>
-                                <caption label="&captionWhitelist;"/>
-                                <description style="white-space: pre;">&secusoWhitelistText;</description>
-                                <button label="&addWhitelist;" oncommand="ffpwwe.options.insertSecusoWhitelist()"/>
-                            </groupbox>
-                        </rows>
-                    </grid>
-                </tabpanel>
-
             </tabpanels>
         </tabbox>
-        <!-- 		<groupbox>
-                    <caption label="&optionscaption4;"/>
-                    <grid>
-                        <columns>
-                            <column flex="4"/>
-                            <column flex="1"/>
-                        </columns>
-                        <rows>
-                            <row>
-                                <label height="40" control="debug" value="&debug;" />
-                                <checkbox id="debug" preference="firefox-password-warning-extension-debug"/>
-                            </row>
-                        </rows>
-                    </grid>
-                </groupbox> -->
 
 
     </prefpane>
