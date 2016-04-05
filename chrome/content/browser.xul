@@ -99,7 +99,7 @@
     <toolbarpalette id="BrowserToolbarPalette">
         <toolbarbutton id="toolbarButton"
           class="toolbarButtonClass"
-          label="Passsec+"
+          label="PassSec+"
           tooltiptext="&textToolbarButton;"
           value="redirectOn"
           onclick="ffpwwe.toolbarButtonClick(event);"/>

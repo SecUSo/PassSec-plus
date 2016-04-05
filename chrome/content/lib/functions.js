@@ -48,7 +48,7 @@ ffpwwe.pruneURL = function (url) {
   var isIP = String(url).match(/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/g);
 
   if (isIP) {
-    return isIP[0]
+    return isIP[0];
   }
 
   try {

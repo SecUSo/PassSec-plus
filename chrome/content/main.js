@@ -28,7 +28,7 @@ ffpwwe.toolbarButtonClick = function(event) {
     switch(event.button) {
         case 0: // Left click
             httpsRedirectEnabled = !httpsRedirectEnabled;
-            if(httpsRedirectEnabled) {
+            if (httpsRedirectEnabled) {
                 statusButton.setAttribute('value', 'redirectOn');
                 statusButton.setAttribute('tooltiptext', document.getElementById("firefoxpasswordwarning-strings").getString("forward_active"));
             }
@@ -38,11 +38,10 @@ ffpwwe.toolbarButtonClick = function(event) {
             }
             break;
         case 1: // Middle click
-            //alert("Mittel Klick");
             break;
         case 2: // Right click
-            //alert("Rechts Klick");
-            window.openDialog('chrome://firefoxpasswordwarningextension/content/options.xul');
+            ffpwwe.api.disableOnThisPage();
+            // window.openDialog('chrome://firefoxpasswordwarningextension/content/options.xul');
             break;
     }
 };

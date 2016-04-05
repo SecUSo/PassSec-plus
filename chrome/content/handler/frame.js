@@ -90,14 +90,17 @@ ffpwwe.frameHandler = function (page, document) {
 
         if (detectPwFields) {
             determMap["password"] = function (attrName) {
-                let attr = element.getAttribute(attrName);
-                if (!attr) return false;
-                return attr.toLowerCase().match(/pass(word|text|phrase|field)?|pw\w*/);
+                if (attrName != "value") {
+                  let attr = element.getAttribute(attrName);
+                  if (!attr) return false;
+                  return attr.toLowerCase().match(/pass(word|text|phrase|field)?|pw\w*/);
+                }
             };
         }
 
         if (detectPayFields) {
             determMap["payment"] = function (attrName) {
+              if (attrName != "value") {
                 let attr = element.getAttribute(attrName);
                 if (!attr) return false;
 
@@ -107,11 +110,13 @@ ffpwwe.frameHandler = function (page, document) {
                 // License: https://code.google.com/p/chromium/codesearch#chromium/src/LICENSE
                 let cc = /pay|ccard|(card|cc).?holder|name.*\\bon\\b.*card|(card|cc).?name|cc.?full.?name|owner|karteninhaber|(card|cc|acct|kk).?(number|#|n[or]|num|nummer)|verification|card identification|security code|card code|cvn|cvv|cvc|csc|(card|cc|payment).?type|payment.?method|expir|exp.*mo|exp.*date|ccmonth|cardmonth|gueltig|g\xc3\xbcltig|monat|exp|^\/|year|ablaufdatum|gueltig|g\xc3\xbcltig|jahr|exp.*date.*[^y]yy([^y]|$)|expir|exp.*date/;
                 return attr.toLowerCase().match(cc) || attr.toLowerCase().match(code) || attr.toLowerCase().match(bank);
+              }
             };
         }
 
         if (detectPersonalFields) {
             determMap["personal"] = function (attrName) {
+              if (attrName != "value") {
                 let attr = element.getAttribute(attrName);
                 if (!attr) return false;
 
@@ -125,14 +130,17 @@ ffpwwe.frameHandler = function (page, document) {
 
                 let attrLow = attr.toLowerCase();
                 return attrLow.match(book) || attrLow.match(addr) || attrLow.match(email) || attrLow.match(name) || attrLow.match(tel);
+              }
             };
         }
 
         if (detectSearchFields) {
             determMap["search"] = function (attrName) {
+              if (attrName != "value") {
                 let attr = element.getAttribute(attrName);
                 if (!attr) return false;
                 return attr.toLowerCase().match(/q(?!\S)|query|search|such|find/);
+              }
             };
         }
 

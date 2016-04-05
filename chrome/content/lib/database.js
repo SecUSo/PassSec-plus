@@ -139,16 +139,16 @@ ffpwwe.db = function () {
 
             try	{
                 let statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = :url");
-				statement.params.url = value;
-				let result = !!statement.executeStep();
-				statement.reset();
-				dbConn.close();
+        				statement.params.url = value;
+        				let result = !!statement.executeStep();
+        				statement.reset();
+        				dbConn.close();
 
-				return result;
+        				return result;
             }
             catch (error) {
                 //Application.console.error("error statement:" + dbConn.lastErrorString);
-				console.error("error statement:" + dbConn.lastErrorString);
+				        console.error("error statement:" + dbConn.lastErrorString);
             }
 
 			return false;
