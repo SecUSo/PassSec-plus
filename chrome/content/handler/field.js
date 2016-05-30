@@ -112,7 +112,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
     function removeSecureStyle() {
         removeClass(element, "firefox-password-ok-check");
         removeClass(element, "firefox-password-ok-border");
-		removeClass(element, "firefox-password-EV-check");
+		    removeClass(element, "firefox-password-EV-check");
         removeClass(element, "firefox-password-secure-border");
     }
 

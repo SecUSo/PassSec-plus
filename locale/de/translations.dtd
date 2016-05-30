@@ -49,33 +49,55 @@ standardmäßig vom Browser blockiert werden.">
 <!ENTITY httpssecurity "HTTPS-Sicherheit">
 
 <!-- Cookie Settings: -->
-<!ENTITY blockThirdPartyCookiesCaption "Speichern von Drittanbieter Cookies zukünftig verhindern">
-<!ENTITY deleteCookieAfterClosingCaption "Alle Cookies nach Schließen des Browsers automatisch löschen">
-<!ENTITY cookieSettingsReset "Reset">
-<!ENTITY cookieSettingsExecute "Änderungen übernehmen">
-<!ENTITY cookieSettingsWindowName "Cookie-Einstellungen">
-<!ENTITY cookieSettingsHeader "Privatsphäre schützen: Cookie-Einstellungen ändern">
-<!ENTITY cookieSettingsHeaderText1 "Webseitenbetreiber sammeln Informationen über Sie und Ihre Interessen, Ihr Surf- und Kaufverhalten, in dem Sie auf ihrem Computer Cookies speichern. Diese Informationen werden zusammengeführt, um Profile über Sie, Ihre Interessen und Ihr Kaufverhalten zu erstellen. Die Informationen und die Profile werden für vielfältige Zwecke verwendet und verkauft und verletzen somit Ihre Privatsphäre.">
+<!ENTITY optionsCookies "Cookie-Einstellungen">
+<!ENTITY buttonCookies "Cookie-Einstellungen anzeigen">
 
-<!ENTITY cookieSettingsHeaderText2 "Im Folgenden sehen Sie Ihre aktuellen Cookie Einstellungen. Ihre  Privatsphäre ist optimal geschützt, wenn beide Optionen aktiviert sind:">
-<!ENTITY preventThirdPartyCookies "Speichern von Drittanbieter Cookies zukünftig verhindern">
-<!ENTITY blockThirdPartyCookiesCaptionText "Eine Reihe von Webseiten möchten sogenannte Drittanbieter Cookies auf ihrem Rechner speichern. Durch das Aktivieren dieser Einstellung (On) verhindern Sie dies. Dadurch wird verhindert, dass Firmen, deren Webseiten Sie gar nicht besuchen, vielleicht sogar  gar nicht kennen,  Sie und Ihre Interessen, Ihr Surf- und Kaufverhalten auf einer Vielzahl von Webseiten verfolgen können.">
-<!ENTITY blockThirdPartyCookiesAware "Bitte beachten Sie:">
-<!ENTITY blockThirdPartyCookiesEnum1 "Die Funktionalität von Webseiten, die Sie besuchen wird durch das Blockieren von Drittanbieter Cookies nicht beeinträchtigt.">
-<!ENTITY blockThirdPartyCookiesEnum2 "Bereits gespeicherte Drittanbieter Cookies werden hierdurch nicht gelöscht. Wenn Sie möchten, dass bereits gespeicherter Drittanbieter Cookies gelöscht werden, aktivieren Sie hierfür auch die untere Option.">
+<!ENTITY cookieSettingsWindowName "Ihre aktuellen Cookie Einstellungen">
+<!ENTITY heading "Zum Schutz Ihrer Privatsphäre beschäftigen Sie sich mit den folgenden Optionen:">
 
-<!ENTITY deleteCookieAfterClosingCaptionText "Hierdurch verhindern Sie, dass Webseitenbetreiber Sie durch Cookies  (inklusive Drittanbieter Cookies)
-über das Schließen des Browsers hinaus verfolgen können. Mit dem Schließen des Browsers werden auch die bereits früher gespeicherten Cookies gelöscht.">
-<!ENTITY deleteCookieAfterClosingTitle "Jegliche Cookies nach Schließen des Browsers automatisch löschen">
-<!ENTITY deleteCookieAfterClosingAware "Bitte beachten Sie:">
-<!ENTITY deleteCookieAfterClosingEnum1 "Die Funktionalität von Webseiten, die Sie besuchen wird hierdurch nicht beeinflusst.">
-<!ENTITY deleteCookieAfterClosingEnum2 "Es ist technisch nicht möglich nur Drittanbieter Cookies, die bereits gespeichert sind, zu löschen.">
-<!ENTITY deleteCookieAfterClosingEnum3 "Sie werden allerdings mit dem Schließen des Browsers auch ausgeloggt und Sie müssen beim nächsten Aufruf der Webseite Ihr Passwort erneut eingeben (sofern nicht im Browser gespeichert) bzw. Ihren Warenkorb erneut füllen.">
-<!ENTITY deleteCookieAfterClosingEnum4 "Das Löschen erfolgt nur dann, wenn alle Browserfenster geschlossen sind.">
-<!ENTITY deleteCookieAfterClosingEnum5 "Sie können über die Einstellungen in Firefox auch alle Cookies direkt blockieren. Allerdings wird hierdurch die Funktionalität von Webseiten so sehr eingeschränkt, dass diese Option hier gar nicht angeboten wird.">
+<!ENTITY question11 "Was sind Cookies?">
+<!ENTITY question12 "Cookies sind Dateien, die von  Webseiten unverschlüsselt auf Ihrem PC/Laptop gespeichert werden und Informationen wie Passwörter oder Interessen beinhalten.">
+<!ENTITY question21 "Wozu werden Cookies verwendet?">
+<!ENTITY question22 "Die Webseite kann Sie damit identifizieren und Inhalte, wie z.B. die Startseite eines Shops, personalisieren.">
+<!ENTITY question31 "Was sind Drittanbieter Cookies?">
+<!ENTITY question32 "Diese Cookies werden nicht von der besuchten Webseite, sondern von einer dritten Webseite auf Ihrem PC/Laptop gespeichert.">
+<!ENTITY question41 "Wozu werden Drittanbieter Cookies verwendet?">
+<!ENTITY question42 "Dritte können Ihnen damit personalisierte Werbung über mehrere Webseiten hinweg anzeigen.">
 
-<!ENTITY optionsCookies "Cookie Einstellungen">
-<!ENTITY buttonCookies "Cookie Einstellungen ändern">
+<!ENTITY preventsave.title1 "Speichern">
+<!ENTITY preventsave.title2 "von Drittanbieter Cookies zukünftig verhindern">
+<!ENTITY preventsave.adv1 "Vorteil:">
+<!ENTITY preventsave.adv2 "Verhindert, dass Dritte Profile Ihrer  Surf- und Kaufinteressen erstellen und diese für verschiedene Zwecke nutzen, z.B. um Ihnen personalisierte Werbung auf verschiedenen Webseiten anzuzeigen oder diese Profile zu verkaufen.">
+<!ENTITY preventsave.restrict1 "Einschränkung:">
+<!ENTITY preventsave.restrict2 "In seltenen Fällen kann diese Option zu Problemen in der Darstellung von Webseiten führen (z.B. bei „Gefällt mir“ – Feldern).">
+<!ENTITY preventsave.note1 "Bitte Beachten Sie:">
+<!ENTITY preventsave.note2 "Bereits gespeicherte Drittanbieter Cookies werden hiervon nicht beeinflusst.">
+<!ENTITY preventsave.note3 "Diese sind weiterhin gespeichert und können von Webseiten gelesen werden. Um sie zu löschen wählen Sie zusätzlich die nächste Option aus.">
+
+<!ENTITY deletecookies.title1 "Einmaliges Löschen">
+<!ENTITY deletecookies.title2 "aller bestehenden Cookies (inkl. Drittanbieter Cookies)">
+<!ENTITY deletecookies.adv1 "Vorteil:">
+<!ENTITY deletecookies.adv2 "Verhindert, dass in der Vergangenheit besuchte Webseiten und Dritte mit den gespeicherten Cookies weitere Informationen über Sie sammeln können.">
+<!ENTITY deletecookies.restrict1 "Einschränkung:">
+<!ENTITY deletecookies.restrict2 "Diese Option führt dazu, dass Sie auf Webseiten abgemeldet werden, sofern ein Cookie wie bspw. „Ich möchte angemeldet bleiben“ aktiviert wurde.">
+<!ENTITY deletecookies.note1 "Bitte Beachten Sie:">
+<!ENTITY deletecookies.note2 "Im Web-Browser gespeicherte Passwörter werden nicht gelöscht.">
+<!ENTITY deletecookies.note3 "Wenn Sie das langfristige Speichern aller Cookies zukünftig verhindern möchten, wählen Sie zusätzlich die nächste Option aus.">
+
+<!ENTITY deletethirdonclose.title1 "Cookies (inkl. Drittanbieter Cookies)">
+<!ENTITY deletethirdonclose.title2 "nach Schließen des Web-Browsers">
+<!ENTITY deletethirdonclose.title3 "automatisch löschen">
+<!ENTITY deletethirdonclose.adv1 "Vorteil:">
+<!ENTITY deletethirdonclose.adv2 "Passwörter werden nicht länger als notwendig unverschlüsselt in Cookies gespeichert.">
+<!ENTITY deletethirdonclose.adv3 "Erschwert, dass Webseiten und Dritte Profile Ihrer Surf- und Kaufinteressen erstellen und diese für verschiedene Zwecke nutzen.">
+<!ENTITY deletethirdonclose.restrict1 "Einschränkung:">
+<!ENTITY deletethirdonclose.restrict2 "Diese Option führt dazu, dass Sie sich nach jedem Schließen des Web-Browsers erneut anmelden müssen (d.h. bei gespeichertem Passwort auf den Login Button drücken müssen).">
+<!ENTITY deletethirdonclose.note1 "Bitte Beachten Sie:">
+<!ENTITY deletethirdonclose.note2 "Schließen Sie Ihren Web-Browser regelmäßig, damit die Cookies gelöscht werden.">
+<!ENTITY deletethirdonclose.note3 "Nur in Verbindung mit der ersten Option werden Drittanbieter Cookies generell nicht auf Ihrem PC/Laptop gespeichert.">
+
+<!ENTITY button.cancel "Abbrechen">
+<!ENTITY button.ok "Ok">
 
 <!-- Reset Dialog: -->
 <!ENTITY resetDialogText "Wollen Sie wirklich Ihre Einstellungen zurücksetzen?">

@@ -48,57 +48,55 @@ by the browser.">
 <!ENTITY httpssecurity "HTTPS security">
 
 <!-- Cookie Settings: -->
-<!ENTITY blockThirdPartyCookiesCaption "Prevent third-party cookies from being
-stored in future">
-<!ENTITY deleteCookieAfterClosingCaption "Remove all cookies automatically after
-the browser is closed">
-<!ENTITY cookieSettingsReset "Reset">
-<!ENTITY cookieSettingsExecute "Apply changes">
-<!ENTITY cookieSettingsWindowName "Cookie settings">
-<!ENTITY cookieSettingsHeader "Protect privacy: Changing cookie settings">
-<!ENTITY cookieSettingsHeaderText1 "Website operators collect information about
-you and your interests, your surfing and purchasing behaviour, by storing cookies
-on your computer. This information will be combinded to create profiles about you,
-your interests and your buying habits. The information and the profiles are used
-and sold for various purposes and thus violate your privacy.">
-
-<!ENTITY cookieSettingsHeaderText2 "You can see your current cookie settings below.
-Your privacy is protected best, if both options are enabled:">
-<!ENTITY preventThirdPartyCookies "Prevent storing third-party cookies in future">
-<!ENTITY blockThirdPartyCookiesCaptionText "A number of websites want to save
-so-called third-party cookies on your computer.
-If you enable this setting (On), you can prevent this. This means that companies
-whose websites you do not visit, maybe even do not know, can not track you and your
-interests, your surfing and purchasing behaviours.">
-<!ENTITY blockThirdPartyCookiesAware "Please note:">
-<!ENTITY blockThirdPartyCookiesEnum1 "Blocking third-party cookies does not affect
-the functionality of Web pages that you do visit.">
-<!ENTITY blockThirdPartyCookiesEnum2 "Previously saved third-party cookies will no
-longer be deleted. If you want already stored third-party cookies to be deleted,
-select the option below, too.">
-
-<!ENTITY deleteCookieAfterClosingCaptionText "This will prevent Web site operators
-from tracking you via cookies (including third-party cookies) even after closing
-the browser. The previously stored cookies are deleted when the browser is closed,
-too.">
-<!ENTITY deleteCookieAfterClosingTitle "Remove all cookies automatically after
-the browser is closed">
-<!ENTITY deleteCookieAfterClosingAware "Please note:">
-<!ENTITY deleteCookieAfterClosingEnum1 "The functionality of websites that you
-visit will not affected.">
-<!ENTITY deleteCookieAfterClosingEnum2 "It is technically impossible to delete
-only third-party cookies that are already stored.">
-<!ENTITY deleteCookieAfterClosingEnum3 "However, you are also logged out when
-the browser is closed and you will need to re-enter your passwords the next time
-you visit this website (unless it is stored in the browser).">
-<!ENTITY deleteCookieAfterClosingEnum4 "Deletion occurs only when all browser
-windows are closed.">
-<!ENTITY deleteCookieAfterClosingEnum5 "You can use the settings in Firefox to
-block all cookies directly. However, this severely constrains the functionality of
-websites, and this option is consequently not offered here.">
-
 <!ENTITY optionsCookies "Cookie settings">
-<!ENTITY buttonCookies "Change cookie settings">
+<!ENTITY buttonCookies "Show cookie settings">
+
+<!ENTITY cookieSettingsWindowName "Your current cookie settings">
+<!ENTITY heading "To protect your privacy, please read the following paragraphs:">
+
+<!ENTITY question11 "What are cookies?">
+<!ENTITY question12 "Cookies are files which are stored in plain text by websites on your PC/laptop. They include information such as searches  or preferences.">
+<!ENTITY question21 "For what purpose are cookies used?">
+<!ENTITY question22 "The website can identify you and thus personalize content, for example the homepage of a retailer .">
+<!ENTITY question31 "What are third-party cookies?">
+<!ENTITY question32 "These cookies are not stored on your PC/laptop by the website you are visiting, but by a third-party.">
+<!ENTITY question41 "For what purpose are third-party cookies deployed?">
+<!ENTITY question42 "Any third party can use them to display personalized advertising across multiple websites.">
+
+<!ENTITY preventsave.title1 "Prevent">
+<!ENTITY preventsave.title2 "storing third-party cookies in future">
+<!ENTITY preventsave.adv1 "Advantage:">
+<!ENTITY preventsave.adv2 "Prevents that third parties create profiles of your surfing and purchasing interests and use it for various purposes, for example, to show you personalized ads on various websites or to sell those profiles.">
+<!ENTITY preventsave.restrict1 "Limitation:">
+<!ENTITY preventsave.restrict2 "In rare cases this option could lead to problems with the presentation of websites (e.g. 'Like'-buttons).">
+<!ENTITY preventsave.note1 "Please note:">
+<!ENTITY preventsave.note2 "Already saved third-party cookies are not affected.">
+<!ENTITY preventsave.note3 "These are still stored and can be read by websites. To delete them also select the next option.">
+
+<!ENTITY deletecookies.title1 "Nonrecurring deletion">
+<!ENTITY deletecookies.title2 "of all existing cookies (incl. third-party cookies)">
+<!ENTITY deletecookies.adv1 "Advantage:">
+<!ENTITY deletecookies.adv2 "Prevents that any website visited in the past or third parties can use the stored cookies to gather more information about you.">
+<!ENTITY deletecookies.restrict1 "Limitation:">
+<!ENTITY deletecookies.restrict2 "This option results in logging you out on websites every time after closing the browser, unless an option such as 'Remember me' was activated.">
+<!ENTITY deletecookies.note1 "Please note:">
+<!ENTITY deletecookies.note2 "Passwords saved in the browser are not deleted.">
+<!ENTITY deletecookies.note3 "If you want to avoid the long-term storage of all cookies in the future, additionally select the next option.">
+
+<!ENTITY deletethirdonclose.title1 "Delete cookies (incl. third-party cookies)">
+<!ENTITY deletethirdonclose.title2 "automatically">
+<!ENTITY deletethirdonclose.title3 "every time the browser is closed">
+<!ENTITY deletethirdonclose.adv1 "Advantage:">
+<!ENTITY deletethirdonclose.adv2 "Passwords are stored unencrypted in cookies not longer than necessary.">
+<!ENTITY deletethirdonclose.adv3 "Hinders websites and third parties in creating profiles of your surfing and purchasing interests and using it for various purposes.">
+<!ENTITY deletethirdonclose.restrict1 "Limitation:">
+<!ENTITY deletethirdonclose.restrict2 "This option means that you have to login again every time after closing the browser. (e.g. press the login button if you stored the password).">
+<!ENTITY deletethirdonclose.note1 "Please note:">
+<!ENTITY deletethirdonclose.note2 "Close your browser regularly so that the cookies will be deleted.">
+<!ENTITY deletethirdonclose.note3 "Only in conjunction with the first option third party cookies are generally not stored on your PC/laptop.">
+
+<!ENTITY button.cancel "Cancel">
+<!ENTITY button.ok "Ok">
 
 <!-- Reset Dialog: -->
 <!ENTITY resetDialogText "Do you really want to restore your old settings?">
