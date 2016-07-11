@@ -43,7 +43,7 @@ ffpwwe.api.goToHttps = function (target) {
     conf_url_4 = strbundle.getString("confirm_url_4");
     conf_url_5 = strbundle.getString("confirm_url_5").replace(/<insert-url>/g, domainDisplay);
     conf_url_6 = strbundle.getString("confirm_url_6");
-    quest = conf_url_1 + " <html:b>" + ffpwwe.escapeHTML(conf_url_2) + "</html:b> " + conf_url_3 + "<html:br /><html:br />" + conf_url_4 + " <html:b>" + ffpwwe.escapeHTML(conf_url_5) + "</html:b> " + conf_url_6;
+    quest = conf_url_1 + " " + ffpwwe.escapeHTML(conf_url_2) + " " + conf_url_3 + " " + conf_url_4 + " " + ffpwwe.escapeHTML(conf_url_5) + " " + conf_url_6;
 
     var params = {inn:{question: quest}, out:{accept:false}};
 
@@ -110,8 +110,8 @@ ffpwwe.api.expandMessage = function (id) {
 
     var data = messageBox.attr("data-toggle");
     if (data != "<no-text>") {
-        messageBox.attr("data-toggle", messageBox.html());
-        messageBox.html(data);
+        messageBox.attr("data-toggle", messageBox.text());
+        messageBox.text(data);
     }
 };
 

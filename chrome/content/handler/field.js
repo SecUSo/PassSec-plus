@@ -61,11 +61,11 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
         for (var i = 0; i < words.length; i++) {
             if (i !== 0)
                 output += " ";
-            if (words[i].indexOf("<html:br") != -1) {
+            if (words[i].indexOf("") != -1) {
                 charCounter = 0;
             } else {
                 if (charCounter > numOfChars) {
-                    output += "<html:br />";
+                    output += ""; // TODO
                     charCounter = 0;
                 }
                 charCounter += words[i].length;
@@ -213,7 +213,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
             } else {
                 warntext.attr("data-toggle", insertNewlines(strbundle.getString(currentCase + "_" + i + "_long")));
             }
-            warntext.html(insertNewlines(strbundle.getString(currentCase + "_" + i)));
+            warntext.text(insertNewlines(strbundle.getString(currentCase + "_" + i)));
         }
     }
 
@@ -252,81 +252,6 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
         showPhishingBox: function () {
         }
     };
-
-    // phishing
-
-    /**
-     * Processes the phishing detection over the search machine
-     *
-     * @param detection an object to handle the different detection types
-     * @param showPhishingBox a function to show a phishing box if phishing happens
-     */
-    function processPhishingSearchDetection(detection, showPhishingBox) {
-        function isDomainInResponse(document, resultElementClass, domain) {
-            var domainIsInResponse = false;
-            var resultElements = document.getElementsByClassName(resultElementClass);
-            for (var i = 0; i < resultElements.length; i++) {
-                let linkElements = resultElements[i].getElementsByTagName("a");
-                if (linkElements.length > 0) {
-                    let link = linkElements[0].getAttribute("href").match(/\/\/[\w\.\-]*/)[0];
-                    if (link.search(domain.toLowerCase() != -1)) {
-                        domainIsInResponse = true;
-                    }
-                } else {
-                    // no search results, maybe phishing site
-                }
-            }
-            return domainIsInResponse;
-        }
-
-        var analyzesMap = {};
-        analyzesMap["startpage"] = function (domain, response) {
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(response, "text/html");
-            var suggestions = doc.getElementsByClassName("sugg");
-            var domainInResponse = isDomainInResponse(doc, "result", domain);
-
-            if (suggestions.length > 0) {
-                let suggestion = suggestions[0].innerHTML;
-								suggestion = suggestion.match(/<b>(.*)<\/b>/)[1];
-                // Check if the suggestion is not the actual domain just preceded by www
-                if (suggestion != "www." + domain && suggestion != "http://" + domain && suggestion != "http://www." + domain && suggestion != "https://" + domain && suggestion != "https://" + domain) {
-                    detection.search = true;
-                    showPhishingBox("phishing_text_1_s", ffpwwe.escapeHTML(suggestion));
-                }
-            } else if (!domainInResponse) {
-                detection.search = true;
-                showPhishingBox("phishing_text_2", undefined);
-            }
-        };
-
-        analyzesMap["google"] = function (domain, response) {
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(response, "text/html");
-            var suggestions = doc.getElementsByClassName("spell");
-            var domainInResponse = isDomainInResponse(doc, "r", domain);
-
-            if (suggestions.length == 4) {
-                let suggestion = suggestions[1].href.match(/q=(\S*)&spell/)[1];
-                if (suggestion != "www." + domain && suggestion != "http://" + domain && suggestion != "http://www." + domain && suggestion != "https://" + domain && suggestion != "https://" + domain) {
-                    detection.search = true;
-                    showPhishingBox("phishing_text_1_g", ffpwwe.escapeHTML(suggestion));
-                }
-            } else if (!domainInResponse) {
-                detection.search = true;
-                showPhishingBox("phishing_text_2", undefined);
-            }
-        };
-
-        page.phishingDetectionPromise.search.then(function ([searchEngine, domain, response]) {
-            if (detection.wot) {
-                ffpwwe.debug("phishing detection search cancelled, because wot already found");
-            } else if (analyzesMap[searchEngine])
-                analyzesMap[searchEngine](domain, response);
-            else
-                ffpwwe.debug("phishing detection cannot analyse search engine '" + searchEngine + "' (UNKNOWN SEARCH ENGINE)");
-        });
-    }
 
     /**
      * Processes the phishing detection over the web of trust
@@ -380,7 +305,7 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
                     switchSite.url = "http://" + suggestion;
                     switchSite.hidden = false;
                 } else {
-                    $("#phishingtext").html(strbundle.getString(text));
+                    $("#phishingtext").text(strbundle.getString(text));
                 }
                 // Update the visibility of the other buttons
                 document.getElementById('popuplink').hidden = true;
@@ -393,7 +318,6 @@ ffpwwe.fieldHandler = function (page, frame, form, element, fieldType) {
         }
 
         processPhishingWotDetection(detection, showPhishingBox);
-        processPhishingSearchDetection(detection, showPhishingBox);
     }
 
 

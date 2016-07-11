@@ -83,54 +83,9 @@ ffpwwe.pageHandler = function () {
 
     var domain = ffpwwe.pruneURL(content.document.location);
     // for testing the phishing detection change the domain to
-    // a domain which gets corrected by google/startpage
-    //domain = "wbe.de";
-    // a domain with no search results on the first page
-    //domain = "teno-xclpvvl.com";
     // a domain which is marked as a phishing page by the Web Of Trust
     //domain = "moy.su";
 
-
-    function createPhishingDetectionSearchPromise() {
-        var searchEngine = ffpwwe.prefs.getStringPref("phishingsearchengine");
-        var executeSearch = ffpwwe.prefs.getBoolPref("usephishingsearchdetection");
-
-        if (!executeSearch || !domain) {
-            return new Promise(function (resolve, reject) {
-                if (executeSearch) ffpwwe.debug("no phishing detection search ist running, not a valid DOMAIN");
-                else ffpwwe.debug("no phishing detection search ist running, option is disabled");
-            });
-        } else {
-
-            let searchPromise = new Promise(function (resolve, reject) {
-                ffpwwe.debug("starting phishing detection search using '" + searchEngine + "' on domain '" + domain + "'");
-
-                var processResult = function (response) {
-                    // it seems only one argument is passed through, therefore we use an array
-                    resolve([searchEngine, domain, response]);
-                };
-
-                switch (searchEngine) {
-                    case "startpage":
-                        var postData = encodeURIComponent("cat=web&cmd=process_search&language=english&engine0=v1all&query=" + domain + "&abp=-1&x=0&y=0");
-                        $.post("https://startpage.com/do/search", postData, processResult);
-                        break;
-                    case "google":
-                        $.get(encodeURIComponent("https://www.google.de/search?q=" + domain), processResult);
-                        break;
-                    default:
-                        ffpwwe.debug("phishing detection search unkown search engine: '" + searchEngine + "'");
-                }
-
-            });
-
-            searchPromise.then(function () {
-                ffpwwe.debug("phishing detection search request done");
-            });
-
-            return searchPromise;
-        }
-    }
 
     function createPhishingDetectionWotPromise() {
         var executeWot = ffpwwe.prefs.getBoolPref("usephishingwotdetection");
@@ -162,7 +117,6 @@ ffpwwe.pageHandler = function () {
 
     function createPhishingDetectionPromise() {
         return {
-            search: createPhishingDetectionSearchPromise(),
             wot: createPhishingDetectionWotPromise()
         };
     }

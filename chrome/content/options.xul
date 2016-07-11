@@ -30,10 +30,6 @@
                         type="bool"/>
             <preference id="firefox-password-warning-extension-usephishingwotdetection"
                         name="extensions.firefoxpasswordwarning.usephishingwotdetection" type="bool"/>
-            <preference id="firefox-password-warning-extension-usephishingsearchdetection"
-                        name="extensions.firefoxpasswordwarning.usephishingsearchdetection" type="bool"/>
-            <preference id="firefox-password-warning-extension-phishingsearchengine"
-                        name="extensions.firefoxpasswordwarning.phishingsearchengine" type="string"/>
             <preference id="firefox-password-warning-extension-passwordfields"
                         name="extensions.firefoxpasswordwarning.passwordfields" type="bool"/>
             <preference id="firefox-password-warning-extension-paymentfields"
@@ -143,19 +139,6 @@
                                     <checkbox id="usephishingwotdetection" label="&usephishingwotdetection;"
                                               preference="firefox-password-warning-extension-usephishingwotdetection"
                                               tooltiptext="&phishingwotinfotext;"/>
-                                </row>
-                                <row>
-                                    <checkbox id="usephishingsearchdetection" label="&usephishingsearchdetection;"
-                                              preference="firefox-password-warning-extension-usephishingsearchdetection"/>
-                                </row>
-                                <row>
-                                    <label value="&phishingsearchengine;"/>
-                                </row>
-                                <row>
-                                    <radiogroup id="phishing-radiolist">
-                                      <radio id="orange" label="Google" value="google" preference="firefox-password-warning-extension-phishingsearchengine"/>
-                                      <radio id="violet" label="Startpage"  value="startpage" preference="firefox-password-warning-extension-phishingsearchengine"/>
-                                    </radiogroup>
                                 </row>
                             </rows>
                         </grid>

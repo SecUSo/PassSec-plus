@@ -29,7 +29,7 @@ ffpwwe.options.restoreInitialState = function () {
   var dimension = ffpwwe.calcWindowPosition(windowWidth,windowHeight);
   paramsConfirm = {out:{accept:false}};
   window.openDialog("chrome://firefoxpasswordwarningextension/content/dialog/resetDialog.xul", "bmarks", "chrome, centerscreen, resizable=no, dialog, modal,width="+windowWidth+",height="+windowHeight+",top="+dimension.top+",left="+dimension.left+"", paramsConfirm);
-  
+
   if (paramsConfirm.out.accept) {
     // drop all database tables
     ffpwwe.db.dropTables();
@@ -103,11 +103,11 @@ ffpwwe.options.imageStyleChanger = function () {
             initialSetImage(document.getElementById("display-unsecurecase"),
                 "chrome://firefoxpasswordwarningextension/skin/yellow_triangle.png");
         },
-        
+
         nextSecureImage: function () {
             if (++currentImage < secureEVStyleImages.length) {
                 let imageString = secureEVStyleImages[currentImage];
-                
+
                 if (imageString != ffpwwe.prefs.getStringPref("styleEVimage")) {
                     changeSecureImage(imageString);
                 } else // FIXME might be infiniteloop with only one image
@@ -127,11 +127,11 @@ ffpwwe.options.imageStyleChanger = function () {
 ffpwwe.options.loadHttpsList = function () {
     var https_list = document.getElementById("https_list");
     var items = ffpwwe.db.getAll("httpToHttpsRedirects");
-    
+
     for (var i = 0; i < items.length; i++) {
         https_list.appendItem(items[i]);
     }
-    
+
     if (https_list.getRowCount() === 0) {
         document.getElementById("deleteHttps").disabled = true;
         document.getElementById("clearHttps").disabled = true;
@@ -145,7 +145,7 @@ ffpwwe.options.removeHttpsItem = function () {
     https_list.removeItemAt(index);
     ffpwwe.db.deleteItem("httpToHttpsRedirects", "url", del);
     ffpwwe.db.deleteItem("userVerifiedDomains", "url", del);
-    
+
     if (https_list.getRowCount() === 0) {
         document.getElementById("deleteHttps").disabled = true;
         document.getElementById("clearHttps").disabled = true;
@@ -154,11 +154,11 @@ ffpwwe.options.removeHttpsItem = function () {
 
 ffpwwe.options.clearHttpsList = function (drop) {
     var https_list = document.getElementById("https_list");
-    
+
     for (var i = https_list.getRowCount()-1; i >= 0; i--) {
         https_list.removeItemAt(i);
     }
-    
+
     if(drop) {
         ffpwwe.db.dropTable("httpToHttpsRedirects");
         ffpwwe.db.dropTable("userVerifiedDomains");
@@ -170,11 +170,11 @@ ffpwwe.options.clearHttpsList = function (drop) {
 ffpwwe.options.loadPageExceptions = function () {
     var pageExceptions = document.getElementById("pageExceptions");
     var items = ffpwwe.db.getAll("pageExceptions");
-    
+
     for (var i = 0; i < items.length; i++) {
         pageExceptions.appendItem(items[i]);
     }
-    
+
     if (pageExceptions.getRowCount() === 0) {
         document.getElementById("deleteException").disabled = true;
         document.getElementById("clearExceptions").disabled = true;
@@ -188,7 +188,7 @@ ffpwwe.options.removePageExceptionItem = function () {
     var del = pageExceptions.getItemAtIndex(index).label;
     pageExceptions.removeItemAt(index);
     ffpwwe.db.deleteItem("pageExceptions", "url", del);
-    
+
     if (pageExceptions.getRowCount() === 0)
         document.getElementById("deleteException").disabled = true;
         document.getElementById("clearExceptions").disabled = true;
@@ -197,11 +197,11 @@ ffpwwe.options.removePageExceptionItem = function () {
 
 ffpwwe.options.clearPageExceptions = function (drop) {
     var pageExceptions = document.getElementById("pageExceptions");
-    
+
     for (var i = pageExceptions.getRowCount()-1; i >= 0; i--) {
         pageExceptions.removeItemAt(i);
     }
-    
+
     if(drop) {
         ffpwwe.db.dropTable("pageExceptions");
     }
@@ -212,7 +212,7 @@ ffpwwe.options.clearPageExceptions = function (drop) {
 
 ffpwwe.options.insertSecusoWhitelist = function () {
     var https_list = document.getElementById("https_list");
-    
+
     for (var i = 0; i < secusoWhitelist.length; i++) {
         ffpwwe.db.insert("httpToHttpsRedirects", secusoWhitelist[i]);
     }
@@ -258,12 +258,12 @@ ffpwwe.options.sslAvailableCheck = function (checkUrl) {
     }
 
     var sslUrl = url.replace("http://", "https://");
-    var sslAvailableCheckPromise = new Promise(function (resolve, reject) {   
+    var sslAvailableCheckPromise = new Promise(function (resolve, reject) {
         if (url.match(/http:/)) {
             ffpwwe.debug("starting ssl availability check for '" + sslUrl + "'");
             var httpsRequest = new XMLHttpRequest();
             httpsRequest.open("HEAD", sslUrl);
-            
+
             httpsRequest.onreadystatechange = function () {
                 if (this.readyState == this.DONE) {
                     let sslAvail = this.status >= 200 && this.status <= 299 && !!this.responseURL.match(/https:/);
@@ -275,13 +275,13 @@ ffpwwe.options.sslAvailableCheck = function (checkUrl) {
             };
 
             httpsRequest.send();
-        
+
         } else {
             // if the page was not a http page, https cannot be available
             resolve(false);
         }
     });
-    
+
     var sslAvailableCheck = {
         promise: sslAvailableCheckPromise,
         done: false,
@@ -308,14 +308,6 @@ ffpwwe.options.sslAvailableCheck = function (checkUrl) {
 };
 
 window.onload = function () {
-    // update the selected index in the phishing detection list
-    var phishingPrefOrdering = ["google", "startpage"];
-    var phishingPref = ffpwwe.prefs.getStringPref("phishingsearchengine");
-    var index = phishingPrefOrdering.indexOf(phishingPref);
-    
-    if (index > 0)
-        document.getElementById("phishing-radiolist").selectedIndex = index;
-
     ffpwwe.options.loadHttpsList();
     ffpwwe.options.loadPageExceptions();
     ffpwwe.options.imageStyleChanger.initImages();

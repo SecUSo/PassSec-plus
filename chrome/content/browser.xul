@@ -5,7 +5,7 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript"
-            src="chrome://firefoxpasswordwarningextension/content/jquery-1.12.1.min.js"/>
+            src="chrome://firefoxpasswordwarningextension/content/jquery-3.0.0.min.js"/>
     <script type="application/x-javascript"
             src="chrome://firefoxpasswordwarningextension/content/listener/securitystatelistener.js"/>
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/lib/preferences.js"/>
@@ -25,7 +25,7 @@
 
     <popupset>
         <panel id="warnpanel2" noautohide="false" level="floating" noautofocus="true">
-            <vbox style="padding: 2px; width: 35px; background-color: rgb(255, 254, 204)">
+            <vbox style="padding: 2px; width: 35px; background-color: rgb(254, 255, 204)">
                 <hbox height="5"/>
                 <hbox id="warn-box" class="http-warning phishing-warning" height="20">
                     <description style="color:#000000;" id="standardwarning"/>
@@ -50,7 +50,7 @@
                     </vbox>
                     <hbox width="10"/>
                     <description class="passsecLink" onclick="ffpwwe.api.expandMessage(1)"
-                                 id="warntext1"/>
+                                 id="warntext1" style="width: 300px;"/>
                 </hbox>
                 <hbox id="recommendation-box" class="http-warning">
                     <vbox>
@@ -59,7 +59,7 @@
                     </vbox>
                     <hbox width="10"/>
                     <description image="skin/recommendation.png" class="passsecLink"
-                                 onclick="ffpwwe.api.expandMessage(2)" id="warntext2"/>
+                                 onclick="ffpwwe.api.expandMessage(2)" id="warntext2" style="width: 300px;"/>
                 </hbox>
                 <hbox id="moreinfo-box" class="http-warning">
                     <vbox>
@@ -68,7 +68,7 @@
                     </vbox>
                     <hbox width="10"/>
                     <description image="more_info.png" class="passsecLink"
-                                 onclick="ffpwwe.api.expandMessage(3)" id="warntext3"/>
+                                 onclick="ffpwwe.api.expandMessage(3)" id="warntext3" style="width: 300px;"/>
                 </hbox>
                 <hbox id="button-box" class="http-warning phishing-warning" style="paddingBottom: 0px;" align="start" pack="start">
                     <spacer style="width: 34px"/>

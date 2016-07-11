@@ -45,8 +45,6 @@ ffpwwe.prefs = function () {
 
             // TODO hence we reset all prefs manually
             prefManager.clearUserPref("usephishingwotdetection");
-            prefManager.clearUserPref("usephishingsearchdetection");
-            prefManager.clearUserPref("phishingsearchengine");
             prefManager.clearUserPref("personalfields");
             prefManager.clearUserPref("searchfields");
             prefManager.clearUserPref("paymentfields");

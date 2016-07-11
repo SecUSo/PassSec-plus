@@ -23,12 +23,7 @@ all insecure websites.">
 <!ENTITY usephishingwotdetection "Retrieve information from Web of Trust">
 <!ENTITY phishingwotinfotext "Enable this option to see warnings in the future if you visit
 a page that has been marked as a phishing site by the Web of trust (mywot.com).">
-<!ENTITY usephishingsearchdetection "Retrieve information from a search engine">
-<!ENTITY phishingsearchengine "... used search engine:">
 <!ENTITY phishingdetection "Provide assistance in recognition of phishing attacks">
-<!ENTITY phishingsearchgoogle "Use the Google search engine to detect phishing">
-<!ENTITY phishingsearchstartpage "Startpage uses a proxy to make requests to Google.
-This increases website loading time, but also ensures that requests are made anonymously.">
 <!ENTITY appearance "General appearance">
 <!ENTITY defaulpw "***">
 <!ENTITY imagechange "You can change the icon for secure input here:">
