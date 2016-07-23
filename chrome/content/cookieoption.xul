@@ -17,9 +17,9 @@
 
 		<html:p style="padding-left:3px;">
 			<html:span style="font-weight:bold;">&question11;</html:span> &question12;<html:br></html:br>
-		  <html:span style="font-weight:bold;">&question21;</html:span> &question22;<html:br></html:br>
-		  <html:span style="font-weight:bold;">&question31;</html:span> &question32;<html:br></html:br>
-		  <html:span style="font-weight:bold;">&question41;</html:span> &question42;
+		  	<html:span style="font-weight:bold;">&question21;</html:span> &question22;<html:br></html:br>
+		  	<html:span style="font-weight:bold;">&question31;</html:span> &question32;<html:br></html:br>
+		  	<html:span style="font-weight:bold;">&question41;</html:span> &question42;
 		</html:p><html:hr></html:hr>
 	</html:div>
 
@@ -27,7 +27,7 @@
 		<html:table style="margin-bottom:-1em;">
 	  	<html:tr>
 	    	<html:td style="width:5px;"><html:img width="40px" id="SaveThirdParty" onclick="ffpwwe.cookieOption.switchCheckbox('SaveThirdParty');" src="chrome://firefoxpasswordwarningextension/skin/not_checked.png"></html:img></html:td>
-				<html:td style="width:1;"><html:h3><html:span style="font-style:italic;">&preventsave.title1;</html:span> &preventsave.title2;</html:h3></html:td>
+			<html:td style="width:1;"><html:h3><html:span style="font-style:italic;">&preventsave.title1;</html:span> &preventsave.title2;</html:h3></html:td>
 	  	</html:tr>
 	  </html:table>
 
@@ -42,7 +42,7 @@
 		<html:table style="margin-bottom:-1em;">
 	  	<html:tr>
 	    	<html:td style="width:5px;"><html:img width="40px" id="DeleteCookies" onclick="ffpwwe.cookieOption.switchCheckbox('DeleteCookies');" src="chrome://firefoxpasswordwarningextension/skin/not_checked.png"></html:img></html:td>
-				<html:td style="width:1;"><html:h3><html:span style="font-style:italic;">&deletecookies.title1;</html:span> &deletecookies.title2;</html:h3></html:td>
+			<html:td style="width:1;"><html:h3><html:span style="font-style:italic;">&deletecookies.title1;</html:span> &deletecookies.title2;</html:h3></html:td>
 	  	</html:tr>
 	  </html:table>
 
@@ -57,7 +57,7 @@
 		<html:table style="margin-bottom:-1em;">
 	  	<html:tr>
 	    	<html:td style=" width:5px;"><html:img width="40px" id="CloseThirdParty" onclick="ffpwwe.cookieOption.switchCheckbox('CloseThirdParty');" src="chrome://firefoxpasswordwarningextension/skin/not_checked.png"></html:img></html:td>
-				<html:td style="width:1;"><html:h3>&deletethirdonclose.title1; <html:span style="font-style:italic;">&deletethirdonclose.title2;</html:span> &deletethirdonclose.title3;</html:h3></html:td>
+			<html:td style="width:1;"><html:h3>&deletethirdonclose.title1; <html:span style="font-style:italic;">&deletethirdonclose.title2;</html:span> &deletethirdonclose.title3;</html:h3></html:td>
 	  	</html:tr>
 	  </html:table>
 

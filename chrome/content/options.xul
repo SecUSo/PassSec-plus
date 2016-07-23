@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://firefoxpasswordwarningextension/skin/skin.css" type="text/css"?>
-<!DOCTYPE prefwindow SYSTEM "chrome://firefoxpasswordwarningextension/locale/translations.dtd">
+<!DOCTYPE dialog SYSTEM "chrome://firefoxpasswordwarningextension/locale/translations.dtd">
 
 <prefwindow title="&optionswindowname;" id="options" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/lib/preferences.js"/>
@@ -11,71 +11,65 @@
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/options.js"/>
 	<script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/cookieoption.js"/>
 
+    <stringbundleset id="stringbundleset">
+        <stringbundle id="firefoxpasswordwarning-strings" src="chrome://firefoxpasswordwarningextension/locale/strings.properties"/>
+    </stringbundleset>
 
-    <prefpane label="&optionswindowname;" flex="1">
+    <prefpane>
         <preferences>
-            <preference id="firefox-password-warning-extension-border" name="extensions.firefoxpasswordwarning.border"
-                        type="bool"/>
+            <preference id="firefox-password-warning-extension-border" 
+                    name="extensions.firefoxpasswordwarning.border" type="bool"/>
             <preference id="firefox-password-warning-extension-triangle"
-                        name="extensions.firefoxpasswordwarning.triangle" type="bool"/>
-            <preference id="firefox-password-warning-extension-notbar" name="extensions.firefoxpasswordwarning.notbar"
-                        type="bool"/>
+                    name="extensions.firefoxpasswordwarning.triangle" type="bool"/>
+            <preference id="firefox-password-warning-extension-notbar" 
+                    name="extensions.firefoxpasswordwarning.notbar" type="bool"/>
             <preference id="firefox-password-warning-extension-background"
-                        name="extensions.firefoxpasswordwarning.background" type="bool"/>
-            <preference id="firefox-password-warning-extension-popup" name="extensions.firefoxpasswordwarning.popup"
-                        type="bool"/>
+                    name="extensions.firefoxpasswordwarning.background" type="bool"/>
+            <preference id="firefox-password-warning-extension-popup" 
+                    name="extensions.firefoxpasswordwarning.popup" type="bool"/>
             <preference id="firefox-password-warning-extension-popuponclick"
-                        name="extensions.firefoxpasswordwarning.popuponclick" type="bool"/>
-            <preference id="firefox-password-warning-extension-debug" name="extensions.firefoxpasswordwarning.debug"
-                        type="bool"/>
-            <preference id="firefox-password-warning-extension-usephishingwotdetection"
-                        name="extensions.firefoxpasswordwarning.usephishingwotdetection" type="bool"/>
+                    name="extensions.firefoxpasswordwarning.popuponclick" type="bool"/>
+            <preference id="firefox-password-warning-extension-debug" 
+                    name="extensions.firefoxpasswordwarning.debug" type="bool"/>
             <preference id="firefox-password-warning-extension-passwordfields"
-                        name="extensions.firefoxpasswordwarning.passwordfields" type="bool"/>
+                    name="extensions.firefoxpasswordwarning.passwordfields" type="bool"/>
             <preference id="firefox-password-warning-extension-paymentfields"
-                        name="extensions.firefoxpasswordwarning.paymentfields" type="bool"/>
+                    name="extensions.firefoxpasswordwarning.paymentfields" type="bool"/>
             <preference id="firefox-password-warning-extension-personalfields"
-                        name="extensions.firefoxpasswordwarning.personalfields" type="bool"/>
+                    name="extensions.firefoxpasswordwarning.personalfields" type="bool"/>
             <preference id="firefox-password-warning-extension-searchfields"
-                        name="extensions.firefoxpasswordwarning.searchfields" type="bool"/>
+                    name="extensions.firefoxpasswordwarning.searchfields" type="bool"/>
             <preference id="firefox-password-warning-extension-isbrokensecure"
-                        name="extensions.firefoxpasswordwarning.isbrokensecure" type="bool"/>
+                    name="extensions.firefoxpasswordwarning.isbrokensecure" type="bool"/>
             <preference id="firefox-password-warning-extension-checkExceptionAuto"
-                        name="extensions.firefoxpasswordwarning.checkExceptionAuto" type="bool"/>
+                    name="extensions.firefoxpasswordwarning.checkExceptionAuto" type="bool"/>
         </preferences>
 
-        <tabbox>
+        <tabbox style="max-width:400px">
             <tabs>
                 <tab label="&maintabcaption;"/>
+                <tab label="&redirections;"/>
                 <tab label="&exceptions;"/>
                 <tab label="&advancedtabcaption;"/>
             </tabs>
+            
             <tabpanels>
-                <tabpanel id="maintab" height="455" orient="vertical">
+                <tabpanel id="maintab" style="min-height:390px" orient="vertical">
                     <groupbox>
                         <caption label="&appearance;"/>
                         <description value="&securecase-appearance;"/>
                         <description id="display-securecase" value="&defaulpw;" class="firefox-password-secure-border"
-                                     style="background-color: white;"/>
+                                style="background-color: white;"/>
                         <description value="&unsecurecase;"/>
                         <description id="display-unsecurecase" value="&defaulpw;"
-                                     class="firefox-password-warning-background"/>
+                                class="firefox-password-warning-background"/>
                         <description value="&imagechange;"/>
-                        <grid>
-                            <rows>
-                                <row>
-                                    <button label="&changesecureimage;" oncommand="ffpwwe.options.imageStyleChanger.nextSecureImage();"/>
-                                    <hbox><image id="image-securecase" width="32px" height="32px"/></hbox>
-                                </row>
-                            </rows>
-                        </grid>
-                        <grid>
-                            <columns>
-                                <column flex="1"/>
-                                <column flex="1"/>
-                                <column flex="6"/>
-                            </columns>
-                        </grid>
+                        <rows>
+                            <row>
+                                <button label="&changesecureimage;" oncommand="ffpwwe.options.imageStyleChanger.nextSecureImage();"/>
+                                <hbox><image id="image-securecase" width="32px" height="32px"/></hbox>
+                            </row>
+                        </rows>
                     </groupbox>
 
                     <groupbox>
@@ -84,121 +78,79 @@
   					</groupbox>
 
                     <groupbox>
-                        <caption label="&optionscaption3;"/>
+                        <caption label="&resetexceptions;"/>
                         <button label="&resetexceptions;" oncommand="ffpwwe.options.restoreInitialState()"/>
-
-                        <description style="white-space: pre;">&resetinfo;</description>
+                        <description>&resetinfo;</description>
                     </groupbox>
                 </tabpanel>
 
-                <tabpanel id="lists" orientation="vertical">
-                    <grid>
+                <tabpanel id="redirections" orient="vertical">
+                    <groupbox>
+                        <caption label="&captionWhitelist;"/>
+                        <description>&secusoWhitelistText;</description>
+                        <button label="&addWhitelist;" oncommand="ffpwwe.options.insertSecusoWhitelist()"/>
+                    </groupbox>
+
+                    <groupbox>
+                        <caption label="&captionHttps;"/>
+                        <listbox id="https_list" height="80px"/>
                         <rows>
-                            <groupbox>
-                                <caption label="&captionHttps;"/>
-                                <row><listbox id="https_list" width="410px" height="80px"/></row>
-                                <row>
-                                    <button id="deleteHttps" label="&deleteHttps;" oncommand="ffpwwe.options.removeHttpsItem()"/>
-                                    <button id="clearHttps" label="&clearHttps;" oncommand="ffpwwe.options.clearHttpsList(true)"/>
-                                </row>
-                            </groupbox>
-                            <groupbox>
-                                <caption label="&captionExceptions;"/>
-                                <row><listbox id="pageExceptions" width="410px" height="80px"/></row>
-                                <row>
-                                    <button id="deleteException" label="&deleteException;" oncommand="ffpwwe.options.removePageExceptionItem()"/>
-                                    <button id="clearExceptions" label="&clearExceptions;" oncommand="ffpwwe.options.clearPageExceptions(true)"/>
-                                    <button id="checkExceptions" label="&checkExceptions;" oncommand="ffpwwe.options.checkForHttps()"/>
-                                </row>
-                                <row>
-                                    <checkbox id="checkExceptionBox" label="&checkExceptionsAuto;"
-                                              preference="firefox-password-warning-extension-checkExceptionAuto"
-                                              tooltiptext="&checkExceptionsAutoTooltip;"/>
-                                </row>
-                            </groupbox>
-                            <groupbox>
-                                <caption label="&captionWhitelist;"/>
-                                <description style="white-space: pre;">&secusoWhitelistText;</description>
-                                <button label="&addWhitelist;" oncommand="ffpwwe.options.insertSecusoWhitelist()"/>
-                            </groupbox>
+                            <row>
+                                <button id="deleteHttps" label="&delete;" oncommand="ffpwwe.options.removeHttpsItem()"/>
+                                <button id="clearHttps" label="&clearList;" oncommand="ffpwwe.options.clearHttpsList(true)"/>
+                            </row>
                         </rows>
-                    </grid>
+                    </groupbox>
                 </tabpanel>
 
+                <tabpanel id="exceptions" orient="vertical">
+                    <groupbox>
+                        <caption label="&captionExceptions;"/>
+                        <listbox id="pageExceptions" height="80"/>
+                        <rows>
+                            <row>
+                                <button id="deleteException" label="&delete;" oncommand="ffpwwe.options.removePageExceptionItem()"/>
+                                <button id="clearExceptions" label="&clearList;" oncommand="ffpwwe.options.clearPageExceptions(true)"/>
+                                <button id="checkExceptions" label="&checkExceptions;" oncommand="ffpwwe.options.checkForHttps()"/>
+                            </row>
+                        </rows>
+                        <checkbox id="checkExceptionBox" label="&checkExceptionsAuto;"
+                                preference="firefox-password-warning-extension-checkExceptionAuto"
+                                tooltiptext="&checkExceptionsAutoTooltip;"/>
+                    </groupbox>
+                </tabpanel>
+                
                 <tabpanel id="advancedtab" orient="vertical">
                     <groupbox>
                         <caption label="&phishingdetection;"/>
-                        <grid>
-                            <columns>
-                                <column flex="4"/>
-
-                                <column flex="1"/>
-                            </columns>
-                            <rows>
-                                <row>
-                                    <checkbox id="usephishingwotdetection" label="&usephishingwotdetection;"
-                                              preference="firefox-password-warning-extension-usephishingwotdetection"
-                                              tooltiptext="&phishingwotinfotext;"/>
-                                </row>
-                            </rows>
-                        </grid>
+                            <checkbox id="usephishingwotdetection" label="&usephishingwotdetection;"
+                                    preference="firefox-password-warning-extension-usephishingwotdetection"
+                                    tooltiptext="&phishingwotinfotext;"/>                                   
                     </groupbox>
 
                     <groupbox>
                         <caption label="&fielddetection;"/>
-                        <grid>
-                            <columns>
-                                <column flex="4"/>
-
-                                <column flex="1"/>
-                            </columns>
-                            <rows>
-                                <row>
-                                    <checkbox id="passwordfields" label="&passwordfields;"
-                                              preference="firefox-password-warning-extension-passwordfields"/>
-                                </row>
-                                <row>
-                                    <checkbox id="paymentfields" label="&paymentfields;"
-                                              preference="firefox-password-warning-extension-paymentfields"/>
-                                </row>
-                                <row>
-                                    <checkbox id="personalfields" label="&personalfields;"
-                                              preference="firefox-password-warning-extension-personalfields"/>
-                                </row>
-                                <row>
-                                    <checkbox id="searchfields" label="&searchfields;"
-                                              preference="firefox-password-warning-extension-searchfields"/>
-                                </row>
-                            </rows>
-                        </grid>
+                        <checkbox id="passwordfields" label="&passwordfields;"
+                                preference="firefox-password-warning-extension-passwordfields"/>
+                        
+                        <checkbox id="paymentfields" label="&paymentfields;"
+                                preference="firefox-password-warning-extension-paymentfields"/>
+                        
+                        <checkbox id="personalfields" label="&personalfields;"
+                                preference="firefox-password-warning-extension-personalfields"/>
+                        
+                        <checkbox id="searchfields" label="&searchfields;"
+                                preference="firefox-password-warning-extension-searchfields"/>                      
                     </groupbox>
+
                     <groupbox>
                         <caption label="&httpssecurity;"/>
-                        <grid>
-                            <columns>
-                                <column flex="4"/>
-
-                                <column flex="1"/>
-                            </columns>
-                            <rows>
-                                <row>
-                                    <checkbox id="isbrokensecure" label="&isbrokensecure;"
-                                              preference="firefox-password-warning-extension-isbrokensecure"/>
-                                </row>
-                            </rows>
-                        </grid>
-                        <description style="white-space: pre;">&isbrokensecuredesc;</description>
+                        <checkbox id="isbrokensecure" label="&isbrokensecure;"
+                                preference="firefox-password-warning-extension-isbrokensecure"/>
+                        <description>&isbrokensecuredesc;</description>
                     </groupbox>
                 </tabpanel>
-
             </tabpanels>
         </tabbox>
-
-
     </prefpane>
-
-    <stringbundleset id="stringbundleset">
-           <stringbundle id="firefoxpasswordwarning-strings" src="chrome://firefoxpasswordwarningextension/locale/strings.properties"/>
-    </stringbundleset>
-
 </prefwindow>
