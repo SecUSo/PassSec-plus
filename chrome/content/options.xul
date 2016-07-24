@@ -57,17 +57,17 @@
                 <tabpanel id="maintab" style="min-height:390px" orient="vertical">
                     <groupbox>
                         <caption label="&appearance;"/>
-                        <description value="&securecase-appearance;"/>
+                        <description>&securecase-appearance;</description>
                         <description id="display-securecase" value="&defaulpw;" class="firefox-password-secure-border"
                                 style="background-color: white;"/>
-                        <description value="&unsecurecase;"/>
+                        <description>&unsecurecase;</description>
                         <description id="display-unsecurecase" value="&defaulpw;"
                                 class="firefox-password-warning-background"/>
-                        <description value="&imagechange;"/>
+                        <description>&imagechange;</description>
                         <rows>
                             <row>
-                                <button label="&changesecureimage;" oncommand="ffpwwe.options.imageStyleChanger.nextSecureImage();"/>
-                                <hbox><image id="image-securecase" width="32px" height="32px"/></hbox>
+                                <button oncommand="ffpwwe.options.imageStyleChanger.nextSecureImage();">&changesecureimage;</button>
+                                <image id="image-securecase" width="32px" height="32px"/>
                             </row>
                         </rows>
                     </groupbox>

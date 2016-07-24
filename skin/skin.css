@@ -13,15 +13,9 @@ description.passsecLink {
     cursor: pointer;
 }
 
-/*
-#disableLink {
-    color: black;
-
+#standardwarning {
+    font-weight: bold;
 }
-
-#popuplink {
-	//color: black !important;
-}*/
 
 button.custom,.safezone ,.unsafe,.phishing-warning-switch
 {
@@ -29,11 +23,6 @@ button.custom,.safezone ,.unsafe,.phishing-warning-switch
 	border: 1px solid !important;
 	color: black !important;
 	outline-color: black;
-	/*
-	-moz-border-top-colors: transparent ThreeDHighlight ThreeDLightShadow !important;
-	-moz-border-right-colors: transparent ThreeDDarkShadow ThreeDShadow !important;
-	-moz-border-bottom-colors: transparent ThreeDDarkShadow ThreeDShadow !important;
-	-moz-border-left-colors: transparent ThreeDHighlight ThreeDLightShadow !important;*/
 }
 
 button.safezone
@@ -50,13 +39,6 @@ button.unsafe
     border: 2px red;
 }
 
-/*.firefox-password-warning-triangle {*/
-    /*background-image: url("chrome://firefoxpasswordwarningextension/skin/yellow_triangle.png") !important;*/
-    /*background-repeat: no-repeat !important;*/
-    /*background-size: contain !important;*/
-    /*background-position: right center !important;*/
-/*}*/
-
 .firefox-password-warning-background {
     background-color: #FF0000 !important;
 }
@@ -69,49 +51,9 @@ button.unsafe
     border: 2px solid #4dbc4f !important;
 }
 
-/*.firefox-password-ok-check {*/
-    /*background-image: url("chrome://firefoxpasswordwarningextension/skin/check.png") !important;*/
-    /*background-repeat: no-repeat !important;*/
-    /*background-size: contain !important;*/
-    /*background-position: right center !important;*/
-/*}*/
-
-/*
-span {
-    position: relative;
-}
-
-span[data-tooltip]:before {
-    content: attr(data-tooltip);
-    font-size: 10px;
-    position: absolute;
-    z-index: 90099;
-    white-space: nowrap;
-    bottom: 9999px;
-    left: 50%;
-    background: #000;
-    color: #e0e0e0;
-    padding: 0px 7px;
-    line-height: 24px;
-    height: 24px;
-    opacity: 0;
-    transition: opacity 0.4s ease-out;
-}
-
-span[data-tooltip]:hover:before {
-    opacity: 1;
-    bottom: -35px;
-}
-*/
-
 .closebutton {
     min-width: 1em;
 }
-
-/*
-#toolbarButton{
-  list-style-image: url("./toolbar.png");
-}*/
 
 #toolbarButton[value='redirectOn']{
   list-style-image: url("chrome://firefoxpasswordwarningextension/skin/redirectActive.png");

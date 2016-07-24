@@ -24,16 +24,15 @@
     <script type="application/x-javascript" src="chrome://firefoxpasswordwarningextension/content/firstrun.js"/>
 
     <popupset>
-        <panel id="warnpanel2" noautohide="false" level="floating" noautofocus="true">
+        <panel id="warnpanel2" noautofocus="true">
             <vbox style="padding: 2px; width: 35px; background-color: rgb(254, 255, 204)">
                 <hbox height="5"/>
                 <hbox id="warn-box" class="http-warning phishing-warning" height="20">
-                    <description style="color:#000000;" id="standardwarning"/>
+                    <description id="standardwarning"/>
                 </hbox>
-                <hbox height="5"/>
                 <menuseparator class="http-warning phishing-warning"/>
                 <hbox id="urlprun-box">
-                    <description style="color:#000000;" id="urlpruningtext"/>
+                    <description id="urlpruningtext"/>
                 </hbox>
                 <hbox id="phishing-box" class="phishing-warning">
                     <vbox>
