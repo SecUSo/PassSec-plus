@@ -5,14 +5,13 @@
 	<Description about="urn:mozilla:install-manifest">
     <em:id>firefoxpasswordwarningextension@tu-darmstadt.de</em:id>
     <em:name>PassSec+</em:name>
-    <em:description>PassSec+ alerts the user to enter passwords on websites where it could be compromised.</em:description>
+    <em:description>PassSec+ alerts the user to enter passwords on websites where they could be compromised.</em:description>
     <em:creator>TU Darmstadt - SECUSO</em:creator>
     <em:homepageURL>https://www.secuso.informatik.tu-darmstadt.de/en/secuso-home/research/results/passsec/</em:homepageURL>
-    <em:version>1.2.2</em:version>
+    <em:version>1.2.4</em:version>
     <em:type>2</em:type>
     <em:optionsURL>chrome://firefoxpasswordwarningextension/content/options.xul</em:optionsURL>
     <em:iconURL>chrome://firefoxpasswordwarningextension/skin/logo.png</em:iconURL>
-    <em:updateURL>https://passsec-update.secuso.org/update.rdf</em:updateURL>
 
     <em:localized>
       <Description>
@@ -27,7 +26,7 @@
       <Description>
         <em:locale>en-GB</em:locale>
         <em:name>PassSec+</em:name>
-        <em:description>PassSec+ alerts the user to enter passwords on websites where it could be compromised.</em:description>
+        <em:description>PassSec+ alerts the user to enter passwords on websites where they could be compromised.</em:description>
         <em:creator>TU Darmstadt - SECUSO</em:creator>
         <em:homepageURL>https://www.secuso.informatik.tu-darmstadt.de/en/secuso-home/research/results/passsec/</em:homepageURL>
       </Description>
