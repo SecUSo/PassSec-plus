@@ -21,3 +21,6 @@ pref("extensions.firefoxpasswordwarning.passwordfields", true);
 pref("extensions.firefoxpasswordwarning.isbrokensecure", true);
 pref("extensions.firefoxpasswordwarning.cookieBehavior_reset", -1);
 pref("extensions.firefoxpasswordwarning.lifetimePolicy_reset", -1);
+pref("extensions.firefoxpasswordwarning.httpToHttpsRedirects", "");
+pref("extensions.firefoxpasswordwarning.userVerifiedDomains", "");
+pref("extensions.firefoxpasswordwarning.pageExceptions", "");

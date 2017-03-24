@@ -1,38 +1,18 @@
 var ffpwwe = ffpwwe || {};
+ffpwwe.db = ffpwwe.db || {};
 
-ffpwwe.db = function () {
-    Components.utils.import("resource://gre/modules/FileUtils.jsm");
-    Components.utils.import("resource://gre/modules/Services.jsm");
-
-    /**
-     * opens a connection to the default database
-     * @returns {Database}
-     */
-    function openConnection() {
-        let file = FileUtils.getFile("ProfD", ["PostPasswordExtensionExceptions.sqlite"]);
-        let dbConn = Services.storage.openDatabase(file); // Will also create the file if it does not exist
-        return dbConn;
-    }
-
-    return {
-        /**
-         * inserts a value into a database
-         * @param database the name of the database
-         * @param value the value to insert into the database
-         */
-        insert: function (database, value) {
-            var dbConn = openConnection();
-            dbConn.executeSimpleSQL("CREATE TABLE IF NOT EXISTS " + database + " (url VARCHAR(100))");
-
-            try {
-                let statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = :url");
-				statement.params.url = value;
-				statement.executeAsync({
-						handleResult: function(resultSet) {
-							//fire if resultSet is not empty
-							dbConn.asyncClose();
-						},
-						handleError: function(error) {
+/**
+* inserts a value into a database
+* @param database the name of the database
+* @param value the value to insert into the database
+*/
+ffpwwe.db.insert = function (database, url) {
+  var str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
+  var domainList = ffpwwe.prefs.getComplexValue(database, Components.interfaces.nsISupportsString).data;
+  str.data = domainList + url + ",";
+  ffpwwe.prefs.setComplexValue(database, Components.interfaces.nsISupportsString, str);
+}
+						/*handleError: function(error) {
 							//Application.console.error("insert row error:" + error);
 							console.error("select row error:" + error);
 							dbConn.asyncClose();
@@ -62,11 +42,17 @@ ffpwwe.db = function () {
 				console.error("error statement:" + dbConn.lastErrorString);
             }
 
-        },
-        deleteItem: function (database, col, value) {
-            var dbConn = openConnection();
+        },*/
 
-            try {
+ffpwwe.db.deleteItem = function (database, url, value) {
+  var str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
+	var domainList = ffpwwe.prefs.getComplexValue(database, Components.interfaces.nsISupportsString).data;
+	url = url + ",";
+  // cut selected element out of list of domains
+	str.data = domainList.replace(url, "");
+	ffpwwe.prefs.setComplexValue(database, Components.interfaces.nsISupportsString, str);
+	}
+          /*
                 var statement = dbConn.createStatement("DELETE FROM " + database + " WHERE " + col + " = :url");
 				statement.params.url = value;
                 statement.executeAsync({
@@ -83,11 +69,14 @@ ffpwwe.db = function () {
             catch (e) {
                 //Application.console.error("error statement:" + dbConn.lastErrorString);
 				console.error("error statement:" + dbConn.lastErrorString);
-            }
-        },
-        dropTable: function(database) {
+      }*/
+        
+ffpwwe.db.dropTable = function(database) {
+  var str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
+  str.data = "";
+	ffpwwe.prefs.setComplexValue(database, Components.interfaces.nsISupportsString, str);
 
-            var dbConn = openConnection();
+/*
             try	{
                 let statement = dbConn.createStatement("DROP TABLE IF EXISTS " + database);
 
@@ -105,17 +94,21 @@ ffpwwe.db = function () {
             catch (e) {
                 //Application.console.error("error statement:" + dbConn.lastErrorString);
 				console.error("error statement:" + dbConn.lastErrorString);
-            }
-        },
+      }*/
+}
         /**
          * checks whether a value is inside a database
          * @param database the name of the database
          * @param value the value to check
          * @returns {boolean}
          */
-        isInside: function (database, value) {
-            var dbConn = openConnection();
-            dbConn.executeSimpleSQL("CREATE TABLE IF NOT EXISTS " + database + " (url VARCHAR(100))");
+ffpwwe.db.isInside = function (database, website) {
+	var sites = ffpwwe.prefs.getComplexValue(database, Components.interfaces.nsISupportsString).data;
+	if(sites.indexOf(website) != 0 && sites.charAt(sites.indexOf(website)-1) != ','){
+		return false;
+	}
+	return (sites.indexOf(website) > -1);
+          /*  dbConn.executeSimpleSQL("CREATE TABLE IF NOT EXISTS " + database + " (url VARCHAR(100))");
 
             try	{
                 let statement = dbConn.createStatement("SELECT * FROM " + database + " WHERE url = :url");
@@ -129,16 +122,16 @@ ffpwwe.db = function () {
             catch (error) {
                 //Application.console.error("error statement:" + dbConn.lastErrorString);
 				        console.error("error statement:" + dbConn.lastErrorString);
-            }
-
-			return false;
-        },
+            }*/
+}
         /**
          *
          *
          */
-         getAll: function (database) {
-             var dbConn = openConnection();
+ffpwwe.db.getAll = function (database) {
+	var domainList = ffpwwe.prefs.getComplexValue(database, Components.interfaces.nsISupportsString).data;
+  return defaultSites.split(",");
+  /*
              dbConn.executeSimpleSQL("CREATE TABLE IF NOT EXISTS " + database + " (url VARCHAR(100))");
 
              try {
@@ -159,13 +152,16 @@ ffpwwe.db = function () {
 				 console.error("error statement:" + dbConn.lastErrorString);
              }
 
- 			return [];
-         },
-        /**
-         * drops all database tables
-         */
-        dropTables: function () {
-            var dbConn = openConnection();
+ 			return [];*/
+}
+/**
+* drops all database tables
+*/
+ffpwwe.db.dropTables = function () {
+  ffpwwe.db.dropTable("httpToHttpsRedirects");
+  ffpwwe.db.dropTable("userVerifiedDomains");
+  ffpwwe.db.dropTable("pageExceptions");
+  /*
 			var statements = [dbConn.createStatement("DROP TABLE IF EXISTS pageExceptions"),
 					    dbConn.createStatement("DROP TABLE IF EXISTS httpToHttpsRedirects"),
 						dbConn.createStatement("DROP TABLE IF EXISTS userVerifiedDomains"),
@@ -183,5 +179,5 @@ ffpwwe.db = function () {
                     }
             });
         }
-    };
-}();
+    };*/
+}
