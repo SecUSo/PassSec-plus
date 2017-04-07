@@ -21,7 +21,7 @@ ffpwwe.toolbarButtonClick = function(event) {
             break;
         case 2: // Right click
             ffpwwe.api.disableOnThisPage();
-            // window.openDialog('chrome://firefoxpasswordwarningextension/content/options.xul');
+            //window.openDialog('chrome://firefoxpasswordwarningextension/content/options.xul');
             break;
     }
 };

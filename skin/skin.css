@@ -17,6 +17,9 @@ description.passsecLink {
     font-weight: bold;
 }
 
+#urlpruningtext {
+    color: black;
+}
 button.custom,.safezone ,.unsafe,.phishing-warning-switch
 {
 	-moz-appearance: none !important;
@@ -70,3 +73,16 @@ button.unsafe
 #lists {
     overflow: auto;
 }
+
+#PopupAutoComplete > richlistbox > richlistitem[originaltype="insecureWarning"] {
+  display:none !important;
+}
+
+#PopupAutoComplete > richlistbox > richlistitem[originaltype="insecureWarning"] > .ac-site-icon {
+  display:none !important;}
+
+#PopupAutoComplete > richlistbox > richlistitem[originaltype="insecureWarning"] > .ac-title > .ac-text-overflow-container > .ac-title-text {
+  display:none !important;}
+
+#PopupAutoComplete > richlistbox > richlistitem[originaltype="insecureWarning"] > .ac-title > label {
+  display:none !important;}
