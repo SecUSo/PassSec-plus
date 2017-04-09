@@ -18,31 +18,31 @@
     <prefpane>
         <preferences>
             <preference id="firefox-password-warning-extension-border" 
-                    name="extensions.firefoxpasswordwarning.border" type="bool"/>
+                    name="extensions.firefoxwarning.border" type="bool"/>
             <preference id="firefox-password-warning-extension-triangle"
-                    name="extensions.firefoxpasswordwarning.triangle" type="bool"/>
+                    name="extensions.firefoxwarning.triangle" type="bool"/>
             <preference id="firefox-password-warning-extension-notbar" 
-                    name="extensions.firefoxpasswordwarning.notbar" type="bool"/>
+                    name="extensions.firefoxwarning.notbar" type="bool"/>
             <preference id="firefox-password-warning-extension-background"
-                    name="extensions.firefoxpasswordwarning.background" type="bool"/>
+                    name="extensions.firefoxwarning.background" type="bool"/>
             <preference id="firefox-password-warning-extension-popup" 
-                    name="extensions.firefoxpasswordwarning.popup" type="bool"/>
+                    name="extensions.firefoxwarning.popup" type="bool"/>
             <preference id="firefox-password-warning-extension-popuponclick"
-                    name="extensions.firefoxpasswordwarning.popuponclick" type="bool"/>
+                    name="extensions.firefoxwarning.popuponclick" type="bool"/>
             <preference id="firefox-password-warning-extension-debug" 
-                    name="extensions.firefoxpasswordwarning.debug" type="bool"/>
+                    name="extensions.firefoxwarning.debug" type="bool"/>
             <preference id="firefox-password-warning-extension-passwordfields"
-                    name="extensions.firefoxpasswordwarning.passwordfields" type="bool"/>
+                    name="extensions.firefoxwarning.passwordfields" type="bool"/>
             <preference id="firefox-password-warning-extension-paymentfields"
-                    name="extensions.firefoxpasswordwarning.paymentfields" type="bool"/>
+                    name="extensions.firefoxwarning.paymentfields" type="bool"/>
             <preference id="firefox-password-warning-extension-personalfields"
-                    name="extensions.firefoxpasswordwarning.personalfields" type="bool"/>
+                    name="extensions.firefoxwarning.personalfields" type="bool"/>
             <preference id="firefox-password-warning-extension-searchfields"
-                    name="extensions.firefoxpasswordwarning.searchfields" type="bool"/>
+                    name="extensions.firefoxwarning.searchfields" type="bool"/>
             <preference id="firefox-password-warning-extension-isbrokensecure"
-                    name="extensions.firefoxpasswordwarning.isbrokensecure" type="bool"/>
+                    name="extensions.firefoxwarning.isbrokensecure" type="bool"/>
             <preference id="firefox-password-warning-extension-checkExceptionAuto"
-                    name="extensions.firefoxpasswordwarning.checkExceptionAuto" type="bool"/>
+                    name="extensions.firefoxwarning.checkExceptionAuto" type="bool"/>
         </preferences>
 
         <tabbox style="max-width:400px">

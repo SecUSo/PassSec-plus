@@ -6,7 +6,7 @@ ffpwwe.prefs = function () {
     const prefManager =
         Components.classes["@mozilla.org/preferences-service;1"]
             .getService(Components.interfaces.nsIPrefService)
-            .getBranch("extensions.firefoxpasswordwarning.");
+            .getBranch("extensions.firefoxwarning.");
     return {
         getBoolPref: prefManager.getBoolPref,
         getIntPref: prefManager.getIntPref,
