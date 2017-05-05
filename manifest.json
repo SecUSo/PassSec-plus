@@ -1,0 +1,42 @@
+{
+	"manifest_version":2,
+	"name":"PassSec+",
+	"version":"1.3.0",
+  "author":"TU Darmstadt - SECUSO",
+  "homepage_url":"https://www.secuso.informatik.tu-darmstadt.de/en/secuso-home/research/results/passsec/",
+	"description":"PassSec+ alerts the user to enter passwords on websites where they could be compromised.",
+  "background":{
+		"scripts":[
+			"js/jquery-2.1.1.min.js",
+			"background.js"
+		]
+	},
+	"icons":{
+		"64":"skin/logo.png"
+	},
+	"content_scripts":[
+		{
+		  "matches": [
+				"https://*/*",
+				"http://*/*"
+		  ],
+		  "permissions":[
+		    "webRequest",
+		    "webRequestBlocking",
+		  	"http://*/*",
+		  	"https://*/*"
+		  ],
+		  "css": [
+		  	"css/jquery.qtip.min.css",
+				"css/tooltip.css"
+		  ],
+		  "js": [
+		  	"js/jquery-2.1.1.min.js",
+		  	"js/jquery.qtip.min.js",
+		  	"js/jquery.urldecoder.min.js",
+		  	"js/script.js"
+		  ],
+		  "run_at": "document_idle"
+		}
+	]
+}
