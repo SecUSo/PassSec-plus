@@ -1,10 +1,14 @@
-.torpedoTooltip{
-    border-color: grey;
-    border-width: 2px;
-    border-radius: 5px;
-    background-color: #f2f2f2;
+.passSecTooltip{
+    border-color: #f7eab2;
+    background-color: #f7eab2;
     font-size: 13px;
+    min-width: 400px;
 }
-#torpedoSecurityStatus{
+#passSecDomain{
+  font-weight:bold;
+  color:black;
+  letter-spacing: 4px;
+}
+#passSecSecurityStatus{
   margin-top: 5px;
 }

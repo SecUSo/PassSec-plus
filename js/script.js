@@ -5,7 +5,7 @@ jQuery(function($){
             chrome.extension.sendRequest('show', function(r) {
                 var uri = $.url.parse(o.href),
                     position,
-                    text = '<a href="'+uri.source+'" id="torpedoHref">' + uri.source.replace(uri.host, '<span style="color:#0033cc">' + extractDomain(uri.host) + '</span>') + '</a>';
+                    text = '<span id="passSecURL">Sie besuchen eine Seite des Betreibers: <span id="passSecDomain">' + extractDomain(uri.host) + '</span>.</span>';
                     position = {
                         at: 'left bottom',
                         my: 'top left',
@@ -15,8 +15,6 @@ jQuery(function($){
                           mouse: false
                         }
                     }
-                // Is the target a new window?
-                //if ( $(o).attr('target') == '_blank' ) text = '<i class="fa fa-external-link-square" style="padding-right: 5px;"></i>' + text;
 
                 var id = 'passSec_' + $.fn.qtip.nextid;
                 // Show the qtip
@@ -32,15 +30,18 @@ jQuery(function($){
                     },
                     hide: {
                         fixed: true,
-                        delay: 1500
+                        delay: 1000
                     },
                     position: position,
-                    style: { classes: 'torpedoTooltip' },
+                    style: {
+                      classes: 'passSecTooltip',
+                      width: 900
+                    },
                     events: {
                       render: function(event, api) {
                         //var iframe = $('iframe', this)[0];
                         //var tooltip = $(this);
-                        container = $('<p id="torpedoSecurityStatus">This URL is not yet known to PassSec.</p>').appendTo(api.elements.content);
+                        container = $('<p id="passSecSecurityStatus">This is a sample text.</p>').appendTo(api.elements.content);
                         console.log(api.elements.content.html());
                       },
                       hide: function(event, api) {
