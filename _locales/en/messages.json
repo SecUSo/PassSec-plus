@@ -1,0 +1,58 @@
+{
+  "domainInfo": {
+    "message": "The site you are visiting belongs to",
+    "description": "Info about webpage host"
+  },
+
+  "verifyDomain": {
+    "message": "Verify this information before you enter data here.",
+    "description": "Verify domain."
+  },
+
+  "OK": {
+    "message": "OK, got it.",
+    "description": "OK"
+  },
+
+  "moreInfo": {
+    "message": "More information",
+    "description": "More information"
+  },
+
+  "phishWarning": {
+    "message": "CAUTION! A potential phishing attempt has been detected. Check the above information about the website operator carefully. We recommend that you enter the address manually.",
+    "description": "Warn about possible phish."
+  },
+
+  "searchConsequenceHttps": {
+    "message": "When you enter your search queries on this website, an unauthorized person could intercept it. This invades your privacy and betrays  your personal interests.",
+    "description": "Consequence https: user enters search queries."
+  },
+
+  "searchRecommendationHttps": {
+    "message": "You should always use secure mode (https). [more]",
+    "description": "Recommendation https: user enters search queries."
+  },
+
+  "searchConsequenceHttp": {
+    "message": "When you enter your search queries on this website, an unauthorized person could intercept it. This allows conclusions about your personal interests.",
+    "description": "Consequence http: user enters search queries."
+  },
+
+  "searchRecommendationHttp": {
+    "message": "This website does not provide a secure alternative (https). Enter your search query only if it contains no sensitive data.",
+    "description": "Recommendation http: user enters search queries."
+  },
+
+  "insecureWarning": {
+    "message": "It is insecure to enter $FIELD$ here!",
+    "description": "Warn about insecurity of field.",
+    "placeholders": {
+      "field" : {
+        "content" : "$1",
+        "example" : "data"
+      }
+    }
+  }
+
+}

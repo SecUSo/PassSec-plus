@@ -1,0 +1,57 @@
+{
+  "domainInfo": {
+    "message": "Sie besuchen eine Seite des Betreibers",
+    "description": "Info about webpage host"
+  },
+
+  "verifyDomain": {
+    "message": "Überprüfen Sie diese Angabe, bevor Sie hier Daten eingeben.",
+    "description": "Verify domain."
+  },
+
+  "OK": {
+    "message": "Ok, verstanden.",
+    "description": "OK"
+  },
+
+  "moreInfo": {
+    "message": "Mehr Informationen",
+    "description": "More information"
+  },
+
+  "phishWarning": {
+    "message": "ACHTUNG! Es wurde ein möglicher Phishing-Versuch erkannt. Überprüfen Sie die obige Angabe zum Betreiber sorgfältig. Wir empfehlen die Adresse händisch einzugeben.",
+    "description": "Warn about possible phish."
+  },
+
+  "searchConsequenceHttps": {
+    "message": "Wenn Sie Ihre Suchanfrage auf dieser Webseite eingeben, können Unbefugte sie abfangen. Dies lässt Rückschlüsse auf Ihre persönlichen Interessen zu.",
+    "description": "Consequence https: user enters search queries."
+  },
+
+  "searchRecommendationHttps": {
+    "message": "Rufen Sie diese Seite immer im sicheren Modus (mit https) auf. [mehr]",
+    "description": "Recommendation https: user enters search queries."
+  },
+
+  "searchConsequenceHttp": {
+    "message": "Wenn Sie Ihre Suchanfrage auf dieser Webseite eingeben, können Unbefugte sie abfangen. Dies lässt Rückschlüsse auf Ihre persönlichen Interessen zu.",
+    "description": "Consequence: user enters search queries."
+  },
+
+  "searchRecommendationHttp": {
+    "message": "Diese Webseite bietet keinen sicheren Modus (https) an. Geben Sie ihre Suchanfrage nur ein, falls diese keine sensiblen Daten enthält.",
+    "description": "Recommendation: user enters search queries."
+  },
+
+  "insecureWarning": {
+    "message": "Es ist unsicher, hier $FIELD$ einzugeben!",
+    "description": "Warn about insecurity of field.",
+    "placeholders": {
+      "field" : {
+        "content" : "$1",
+        "example" : "Daten"
+      }
+    }
+  }
+}
