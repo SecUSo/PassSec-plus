@@ -4,7 +4,13 @@
     font-size: 13px;
     color: #333333;
     max-width: none !important;
-    line-height: 110%;
+    color: black !important;
+    font-size: 13px !important;
+    font-family: Helvetica !important;
+    line-height: 110% !important;
+}
+p{
+  font-size: 13px !important;
 }
 .phishing-warning{
   display: none;
@@ -32,10 +38,11 @@
 }
 #passSecRecommendation{
   clear: both;
-  max-width: 350px;
+  max-width: 400px;
 }
 #passSecRecommendationImage{
   float: left;
+  margin-right: 10px;
 }
 #passSecInfo{
   clear: both;

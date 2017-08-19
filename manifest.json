@@ -5,10 +5,11 @@
   "author":"TU Darmstadt - SECUSO",
   "homepage_url":"https://www.secuso.informatik.tu-darmstadt.de/en/secuso-home/research/results/passsec/",
 	"description":"PassSec+ alerts the user to enter passwords on websites where they could be compromised.",
-	"default_locale": "en",
+	"default_locale": "de",
   "background":{
 		"scripts":[
 			"js/jquery-2.1.1.min.js",
+			"js/preferences.js",
 			"background.js"
 		],
     "persistent": true
@@ -27,8 +28,7 @@
 		  "permissions":[
 				"tabs",
 				"<all_urls>",
-		    "webRequest",
-		    "webRequestBlocking"
+				"storage"
 		  ],
 		  "css": [
 		  	"css/jquery.qtip.min.css",
@@ -38,6 +38,7 @@
 		  	"js/jquery-2.1.1.min.js",
 		  	"js/jquery.qtip.min.js",
 		  	"js/securitystatus.js",
+		  	"js/firstrun.js",
 		  	"js/texts.js",
 		  	"js/inputField.js",
 		  	"js/contentscript.js"

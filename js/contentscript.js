@@ -7,11 +7,9 @@ jQuery(function($){
   $('input[type=search]').each(function(j){processInput(this)});
   $('body').on('mouseenter', 'input', function(e) {
     var o = this;
-    console.log(document.location);
     if ( o.type == "password" || o.type == "search") {
       passSec.url = document.location.href;
       passSec.domain = extractDomain(document.location.host);
-      console.log(getSecurityStatus());
       // Show the qtip
       $(o).qtip({
         overwrite: true,
@@ -46,7 +44,6 @@ jQuery(function($){
           render: function(event, api) {
             //passSec.api = api;
             //passSec.tooltip = api.elements.content;
-            //fillTooltip();
           }
         }
       }, e);
