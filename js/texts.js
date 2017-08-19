@@ -31,3 +31,10 @@ function getTexts(){
   console.log(text);
   return text;
 };
+
+
+function extractDomain(domain){
+  var split = domain.split(".");
+  if(split.length > 2) domain = split[split.length-2]+"."+split[split.length-1];
+  return domain;
+};

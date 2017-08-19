@@ -14,5 +14,9 @@ var PassSec = {
 	checkExceptionAuto:{
 		label:'checkExceptionAuto',
 		value:false
+	},
+	sslCheckEnabled:{
+		label:'sslCheckEnabled',
+		value:false
 	}
 };

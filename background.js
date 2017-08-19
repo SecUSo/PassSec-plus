@@ -13,7 +13,8 @@ chrome.runtime.onMessage.addListener(function(request,sender,sendResponse){
 			firstRun:(window.localStorage.getItem(PassSec.firstRun.label)),
 			secureImage:parseInt(window.localStorage.getItem(PassSec.secureImage.label)),
 			secureEVImage:parseInt(window.localStorage.getItem(PassSec.secureEVImage.label)),
-			checkExceptionAuto:(window.localStorage.getItem(PassSec.checkExceptionAuto.label))
+			checkExceptionAuto:(window.localStorage.getItem(PassSec.checkExceptionAuto.label)),
+			sslCheckEnabled:(window.localStorage.getItem(PassSec.sslCheckEnabled.label))
 		};
 		sendResponse(r);
 	}
