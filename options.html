@@ -7,55 +7,55 @@
 	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="js/preferences.js"></script>
 	<script type="text/javascript" src="js/options.js"></script>
-	<script type="text/javascript" src="js/status.js"></script>
-	<script type="text/javascript" src="js/tooltip.js"></script>
 </head>
 <body>
 	<h1 id="options"></h1>
 	<div class="tabs">
 		<ul class="tab-links">
-			<li class="active"><a href="#tab1">General</a></li>
-			<li><a href="#tab2">Redirections</a></li>
-			<li id="ref"><a href="#tab3">Exceptions</a></li>
-			<li id="ref"><a href="#tab4">Advanced</a></li>
+			<li class="active"><a href="#tab1" id="general"></a></li>
+			<li><a href="#tab2" id="tab2"></a></li>
+			<li id="ref"><a href="#tab3" id="tab3"></a></li>
+			<li id="ref"><a href="#tab4" id="tab4"></a></li>
 		</ul>
 
 		<div class="tab-content">
 			<div id="tab1" class="tab active">
-				<h3>General appearance</h3>
-				<p>Appearance if secure</p>
-				<p>Image secure</p>
-				<p>Appearance if not secure</p>
-				<p>Image not secure</p>
-				<p>Change Icon</p>
-				<button>Show redirects</button>Icon
+				<h3 id="appearance"></h3>
+				<p id="appearanceSecure"></p>
+				<input id="secureInputType" type="text" value="***"></p>
+				<p id="appearanceNotSecure"></p>
+				<input id="notSecureInputType" type="text" value="***"></p>
+				<p id="changeIconText"></p>
+				<button id="changeIconButton"></button>
+				<img id="iconImg" alt="Icon">
 			</div>
 
 			<div id="tab2" class="tab">
-				<h3>Recommended Redirections</h3>
-				<p>Blabaljsdkflasjdkflöajw</p>
-				<button>Add recommended redirections</button>
-				<h3>HTTPS redirects</h3>
-				<button>Show redirects</button>
-				<button>Clear list</button>
+				<h3 id="recommendedRedirections"></h3>
+				<p id="recommendedRedirectionsInfo"></p>
+				<button id="addRecommendedRedirections"></button><br>
+				<h3 id="httpsRedirects"></h3>
+				<button id="showRedirects"></button><br>
+				<button id="clearRedirectionList"></button>
 			</div>
 
 			<div id="tab3" class="tab">
-				<h3>Website Exceptions</h3>
-				<button>Show Website Exceptions</button>
-				<button>Clear list</button>
-				<button>Check Exceptions</button>
-				<input type="checkbox" name="check" value="check">Check automatically after 20 starts<br>
+				<h3 id="websiteExceptions"></h3>
+				<button id="showWebsiteExceptions"></button><br>
+				<button id="clearExceptionList"></button><br>
+				<button id="checkExceptions"></button><br>
+				<input id="checkAfter20Checkbox" type="checkbox"><p id="checkAfter20"></p>
 			</div>
 
 			<div id="tab4" class="tab">
-				<h3>Types of fields:</h3>
-				<input type="checkbox" name="password" value="password">Password fields<br>
-				<input type="checkbox" name="payment" value="payment">Payment fields<br>
-				<input type="checkbox" name="personal" value="personal">Personal fields<br>
-				<input type="checkbox" name="search" value="search">Search fields<br>
-				<h3>Broken HTTs</h3>
-				<input type="checkbox" name="brokenhttps" value="brokenhttps">Classify safe<br>
+				<h3 id="fieldTypes"></h3>
+				<input id="pwField" type="checkbox"><p id="passwordField"></p>
+				<input id="pyField" type="checkbox"><p id="paymentField"></p>
+				<input id="perField" type="checkbox"><p id="personalField"></p>
+				<input id="sField"type="checkbox"><p id="searchField"></p>
+				<h3 id="httpsSecurity"></h3>
+				<input id="classifySafeCheckbox" type="checkbox"><p id="classifySafe"></p>
+				<p id="brokenHTTPSDescription"></p>
 			</div>
 		</div>
 

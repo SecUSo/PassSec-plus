@@ -2,38 +2,26 @@ body{
   background: #fafafa;
   font-family: Helvetica;
 }
-table, td {
-    border: 1px solid black;
+#secureInputType{
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  background-position: right center !important;
+  border: 2px solid #4dbc4f !important;
 }
-#userList{
-  display: inline-block;
-  border: 2.5px solid #1a509d;
+#notSecureInputType{
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  background-position: right center !important;
+  background-color: red !important;
+  border: 2px solid red !important;
 }
-#trustedList{
+#pwField,#pyField,#perField,#sField,#classifySafeCheckbox,#checkAfter20Checkbox,#changeIcon{
   float: left;
-  margin-right: 10px;
-  border: 2.5px solid green;
 }
-#timerInput{
-  margin-right: 5px;
+#iconImg{
   margin-left: 5px;
-}
-#trustedListText{
-  font-weight: bold;
-}
-#userListText,#referrerHeadline{
-  font-weight: bold;
-  margin-top: 25px;
-}
-#optionButtons{
-  margin-top: 10px;
-}
-#addDefaultReferrer{
-  margin-bottom: 5px;
-  text-decoration: none;
-}
-#addDefaultReferrer:hover:enabled{
-  text-decoration: underline;
+  width: 16px;
+  height: 20px;
 }
 .left{
   float: left;

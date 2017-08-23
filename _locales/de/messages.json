@@ -29,6 +29,156 @@
     "description": "More information"
   },
 
+  "settingsTitle": {
+    "message": "PassSec+ Einstellungen",
+    "description": "Title for settings"
+  },
+
+  "tab1": {
+    "message": "Allgemein",
+    "description": "Heading for general tab"
+  },
+
+  "appearance": {
+    "message": "Darstellung",
+    "description": "Title for appearance"
+  },
+
+  "appearanceSecure": {
+    "message": "Darstellung, falls die Eingabe sicher ist:",
+    "description": "Title for appearance if secure"
+  },
+
+  "appearanceNotSecure": {
+    "message": "Darstellung, falls die Eingabe NICHT sicher ist:",
+    "description": "Title for appearance if not secure"
+  },
+
+  "changeIconText": {
+    "message": "Sie können das Symbol für die sichere Eingabe hier ändern:",
+    "description": "Text for icon change"
+  },
+
+  "changeIconButton": {
+    "message": "Nächstes Symbol",
+    "description": "Show next icon"
+  },
+
+  "tab2": {
+    "message": "Weiterleitungen",
+    "description": "Heading for redirections tab"
+  },
+
+  "recommendedRedirections": {
+    "message": "Empfohlene Weiterleitungen",
+    "description": "Recommended redirections"
+  },
+
+  "addRedirectionList": {
+    "message": "Hier können Sie Weiterleitungen hinzufügen die von SECUSO empfohlen werden. Mehr Informationen und eine Liste der Weiterleitungen finden Sie auf https://www.secuso.org/passsec.",
+    "description": "Recommended redirection list"
+  },
+
+  "addRecommendedRedirections": {
+    "message": "Empfohlene Weiterleitungen hinzufügen",
+    "description": "Recommended redirections"
+  },
+
+  "httpsRedirections": {
+    "message": "HTTPS-Weiterleitungen (Sicherer Modus)",
+    "description": "HTTPS redirections"
+  },
+
+  "showHttpsRedirections": {
+    "message": "Zeige Liste der HTTPS-Weiterleitungen",
+    "description": "Show HTTPS redirections"
+  },
+
+  "delete": {
+    "message": "Löschen",
+    "description": "Delete"
+  },
+
+  "emptyList": {
+    "message": "Liste leeren",
+    "description": "Empty list"
+  },
+
+  "tab3": {
+    "message": "Ausnahmen",
+    "description": "Heading for exceptions tab"
+  },
+
+  "websiteExceptions": {
+    "message": "Webseiten-Ausnahmen",
+    "description": "Website exceptions"
+  },
+
+  "showWebsiteExceptions": {
+    "message": "Zeige Webseiten-Ausnahmen",
+    "description": "Show website exceptions"
+  },
+
+  "checkExceptions": {
+    "message": "Ausnahmen überprüfen",
+    "description": "Check website exceptions"
+  },
+
+  "checkExceptions20Starts": {
+    "message": "Bei jedem 20. Start des Browsers Ausnahmen prüfen.",
+    "description": "Check website exceptions after 20 starts"
+  },
+
+  "checkExceptions20StartsTooltip": {
+    "message": "Diese Überprüfung dient dazu, die Liste von Ausnahmen aktuell zu halten.",
+    "description": "Tooltip for Check website exceptions after 20 starts"
+  },
+
+  "tab4": {
+    "message": "Felder",
+    "description": "Heading for fields tab"
+  },
+
+  "fieldTypes": {
+    "message": "Arten von Feldern, die berücksichtigt werden",
+    "description": "Types of fields for detection"
+  },
+
+  "passwordField": {
+    "message": "Passwortfelder",
+    "description": "Password field"
+  },
+
+  "paymentField": {
+    "message": "Felder für Zahlungsdaten (z.B. Kreditkartennummern)",
+    "description": "Payment field"
+  },
+
+  "personalField": {
+    "message": "Felder für weitere persönliche Daten (z.B. E-Mail Adressen)",
+    "description": "Personal field"
+  },
+
+  "searchField": {
+    "message": "Suchanfragefelder",
+    "description": "Search field"
+  },
+
+  "httpsSecurity": {
+    "message": "HTTPS-Sicherheit",
+    "description": "HTTPS Security"
+  },
+
+  "brokenHTTPS": {
+    "message": "BROKEN HTTPS-Verbindung als sicher einstufen",
+    "description": "Broken HTTPS Security"
+  },
+
+  "brokenHTTPSDescription": {
+    "message": "BROKEN-HTTPS bedeutet, dass die Webseite mit HTTPS verschlüsselt ist, jedoch auch Elemente enthält die unverschlüsselt sind und deswegen standardmäßig vom Browser blockiert werden.",
+    "description": "Broken HTTPS Security Description"
+  },
+
   "phishWarning": {
     "message": "ACHTUNG! Es wurde ein möglicher Phishing-Versuch erkannt. Überprüfen Sie die obige Angabe zum Betreiber sorgfältig. Wir empfehlen die Adresse händisch einzugeben.",
     "description": "Warn about possible phish."

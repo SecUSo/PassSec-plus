@@ -10,18 +10,17 @@ $(document).ready(function() {
     $(this).parent('li').addClass('active').siblings().removeClass('active');
     e.preventDefault();
   });
-  /*$('li').on("click", function(e){
-    $("#trustedList").hide();
-    $("#userList").hide();
+  $('li').on("click", function(e){
+    $("#redirectList").hide();
+    $("#exceptionList").hide();
   });
 
-  $("#trustedList").hide();
-  $("#userList").hide();
+  $("#redirectList").hide();
+  $("#exceptionList").hide();
 
   addTexts();
   init();
   addEvents();
-  */
 });
 
 /**
@@ -29,36 +28,46 @@ $(document).ready(function() {
 */
 function addTexts(){
   // Title
-  $("#options").html(chrome.i18n.getMessage("options"));
-  $("#title").html(chrome.i18n.getMessage("options"));
+  $("#options").html(chrome.i18n.getMessage("settingsTitle"));
+  $("#title").html(chrome.i18n.getMessage("settingsTitle"));
 
-  // Timer tab
-  $("#timerCheckboxText").html(chrome.i18n.getMessage("timerActivated"));
-  $("#timerAmountText").html(chrome.i18n.getMessage("timerAmount"));
-  $("#seconds").html(chrome.i18n.getMessage("seconds"));
-  $("#trustedTimerActivated").html(chrome.i18n.getMessage("activateTimerOnLowRisk"));
-  $("#userTimerActivated").html(chrome.i18n.getMessage("activateTimerOnUserList"));
+  // General tab
+  $("#general").html(chrome.i18n.getMessage("tab1"));
+  $("#appearance").html(chrome.i18n.getMessage("appearance"));
+  $("#appearanceSecure").html(chrome.i18n.getMessage("appearanceSecure"));
+  $("#appearanceNotSecure").html(chrome.i18n.getMessage("appearanceNotSecure"));
+  $("#changeIconText").html(chrome.i18n.getMessage("changeIconText"));
+  $("#changeIconButton").html(chrome.i18n.getMessage("changeIconButton"));
 
-  // Domains tab
-  $("#trustedListText").html(chrome.i18n.getMessage("lowRiskDomains"));
-  $("#activateTrustedList").html(chrome.i18n.getMessage("activateLowRiskList"));
-  $("#showTrustedDomains").html(chrome.i18n.getMessage("showLowRiskList"));
-  $("#userListText").html(chrome.i18n.getMessage("userDomains"));
-  $("#addUserDefined").html(chrome.i18n.getMessage("addEntries"));
-  $("#editUserDefined").html(chrome.i18n.getMessage("editUserList"));
+  // Redirections tab
+  $("#tab2").html(chrome.i18n.getMessage("tab2"));
+  $("#recommendedRedirections").html(chrome.i18n.getMessage("recommendedRedirections"));
+  $("#recommendedRedirectionsInfo").html(chrome.i18n.getMessage("addRedirectionList"));
+  $("#addRecommendedRedirections").html(chrome.i18n.getMessage("addRecommendedRedirections"));
+  $("#httpsRedirects").html(chrome.i18n.getMessage("httpsRedirections"));
+  $("#showRedirects").html(chrome.i18n.getMessage("showHttpsRedirections"));
+  $("#clearRedirectionList").html(chrome.i18n.getMessage("emptyList"));
 
-  // Referrer tab
-  $("#referrerDialog1").html(chrome.i18n.getMessage("referrerInfo1"));
-  $("#referrerExample").html(chrome.i18n.getMessage("referrerExample"));
-  $("#referrerDialog2").html(chrome.i18n.getMessage("referrerInfo2"));
-  $("#referrerListTitle").html(chrome.i18n.getMessage("referrerList"));
-  $("#deleteReferrer").html(chrome.i18n.getMessage("deleteEntries"));
-  $("#clearReferrer").html(chrome.i18n.getMessage("clearEntries"));
-  $("#referrerHeadline").html(chrome.i18n.getMessage("addEntries"));
-  $("#addDefaultReferrer").html(chrome.i18n.getMessage("addDefaultReferrer"));
-  $("#addReferrer").html(chrome.i18n.getMessage("addEntries"));
-  $("#insertRandom").html(chrome.i18n.getMessage("insertRandom"));
+  // Exceptions tab
+  $("#tab3").html(chrome.i18n.getMessage("tab3"));
+  $("#websiteExceptions").html(chrome.i18n.getMessage("websiteExceptions"));
+  $("#showWebsiteExceptions").html(chrome.i18n.getMessage("showWebsiteExceptions"));
+  $("#clearExceptionList").html(chrome.i18n.getMessage("emptyList"));
+  $("#checkExceptions").html(chrome.i18n.getMessage("checkExceptions"));
+  $("#checkAfter20").html(chrome.i18n.getMessage("checkExceptions20Starts"));
+  $("#checkAfter20").attr("title", chrome.i18n.getMessage("checkExceptions20StartsTooltip"));
 
+  // Field tab
+  $("#tab4").html(chrome.i18n.getMessage("tab4"));
+  $("#fieldTypes").html(chrome.i18n.getMessage("fieldTypes"));
+  $("#passwordField").html(chrome.i18n.getMessage("passwordField"));
+  $("#paymentField").html(chrome.i18n.getMessage("paymentField"));
+  $("#personalField").html(chrome.i18n.getMessage("personalField"));
+  $("#searchField").html(chrome.i18n.getMessage("searchField"));
+  $("#httpsSecurity").html(chrome.i18n.getMessage("httpsSecurity"));
+  $("#classifySafe").html(chrome.i18n.getMessage("brokenHttps"));
+  $("#brokenHTTPSDescription").html(chrome.i18n.getMessage("brokenHTTPSDescription"));
+/*
   // Additional buttons
   $("#saveChanges").html(chrome.i18n.getMessage("saveChanges"));
   $("#revertChanges").html(chrome.i18n.getMessage("revertChanges"));
@@ -67,6 +76,7 @@ function addTexts(){
   // Lists
   $("#trustedListTitle").html(chrome.i18n.getMessage("trustedList"));
   $("#userListTitle").html(chrome.i18n.getMessage("userList"));
+  */
 }
 
 /**
@@ -77,41 +87,23 @@ function init(){
   // init changes for "revert changes" button
   changes = [];
 
-  // Timer tab
-  $("#timerCheckbox").prop("checked", window.localStorage.getItem(Torpedo.timer.label)>0);
-  $("#timerInput").val(window.localStorage.getItem(Torpedo.timer.label));
-  $("#trustedTimerCheckbox").prop("checked", window.localStorage.getItem(Torpedo.trustedTimerActivated.label) == "true");
-  $("#userTimerCheckbox").prop("checked",window.localStorage.getItem(Torpedo.userTimerActivated.label) == "true");
-
-  // Domains tab
+  // General tab
+  setImage();
+  /*
+  // Redirections tab
   $("#trustedListActivated").prop("checked",window.localStorage.getItem(Torpedo.trustedListActivated.label) == "true");
   $("#showTrustedDomains").prop("disabled",window.localStorage.getItem(Torpedo.trustedListActivated.label) == "false");
-
-  // Referrer tab
-  var arr1 = [];
-  try{
-    arr1 = JSON.parse(window.localStorage.getItem(Torpedo.referrerPart1.label));
-  }catch(err){}
-  var arr2 = [];
-  try{
-    arr2 = JSON.parse(window.localStorage.getItem(Torpedo.referrerPart2.label));
-  }catch(err){}
-  var index1 = arr1.indexOf("https://deref-gmx.net/mail/client/");
-  var index2 = arr1.indexOf("https://deref-web-02.de/mail/client/");
-  var containsDefault = false;
-  if(index1 > -1 && index2 > -1){
-    containsDefault = arr2[index1] == "/dereferrer/?redirectUrl=" && arr2[index2] == "/dereferrer/?redirectUrl=";
-  }
-  if(document.getElementById("addDefaultReferrer")) document.getElementById("addDefaultReferrer").disabled = containsDefault;
-  if(document.getElementById("referrerList")) fillReferrerList();
+*/
+  // Exceptions tab
 
   // Additional buttons
   $("#statusSettings").html("");
-
+/*
   // Additional lists
   if(document.getElementById("trustedList")) fillTrustedList();
   if(document.getElementById("userList")) fillUserList();
   $("#errorAddUserDefined").html("");
+  */
 }
 
 /**
@@ -119,18 +111,17 @@ function init(){
 */
 function addEvents(){
   // Timer tab
-  $("#timerCheckbox").on('change', function(e) {
-    save(Torpedo.timer.label,window.localStorage.getItem(Torpedo.timer.label));
-    var checked = $(this).prop("checked");
-    if(!checked){
-      window.localStorage.setItem(Torpedo.timer.label, 0);
-      $("#timerInput").val("0");
-    }
-    else {
-      window.localStorage.setItem(Torpedo.timer.label, 3);
-      $("#timerInput").val("3");
-    }
+  $("#changeIconButton").click(function(e) {
+    var imgNum = window.localStorage.getItem("secureImage");
+    save("secureImage",imgNum);
+    save("secureEVImage",imgNum);
+    imgNum = parseInt(imgNum);
+    imgNum = imgNum < 10 ? imgNum+1 : 1;
+    window.localStorage.setItem("secureImage", ""+imgNum);
+    window.localStorage.setItem("secureEVImage", ""+imgNum);
+    setImage();
   });
+  /*
   $("#timerInput").on('change', function(e) {
     save(Torpedo.timer.label, window.localStorage.getItem(Torpedo.timer.label));
     var timer = $(this).val();
@@ -250,8 +241,15 @@ function addEvents(){
     init();
     $("#statusSettings").html(chrome.i18n.getMessage("defaultSettingsRestored"));
   });
+  */
 }
 
+function setImage(){
+  var imgAddr = chrome.extension.getURL("skin/check/gruen/gr_icon"+window.localStorage.getItem("secureImage")+".png");
+  $("#secureInputType").css("background-image","url('"+imgAddr+"')");
+  $("#notSecureInputType").css("background-image", "url('"+chrome.extension.getURL("skin/yellow_triangle.png")+"')");
+  $("#iconImg").attr("src",imgAddr);
+}
 function save(list,value){
   var i = 0;
   for(i=0;i<changes.length;i++){

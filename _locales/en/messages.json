@@ -29,6 +29,156 @@
     "description": "More information"
   },
 
+  "settingsTitle": {
+    "message": "PassSec+ Settings",
+    "description": "Title for settings"
+  },
+
+  "tab1": {
+    "message": "General",
+    "description": "Heading for general tab"
+  },
+
+  "appearance": {
+    "message": "General appearance",
+    "description": "Title for appearance"
+  },
+
+  "appearanceSecure": {
+    "message": "Appearance, if the input is secure:",
+    "description": "Title for appearance if secure"
+  },
+
+  "appearanceNotSecure": {
+    "message": "Appearance, if the input is NOT secure:",
+    "description": "Title for appearance if not secure"
+  },
+
+  "changeIconText": {
+    "message": "You can change the icon for secure input here:",
+    "description": "Text for icon change"
+  },
+
+  "changeIconButton": {
+    "message": "Next icon",
+    "description": "Show next icon"
+  },
+
+  "tab2": {
+    "message": "Redirections",
+    "description": "Heading for redirections tab"
+  },
+
+  "recommendedRedirections": {
+    "message": "Recommended redirections",
+    "description": "Recommended redirections"
+  },
+
+  "addRedirectionList": {
+    "message": "It is possible to add some redirections recommended by SECUSO. More information and a list of redirections can be found on https://www.secuso.org/passsec.",
+    "description": "Recommended redirection list"
+  },
+
+  "addRecommendedRedirections": {
+    "message": "Add recommended redirections",
+    "description": "Recommended redirections"
+  },
+
+  "httpsRedirections": {
+    "message": "HTTPS redirections (secure mode)",
+    "description": "HTTPS redirections"
+  },
+
+  "showHttpsRedirections": {
+    "message": "Show list of HTTPS redirections",
+    "description": "Show HTTPS redirections"
+  },
+
+  "delete": {
+    "message": "Delete",
+    "description": "Delete"
+  },
+
+  "emptyList": {
+    "message": "Clear list",
+    "description": "Empty list"
+  },
+
+  "tab3": {
+    "message": "Exceptions",
+    "description": "Heading for exceptions tab"
+  },
+
+  "websiteExceptions": {
+    "message": "Website exceptions",
+    "description": "Website exceptions"
+  },
+
+  "showWebsiteExceptions": {
+    "message": "Show website exceptions",
+    "description": "Show website exceptions"
+  },
+
+  "checkExceptions": {
+    "message": "Check exceptions",
+    "description": "Check website exceptions"
+  },
+
+  "checkExceptions20Starts": {
+    "message": "Check exceptions automatically after 20 browser starts.",
+    "description": "Check website exceptions after 20 starts"
+  },
+
+  "checkExceptions20StartsTooltip": {
+    "message": "This check is used to keep the list of exceptions up to date.",
+    "description": "Tooltip for Check website exceptions after 20 starts"
+  },
+
+  "tab4": {
+    "message": "Fields",
+    "description": "Heading for fields tab"
+  },
+
+  "fieldTypes": {
+    "message": "Types of fields, which are taken into consideration",
+    "description": "Types of fields for detection"
+  },
+
+  "passwordField": {
+    "message": "Password fields",
+    "description": "Password field"
+  },
+
+  "paymentField": {
+    "message": "Fields with payment information (E.g. credit card numbers)",
+    "description": "Payment field"
+  },
+
+  "personalField": {
+    "message": "Fields with further personal data (E.g. e-mail addresses)",
+    "description": "Personal field"
+  },
+
+  "searchField": {
+    "message": "Search query fields",
+    "description": "Search field"
+  },
+
+  "httpsSecurity": {
+    "message": "HTTPS security",
+    "description": "HTTPS Security"
+  },
+
+  "brokenHTTPS": {
+    "message": "Classify BROKEN HTTPS connection as safe",
+    "description": "Broken HTTPS Security"
+  },
+
+  "brokenHTTPSDescription": {
+    "message": "BROKEN-HTTPS means that the website is encrypted with HTTPS, but also contains elements that are not encrypted and are therefore blocked by default by the browser.",
+    "description": "Broken HTTPS Security Description"
+  },
+
   "phishWarning": {
     "message": "CAUTION! A potential phishing attempt has been detected. Check the above information about the website operator carefully. We recommend that you enter the address manually.",
     "description": "Warn about possible phish."
