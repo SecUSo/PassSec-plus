@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title id="title"></title>
+	<link type="text/css" rel="stylesheet" href="css/options.css" />
+	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="js/preferences.js"></script>
+	<script type="text/javascript" src="js/options.js"></script>
+	<script type="text/javascript" src="js/status.js"></script>
+	<script type="text/javascript" src="js/tooltip.js"></script>
+</head>
+<body>
+	<h1 id="options"></h1>
+	<div class="tabs">
+		<ul class="tab-links">
+			<li class="active"><a href="#tab1">General</a></li>
+			<li><a href="#tab2">Redirections</a></li>
+			<li id="ref"><a href="#tab3">Exceptions</a></li>
+			<li id="ref"><a href="#tab4">Advanced</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div id="tab1" class="tab active">
+				<h3>General appearance</h3>
+				<p>Appearance if secure</p>
+				<p>Image secure</p>
+				<p>Appearance if not secure</p>
+				<p>Image not secure</p>
+				<p>Change Icon</p>
+				<button>Show redirects</button>Icon
+			</div>
+
+			<div id="tab2" class="tab">
+				<h3>Recommended Redirections</h3>
+				<p>Blabaljsdkflasjdkflöajw</p>
+				<button>Add recommended redirections</button>
+				<h3>HTTPS redirects</h3>
+				<button>Show redirects</button>
+				<button>Clear list</button>
+			</div>
+
+			<div id="tab3" class="tab">
+				<h3>Website Exceptions</h3>
+				<button>Show Website Exceptions</button>
+				<button>Clear list</button>
+				<button>Check Exceptions</button>
+				<input type="checkbox" name="check" value="check">Check automatically after 20 starts<br>
+			</div>
+
+			<div id="tab4" class="tab">
+				<h3>Types of fields:</h3>
+				<input type="checkbox" name="password" value="password">Password fields<br>
+				<input type="checkbox" name="payment" value="payment">Payment fields<br>
+				<input type="checkbox" name="personal" value="personal">Personal fields<br>
+				<input type="checkbox" name="search" value="search">Search fields<br>
+				<h3>Broken HTTs</h3>
+				<input type="checkbox" name="brokenhttps" value="brokenhttps">Classify safe<br>
+			</div>
+		</div>
+
+		<div id="optionButtons">
+			<button id="saveChanges">Save changes</button>
+			<button id="revertChanges">Revert changes</button>
+			<button id="defaultSettings">Default settings</button>
+		</div>
+
+		<p id="statusSettings"></p>
+		<div>
+			<table id="redirectList">
+				<tr>
+					<th id="redirectListTitle"></th>
+				</tr>
+			</table>
+			<table id="exceptionList">
+				<tr>
+					<th id="exceptionListTitle"></th>
+				</tr>
+			</table>
+		</div>
+	</body>
+	</html>

@@ -9,6 +9,16 @@
     "description": "Verify domain."
   },
 
+  "exceptionHTTP": {
+    "message": "Add an exception",
+    "description": "Add an http exception"
+  },
+
+  "exceptionHTTPS": {
+    "message": "I have checked the information.",
+    "description": "Add an https exception"
+  },
+
   "OK": {
     "message": "OK, got it.",
     "description": "OK"
@@ -24,14 +34,99 @@
     "description": "Warn about possible phish."
   },
 
+  "recommendationHttps": {
+    "message": "You should always use secure mode (https). [more]",
+    "description": "Recommendation to use https"
+  },
+
+  "moreRecommendationsHttps": {
+    "message": "You should always use secure mode (https). Click on the 'secure mode' button and you will be redirected to secure mode automatically in the future‏. [less]",
+    "description": "More recommendations info to use https"
+  },
+
+  "passwordConsequenceHttps": {
+    "message": "Your password could fall into the hands of an unauthorized person and could be used to access your personal data.",
+    "description": "Consequence https: user enters login data."
+  },
+
+  "passwordInfoHttps": {
+    "message": "More Information: The secure mode (https) to protect your password from being intercepted and subsequently used to gain unauthorized access to your personal data, such as your e-mail/news, pictures, bank accounts or other sensitive information. Using secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
+    "description": "Info httsp: user enters login data."
+  },
+
+  "passwordConsequenceHttp": {
+    "message": "Your password could fall into the hands of an unauthorized person and could be used to access your personal data.",
+    "description": "Consequence http: user enters login data."
+  },
+
+  "passwordRecommendationHttp": {
+    "message": "This website does not offer a secure alternative (https). If you decide to log into this website anyway and you use the same password for other website accounts, you should change them immediately.",
+    "description": "Recommendation http: user enters login data."
+  },
+
+  "passwordInfoHttp": {
+    "message": "More Information: This website does not provide the option of entering and transmitting your password securely (via https). If you use the same password for other website accounts, and your password is intercepted by unauthorized people when you submit here, these people will gain access to your account on this webpage and also to all other websites where you use the same credentials. Therefore, it is very important to change the other website passwords immediately. [less]",
+    "description": "Info http: user enters login data."
+  },
+
+  "paymentConsequenceHttps": {
+    "message": "If you enter your payment information on this website, an unauthorized person can intercept them. They can then use your information for payments.",
+    "description": "Consequence https: user enters payment data."
+  },
+
+  "paymentInfoHttps": {
+    "message": "More Information: The secure mode (https) protects your payment information from being intercepted and subsequently used to effect unauthorized payments. The secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
+    "description": "Info https: user enters payment data."
+  },
+
+  "paymentConsequenceHttp": {
+    "message": "If you enter your payment information on this website, an unauthorized persons can intercept them. They can then use your information for payments.",
+    "description": "Consequence http: user enters payment data."
+  },
+
+  "paymentRecommendationHttp": {
+    "message": "This website does not provide a secure alternative (https). You should not enter your payment details here.",
+    "description": "Recommendation http: user enters payment data."
+  },
+
+  "paymentInfoHttp": {
+    "message": "More Information: This website provides no way to protect your payment information from interception by unauthorized persons. If your payment information is intercepted here, it can be abused at any time, e.g. for fraudulent payments on the Internet. [less]",
+    "description": "Info http: user enters payment data."
+  },
+
+  "personalConsequenceHttps": {
+    "message": "When you enter your personal information on this site, an unauthorized person could intercept it. This may allow them to draw conclusions about your personal interests.",
+    "description": "Consequence https: user enters personal data."
+  },
+
+  "personalInfoHttps": {
+    "message": "More Information: Secure mode (https) protects your search queries from eavesdropping. Secure mode (https) is particularly important when entering passwords, bank details or other sensitive information[less].",
+    "description": "Info https: user enters personal data."
+  },
+
+  "personalConsequenceHttp": {
+    "message": "When you enter your personal information on this site, an unauthorized person could intercept it. This may allow conclusions to be drawn about personal matters.",
+    "description": "Consequence http: user enters personal data."
+  },
+
+  "personalRecommendationHttp": {
+    "message": "This website does not provide a secure alternative (https). You should not enter any sensitive personal data here.",
+    "description": "Recommendation http: user enters personal data."
+  },
+
+  "personalInfoHttp": {
+    "message": "More Information: This website does not provide the option of entering and transmitting your password securely (via https). If you use the same password for other website accounts, and your password is intercepted by unauthorized people when you submit here, these people will gain access to your accounts on all websites where you use the same credentials. Therefore, it is very important to change the passwords for the other website accounts immediately. [less]",
+    "description": "Info http: user enters personal data."
+  },
+
   "searchConsequenceHttps": {
     "message": "When you enter your search queries on this website, an unauthorized person could intercept it. This invades your privacy and betrays  your personal interests.",
     "description": "Consequence https: user enters search queries."
   },
 
-  "searchRecommendationHttps": {
-    "message": "You should always use secure mode (https). [more]",
-    "description": "Recommendation https: user enters search queries."
+  "searchInfoHttps": {
+    "message": "More Information:  Secure mode (https) protects your password because it ensures that the password is securely transmitted.  It prevents unauthorized access to your personal data, e.g. your emails/messages, pictures or banking information. Scammers sometimes put up websites that look like the real thing but these just collect your credentials.  If you're on one of these fake websites using HTTPS doesn't really help - the best way to find out is to check the URL carefully.[less]",
+    "description": "Info https: user enters search queries."
   },
 
   "searchConsequenceHttp": {
@@ -44,15 +139,28 @@
     "description": "Recommendation http: user enters search queries."
   },
 
-  "insecureWarning": {
-    "message": "It is insecure to enter $FIELD$ here!",
-    "description": "Warn about insecurity of field.",
-    "placeholders": {
-      "field" : {
-        "content" : "$1",
-        "example" : "data"
-      }
-    }
-  }
+  "searchInfoHttp": {
+    "message": "More Information: This website provides a way to protect your search query from interception by unauthorized persons. If your query is intercepted, this may allow them to draw conclusions about sensitive personal interests. [less]",
+    "description": "Info http: user enters search queries."
+  },
 
+  "passwordWarning": {
+    "message": "It is insecure to enter a password here!",
+    "description": "Warn about insecurity of password field."
+  },
+
+  "paymentWarning": {
+    "message": "It is insecure to enter payment information here!",
+    "description": "Warn about insecurity of payment field."
+  },
+
+  "personalWarning": {
+    "message": "It is insecure to enter personal information here!",
+    "description": "Warn about insecurity of personal data field."
+  },
+
+  "searchWarning": {
+    "message": "It is insecure to enter search queries here!",
+    "description": "Warn about insecurity of query field."
+  }
 }

@@ -4,34 +4,124 @@ var passSec = passSec || {};
 * fill tooltip with text
 */
 function getTexts(){
-  var text =  '<span id="passSecWarning" class="http-warning">'+ chrome.i18n.getMessage("insecureWarning","data") +'</span>'+
-              '<hr>' +
+  var text =  '<span id="passSecWarning" class="http-warning"></span>'+
+              '<hr class="http-warning">' +
               '<span id="passSecURL">'+chrome.i18n.getMessage("domainInfo")+'<span id="passSecDomain">'+passSec.domain+'</span>.</span>'+
               '<span id="passSecVerify">'+chrome.i18n.getMessage("verifyDomain")+'</span>'+
-              '<p id="passSecPhishingText" class="phishing-warning">'+
+              '<div id="passSecPhishing" class="phish-warning">'+
                   '<img id="passSecPhishingImage" src='+chrome.extension.getURL("skin/red_triangle.png")+'>'+
-              '</p>'+
+                  '<p id="passSecPhishingText">'+chrome.i18n.getMessage("phishWarning")+'</p>'+
+              '</div>'+
               '<div id="passSecConsequence" class="http-warning">'+
                   '<img id="passSecConsequenceImage" src='+chrome.extension.getURL("skin/consequence.png")+'>'+
-                  '<p id="passSecConsequenceText">'+chrome.i18n.getMessage("searchConsequenceHttps")+'</p>'+
+                  '<p id="passSecConsequenceText"></p>'+
               '</div>'+
-              '<div id="passSecRecommendation" class="http-warning">'+
+              '<div id="passSecRecommendation" class="http-warning littleText">'+
                   '<img id="passSecRecommendationImage" src='+chrome.extension.getURL("skin/recommendation.png")+'>'+
-                  '<p id="passSecRecommendationText">'+chrome.i18n.getMessage("searchRecommendationHttps")+'</p>'+
+                  '<p id="passSecRecommendationText">'+chrome.i18n.getMessage("recommendationHttps")+'</p>'+
               '</div>'+
-              '<div id="passSecInfo" class="http-warning">'+
+              '<div id="passSecInfo" class="http-warning littleText">'+
                   '<img id="passSecInfoImage" src='+chrome.extension.getURL("skin/more_info.png")+'>'+
                   '<p id="passSecInfoText">'+chrome.i18n.getMessage("moreInfo")+'</p>'+
               '</div>'+
               '<div id="passSecButtons>">'+
-                '<button id="passSecButton1" type="button">'+ "Exception" + ' </button>' +
-                '<button id="passSecButton2" type="button">'+ chrome.i18n.getMessage("OK") +' </button>'+
+                '<button id="passSecButton0" class="http-warning" type="button" hidden>'+ "bla" + ' </button>' +
+                '<button id="passSecButtonException" type="button"></button>' +
+                '<button id="passSecButtonClose" type="button">'+ chrome.i18n.getMessage("OK") +' </button>'+
               '</div>';
-
-  console.log(text);
   return text;
 };
 
+/**
+* fill tooltip items with functionality
+*/
+function processTooltip(){
+  var t = passSec.tooltip;
+  $(t.find("#passSecButtonClose")[0]).click(function(event){passSec.api.toggle(false);});
+  $(t.find("#passSecRecommendationText")[0]).removeClass("passSecClickable");
+  $(t.find("#passSecButtonException")[0]).css("background-color", "white");
+  $(t.find("#passSecRecommendationText")[0]).unbind();
+  switch(passSec.security){
+    case "https":
+      $(t.find("#passSecPhishing")).hide();
+      //$(t.find(".http-warning")).hide();
+      $(t.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("exceptionHTTPS"));
+      $(t.find("#passSecButtonException")[0]).click(function(event){
+        // TODO: add method that returns all possible targets
+        $('input[type=password]').removeClass( "passSec-https" ).addClass( "passSec-httpsEV" );
+        $('input[type=search]').removeClass( "passSec-https" ).addClass( "passSec-httpsEV" );
+        passSec.security = "httpsEV";
+        processTooltip();
+      });
+      $(t.find("#passSecRecommendationText")[0]).addClass("passSecClickable");
+      $(t.find("#passSecRecommendationText")[0]).click(function(e){
+        if($(this).html() == chrome.i18n.getMessage("recommendationHttps")){
+          $(this).html(chrome.i18n.getMessage("MoreRecommendationsHttps"));
+        }
+        else {
+          $(this).html(chrome.i18n.getMessage("recommendationHttps"));
+        }
+      });
+      getFieldText("Https");
+      break;
+    case "http":
+      $(t.find("#passSecPhishing")).hide();
+      $(t.find(".http-warning")).show();
+      $(t.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("exceptionHTTP"));
+      $(t.find("#passSecButtonException")[0]).css("background-color", "red");
+      $(t.find("#passSecButtonException")[0]).click(function(event){
+        $('input[type=password]').removeClass( "passSec-http" ).addClass( "passSec-httpsEV" );
+        $('input[type=search]').removeClass( "passSec-http" ).addClass( "passSec-httpsEV" );
+        passSec.security = "httpsEV";
+        processTooltip();
+      });
+      getFieldText("Http");
+      break;
+    case "phish":
+      $(t.find(".http-warning")).show();
+      $(t.find("#passSecPhishing")).show();
+      break;
+    case "httpsEV":
+      $(t.find("#passSecPhishing")).hide();
+      $(t.find(".http-warning")).hide();
+      $(t.find("#passSecButtonException")[0]).click(function(event){
+        // TODO: for all input fields on the page
+        $(passSec.target).addClass("passSecNoTooltip");
+        $('.qtip').each(function(){
+          $(this).data('qtip').destroy();
+        });
+      });
+      break;
+  }
+};
+
+/**
+* fill the tooltip with texts corresponding to a certain fieldType
+* @param protocol: "Http" or "Https" // TODO: phish, httpsEV for later version
+*/
+function getFieldText(protocol){
+  var fieldType = passSec.target.type; // fieldType: "login", "payment", "personal", "search"
+  console.log(fieldType + "is field type");
+  console.log(protocol + "is protocol");
+  // TODO: missing: payment, personal
+  var t = passSec.tooltip;
+  $(t.find("#passSecWarning")[0]).html(chrome.i18n.getMessage(fieldType+"Warning"));
+  $(t.find("#passSecConsequenceText")[0]).html(chrome.i18n.getMessage(fieldType+"Consequence"+protocol));
+  if(protocol == "Http"){
+    $(t.find("#passSecRecommendationText")[0]).html(chrome.i18n.getMessage(fieldType+"Recommendation"+protocol));
+  }
+  else {
+    $(t.find("#passSecRecommendationText")[0]).html(chrome.i18n.getMessage("recommendationHttps"));
+  }
+  $(t.find("#passSecInfoText")[0]).click(function(e){
+    if($(this).html() == chrome.i18n.getMessage("moreInfo")){
+      $(this).html(chrome.i18n.getMessage(fieldType+"Info"+protocol));
+    }
+    else {
+      $(this).html(chrome.i18n.getMessage("moreInfo"));
+    }
+  });
+};
 
 function extractDomain(domain){
   var split = domain.split(".");

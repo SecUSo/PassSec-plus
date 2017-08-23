@@ -10,9 +10,26 @@
 		"scripts":[
 			"js/jquery-2.1.1.min.js",
 			"js/preferences.js",
+			"js/options.js",
 			"background.js"
 		],
     "persistent": true
+	},
+	"permissions":[
+		"tabs",
+		"<all_urls>",
+		"storage"
+	],
+	"page_action": {
+		"browser_style": true,
+		"default_icon": {
+			"64":"skin/logo.png"
+	  },
+	  "default_title": "PassSec+"
+  },
+	"options_ui":{
+		"page": "options.html",
+		"browser_style": true
 	},
 	"icons":{
 		"64":"skin/logo.png"
@@ -25,11 +42,6 @@
 		  "matches": [
 				"<all_urls>"
 		  ],
-		  "permissions":[
-				"tabs",
-				"<all_urls>",
-				"storage"
-		  ],
 		  "css": [
 		  	"css/jquery.qtip.min.css",
 				"css/tooltip.css"
@@ -39,6 +51,7 @@
 		  	"js/jquery.qtip.min.js",
 		  	"js/securitystatus.js",
 		  	"js/firstrun.js",
+		  	"js/tooltip.js",
 		  	"js/texts.js",
 		  	"js/inputField.js",
 		  	"js/contentscript.js"

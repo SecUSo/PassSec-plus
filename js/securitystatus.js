@@ -5,20 +5,16 @@ passSec.security = "http";
 /**
 *   get security status of website
 */
-function getSecurityStatus(){
-  chrome.runtime.sendMessage({name:"getStorage"},function(r){
-    console.log(r.sslCheckEnabled);
-    if(r.sslCheckEnabled == "false"){
-      console.log(passSec.url);
-      if(passSec.url.startsWith("https")){
-        passSec.security = "https";
-      }
-      else passSec.security ="http";
+function getSecurityStatus(r){
+  if(r.sslCheckEnabled == "false"){
+    if(passSec.url.startsWith("https")){
+      passSec.security = "https";
     }
-    else{
-      getSSLStatus();
-    }
-  });
+    else passSec.security ="http";
+  }
+  else{
+    getSSLStatus();
+  }
 };
 
 /**

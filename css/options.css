@@ -1,0 +1,112 @@
+body{
+  background: #fafafa;
+  font-family: Helvetica;
+}
+table, td {
+    border: 1px solid black;
+}
+#userList{
+  display: inline-block;
+  border: 2.5px solid #1a509d;
+}
+#trustedList{
+  float: left;
+  margin-right: 10px;
+  border: 2.5px solid green;
+}
+#timerInput{
+  margin-right: 5px;
+  margin-left: 5px;
+}
+#trustedListText{
+  font-weight: bold;
+}
+#userListText,#referrerHeadline{
+  font-weight: bold;
+  margin-top: 25px;
+}
+#optionButtons{
+  margin-top: 10px;
+}
+#addDefaultReferrer{
+  margin-bottom: 5px;
+  text-decoration: none;
+}
+#addDefaultReferrer:hover:enabled{
+  text-decoration: underline;
+}
+.left{
+  float: left;
+}
+.right{
+  padding:4px;
+}
+.last{
+  padding:10px;
+}
+.clear{
+  clear: left;
+}
+
+/*----- Tabs -----*/
+.tabs {
+    width:100%;
+    display:inline-block;
+}
+
+    /*----- Tab Links -----*/
+    .tab-links{
+      margin: 0;
+      padding: 0;
+    }
+    /* Clearfix */
+    .tab-links:after {
+        display:block;
+        clear:both;
+        content:'';
+    }
+
+    .tab-links li {
+        margin:0px 5px 0px 0px;
+        float:left;
+        list-style:none;
+    }
+
+        .tab-links a {
+            padding:9px 15px;
+            display:inline-block;
+            border-radius:3px 3px 0px 0px;
+            background:#d9d9d9;
+            font-size:16px;
+            font-weight:600;
+            color:#4c4c4c;
+            transition:all linear 0.15s;
+        }
+
+        .tab-links a:hover {
+            background:#a7cce5;
+            text-decoration:none;
+        }
+
+    li.active a, li.active a:hover {
+        background:#fff;
+        color:#4c4c4c;
+    }
+
+    /*----- Content of Tabs -----*/
+    .tab-content {
+        padding:15px;
+        border-radius:3px;
+        box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
+        background: #f2f2f2;
+        border:1px solid #999;
+    }
+    .tab {
+        display:none;
+    }
+    .tab.active {
+        display:block;
+      }
+    .tab > div{
+      margin: 10px 5px 15px 5px;
+    }
