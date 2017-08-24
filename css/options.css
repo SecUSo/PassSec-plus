@@ -15,7 +15,7 @@ body{
   background-color: red !important;
   border: 2px solid red !important;
 }
-#pwField,#pyField,#perField,#sField,#classifySafeCheckbox,#checkAfter20Checkbox,#changeIcon{
+.float{
   float: left;
 }
 #iconImg{
@@ -23,6 +23,16 @@ body{
   width: 16px;
   height: 20px;
 }
+#redirectList{
+  float: left;
+  display: inline-block;
+  border: 2.5px solid black;
+}
+#exceptionList{
+  margin-right: 10px;
+  border: 2.5px solid black;
+}
+
 .left{
   float: left;
 }

@@ -18,5 +18,37 @@ var PassSec = {
 	sslCheckEnabled:{
 		label:'sslCheckEnabled',
 		value:false
+	},
+	redirections:{
+		lavel:'redirections',
+		value:[]
+	},
+	exceptions:{
+		lavel:'exceptions',
+		value:[]
+	},
+	passwordField:{
+		label:'passwordField',
+		value:true
+	},
+	personalField:{
+		label:'personalField',
+		value:true
+	},
+	paymentField:{
+		label:'paymentField',
+		value:true
+	},
+	searchField:{
+		label:'searchField',
+		value:true
+	},
+	brokenHTTPSSafe:{
+		label:'brokenHTTPSSafe',
+		value:false
+	},
+	checkAfter20Starts:{
+		label:'checkAfter20Starts',
+		value:false
 	}
 };

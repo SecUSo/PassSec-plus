@@ -179,6 +179,36 @@
     "description": "Broken HTTPS Security Description"
   },
 
+  "saveChanges": {
+    "message": "Änderungen speichern",
+    "description": "Save changes"
+  },
+
+  "revertChanges": {
+    "message": "Änderungen rückgängig machen",
+    "description": "Revert changes"
+  },
+
+  "defaultSettings": {
+    "message": "Standard-Einstellungen wiederherstellen",
+    "description": "Default settings"
+  },
+
+  "savedChanges":{
+    "message": "Änderungen gespeichert! Bitte laden Sie die Seite erneut, auf der Sie PassSec+ nutzen.",
+    "description": "Changes saved"
+  },
+
+  "reversedChanges":{
+    "message": "Änderungen zurückgesetzt! ",
+    "description": "Changes reversed"
+  },
+
+  "defaultSettingsRestored":{
+    "message": "Ursprungszustand wiederhersgestellt! Bitte laden Sie die Seite erneut, auf der Sie PassSec+ nutzen.",
+    "description": "Default settings"
+  },
+
   "phishWarning": {
     "message": "ACHTUNG! Es wurde ein möglicher Phishing-Versuch erkannt. Überprüfen Sie die obige Angabe zum Betreiber sorgfältig. Wir empfehlen die Adresse händisch einzugeben.",
     "description": "Warn about possible phish."

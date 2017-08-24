@@ -39,13 +39,14 @@ function processTooltip(){
   var t = passSec.tooltip;
   $(t.find("#passSecButtonClose")[0]).click(function(event){passSec.api.toggle(false);});
   $(t.find("#passSecRecommendationText")[0]).removeClass("passSecClickable");
-  $(t.find("#passSecButtonException")[0]).css("background-color", "white");
+  $(t.find("#passSecButtonException")[0]).css("background-color", "white !important");
   $(t.find("#passSecRecommendationText")[0]).unbind();
   switch(passSec.security){
     case "https":
       $(t.find("#passSecPhishing")).hide();
       //$(t.find(".http-warning")).hide();
-      $(t.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("exceptionHTTPS"));
+      $(t.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("exceptionHTTP"));
+      $(t.find("#passSecButtonException")[0]).css("background-color", "red !important");
       $(t.find("#passSecButtonException")[0]).click(function(event){
         // TODO: add method that returns all possible targets
         $('input[type=password]').removeClass( "passSec-https" ).addClass( "passSec-httpsEV" );
@@ -68,7 +69,7 @@ function processTooltip(){
       $(t.find("#passSecPhishing")).hide();
       $(t.find(".http-warning")).show();
       $(t.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("exceptionHTTP"));
-      $(t.find("#passSecButtonException")[0]).css("background-color", "red");
+      $(t.find("#passSecButtonException")[0]).css("background-color", "red !important");
       $(t.find("#passSecButtonException")[0]).click(function(event){
         $('input[type=password]').removeClass( "passSec-http" ).addClass( "passSec-httpsEV" );
         $('input[type=search]').removeClass( "passSec-http" ).addClass( "passSec-httpsEV" );
@@ -82,6 +83,7 @@ function processTooltip(){
       $(t.find("#passSecPhishing")).show();
       break;
     case "httpsEV":
+      $(t.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("exceptionHTTPS"));
       $(t.find("#passSecPhishing")).hide();
       $(t.find(".http-warning")).hide();
       $(t.find("#passSecButtonException")[0]).click(function(event){

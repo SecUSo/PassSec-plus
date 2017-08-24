@@ -12,7 +12,7 @@ jQuery(function($){
   chrome.runtime.sendMessage({name:"getStorage"},function(r){
     getSecurityStatus(r);
     processInputs(r);
-    
+
     $('body').on('mouseenter', 'input', function(e) {
       var o = this;
       if ( (o.type == "password" || o.type == "search") && !o.classList.contains("passSecNoTooltip")) {
@@ -46,7 +46,12 @@ jQuery(function($){
               scroll: false
             }
           },
-          style: { classes: 'passSecTooltip' },
+          style: {
+            tip:false,
+            classes: 'passSecTooltip',
+            widget: true,
+            def: false
+          },
           events: {
             render: function(event, api) {
               passSec.api = api;
