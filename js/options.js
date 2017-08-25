@@ -134,13 +134,12 @@ function addEvents(){
     }catch(err){}
     if(!containsDefaults()){
       for(var i = 0; i < defaultRedirects.length; i++){
-        if(!arr || !arr.indexOf(defaultRedirects[i]) > -1){
+        if(!arr || arr.indexOf(defaultRedirects[i]) == -1){
           if(!arr) arr = [defaultRedirects[i]];
           else arr.push(defaultRedirects[i]);
-          console.log(arr);
         }
       }
-      window.localStorage.setItem("redirects",JSON.stringify(arr));
+      window.localStorage.setItem("redirections",JSON.stringify(arr));
       init();
     }
   });
@@ -151,6 +150,12 @@ function addEvents(){
     init();
   });
 
+  $("#clearRedirectionList").click(function(e){
+    save("redirections", window.localStorage.getItem("redirections"));
+    window.localStorage.setItem("redirections",JSON.stringify([]));
+    init();
+  });
+
   // Exceptions tab
   $("#showWebsiteExceptions").click(function(e) {
     $("#redirectList").hide();
@@ -158,40 +163,55 @@ function addEvents(){
     init();
   });
 
-  /*
-  $("#userTimerCheckbox").on('change', function(e) {
-    save(Torpedo.userTimerActivated.label, window.localStorage.getItem(Torpedo.userTimerActivated.label));
-    var checked = $(this).prop("checked");
-    window.localStorage.setItem(Torpedo.userTimerActivated.label, checked);
-  });
-
-  // Domains tab
-  $("#trustedListActivated").on('change', function(e) {
-    save(Torpedo.trustedListActivated.label, window.localStorage.getItem(Torpedo.trustedListActivated.label));
-    var checked = $(this).prop("checked");
-    window.localStorage.setItem(Torpedo.trustedListActivated.label, checked);
-    if(!checked) $("#showTrustedDomains").prop("disabled",true);
-    else $("#showTrustedDomains").prop("disabled",false);
-  });
-
-  // Referrer tab
-  $("#clearReferrer").on('click', function(e)  {
-    save(Torpedo.referrerPart1.label, window.localStorage.getItem(Torpedo.referrerPart1.label));
-    save(Torpedo.referrerPart2.label, window.localStorage.getItem(Torpedo.referrerPart2.label));
-    var table = document.getElementById("referrerList");
-    table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
-    var arr1 = [];
-    var arr2 = [];
-    window.localStorage.setItem(Torpedo.referrerPart1.label, JSON.stringify(arr1));
-    window.localStorage.setItem(Torpedo.referrerPart2.label, JSON.stringify(arr2));
+  $("#clearExceptionList").click(function(e) {
+    save("exceptions", window.localStorage.getItem("exceptions"));
+    window.localStorage.setItem("exceptions",JSON.stringify([]));
     init();
   });
-*/
+
+  $("#checkAfter20Checkbox").on('change', function(e) {
+    save("checkAfter20Starts", window.localStorage.getItem("checkAfter20Starts"));
+    var checked = $(this).prop("checked");
+    window.localStorage.setItem("checkAfter20Starts", checked);
+  });
+
+  // Fields tab
+  $("#pwField").on('change', function(e) {
+    save("passwordField", window.localStorage.getItem("passwordField"));
+    var checked = $(this).prop("checked");
+    window.localStorage.setItem("passwordField", checked);
+  });
+
+  $("#pyField").on('change', function(e) {
+    save("paymentField", window.localStorage.getItem("paymentField"));
+    var checked = $(this).prop("checked");
+    window.localStorage.setItem("paymentField", checked);
+  });
+
+  $("#perField").on('change', function(e) {
+    save("personalField", window.localStorage.getItem("personalField"));
+    var checked = $(this).prop("checked");
+    window.localStorage.setItem("personalField", checked);
+  });
+
+  $("#sField").on('change', function(e) {
+    save("searchField", window.localStorage.getItem("searchField"));
+    var checked = $(this).prop("checked");
+    window.localStorage.setItem("searchField", checked);
+  });
+
+  $("#classifySafeCheckbox").on('change', function(e) {
+    save("brokenHTTPSSafe", window.localStorage.getItem("brokenHTTPSSafe"));
+    var checked = $(this).prop("checked");
+    window.localStorage.setItem("brokenHTTPSSafe", checked);
+  });
+
   // Additional buttons
-  $("#saveChanges").on('click', function(e)  {
+  /*$("#saveChanges").on('click', function(e)  {
     changes = [];
     $("#statusSettings").html(chrome.i18n.getMessage("savedChanges"));
-  });
+  });*/
+
   $("#revertChanges").on('click', function(e)  {
     var i = 0;
     for(i=0;i<changes.length;i++){
@@ -201,6 +221,7 @@ function addEvents(){
     init();
     $("#statusSettings").html(chrome.i18n.getMessage("reversedChanges"));
   });
+
   $("#defaultSettings").on('click', function(e)  {
     window.localStorage.setItem("secureImage","1");
     window.localStorage.setItem("secureEVImage","1");
@@ -277,7 +298,7 @@ function fillRedirectList(){
       try{
         arr = JSON.parse(window.localStorage.getItem("redirects"));
       }catch(err){}
-      arr.splice(index, 1);
+      if(arr) arr.splice(index, 1);
       window.localStorage.setItem("redirects",JSON.stringify(arr));
     });
   }
@@ -307,7 +328,7 @@ function fillExceptionList(){
       try{
         arr = JSON.parse(window.localStorage.getItem("exceptions"));
       }catch(err){}
-      arr.splice(index, 1);
+      if(arr) arr.splice(index, 1);
       window.localStorage.setItem("exceptions",JSON.stringify(arr));
     });
   }
