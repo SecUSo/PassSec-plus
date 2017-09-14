@@ -57,7 +57,6 @@
 		  	"js/jquery.qtip.min.js",
 		  	"js/securitystatus.js",
 		  	"js/firstrun.js",
-		  	"js/tooltip.js",
 		  	"js/texts.js",
 		  	"js/inputField.js",
 		  	"js/contentscript.js"

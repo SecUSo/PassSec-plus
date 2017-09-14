@@ -8,6 +8,7 @@ $.each(PassSec,function(i,v){
 
 // message passing with content script
 chrome.runtime.onMessage.addListener(function(request,sender,sendResponse){
+	// get local storage
 	if(request.name == "getStorage"){
 		var r = {
 			firstRun:(window.localStorage.getItem(PassSec.firstRun.label)),
@@ -18,9 +19,11 @@ chrome.runtime.onMessage.addListener(function(request,sender,sendResponse){
 		};
 		sendResponse(r);
 	}
+	// set local storage
 	else if(request.name == "setStorage"){
 		window.localStorage.setItem(request.item,request.value);
 	}
+	// get top level domains (for domain extraction in urls)
 	else if(request.name == "TLD"){
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function(){
@@ -32,6 +35,7 @@ chrome.runtime.onMessage.addListener(function(request,sender,sendResponse){
 		xhttp.send(null);
 		return true;
 	}
+	// for checking the state of ssl (not yet implemented)
 	else if(request.name == "sslCheck"){
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function(){
@@ -44,11 +48,3 @@ chrome.runtime.onMessage.addListener(function(request,sender,sendResponse){
 		return true;
 	}
 });
-
-/*
-chrome.tabs.onUpdated.addListener(function(tabId,status,info){
-	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-		console.log(tabs[0]);
-  });
-});
-*/

@@ -42,9 +42,9 @@ function processTooltip(){
   $(t.find("#passSecButtonException")[0]).css("background-color", "white !important");
   $(t.find("#passSecRecommendationText")[0]).unbind();
   switch(passSec.security){
+
     case "https":
       $(t.find("#passSecPhishing")).hide();
-      //$(t.find(".http-warning")).hide();
       $(t.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("exceptionHTTP"));
       $(t.find("#passSecButtonException")[0]).css("background-color", "red !important");
       $(t.find("#passSecButtonException")[0]).click(function(event){
@@ -65,6 +65,7 @@ function processTooltip(){
       });
       getFieldText("Https");
       break;
+
     case "http":
       $(t.find("#passSecPhishing")).hide();
       $(t.find(".http-warning")).show();
@@ -78,10 +79,12 @@ function processTooltip(){
       });
       getFieldText("Http");
       break;
+
     case "phish":
       $(t.find(".http-warning")).show();
       $(t.find("#passSecPhishing")).show();
       break;
+
     case "httpsEV":
       $(t.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("exceptionHTTPS"));
       $(t.find("#passSecPhishing")).hide();
@@ -109,12 +112,14 @@ function getFieldText(protocol){
   var t = passSec.tooltip;
   $(t.find("#passSecWarning")[0]).html(chrome.i18n.getMessage(fieldType+"Warning"));
   $(t.find("#passSecConsequenceText")[0]).html(chrome.i18n.getMessage(fieldType+"Consequence"+protocol));
+
   if(protocol == "Http"){
     $(t.find("#passSecRecommendationText")[0]).html(chrome.i18n.getMessage(fieldType+"Recommendation"+protocol));
   }
   else {
     $(t.find("#passSecRecommendationText")[0]).html(chrome.i18n.getMessage("recommendationHttps"));
   }
+
   $(t.find("#passSecInfoText")[0]).click(function(e){
     if($(this).html() == chrome.i18n.getMessage("moreInfo")){
       $(this).html(chrome.i18n.getMessage(fieldType+"Info"+protocol));
@@ -125,6 +130,9 @@ function getFieldText(protocol){
   });
 };
 
+/**
+* extract the domain out of a given hostname
+*/
 function extractDomain(url,tld){
   var split = url.split(".");
   if(split.length > 2) url = split[split.length-2] + "." + split[split.length-1];

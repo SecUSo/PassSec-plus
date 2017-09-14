@@ -18,7 +18,7 @@ function getSecurityStatus(r){
 };
 
 /**
-*   get answer for request to ssllabs api
+*   TODO: get answer for request to ssllabs api (not ready yet)
 */
 function getSSLStatus(){
   chrome.runtime.sendMessage({name: "sslCheck", url: passSec.url},function(r){
