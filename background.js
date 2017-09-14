@@ -21,6 +21,17 @@ chrome.runtime.onMessage.addListener(function(request,sender,sendResponse){
 	else if(request.name == "setStorage"){
 		window.localStorage.setItem(request.item,request.value);
 	}
+	else if(request.name == "TLD"){
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function(){
+			if (xhttp.readyState == 4){
+				sendResponse(xhttp.response);
+			}
+		};
+		xhttp.open('GET', "https://publicsuffix.org/list/public_suffix_list.dat", true);
+		xhttp.send(null);
+		return true;
+	}
 	else if(request.name == "sslCheck"){
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function(){

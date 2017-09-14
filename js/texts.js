@@ -125,8 +125,16 @@ function getFieldText(protocol){
   });
 };
 
-function extractDomain(domain){
-  var split = domain.split(".");
-  if(split.length > 2) domain = split[split.length-2]+"."+split[split.length-1];
-  return domain;
+function extractDomain(url,tld){
+  var split = url.split(".");
+  if(split.length > 2) url = split[split.length-2] + "." + split[split.length-1];
+
+  var arr = tld.split("\n").filter(function(value) { return value != "" && !value.startsWith("//") && value.split(".").length >= 3  });
+  if(arr.toString().indexOf(url) > -1){
+    var arr2 = tld.split("\n").filter(function(value) { return value != "" && !value.startsWith("//") && value.indexOf(url) > -1  });
+    var temp = "bla";
+    if(split.length >= 3) temp = split[split.length-3] + "." + split[split.length-2] + "." + split[split.length-1];
+    if(arr2.indexOf(temp) > -1 || (arr2.indexOf("*."+url) > -1 && arr2.indexOf("!"+temp) == -1)) return temp;
+  }
+  return url;
 };

@@ -208,7 +208,7 @@
     "message": "Default settings restored! Please reload the page on which you are using PassSec+.",
     "description": "Default settings"
   },
-  
+
   "phishWarning": {
     "message": "CAUTION! A potential phishing attempt has been detected. Check the above information about the website operator carefully. We recommend that you enter the address manually.",
     "description": "Warn about possible phish."
