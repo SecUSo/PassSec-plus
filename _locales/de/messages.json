@@ -340,7 +340,7 @@
   },
 
   "searchWarning": {
-    "message": "Es ist unsicher, hier ein Suchanfragen einzugeben!",
+    "message": "Es ist unsicher, hier Suchanfragen einzugeben!",
     "description": "Warn about insecurity of query field."
   }
 }
