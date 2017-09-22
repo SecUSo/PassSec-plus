@@ -245,7 +245,7 @@
   },
 
   "passwordInfoHttp": {
-    "message": "More Information: This website does not provide the option of entering and transmitting your password securely (via https). If you use the same password for other website accounts, and your password is intercepted by unauthorized people when you submit here, these people will gain access to your account on this webpage and also to all other websites where you use the same credentials. Therefore, it is very important to change the other website passwords immediately. [less]",
+    "message": "More Information: This website does not provide the option of entering and transmitting your password securely (via https). If you use the same password for other website accounts, and your password is intercepted by unauthorized people when you submit here, these people will gain access to your account on this webpage and also to all other websites where you use the same credentials. Therefore, it is very important to change the other website passwords immediately. [less]",
     "description": "Info http: user enters login data."
   },
 
