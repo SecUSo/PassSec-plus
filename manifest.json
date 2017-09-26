@@ -47,7 +47,7 @@
         "js/inputField.js",
         "js/contentscript.js"
       ],
-      "run_at": "document_idle",
+      "run_at": "document_end",
       "all_frames": true
     }
   ]
