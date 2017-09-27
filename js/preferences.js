@@ -33,7 +33,7 @@ let PassSec = {
     },
     personalField: {
         label: 'personalField',
-        value: true
+        value: false
     },
     paymentField: {
         label: 'paymentField',
@@ -41,11 +41,11 @@ let PassSec = {
     },
     searchField: {
         label: 'searchField',
-        value: true
+        value: false
     },
     brokenHTTPSSafe: {
         label: 'brokenHTTPSSafe',
-        value: false
+        value: true
     },
     checkAfter20Starts: {
         label: 'checkAfter20Starts',
