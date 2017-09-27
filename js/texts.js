@@ -25,7 +25,6 @@ function getTexts(){
                   '<p id="passSecInfoText">'+chrome.i18n.getMessage("moreInfo")+'</p>'+
               '</div>'+
               '<div id="passSecButtons>">'+
-                '<button id="passSecButton0" class="http-warning" type="button" hidden>'+ "bla" + ' </button>' +
                 '<button id="passSecButtonException" type="button"></button>' +
                 '<button id="passSecButtonClose" type="button">'+ chrome.i18n.getMessage("OK") +' </button>'+
               '</div>';
@@ -37,7 +36,11 @@ function getTexts(){
 */
 function processTooltip(){
   var t = passSec.tooltip;
-  $(t.find("#passSecButtonClose")[0]).click(function(event){passSec.api.toggle(false);});
+  $(t.find("#passSecButtonClose")[0]).on("mousedown", function(event){
+    event.stopImmediatePropagation();
+    event.preventDefault();
+    passSec.api.destroy(true);
+  });
   $(t.find("#passSecRecommendationText")[0]).removeClass("passSecClickable");
   $(t.find("#passSecButtonException")[0]).css("background-color", "white !important");
   $(t.find("#passSecRecommendationText")[0]).unbind();
