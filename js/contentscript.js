@@ -1,9 +1,4 @@
-var passSec = passSec || {};
-passSec.url = "";
-passSec.domain = "";
-passSec.api;
-passSec.tooltip;
-passSec.target;
+let passSec = passSec || {};
 let inputElementClicked = false;
 
 chrome.runtime.sendMessage({"name": 'TLD'}, function (tld) {

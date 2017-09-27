@@ -1,6 +1,4 @@
-var passSec = passSec || {};
-passSec.sslCheckResult = "DNS";
-passSec.security = "http";
+let passSec = passSec || {};
 
 /**
  *   get security status of website
