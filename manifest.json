@@ -3,7 +3,7 @@
   "name": "PassSec+",
   "version": "1.3.0",
   "author": "TU Darmstadt - SECUSO",
-  "homepage_url": "https://www.secuso.informatik.tu-darmstadt.de/en/secuso-home/research/results/passsec/",
+  "homepage_url": "__MSG_homepageURL__",
   "description": "PassSec+ alerts the user to enter passwords on websites where they could be compromised.",
   "default_locale": "de",
   "background": {

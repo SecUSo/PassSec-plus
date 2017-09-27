@@ -1,4 +1,9 @@
 {
+  "homepageURL": {
+    "message": "https://www.secuso.informatik.tu-darmstadt.de/de/secuso/forschung/ergebnisse/passsec/",
+    "description": "The add-on's homepage"
+  },
+
   "domainInfo": {
     "message": "Sie besuchen eine Seite des Betreibers",
     "description": "Info about webpage host"
