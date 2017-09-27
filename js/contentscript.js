@@ -1,4 +1,4 @@
-let passSec = passSec || {};
+let passSec = {};
 let inputElementClicked = false;
 
 chrome.runtime.sendMessage({"name": 'TLD'}, function (tld) {

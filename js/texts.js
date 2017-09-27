@@ -1,5 +1,3 @@
-let passSec = passSec || {};
-
 /**
  * fill tooltip with text
  */

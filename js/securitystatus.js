@@ -1,5 +1,3 @@
-let passSec = passSec || {};
-
 /**
  *   get security status of website
  */
