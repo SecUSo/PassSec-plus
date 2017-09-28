@@ -1,12 +1,10 @@
 let changes = [];
-let defaultRedirects = ["google.de", "de-de.facebook.com", "youtube.com", "google.com", "de.wikipedia.org", "wikipedia.de", "de.yahoo.com", "login.yahoo.com", "tumblr.com"];
 
 $(document).ready(function () {
     $('.tabs .tab-links a').on('click', function (e) {
         let currentAttrValue = $(this).attr('href');
         // Show/Hide Tabs
         $('.tabs ' + currentAttrValue).show().fadeIn(400).siblings().hide();
-
         // Change/remove current tab to active
         $(this).parent('li').addClass('active').siblings().removeClass('active');
         e.preventDefault();
@@ -15,13 +13,8 @@ $(document).ready(function () {
         $("#redirectList").hide();
         $("#exceptionList").hide();
     });
-
     $("#redirectList").hide();
     $("#exceptionList").hide();
-
-    // init changes for "revert changes" button
-    changes = [];
-
     addTexts();
     init();
     addEvents();
@@ -43,17 +36,14 @@ function addTexts() {
     $("#changeIconText").html(chrome.i18n.getMessage("changeIconText"));
     $("#changeIconButton").html(chrome.i18n.getMessage("changeIconButton"));
 
-    // Redirections tab
-    $("#tab2").html(chrome.i18n.getMessage("tab2"));
-    $("#recommendedRedirections").html(chrome.i18n.getMessage("recommendedRedirections"));
-    $("#recommendedRedirectionsInfo").html(chrome.i18n.getMessage("addRedirectionList"));
-    $("#addRecommendedRedirections").html(chrome.i18n.getMessage("addRecommendedRedirections"));
-    $("#httpsRedirects").html(chrome.i18n.getMessage("httpsRedirections"));
-    $("#showRedirects").html(chrome.i18n.getMessage("showHttpsRedirections"));
+    // Redirects tab
+    $("#redirects").html(chrome.i18n.getMessage("tab2"));
+    $("#httpsRedirects").html(chrome.i18n.getMessage("httpsRedirects"));
+    $("#showRedirects").html(chrome.i18n.getMessage("showHttpsRedirects"));
     $("#clearRedirectionList").html(chrome.i18n.getMessage("emptyList"));
 
     // Exceptions tab
-    $("#tab3").html(chrome.i18n.getMessage("tab3"));
+    $("#exceptions").html(chrome.i18n.getMessage("tab3"));
     $("#websiteExceptions").html(chrome.i18n.getMessage("websiteExceptions"));
     $("#showWebsiteExceptions").html(chrome.i18n.getMessage("showWebsiteExceptions"));
     $("#clearExceptionList").html(chrome.i18n.getMessage("emptyList"));
@@ -61,23 +51,19 @@ function addTexts() {
     $("#checkAfter20").html(chrome.i18n.getMessage("checkExceptions20Starts")).attr("title", chrome.i18n.getMessage("checkExceptions20StartsTooltip"));
 
     // Field tab
-    $("#tab4").html(chrome.i18n.getMessage("tab4"));
+    $("#fields").html(chrome.i18n.getMessage("tab4"));
     $("#fieldTypes").html(chrome.i18n.getMessage("fieldTypes"));
     $("#passwordField").html(chrome.i18n.getMessage("passwordField"));
     $("#paymentField").html(chrome.i18n.getMessage("paymentField"));
     $("#personalField").html(chrome.i18n.getMessage("personalField"));
     $("#searchField").html(chrome.i18n.getMessage("searchField"));
-    $("#httpsSecurity").html(chrome.i18n.getMessage("httpsSecurity"));
-    $("#classifySafe").html(chrome.i18n.getMessage("brokenHttps"));
-    $("#brokenHTTPSDescription").html(chrome.i18n.getMessage("brokenHTTPSDescription"));
 
     // Additional buttons
-    $("#saveChanges").html(chrome.i18n.getMessage("saveChanges"));
     $("#revertChanges").html(chrome.i18n.getMessage("revertChanges"));
     $("#defaultSettings").html(chrome.i18n.getMessage("defaultSettings"));
 
     // Lists
-    $("#redirectListTitle").html(chrome.i18n.getMessage("httpsRedirections"));
+    $("#redirectListTitle").html(chrome.i18n.getMessage("httpsRedirects"));
     $("#exceptionListTitle").html(chrome.i18n.getMessage("websiteExceptions"));
 }
 
@@ -88,9 +74,6 @@ function init() {
     // Appearance tab
     setImage();
 
-    // Redirections tab
-    $("#addRecommendedRedirections").prop("disabled", containsDefaults());
-
     // Exceptions tab
     $("#checkAfter20Checkbox").prop("checked", window.localStorage.getItem("checkAfter20Starts") === "true");
 
@@ -99,16 +82,15 @@ function init() {
     $("#pyField").prop("checked", window.localStorage.getItem("paymentField") === "true");
     $("#perField").prop("checked", window.localStorage.getItem("personalField") === "true");
     $("#sField").prop("checked", window.localStorage.getItem("searchField") === "true");
-    $("#classifySafeCheckbox").prop("checked", window.localStorage.getItem("brokenHTTPSSafe") === "true");
 
     // Additional
-    if ($("#redirectList")[0]) fillRedirectList();
-    if ($("#exceptionList")[0]) fillExceptionList();
+    if ($("#redirectList")[0]) fillList("redirects");
+    if ($("#exceptionList")[0]) fillList("exceptions");
     $("#statusSettings").html("");
 }
 
 /**
- *   filling the options page elements with functionalities
+ *   filling the options page elements with functionality
  */
 function addEvents() {
     // Appearance tab
@@ -123,35 +105,15 @@ function addEvents() {
         setImage();
     });
 
-    // Redirections tab
-    $("#addRecommendedRedirections").on('click', function (e) {
-        save("redirections", window.localStorage.getItem("redirections"));
-        let arr = [];
-        try {
-            arr = JSON.parse(window.localStorage.getItem("redirections"));
-        } catch (err) {
-        }
-        if (!containsDefaults()) {
-            for (let i = 0; i < defaultRedirects.length; i++) {
-                if (!arr || arr.indexOf(defaultRedirects[i]) === -1) {
-                    if (!arr) arr = [defaultRedirects[i]];
-                    else arr.push(defaultRedirects[i]);
-                }
-            }
-            window.localStorage.setItem("redirections", JSON.stringify(arr));
-            init();
-        }
-    });
-
+    // Redirects tab
     $("#showRedirects").click(function (e) {
         $("#redirectList").toggle();
         $("#exceptionList").hide();
-        init();
     });
 
     $("#clearRedirectionList").click(function (e) {
-        save("redirections", window.localStorage.getItem("redirections"));
-        window.localStorage.setItem("redirections", JSON.stringify([]));
+        save("redirects", window.localStorage.getItem("redirects"));
+        window.localStorage.setItem("redirects", JSON.stringify([]));
         init();
     });
 
@@ -159,7 +121,6 @@ function addEvents() {
     $("#showWebsiteExceptions").click(function (e) {
         $("#redirectList").hide();
         $("#exceptionList").toggle();
-        init();
     });
 
     $("#clearExceptionList").click(function (e) {
@@ -199,12 +160,7 @@ function addEvents() {
         window.localStorage.setItem("searchField", checked);
     });
 
-    $("#classifySafeCheckbox").on('change', function (e) {
-        save("brokenHTTPSSafe", window.localStorage.getItem("brokenHTTPSSafe"));
-        let checked = $(this).prop("checked");
-        window.localStorage.setItem("brokenHTTPSSafe", checked);
-    });
-
+    // Option buttons
     $("#revertChanges").on('click', function (e) {
         for (let i = 0; i < changes.length; i++) {
             if (!changes[i]) break;
@@ -215,39 +171,15 @@ function addEvents() {
     });
 
     $("#defaultSettings").on('click', function (e) {
-        window.localStorage.setItem("secureImage", "1");
-        window.localStorage.setItem("secureEVImage", "1");
-        window.localStorage.setItem("checkExceptionAuto", false);
-        window.localStorage.setItem("passwordField", true);
-        window.localStorage.setItem("paymentField", true);
-        window.localStorage.setItem("personalField", true);
-        window.localStorage.setItem("searchField", true);
-        window.localStorage.setItem("brokenHTTPSSafe", false);
-        window.localStorage.setItem("checkAfter20Starts", false);
-        window.localStorage.setItem("exceptions", JSON.stringify([]));
-        window.localStorage.setItem("redirections", JSON.stringify([]));
+        $.each(PassSec, function (i, v) {
+            // reset everything except for the firstRun property
+            if (v.label !== "firstRun")
+                window.localStorage.setItem(v.label, v.value);
+        });
         init();
         $("#statusSettings").html(chrome.i18n.getMessage("defaultSettingsRestored"));
     });
 
-}
-
-/**
- * returns true if redirect list contains default redirects, else if not
- */
-function containsDefaults() {
-    let arr = [];
-    try {
-        arr = JSON.parse(window.localStorage.getItem("redirects"));
-    } catch (err) {
-
-    }
-    let contains = true;
-    for (let i = 0; i < defaultRedirects.length; i++) {
-        // if one element is not contained, contains is false
-        if (!arr || !arr.indexOf(defaultRedirects[i]) > -1) return false;
-    }
-    return contains;
 }
 
 function setImage() {
@@ -267,74 +199,36 @@ function save(list, value) {
 }
 
 /**
- * adding all entries to the list of redirection domains
+ * add all entries to the list of either exceptions or redirects
  */
-function fillRedirectList() {
-    console.log("fill list");
-    let redirects = [];
+function fillList(listId) {
+    let listElements = [];
     try {
-        redirects = JSON.parse(window.localStorage.getItem("redirections"));
+        listElements = JSON.parse(window.localStorage.getItem(listId));
     } catch (err) {
 
     }
-    console.log(redirects);
-    let table = document.getElementById("redirectList");
+    let htmlListId  = listId === "exceptions" ? "exceptionList" : "redirectList";
+    let table = document.getElementById(htmlListId);
     table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
-    if (!redirects)
-        return;
-    for (let i = 0; i < redirects.length; i++) {
+    if (!listElements) return;
+    for (let i = 0; i < listElements.length; i++) {
         let row = table.insertRow(table.rows.length);
         let cell = row.insertCell(0);
-        $(cell).html('<div><button id="redirects' + i + '" name="' + redirects[i] + '" style="margin-right:10px;color:red">X</button><span>' + redirects[i] + '</span></div>');
-        $("#redirects" + i).on("click", function (e) {
-            save("redirects", window.localStorage.getItem("redirects"));
-            let element = $(this).next().html();
-            let index = $(this).attr("id").replace("redirects", "");
+        $(cell).html('<div><button id="' + listId + i + '" name="' + listElements[i] + '" style="margin-right:10px;color:red">X</button><span>' + listElements[i] + '</span></div>');
+        $("#" + listId + i).on("click", function (e) {
+            save(listId, window.localStorage.getItem(listId));
+            let index = $(this).attr("id").replace(listId, "");
             $(this).parent().parent().parent().remove();
             let arr = [];
             try {
-                arr = JSON.parse(window.localStorage.getItem("redirects"));
+                arr = JSON.parse(window.localStorage.getItem(listId));
             } catch (err) {
 
             }
             if (arr)
                 arr.splice(index, 1);
-            window.localStorage.setItem("redirects", JSON.stringify(arr));
-        });
-    }
-}
-
-/**
- * adding all entries to the list of exceptions domains
- */
-function fillExceptionList() {
-    let exceptions = [];
-    try {
-        exceptions = JSON.parse(window.localStorage.getItem("exceptions"));
-    } catch (err) {
-
-    }
-    let table = document.getElementById("exceptionList");
-    table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
-    if (!exceptions) return;
-    for (let i = 0; i < exceptions.length; i++) {
-        let row = table.insertRow(table.rows.length);
-        let cell = row.insertCell(0);
-        $(cell).html('<div><button id="exceptions' + i + '" name="' + exceptions[i] + '" style="margin-right:10px;color:red">X</button><span>' + exceptions[i] + '</span></div>');
-        $("#exceptions" + i).on("click", function (e) {
-            save("exceptions", window.localStorage.getItem("exceptions"));
-            let element = $(this).next().html();
-            let index = $(this).attr("id").replace("exceptions", "");
-            $(this).parent().parent().parent().remove();
-            let arr = [];
-            try {
-                arr = JSON.parse(window.localStorage.getItem("exceptions"));
-            } catch (err) {
-
-            }
-            if (arr)
-                arr.splice(index, 1);
-            window.localStorage.setItem("exceptions", JSON.stringify(arr));
+            window.localStorage.setItem(listId, JSON.stringify(arr));
         });
     }
 }

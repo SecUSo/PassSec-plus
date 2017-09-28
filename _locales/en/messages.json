@@ -70,33 +70,33 @@
   },
 
   "tab2": {
-    "message": "Redirections",
-    "description": "Heading for redirections tab"
+    "message": "Redirects",
+    "description": "Heading for redirects tab"
   },
 
-  "recommendedRedirections": {
-    "message": "Recommended redirections",
-    "description": "Recommended redirections"
+  "recommendedRedirects": {
+    "message": "Recommended redirects",
+    "description": "Recommended redirects"
   },
 
   "addRedirectionList": {
-    "message": "It is possible to add some redirections recommended by SECUSO. More information and a list of redirections can be found on https://www.secuso.org/passsec.",
+    "message": "It is possible to add some redirects recommended by SECUSO. More information and a list of redirects can be found on https://www.secuso.org/passsec.",
     "description": "Recommended redirection list"
   },
 
-  "addRecommendedRedirections": {
-    "message": "Add recommended redirections",
-    "description": "Recommended redirections"
+  "addRecommendedRedirects": {
+    "message": "Add recommended redirects",
+    "description": "Recommended redirects"
   },
 
-  "httpsRedirections": {
-    "message": "HTTPS redirections (secure mode)",
-    "description": "HTTPS redirections"
+  "httpsRedirects": {
+    "message": "HTTPS redirects (secure mode)",
+    "description": "HTTPS redirects"
   },
 
-  "showHttpsRedirections": {
-    "message": "Show list of HTTPS redirections",
-    "description": "Show HTTPS redirections"
+  "showHttpsRedirects": {
+    "message": "Show list of HTTPS redirects",
+    "description": "Show HTTPS redirects"
   },
 
   "delete": {

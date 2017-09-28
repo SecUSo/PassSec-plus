@@ -19,8 +19,8 @@ let PassSec = {
         label: 'sslCheckEnabled',
         value: false
     },
-    redirections: {
-        label: 'redirections',
+    redirects: {
+        label: 'redirects',
         value: []
     },
     exceptions: {

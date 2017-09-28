@@ -1,110 +1,127 @@
-body{
-  background: #fafafa;
-  font-family: Helvetica;
-}
-#secureInputType{
-  background-repeat: no-repeat !important;
-  background-size: contain !important;
-  background-position: right center !important;
-  border: 2px solid #4dbc4f !important;
-}
-#notSecureInputType{
-  background-repeat: no-repeat !important;
-  background-size: contain !important;
-  background-position: right center !important;
-  background-color: red !important;
-  border: 2px solid red !important;
-}
-.float{
-  float: left;
-}
-#iconImg{
-  margin-left: 5px;
-  width: 16px;
-  height: 20px;
-}
-#redirectList{
-  float: left;
-  display: inline-block;
-  border: 2.5px solid black;
-}
-#exceptionList{
-  margin-right: 10px;
-  border: 2.5px solid black;
+body {
+    background: #fafafa;
+    font-family: Helvetica;
 }
 
-.left{
-  float: left;
+#secureInputType {
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+    background-position: right center !important;
+    border: 2px solid #4dbc4f !important;
 }
-.right{
-  padding:4px;
+
+#notSecureInputType {
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+    background-position: right center !important;
+    background-color: red !important;
+    border: 2px solid red !important;
 }
-.last{
-  padding:10px;
+
+.float {
+    float: left;
 }
-.clear{
-  clear: left;
+
+#iconImg {
+    margin-left: 5px;
+    width: 16px;
+    height: 20px;
+}
+
+#redirectList {
+    float: left;
+    display: inline-block;
+    border: 2.5px solid black;
+}
+
+#exceptionList {
+    margin-right: 10px;
+    border: 2.5px solid black;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    padding: 4px;
+}
+
+.last {
+    padding: 10px;
+}
+
+.clear {
+    clear: left;
+}
+
+#optionButtons {
+    margin-top: 10px;
 }
 
 /*----- Tabs -----*/
 .tabs {
-    width:100%;
-    display:inline-block;
+    width: 100%;
+    display: inline-block;
 }
 
-    /*----- Tab Links -----*/
-    .tab-links{
-      margin: 0;
-      padding: 0;
-    }
-    /* Clearfix */
-    .tab-links:after {
-        display:block;
-        clear:both;
-        content:'';
-    }
+/*----- Tab Links -----*/
+.tab-links {
+    margin: 0;
+    padding: 0;
+}
 
-    .tab-links li {
-        margin:0px 5px 0px 0px;
-        float:left;
-        list-style:none;
-    }
+/* Clearfix */
+.tab-links:after {
+    display: block;
+    clear: both;
+    content: '';
+}
 
-        .tab-links a {
-            padding:9px 15px;
-            display:inline-block;
-            border-radius:3px 3px 0px 0px;
-            background:#d9d9d9;
-            font-size:16px;
-            font-weight:600;
-            color:#4c4c4c;
-            transition:all linear 0.15s;
-        }
+.tab-links li {
+    margin: 0px 5px 0px 0px;
+    float: left;
+    list-style: none;
+}
 
-        .tab-links a:hover {
-            background:#a7cce5;
-            text-decoration:none;
-        }
+.tab-links a {
+    padding: 9px 15px;
+    display: inline-block;
+    border-radius: 3px 3px 0px 0px;
+    background: #d9d9d9;
+    font-size: 16px;
+    font-weight: 600;
+    color: #4c4c4c;
+    transition: all linear 0.15s;
+}
 
-    li.active a, li.active a:hover {
-        background:#fff;
-        color:#4c4c4c;
-    }
+.tab-links a:hover {
+    background: #a7cce5;
+    text-decoration: none;
+}
 
-    /*----- Content of Tabs -----*/
-    .tab-content {
-        padding:15px;
-        border-radius:3px;
-        box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
-        background: #f2f2f2;
-        border:1px solid #999;
-    }
-    .tab {
-        display:none;
-    }
-    .tab.active {
-        display:block;
-      }
-    .tab > div{
-      margin: 10px 5px 15px 5px;
-    }
+li.active a, li.active a:hover {
+    background: #fff;
+    color: #4c4c4c;
+}
+
+/*----- Content of Tabs -----*/
+.tab-content {
+    padding: 15px;
+    border-radius: 3px;
+    box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
+    background: #f2f2f2;
+    border: 1px solid #999;
+}
+
+.tab {
+    display: none;
+}
+
+.tab.active {
+    display: block;
+}
+
+.tab > div {
+    margin: 10px 5px 15px 5px;
+}

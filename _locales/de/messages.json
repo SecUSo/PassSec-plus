@@ -71,12 +71,12 @@
 
   "tab2": {
     "message": "Weiterleitungen",
-    "description": "Heading for redirections tab"
+    "description": "Heading for redirects tab"
   },
 
-  "recommendedRedirections": {
+  "recommendedRedirects": {
     "message": "Empfohlene Weiterleitungen",
-    "description": "Recommended redirections"
+    "description": "Recommended redirects"
   },
 
   "addRedirectionList": {
@@ -84,19 +84,19 @@
     "description": "Recommended redirection list"
   },
 
-  "addRecommendedRedirections": {
+  "addRecommendedRedirects": {
     "message": "Empfohlene Weiterleitungen hinzufügen",
-    "description": "Recommended redirections"
+    "description": "Recommended redirects"
   },
 
-  "httpsRedirections": {
+  "httpsRedirects": {
     "message": "HTTPS-Weiterleitungen (Sicherer Modus)",
-    "description": "HTTPS redirections"
+    "description": "HTTPS redirects"
   },
 
-  "showHttpsRedirections": {
+  "showHttpsRedirects": {
     "message": "Zeige Liste der HTTPS-Weiterleitungen",
-    "description": "Show HTTPS redirections"
+    "description": "Show HTTPS redirects"
   },
 
   "delete": {

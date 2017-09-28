@@ -1,82 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8"/>
-	<title id="title"></title>
-	<link type="text/css" rel="stylesheet" href="css/options.css" />
-	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="js/preferences.js"></script>
-	<script type="text/javascript" src="js/options.js"></script>
+    <meta charset="utf-8"/>
+    <title id="title"></title>
+    <link type="text/css" rel="stylesheet" href="css/options.css"/>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/preferences.js"></script>
+    <script type="text/javascript" src="js/options.js"></script>
 </head>
 <body>
-	<h1 id="options"></h1>
-	<div class="tabs">
-		<ul class="tab-links">
-			<li class="active"><a href="#tab1" id="general"></a></li>
-			<li><a href="#tab2" id="tab2"></a></li>
-			<li id="ref"><a href="#tab3" id="tab3"></a></li>
-			<li id="ref"><a href="#tab4" id="tab4"></a></li>
-		</ul>
+<h1 id="options"></h1>
+<div class="tabs">
+    <ul class="tab-links">
+        <li class="active"><a href="#tab1" id="general"></a></li>
+        <li><a href="#tab2" id="redirects"></a></li>
+        <li><a href="#tab3" id="exceptions"></a></li>
+        <li><a href="#tab4" id="fields"></a></li>
+    </ul>
 
-		<div class="tab-content">
-			<div id="tab1" class="tab active">
-				<h3 id="appearance"></h3>
-				<p id="appearanceSecure"></p>
-				<input id="secureInputType" type="text" value="***"></p>
-				<p id="appearanceNotSecure"></p>
-				<input id="notSecureInputType" type="text" value="***"></p>
-				<p id="changeIconText"></p>
-				<button id="changeIconButton" class="float"></button>
-				<img id="iconImg" alt="Icon">
-			</div>
+    <div class="tab-content">
+        <div id="tab1" class="tab active">
+            <h3 id="appearance"></h3>
+            <p id="appearanceSecure"></p>
+            <input id="secureInputType" type="text" value="***"></p>
+            <p id="appearanceNotSecure"></p>
+            <input id="notSecureInputType" type="text" value="***"></p>
+            <p id="changeIconText"></p>
+            <button id="changeIconButton" class="float"></button>
+            <img id="iconImg" alt="Icon">
+        </div>
 
-			<div id="tab2" class="tab">
-				<h3 id="recommendedRedirections"></h3>
-				<p id="recommendedRedirectionsInfo"></p>
-				<button id="addRecommendedRedirections"></button><br><br>
-				<h3 id="httpsRedirects"></h3>
-				<button id="showRedirects"></button><br><br>
-				<button id="clearRedirectionList"></button>
-			</div>
+        <div id="tab2" class="tab">
+            <h3 id="httpsRedirects"></h3>
+            <button id="showRedirects"></button>
+            <br><br>
+            <button id="clearRedirectionList"></button>
+        </div>
 
-			<div id="tab3" class="tab">
-				<h3 id="websiteExceptions"></h3>
-				<button id="showWebsiteExceptions"></button><br><br>
-				<button id="checkExceptions"></button><br><br>
-				<button id="clearExceptionList"></button>
-				<div class="clear"></div>
-				<input id="checkAfter20Checkbox" type="checkbox" class="float"><p id="checkAfter20"></p>
-			</div>
+        <div id="tab3" class="tab">
+            <h3 id="websiteExceptions"></h3>
+            <button id="showWebsiteExceptions"></button>
+            <br><br>
+            <button id="checkExceptions"></button>
+            <br><br>
+            <button id="clearExceptionList"></button>
+            <div class="clear"></div>
+            <input id="checkAfter20Checkbox" type="checkbox" class="float">
+            <p id="checkAfter20"></p>
+        </div>
 
-			<div id="tab4" class="tab">
-				<h3 id="fieldTypes"></h3>
-				<input id="pwField" type="checkbox" class="float"><p id="passwordField"></p>
-				<input id="pyField" type="checkbox" class="float"><p id="paymentField"></p>
-				<input id="perField" type="checkbox" class="float"><p id="personalField"></p>
-				<input id="sField"type="checkbox" class="float"><p id="searchField"></p>
-				<h3 id="httpsSecurity"></h3>
-				<input id="classifySafeCheckbox" type="checkbox" class="float"><p id="classifySafe"></p>
-				<p id="brokenHTTPSDescription"></p>
-			</div>
-		</div>
+        <div id="tab4" class="tab">
+            <h3 id="fieldTypes"></h3>
+            <input id="pwField" type="checkbox" class="float">
+            <p id="passwordField"></p>
+            <input id="pyField" type="checkbox" class="float">
+            <p id="paymentField"></p>
+            <input id="perField" type="checkbox" class="float">
+            <p id="personalField"></p>
+            <input id="sField" type="checkbox" class="float">
+            <p id="searchField"></p>
+        </div>
+    </div>
 
-		<div id="optionButtons">
-			<button id="revertChanges"></button>
-			<button id="defaultSettings"></button>
-		</div>
+    <div id="optionButtons">
+        <button id="revertChanges"></button>
+        <button id="defaultSettings"></button>
+    </div>
 
-		<p id="statusSettings"></p>
-		<div>
-			<table id="redirectList">
-				<tr>
-					<th id="redirectListTitle"></th>
-				</tr>
-			</table>
-			<table id="exceptionList">
-				<tr>
-					<th id="exceptionListTitle"></th>
-				</tr>
-			</table>
-		</div>
-	</body>
-	</html>
+    <p id="statusSettings"></p>
+    <div>
+        <table id="redirectList">
+            <tr>
+                <th id="redirectListTitle"></th>
+            </tr>
+        </table>
+        <table id="exceptionList">
+            <tr>
+                <th id="exceptionListTitle"></th>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
