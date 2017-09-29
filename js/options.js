@@ -75,7 +75,7 @@ function init() {
     setImage();
 
     // Exceptions tab
-    $("#checkAfter20Checkbox").prop("checked", window.localStorage.getItem("checkAfter20Starts") === "true");
+    $("#checkAfter20Checkbox").prop("checked", window.localStorage.getItem("checkExceptionsAfter20Starts") === "true");
 
     // Field tab
     $("#pwField").prop("checked", window.localStorage.getItem("passwordField") === "true");
@@ -130,9 +130,9 @@ function addEvents() {
     });
 
     $("#checkAfter20Checkbox").on('change', function (e) {
-        save("checkAfter20Starts", window.localStorage.getItem("checkAfter20Starts"));
+        save("checkExceptionsAfter20Starts", window.localStorage.getItem("checkExceptionsAfter20Starts"));
         let checked = $(this).prop("checked");
-        window.localStorage.setItem("checkAfter20Starts", checked);
+        window.localStorage.setItem("checkExceptionsAfter20Starts", checked);
     });
 
     // Fields tab

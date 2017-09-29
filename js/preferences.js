@@ -11,14 +11,6 @@ let PassSec = {
         label: 'secureEVImage',
         value: 1
     },
-    checkExceptionAuto: {
-        label: 'checkExceptionAuto',
-        value: false
-    },
-    sslCheckEnabled: {
-        label: 'sslCheckEnabled',
-        value: false
-    },
     redirects: {
         label: 'redirects',
         value: []
@@ -43,12 +35,8 @@ let PassSec = {
         label: 'searchField',
         value: false
     },
-    brokenHTTPSSafe: {
-        label: 'brokenHTTPSSafe',
-        value: true
-    },
-    checkAfter20Starts: {
-        label: 'checkAfter20Starts',
+    checkExceptionsAfter20Starts: {
+        label: 'checkExceptionsAfter20Starts',
         value: false
     }
 };
