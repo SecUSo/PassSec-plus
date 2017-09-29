@@ -1,11 +1,11 @@
 let passSec = {};
 let inputElementClicked = false;
 
-chrome.runtime.sendMessage({"name": 'TLD'}, function (tld) {
+browser.runtime.sendMessage({"name": 'TLD'}).then(function (tld) {
     passSec.url = document.location.href;
     passSec.domain = extractDomain(document.location.host, tld);
 
-    chrome.runtime.sendMessage({name: "getStorage"}, function (r) {
+    browser.runtime.sendMessage({name: "getStorage"}).then(function (r) {
         getSecurityStatus(r);
         processInputs(r);
 
@@ -26,9 +26,6 @@ chrome.runtime.sendMessage({"name": 'TLD'}, function (tld) {
 });
 
 function applyTooltip(element, event) {
-    console.log("applying tooltip");
-    console.log(element.type);
-    console.log(element.classList.contains("passSecNoTooltip"));
     if ((element.type === "password" || element.type === "search") && !element.classList.contains("passSecNoTooltip")) {
         passSec.target = element;
         // Show the qtip
@@ -65,7 +62,6 @@ function applyTooltip(element, event) {
             },
             events: {
                 render: function (event, api) {
-                    console.log("now rendering qTip");
                     passSec.api = api;
                     passSec.tooltip = api.elements.content;
                     processTooltip();

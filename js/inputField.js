@@ -13,7 +13,7 @@ function processInputs(r) {
     if (!dynamicStyle) {
         let secureImageStyle = '' +
             '.passSec-https {' +
-            '    background-image: url("' + chrome.extension.getURL("skin/check/orange/o_icon" + r.secureImage + ".png") + '") !important;' +
+            '    background-image: url("' + browser.extension.getURL("skin/check/orange/o_icon" + r.secureImage + ".png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +
             '    background-position: right center !important;' +
@@ -22,7 +22,7 @@ function processInputs(r) {
 
         let secureEVImageStyle = '' +
             '.passSec-httpsEV {' +
-            '    background-image: url("' + chrome.extension.getURL("skin/check/gruen/gr_icon" + r.secureImage + ".png") + '") !important;' +
+            '    background-image: url("' + browser.extension.getURL("skin/check/gruen/gr_icon" + r.secureImage + ".png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +
             '    background-position: right center !important;' +
@@ -31,7 +31,7 @@ function processInputs(r) {
 
         let warningImageStyle = '' +
             '.passSec-http {' +
-            '    background-image: url("' + chrome.extension.getURL("skin/yellow_triangle.png") + '") !important;' +
+            '    background-image: url("' + browser.extension.getURL("skin/yellow_triangle.png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +
             '    background-position: right center !important;' +

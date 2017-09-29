@@ -7,7 +7,7 @@ $.each(PassSec, function (i, v) {
 
 
 // message passing with content script
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     // get local storage
     if (request.name === "getStorage") {
         let r = {

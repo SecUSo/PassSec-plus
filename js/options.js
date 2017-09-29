@@ -25,46 +25,46 @@ $(document).ready(function () {
  */
 function addTexts() {
     // Title
-    $("#options").html(chrome.i18n.getMessage("settingsTitle"));
-    $("#title").html(chrome.i18n.getMessage("settingsTitle"));
+    $("#options").html(browser.i18n.getMessage("settingsTitle"));
+    $("#title").html(browser.i18n.getMessage("settingsTitle"));
 
     // Appearance tab
-    $("#general").html(chrome.i18n.getMessage("tab1"));
-    $("#appearance").html(chrome.i18n.getMessage("appearance"));
-    $("#appearanceSecure").html(chrome.i18n.getMessage("appearanceSecure"));
-    $("#appearanceNotSecure").html(chrome.i18n.getMessage("appearanceNotSecure"));
-    $("#changeIconText").html(chrome.i18n.getMessage("changeIconText"));
-    $("#changeIconButton").html(chrome.i18n.getMessage("changeIconButton"));
+    $("#general").html(browser.i18n.getMessage("tab1"));
+    $("#appearance").html(browser.i18n.getMessage("appearance"));
+    $("#appearanceSecure").html(browser.i18n.getMessage("appearanceSecure"));
+    $("#appearanceNotSecure").html(browser.i18n.getMessage("appearanceNotSecure"));
+    $("#changeIconText").html(browser.i18n.getMessage("changeIconText"));
+    $("#changeIconButton").html(browser.i18n.getMessage("changeIconButton"));
 
     // Redirects tab
-    $("#redirects").html(chrome.i18n.getMessage("tab2"));
-    $("#httpsRedirects").html(chrome.i18n.getMessage("httpsRedirects"));
-    $("#showRedirects").html(chrome.i18n.getMessage("showHttpsRedirects"));
-    $("#clearRedirectionList").html(chrome.i18n.getMessage("emptyList"));
+    $("#redirects").html(browser.i18n.getMessage("tab2"));
+    $("#httpsRedirects").html(browser.i18n.getMessage("httpsRedirects"));
+    $("#showRedirects").html(browser.i18n.getMessage("showHttpsRedirects"));
+    $("#clearRedirectionList").html(browser.i18n.getMessage("emptyList"));
 
     // Exceptions tab
-    $("#exceptions").html(chrome.i18n.getMessage("tab3"));
-    $("#websiteExceptions").html(chrome.i18n.getMessage("websiteExceptions"));
-    $("#showWebsiteExceptions").html(chrome.i18n.getMessage("showWebsiteExceptions"));
-    $("#clearExceptionList").html(chrome.i18n.getMessage("emptyList"));
-    $("#checkExceptions").html(chrome.i18n.getMessage("checkExceptions"));
-    $("#checkAfter20").html(chrome.i18n.getMessage("checkExceptions20Starts")).attr("title", chrome.i18n.getMessage("checkExceptions20StartsTooltip"));
+    $("#exceptions").html(browser.i18n.getMessage("tab3"));
+    $("#websiteExceptions").html(browser.i18n.getMessage("websiteExceptions"));
+    $("#showWebsiteExceptions").html(browser.i18n.getMessage("showWebsiteExceptions"));
+    $("#clearExceptionList").html(browser.i18n.getMessage("emptyList"));
+    $("#checkExceptions").html(browser.i18n.getMessage("checkExceptions"));
+    $("#checkAfter20").html(browser.i18n.getMessage("checkExceptions20Starts")).attr("title", browser.i18n.getMessage("checkExceptions20StartsTooltip"));
 
     // Field tab
-    $("#fields").html(chrome.i18n.getMessage("tab4"));
-    $("#fieldTypes").html(chrome.i18n.getMessage("fieldTypes"));
-    $("#passwordField").html(chrome.i18n.getMessage("passwordField"));
-    $("#paymentField").html(chrome.i18n.getMessage("paymentField"));
-    $("#personalField").html(chrome.i18n.getMessage("personalField"));
-    $("#searchField").html(chrome.i18n.getMessage("searchField"));
+    $("#fields").html(browser.i18n.getMessage("tab4"));
+    $("#fieldTypes").html(browser.i18n.getMessage("fieldTypes"));
+    $("#passwordField").html(browser.i18n.getMessage("passwordField"));
+    $("#paymentField").html(browser.i18n.getMessage("paymentField"));
+    $("#personalField").html(browser.i18n.getMessage("personalField"));
+    $("#searchField").html(browser.i18n.getMessage("searchField"));
 
     // Additional buttons
-    $("#revertChanges").html(chrome.i18n.getMessage("revertChanges"));
-    $("#defaultSettings").html(chrome.i18n.getMessage("defaultSettings"));
+    $("#revertChanges").html(browser.i18n.getMessage("revertChanges"));
+    $("#defaultSettings").html(browser.i18n.getMessage("defaultSettings"));
 
     // Lists
-    $("#redirectListTitle").html(chrome.i18n.getMessage("httpsRedirects"));
-    $("#exceptionListTitle").html(chrome.i18n.getMessage("websiteExceptions"));
+    $("#redirectListTitle").html(browser.i18n.getMessage("httpsRedirects"));
+    $("#exceptionListTitle").html(browser.i18n.getMessage("websiteExceptions"));
 }
 
 /**
@@ -167,7 +167,7 @@ function addEvents() {
             window.localStorage.setItem(changes[i][0], changes[i][1]);
         }
         init();
-        $("#statusSettings").html(chrome.i18n.getMessage("reversedChanges"));
+        $("#statusSettings").html(browser.i18n.getMessage("reversedChanges"));
     });
 
     $("#defaultSettings").on('click', function (e) {
@@ -177,15 +177,15 @@ function addEvents() {
                 window.localStorage.setItem(v.label, v.value);
         });
         init();
-        $("#statusSettings").html(chrome.i18n.getMessage("defaultSettingsRestored"));
+        $("#statusSettings").html(browser.i18n.getMessage("defaultSettingsRestored"));
     });
 
 }
 
 function setImage() {
-    let imgAddr = chrome.extension.getURL("skin/check/gruen/gr_icon" + window.localStorage.getItem("secureImage") + ".png");
+    let imgAddr = browser.extension.getURL("skin/check/gruen/gr_icon" + window.localStorage.getItem("secureImage") + ".png");
     $("#secureInputType").css("background-image", "url('" + imgAddr + "')");
-    $("#notSecureInputType").css("background-image", "url('" + chrome.extension.getURL("skin/yellow_triangle.png") + "')");
+    $("#notSecureInputType").css("background-image", "url('" + browser.extension.getURL("skin/yellow_triangle.png") + "')");
     $("#iconImg").attr("src", imgAddr);
 }
 
