@@ -1,8 +1,4 @@
 let PassSec = {
-    firstRun: {
-        label: 'firstRun',
-        value: true
-    },
     secureImage: {
         label: 'secureImage',
         value: 1
@@ -37,6 +33,6 @@ let PassSec = {
     },
     checkExceptionsAfter20Starts: {
         label: 'checkExceptionsAfter20Starts',
-        value: false
+        value: {doCheck: false, count: 0}
     }
 };

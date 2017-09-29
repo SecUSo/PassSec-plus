@@ -132,7 +132,10 @@ function addEvents() {
     $("#checkAfter20Checkbox").on('change', function (e) {
         save("checkExceptionsAfter20Starts", window.localStorage.getItem("checkExceptionsAfter20Starts"));
         let checked = $(this).prop("checked");
-        window.localStorage.setItem("checkExceptionsAfter20Starts", checked);
+        if (checked)
+            window.localStorage.setItem("checkExceptionsAfter20Starts", {doCheck: true, count: 0});
+        else
+            window.localStorage.setItem("checkExceptionsAfter20Starts", {doCheck: false, count: 0});
     });
 
     // Fields tab
@@ -172,9 +175,7 @@ function addEvents() {
 
     $("#defaultSettings").on('click', function (e) {
         $.each(PassSec, function (i, v) {
-            // reset everything except for the firstRun property
-            if (v.label !== "firstRun")
-                window.localStorage.setItem(v.label, v.value);
+            window.localStorage.setItem(v.label, v.value);
         });
         init();
         $("#statusSettings").html(browser.i18n.getMessage("defaultSettingsRestored"));

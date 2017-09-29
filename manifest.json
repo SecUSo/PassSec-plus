@@ -44,7 +44,6 @@
         "js/jquery.qtip.min.js",
         "js/browser-polyfill.min.js",
         "js/securitystatus.js",
-        "js/firstrun.js",
         "js/texts.js",
         "js/inputField.js",
         "js/contentscript.js"
