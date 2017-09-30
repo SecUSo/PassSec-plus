@@ -1,7 +1,7 @@
 /**
  *   get security status of website
  */
-function getSecurityStatus(r) {
+function getSecurityStatus() {
     if (passSec.url.startsWith("https")) {
         passSec.security = "https";
     } else {

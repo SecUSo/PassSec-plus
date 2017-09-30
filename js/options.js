@@ -1,5 +1,3 @@
-let changes = [];
-
 $(document).ready(function () {
     $('.tabs .tab-links a').on('click', function (e) {
         let currentAttrValue = $(this).attr('href');
@@ -16,8 +14,10 @@ $(document).ready(function () {
     $("#redirectList").hide();
     $("#exceptionList").hide();
     addTexts();
-    init();
-    addEvents();
+    browser.storage.local.get().then(function (storage) {
+        init(storage);
+        addEvents(storage);
+    });
 });
 
 /**
@@ -70,39 +70,35 @@ function addTexts() {
 /**
  * initialize the options page
  */
-function init() {
+function init(storage) {
     // Appearance tab
-    setImage();
+    setImage(storage.secureImage);
 
     // Exceptions tab
-    $("#checkAfter20Checkbox").prop("checked", window.localStorage.getItem("checkExceptionsAfter20Starts") === "true");
+    $("#checkAfter20Checkbox").prop("checked", storage.checkExceptionsAfter20Starts.doCheck);
 
     // Field tab
-    $("#pwField").prop("checked", window.localStorage.getItem("passwordField") === "true");
-    $("#pyField").prop("checked", window.localStorage.getItem("paymentField") === "true");
-    $("#perField").prop("checked", window.localStorage.getItem("personalField") === "true");
-    $("#sField").prop("checked", window.localStorage.getItem("searchField") === "true");
+    $("#pwField").prop("checked", storage.passwordField);
+    $("#pyField").prop("checked", storage.paymentField);
+    $("#perField").prop("checked", storage.personalField);
+    $("#sField").prop("checked", storage.searchField);
 
     // Additional
-    if ($("#redirectList")[0]) fillList("redirects");
-    if ($("#exceptionList")[0]) fillList("exceptions");
+    fillList("redirects", storage.redirects);
+    fillList("exceptions", storage.exceptions);
     $("#statusSettings").html("");
 }
 
 /**
  *   filling the options page elements with functionality
  */
-function addEvents() {
+function addEvents(storage) {
     // Appearance tab
     $("#changeIconButton").click(function (e) {
-        let imgNum = window.localStorage.getItem("secureImage");
-        save("secureImage", imgNum);
-        save("secureEVImage", imgNum);
-        imgNum = parseInt(imgNum);
-        imgNum = imgNum < 10 ? imgNum + 1 : 1;
-        window.localStorage.setItem("secureImage", "" + imgNum);
-        window.localStorage.setItem("secureEVImage", "" + imgNum);
-        setImage();
+        let currentSecureImage = $("#iconImg").attr("src").split("icon")[1].split(".")[0];
+        currentSecureImage = (currentSecureImage % 10) + 1;
+        browser.storage.local.set({secureImage: currentSecureImage});
+        setImage(currentSecureImage);
     });
 
     // Redirects tab
@@ -112,9 +108,8 @@ function addEvents() {
     });
 
     $("#clearRedirectionList").click(function (e) {
-        save("redirects", window.localStorage.getItem("redirects"));
-        window.localStorage.setItem("redirects", JSON.stringify([]));
-        init();
+        browser.storage.local.set({redirects: []});
+        fillList("redirects", []);
     });
 
     // Exceptions tab
@@ -124,112 +119,76 @@ function addEvents() {
     });
 
     $("#clearExceptionList").click(function (e) {
-        save("exceptions", window.localStorage.getItem("exceptions"));
-        window.localStorage.setItem("exceptions", JSON.stringify([]));
-        init();
+        browser.storage.local.set({exceptions: []});
+        fillList("exceptions", []);
     });
 
     $("#checkAfter20Checkbox").on('change', function (e) {
-        save("checkExceptionsAfter20Starts", window.localStorage.getItem("checkExceptionsAfter20Starts"));
         let checked = $(this).prop("checked");
         if (checked)
-            window.localStorage.setItem("checkExceptionsAfter20Starts", {doCheck: true, count: 0});
+            browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: 0}});
         else
-            window.localStorage.setItem("checkExceptionsAfter20Starts", {doCheck: false, count: 0});
+            browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: false, count: 0}});
     });
 
     // Fields tab
     $("#pwField").on('change', function (e) {
-        save("passwordField", window.localStorage.getItem("passwordField"));
-        let checked = $(this).prop("checked");
-        window.localStorage.setItem("passwordField", checked);
+        browser.storage.local.set({passwordField: $(this).prop("checked")});
     });
 
     $("#pyField").on('change', function (e) {
-        save("paymentField", window.localStorage.getItem("paymentField"));
-        let checked = $(this).prop("checked");
-        window.localStorage.setItem("paymentField", checked);
+        browser.storage.local.set({paymentField: $(this).prop("checked")});
     });
 
     $("#perField").on('change', function (e) {
-        save("personalField", window.localStorage.getItem("personalField"));
-        let checked = $(this).prop("checked");
-        window.localStorage.setItem("personalField", checked);
+        browser.storage.local.set({personalField: $(this).prop("checked")});
     });
 
     $("#sField").on('change', function (e) {
-        save("searchField", window.localStorage.getItem("searchField"));
-        let checked = $(this).prop("checked");
-        window.localStorage.setItem("searchField", checked);
+        browser.storage.local.set({searchField: $(this).prop("checked")});
     });
 
     // Option buttons
     $("#revertChanges").on('click', function (e) {
-        for (let i = 0; i < changes.length; i++) {
-            if (!changes[i]) break;
-            window.localStorage.setItem(changes[i][0], changes[i][1]);
-        }
-        init();
+        browser.storage.local.set(storage);
+        init(storage);
         $("#statusSettings").html(browser.i18n.getMessage("reversedChanges"));
     });
 
     $("#defaultSettings").on('click', function (e) {
-        $.each(PassSec, function (i, v) {
-            window.localStorage.setItem(v.label, v.value);
-        });
-        init();
+        browser.storage.local.set(PassSec);
+        init(PassSec);
         $("#statusSettings").html(browser.i18n.getMessage("defaultSettingsRestored"));
     });
-
 }
 
-function setImage() {
-    let imgAddr = browser.extension.getURL("skin/check/gruen/gr_icon" + window.localStorage.getItem("secureImage") + ".png");
-    $("#secureInputType").css("background-image", "url('" + imgAddr + "')");
+function setImage(secureImage) {
+    let imgAddress = browser.extension.getURL("skin/check/gruen/gr_icon" + secureImage + ".png");
+    $("#secureInputType").css("background-image", "url('" + imgAddress + "')");
     $("#notSecureInputType").css("background-image", "url('" + browser.extension.getURL("skin/yellow_triangle.png") + "')");
-    $("#iconImg").attr("src", imgAddr);
-}
-
-function save(list, value) {
-    for (let i = 0; i < changes.length; i++) {
-        if (changes[i][0] === list) {
-            return;
-        }
-    }
-    changes.push([list, value]);
+    $("#iconImg").attr("src", imgAddress);
 }
 
 /**
  * add all entries to the list of either exceptions or redirects
  */
-function fillList(listId) {
-    let listElements = [];
-    try {
-        listElements = JSON.parse(window.localStorage.getItem(listId));
-    } catch (err) {
-
-    }
-    let htmlListId  = listId === "exceptions" ? "exceptionList" : "redirectList";
+function fillList(listType, listElements) {
+    let htmlListId  = listType === "exceptions" ? "exceptionList" : "redirectList";
     let table = document.getElementById(htmlListId);
     table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
-    if (!listElements) return;
     for (let i = 0; i < listElements.length; i++) {
         let row = table.insertRow(table.rows.length);
         let cell = row.insertCell(0);
-        $(cell).html('<div><button id="' + listId + i + '" name="' + listElements[i] + '" style="margin-right:10px;color:red">X</button><span>' + listElements[i] + '</span></div>');
-        $("#" + listId + i).on("click", function (e) {
-            save(listId, window.localStorage.getItem(listId));
-            let index = $(this).attr("id").replace(listId, "");
+        $(cell).html('<div><button id="' + listType + i + '" name="' + listElements[i] + '" style="margin-right:10px;color:red">X</button><span>' + listElements[i] + '</span></div>');
+        $("#" + listType + i).on("click", function (e) {
+            let index = $(this).attr("id").replace(listType, "");
             $(this).parent().parent().parent().remove();
-            let arr = [];
-            try {
-                arr = JSON.parse(window.localStorage.getItem(listId));
-            } catch (err) {
-
-            }
-            if (arr)
-                arr.splice(index, 1);
-            window.localStorage.setItem(listId, JSON.stringify(arr));
+            browser.storage.local.get(listType).then(function (item) {
+                let array = item[listType];
+                array.splice(index, 1);
+                let itemToSet = listType === "exceptions" ? {exceptions: array} : {redirects: array};
+                browser.storage.local.set(itemToSet);
+            });
         });
     }
 }

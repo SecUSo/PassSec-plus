@@ -1,7 +1,7 @@
 /**
  * processes every input field on a page
  */
-function processInputs(r) {
+function processInputs(storage) {
     let borderType = "passSec-" + passSec.security;
     // TODO: remove previous styles to prevent input background from being red
     // if user added an exception
@@ -13,7 +13,7 @@ function processInputs(r) {
     if (!dynamicStyle) {
         let secureImageStyle = '' +
             '.passSec-https {' +
-            '    background-image: url("' + browser.extension.getURL("skin/check/orange/o_icon" + r.secureImage + ".png") + '") !important;' +
+            '    background-image: url("' + browser.extension.getURL("skin/check/orange/o_icon" + storage.secureImage + ".png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +
             '    background-position: right center !important;' +
@@ -22,7 +22,7 @@ function processInputs(r) {
 
         let secureEVImageStyle = '' +
             '.passSec-httpsEV {' +
-            '    background-image: url("' + browser.extension.getURL("skin/check/gruen/gr_icon" + r.secureImage + ".png") + '") !important;' +
+            '    background-image: url("' + browser.extension.getURL("skin/check/gruen/gr_icon" + storage.secureImage + ".png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +
             '    background-position: right center !important;' +
