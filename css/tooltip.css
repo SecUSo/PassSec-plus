@@ -1,66 +1,78 @@
-.passSecTooltip{
+.passSecTooltip {
     border-color: #f7eab2 !important;
     background-color: #f7eab2 !important;
     font-size: 13px !important;
-    color: #333333 !important;
     max-width: none !important;
     color: black !important;
-    font-size: 13px !important;
-    font-family: Helvetica !important;
+    font-family: Helvetica, sans-serif !important;
     line-height: 110% !important;
 }
-#passSecPhishingText,#passSecConsequenceText,#passSecRecommendationText,#passSecInfoText{
-  overflow: hidden !important;
+
+#passSecPhishingText, #passSecConsequenceText, #passSecRecommendationText, #passSecInfoText {
+    overflow: hidden !important;
 }
-#passSecPhishingImage,#passSecConsequenceImage,#passSecRecommendationImage,#passSecInfoImage{
-  float: left !important;
-  width: 25px !important;
-  height: 25px !important;
-  margin-right: 10px !important;
+
+#passSecPhishingImage, #passSecConsequenceImage, #passSecRecommendationImage, #passSecInfoImage {
+    float: left !important;
+    width: 25px !important;
+    height: 25px !important;
+    margin-right: 10px !important;
 }
-.passSecTooltip > .littleText{
-  padding-top: 1px !important;
-  padding-bottom: 1px !important;
+
+.passSecTooltip > .littleText {
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
 }
-#passSecWarning{
-  font-weight: bold !important;
-  margin-bottom: 2px !important;
+
+#passSecWarning {
+    font-weight: bold !important;
+    margin-bottom: 2px !important;
 }
-#passSecURL{
+
+#passSecURL {
 }
-#passSecDomain{
-  margin: 2px 3px 2px 4px !important;
-  font-weight: bold !important;
-  color: black !important;
-  letter-spacing: 4px !important;
+
+#passSecDomain {
+    margin: 2px 3px 2px 4px !important;
+    font-weight: bold !important;
+    color: black !important;
+    letter-spacing: 4px !important;
 }
-#passSecVerify{
-  display: block !important;
+
+#passSecVerify {
+    display: block !important;
 }
-#passSecPhishing, #passSecConsequence{
-  max-width: 350px !important;
+
+#passSecPhishing, #passSecConsequence {
+    max-width: 350px !important;
 }
-#passSecRecommendation, #passSecInfo, #passSecButtons{
-  text-decoration:none !important;
-  clear: both !important;
-  max-width: 350px !important;
-  margin-top: 2px !important;
+
+#passSecRecommendation, #passSecInfo, #passSecButtons {
+    text-decoration: none !important;
+    clear: both !important;
+    max-width: 350px !important;
+    margin-top: 2px !important;
 }
-#passSecInfo:hover{
-  text-decoration:underline !important;
+
+#passSecInfo:hover {
+    text-decoration: underline !important;
 }
-#passSecButton0{
-  clear: both !important;
+
+#passSecButton0 {
+    clear: both !important;
 }
-.passSecClickable{
-  text-decoration:none !important;
+
+.passSecClickable {
+    text-decoration: none !important;
 }
-.passSecClickable:hover{
-  text-decoration:underline !important;
+
+.passSecClickable:hover {
+    text-decoration: underline !important;
 }
-#passSecButton0,#passSecButtonException, #passSecButtonClose{
-  float: left !important;
-	border: 1px solid black !important;
-  background-color: white !important;
-  margin: 3px 5px 0 0 !important;
+
+#passSecButton0, #passSecButtonException, #passSecButtonClose {
+    float: left !important;
+    border: 1px solid black !important;
+    background-color: white !important;
+    margin: 3px 5px 0 0 !important;
 }

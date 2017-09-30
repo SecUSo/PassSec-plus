@@ -126,6 +126,10 @@ function addEvents(storage) {
             $("#showWebsiteExceptions").html(browser.i18n.getMessage("showWebsiteExceptions"));
     });
 
+    $("#checkExceptions").click(function (e) {
+        // TODO
+    });
+
     $("#clearExceptionList").click(function (e) {
         browser.storage.local.set({exceptions: []});
         fillList("exceptions", []);
