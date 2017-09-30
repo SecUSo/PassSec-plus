@@ -3,10 +3,32 @@
  */
 function processInputs(storage) {
     let borderType = "passSec-" + passSec.security;
-    // TODO: remove previous styles to prevent input background from being red
-    // if user added an exception
-    $('input[type=password]').addClass(borderType);
-    $('input[type=search]').addClass(borderType);
+    // process only input fields set in options
+    $("input").not("input[type=submit]").each(function (index) {
+        let fieldType = determineFieldType(this, storage);
+        if (typeof fieldType !== "undefined") {
+            $(this).addClass(borderType);
+            // add field type as class, so we don't have to do the check a second time when opening the tooltip
+            switch (fieldType) {
+                case "password":
+                    $(this).addClass("passSec-password");
+                    break;
+                case "payment":
+                    $(this).addClass("passSec-payment");
+                    break;
+                case "personal":
+                    $(this).addClass("passSec-personal");
+                    break;
+                case "search":
+                    $(this).addClass("passSec-search");
+                    break;
+                case "default":
+                    // this type occurs if more then one of the other types were matched
+                    $(this).addClass("passSec-default");
+                    break;
+            }
+        }
+    });
 
     let dynamicStyle = document.getElementById("addedPassSecCSS");
     //If the css is not in the document, add the css to the current document
@@ -42,4 +64,118 @@ function processInputs(storage) {
         let css = secureImageStyle + warningImageStyle + secureEVImageStyle;
         $('head').append('<style id="addedPassSecCSS" type="text/css">' + css + '</style>');
     }
+}
+
+/**
+ * Determines the type of the field by doing heuristic checks.
+ * Returns the type of the field or undefined if the field should not be handled.
+ *
+ * @param element the input field element to be analyzed
+ * @returns the field type as a string, undefined otherwise
+ */
+function determineFieldType(element, storage) {
+    let fieldType = undefined;
+    let determineMap = {};
+
+    let detectPwFields = storage.passwordField;
+    let detectPayFields = storage.paymentField;
+    let detectPersonalFields = storage.personalField;
+    let detectSearchFields = storage.searchField;
+
+    if (detectPwFields) {
+        determineMap["password"] = function (attrName) {
+            if (attrName !== "value") {
+                let attr = element.getAttribute(attrName);
+                if (!attr) return false;
+                return attr.toLowerCase().match(/pass(word|text|phrase|field)?|pw\w*/);
+            }
+        };
+    }
+
+    if (detectPayFields) {
+        determineMap["payment"] = function (attrName) {
+            if (attrName !== "value") {
+                let attr = element.getAttribute(attrName);
+                if (!attr) return false;
+
+                let code = /(gift|promo)(card|code)|voucher|coupon/;
+                let bank = /iban|(konto|account)(nr|nummer|number|bank)|blz|bankleitzahl|sortcode/;
+                // Following Regular Expression are mainly from https://code.google.com/p/chromium/codesearch#chromium/src/out/Debug/gen/autofill_regex_constants.cc
+                // License: https://cs.chromium.org/chromium/src/LICENSE
+                let cc = /pay|ccard|(card|cc).?holder|name.*\\bon\\b.*card|(card|cc).?name|cc.?full.?name|owner|karteninhaber|(card|cc|acct|kk).?(number|#|n[or]|num|nummer)|verification|card identification|security code|card code|cvn|cvv|cvc|csc|(card|cc|payment).?type|payment.?method|expir|exp.*mo|exp.*date|ccmonth|cardmonth|gueltig|g\xc3\xbcltig|monat|exp|^\/|year|ablaufdatum|gueltig|g\xc3\xbcltig|jahr|exp.*date.*[^y]yy([^y]|$)|expir|exp.*date/;
+                return attr.toLowerCase().match(cc) || attr.toLowerCase().match(code) || attr.toLowerCase().match(bank);
+            }
+        };
+    }
+
+    if (detectPersonalFields) {
+        determineMap["personal"] = function (attrName) {
+            if (attrName !== "value") {
+                let attr = element.getAttribute(attrName);
+                if (!attr) return false;
+
+                let book = /(buchungs|booking)(code|nummer|number)/;
+                // Following Regular Expressions are mainly from https://code.google.com/p/chromium/codesearch#chromium/src/out/Debug/gen/autofill_regex_constants.cc
+                // License: https://cs.chromium.org/chromium/src/LICENSE
+                let addr = /province|region|company|business|organization|organisation|firma|firmenname|address.*line|address1|addr1|street|strasse|stra\xc3\x9f|hausnummer|housenumber|house.?name|address|address.*line2|address2|addr2|street|suite|unit|adresszusatz|erg\xc3\xa4nzende.?angaben|address|line|address.*line[3-9]|address[3-9]|addr[3-9]|street|line[3-9]|lookup|country|countries|location|zip|postal|post.*code|pcode|postleitzahl|plz|zip|^-$|post2|city|town|ort|stadt|state|county|region|province|land/;
+                let email = /e.?mail/;
+                let name = /user.?name|user.?id|nickname|maiden name|title|titel|anrede|prefix|suffix|vollst\xc3\xa4ndiger.?name|^name|full.?name|your.?name|customer.?name|firstandlastname|bill.?name|ship.?name|first.*name|initials|fname|first$|vorname|middle.*initial|m\\.i\\.|mi$|\\bmi\\b|middle.*name|mname|middle$|last.*name|lname|surname|last$|secondname|nachname/;
+                let tel = /phone|mobile|telefonnummer|telefon|telefax|handy|fax|country.*code|ccode|_cc|area.*code|acode|area|vorwahl|prefix|exchange|suffix/;
+
+                let attrLow = attr.toLowerCase();
+                return attrLow.match(book) || attrLow.match(addr) || attrLow.match(email) || attrLow.match(name) || attrLow.match(tel);
+            }
+        };
+    }
+
+    if (detectSearchFields) {
+        determineMap["search"] = function (attrName) {
+            if (attrName !== "value") {
+                let attr = element.getAttribute(attrName);
+                if (!attr) return false;
+                return attr.toLowerCase().match(/q(?!\S)|query|search|such|find/);
+            }
+        };
+    }
+
+    // Determine the field type by doing heuristic checks on different attributes
+    let typeArray = [];
+    for (let type in determineMap) {
+        if (!!(determineMap[type]("id") || determineMap[type]("name") || determineMap[type]("value") || determineMap[type]("placeholder") || determineMap[type]("title"))) {
+            typeArray.push(type);
+        }
+    }
+
+    // If exactly one check matched, we can guess the fieldType
+    if (typeArray.length === 1) {
+        fieldType = typeArray[0];
+        // If more than one heuristic check matched, we cant determine which fieldType it is exactly, so show generic warning
+    } else if (typeArray.length > 1) {
+        fieldType = "default";
+    }
+
+    // Add the appropriate field type if it is set by the type attribute
+    let attr = element.getAttribute("type").toLowerCase();
+    if (attr) {
+        switch (attr) {
+            case "password":
+                if (detectPwFields) {
+                    fieldType = "password";
+                }
+                break;
+            case "email":
+                if (detectPersonalFields) {
+                    fieldType = "personal";
+                }
+                break;
+            case "search":
+                if (detectSearchFields) {
+                    fieldType = "search";
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    return fieldType;
 }
