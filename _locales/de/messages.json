@@ -99,6 +99,11 @@
     "description": "Show HTTPS redirects"
   },
 
+  "hideHttpsRedirects": {
+    "message": "Verberge Liste der HTTPS-Weiterleitungen",
+    "description": "Hide HTTPS redirects"
+  },
+
   "delete": {
     "message": "Löschen",
     "description": "Delete"
@@ -122,6 +127,11 @@
   "showWebsiteExceptions": {
     "message": "Zeige Webseiten-Ausnahmen",
     "description": "Show website exceptions"
+  },
+
+  "hideWebsiteExceptions": {
+    "message": "Verberge Webseiten-Ausnahmen",
+    "description": "Hide website exceptions"
   },
 
   "checkExceptions": {

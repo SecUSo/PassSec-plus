@@ -8,11 +8,16 @@ $(document).ready(function () {
         e.preventDefault();
     });
     $('li').on("click", function (e) {
-        $("#redirectList").hide();
-        $("#exceptionList").hide();
+        let tabId = $(this).children().first().attr("id");
+        if (tabId !== "redirects") {
+            $("#redirectList").hide();
+            $("#showRedirects").html(browser.i18n.getMessage("showHttpsRedirects"));
+        }
+        if (tabId !== "exceptions") {
+            $("#exceptionList").hide();
+            $("#showWebsiteExceptions").html(browser.i18n.getMessage("showWebsiteExceptions"));
+        }
     });
-    $("#redirectList").hide();
-    $("#exceptionList").hide();
     addTexts();
     browser.storage.local.get().then(function (storage) {
         init(storage);
@@ -86,7 +91,6 @@ function init(storage) {
     // Additional
     fillList("redirects", storage.redirects);
     fillList("exceptions", storage.exceptions);
-    $("#statusSettings").html("");
 }
 
 /**
@@ -103,8 +107,10 @@ function addEvents(storage) {
 
     // Redirects tab
     $("#showRedirects").click(function (e) {
-        $("#redirectList").toggle();
-        $("#exceptionList").hide();
+        if ($("#redirectList").toggle().is(":visible"))
+            $("#showRedirects").html(browser.i18n.getMessage("hideHttpsRedirects"));
+        else
+            $("#showRedirects").html(browser.i18n.getMessage("showHttpsRedirects"));
     });
 
     $("#clearRedirectionList").click(function (e) {
@@ -114,8 +120,10 @@ function addEvents(storage) {
 
     // Exceptions tab
     $("#showWebsiteExceptions").click(function (e) {
-        $("#redirectList").hide();
-        $("#exceptionList").toggle();
+        if ($("#exceptionList").toggle().is(":visible"))
+            $("#showWebsiteExceptions").html(browser.i18n.getMessage("hideWebsiteExceptions"));
+        else
+            $("#showWebsiteExceptions").html(browser.i18n.getMessage("showWebsiteExceptions"));
     });
 
     $("#clearExceptionList").click(function (e) {
@@ -152,13 +160,13 @@ function addEvents(storage) {
     $("#revertChanges").on('click', function (e) {
         browser.storage.local.set(storage);
         init(storage);
-        $("#statusSettings").html(browser.i18n.getMessage("reversedChanges"));
+        $("#statusSettings").html(browser.i18n.getMessage("reversedChanges")).show().delay(7000).fadeOut(500);
     });
 
     $("#defaultSettings").on('click', function (e) {
         browser.storage.local.set(PassSec);
         init(PassSec);
-        $("#statusSettings").html(browser.i18n.getMessage("defaultSettingsRestored"));
+        $("#statusSettings").html(browser.i18n.getMessage("defaultSettingsRestored")).show().delay(7000).fadeOut(500);
     });
 }
 

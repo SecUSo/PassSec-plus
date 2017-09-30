@@ -46,20 +46,30 @@
             <br><br>
             <button id="clearExceptionList"></button>
             <div class="clear"></div>
-            <input id="checkAfter20Checkbox" type="checkbox" class="float">
-            <p id="checkAfter20"></p>
+            <div class="checkbox">
+                <input id="checkAfter20Checkbox" type="checkbox">
+                <label for="checkAfter20Checkbox" id="checkAfter20"></label>
+            </div>
         </div>
 
         <div id="tab4" class="tab">
             <h3 id="fieldTypes"></h3>
-            <input id="pwField" type="checkbox" class="float">
-            <p id="passwordField"></p>
-            <input id="pyField" type="checkbox" class="float">
-            <p id="paymentField"></p>
-            <input id="perField" type="checkbox" class="float">
-            <p id="personalField"></p>
-            <input id="sField" type="checkbox" class="float">
-            <p id="searchField"></p>
+            <div class="checkbox">
+                <input id="pwField" type="checkbox">
+                <label for="pwField" id="passwordField"></label>
+            </div>
+            <div class="checkbox">
+                <input id="pyField" type="checkbox">
+                <label for="pyField" id="paymentField"></label>
+            </div>
+            <div class="checkbox">
+                <input id="perField" type="checkbox">
+                <label for="perField" id="personalField"></label>
+            </div>
+            <div class="checkbox">
+                <input id="sField" type="checkbox" class="float">
+                <label for="sField" id="searchField"></label>
+            </div>
         </div>
     </div>
 
@@ -69,7 +79,8 @@
     </div>
 
     <p id="statusSettings"></p>
-    <div>
+
+    <div class="lists">
         <table id="redirectList">
             <tr>
                 <th id="redirectListTitle"></th>

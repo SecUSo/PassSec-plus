@@ -18,10 +18,6 @@ body {
     border: 2px solid red !important;
 }
 
-.float {
-    float: left;
-}
-
 #iconImg {
     margin-left: 5px;
     width: 16px;
@@ -55,8 +51,12 @@ body {
     clear: left;
 }
 
-#optionButtons {
+#optionButtons, .lists {
     margin-top: 10px;
+}
+
+#statusSettings, #redirectList, #exceptionList {
+    display: none;
 }
 
 /*----- Tabs -----*/
@@ -124,4 +124,17 @@ li.active a, li.active a:hover {
 
 .tab > div {
     margin: 10px 5px 15px 5px;
+}
+
+.checkbox {
+    display: table-row;
+}
+
+label, input[type=checkbox] {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+label {
+    padding-left: 4px;
 }
