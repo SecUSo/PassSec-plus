@@ -27,3 +27,9 @@ browser.storage.local.get("checkExceptionsAfter20Starts").then(function (item) {
         }
     }
 });
+
+// listen for messages from content script
+browser.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+   if (message.type === "doRedirect")
+       browser.tabs.update({url: message.httpsURL});
+});
