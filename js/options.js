@@ -116,6 +116,7 @@ function addEvents(storage) {
     $("#clearRedirectionList").click(function (e) {
         browser.storage.local.set({redirects: []});
         fillList("redirects", []);
+        browser.runtime.sendMessage({type: "registerRedirectHandler"});
     });
 
     // Exceptions tab
@@ -165,12 +166,14 @@ function addEvents(storage) {
         browser.storage.local.set(storage);
         init(storage);
         $("#statusSettings").html(browser.i18n.getMessage("reversedChanges")).show().delay(7000).fadeOut(500);
+        browser.runtime.sendMessage({type: "registerRedirectHandler"});
     });
 
     $("#defaultSettings").on('click', function (e) {
         browser.storage.local.set(PassSec);
         init(PassSec);
         $("#statusSettings").html(browser.i18n.getMessage("defaultSettingsRestored")).show().delay(7000).fadeOut(500);
+        browser.runtime.sendMessage({type: "registerRedirectHandler"});
     });
 }
 
@@ -191,15 +194,22 @@ function fillList(listType, listElements) {
     for (let i = 0; i < listElements.length; i++) {
         let row = table.insertRow(table.rows.length);
         let cell = row.insertCell(0);
-        $(cell).html('<div><button id="' + listType + i + '" name="' + listElements[i] + '" style="margin-right:10px;color:red">X</button><span>' + listElements[i] + '</span></div>');
+        let nameToDisplay = listType === "exceptions" ? listElements[i] : listElements[i].slice(9).slice(0, listElements[i].length - 11);
+            $(cell).html('<div><button id="' + listType + i + '" name="' + listElements[i] + '" style="margin-right:10px;color:red">X</button><span>' + nameToDisplay + '</span></div>');
         $("#" + listType + i).on("click", function (e) {
-            let index = $(this).attr("id").replace(listType, "");
+            let elementToRemove = $(this).attr("name");
             $(this).parent().parent().parent().remove();
             browser.storage.local.get(listType).then(function (item) {
-                let array = item[listType];
-                array.splice(index, 1);
-                let itemToSet = listType === "exceptions" ? {exceptions: array} : {redirects: array};
-                browser.storage.local.set(itemToSet);
+                let array = item[listType].slice(0);
+                let index = array.indexOf(elementToRemove);
+                if (index !== -1) {
+                    array.splice(index, 1);
+                    let itemToSet = listType === "exceptions" ? {exceptions: array} : {redirects: array};
+                    browser.storage.local.set(itemToSet);
+                    if (listType === "redirects") {
+                        browser.runtime.sendMessage({type: "registerRedirectHandler"});
+                    }
+                }
             });
         });
     }

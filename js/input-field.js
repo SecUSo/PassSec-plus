@@ -8,23 +8,23 @@ function processInputs(storage) {
         let fieldType = determineFieldType(this, storage);
         if (typeof fieldType !== "undefined") {
             $(this).addClass(borderType);
-            // add field type as class, so we don't have to do the check a second time when opening the tooltip
+            // add field type as attribute, so we don't have to do the check a second time when opening the tooltip
             switch (fieldType) {
                 case "password":
-                    $(this).addClass("passSec-password");
+                    $(this).attr("data-passSec-input-type", "password");
                     break;
                 case "payment":
-                    $(this).addClass("passSec-payment");
+                    $(this).attr("data-passSec-input-type", "payment");
                     break;
                 case "personal":
-                    $(this).addClass("passSec-personal");
+                    $(this).attr("data-passSec-input-type", "personal");
                     break;
                 case "search":
-                    $(this).addClass("passSec-search");
+                    $(this).attr("data-passSec-input-type", "search");
                     break;
                 case "default":
                     // this type occurs if more then one of the other types were matched
-                    $(this).addClass("passSec-default");
+                    $(this).attr("data-passSec-input-type", "default");
                     break;
             }
         }

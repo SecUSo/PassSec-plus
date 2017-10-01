@@ -37,14 +37,14 @@ getTLDs.then(function (tld) {
 });
 
 function applyTooltip(element, event) {
-    if ((element.type === "password" || element.type === "search") && !element.classList.contains("passSecNoTooltip")) {
+    // only show tooltip on security status "http" or "https", "httpsEV" does not show any tooltips
+    if (element.classList.contains("passSec-http") || element.classList.contains("passSec-https")) {
         passSec.target = element;
-        // Show the qtip
         $(element).qtip({
             overwrite: true,
             suppress: true,
             content: {
-                text: getTexts()
+                text: getTooltipHTML()
             },
             show: {
                 event: event.type,

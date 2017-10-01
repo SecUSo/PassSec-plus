@@ -20,12 +20,17 @@
   },
 
   "exceptionHTTPS": {
-    "message": "Ich habe die Angabe geprüft.",
+    "message": "Ich habe die Angabe geprüft",
     "description": "Add an https exception"
   },
 
+  "secureMode": {
+    "message": "Sicherer Modus",
+    "description": "Secure mode"
+  },
+
   "OK": {
-    "message": "Ok, verstanden.",
+    "message": "Ok, verstanden",
     "description": "OK"
   },
 
@@ -224,27 +229,17 @@
     "description": "Default settings"
   },
 
-  "phishWarning": {
-    "message": "ACHTUNG! Es wurde ein möglicher Phishing-Versuch erkannt. Überprüfen Sie die obige Angabe zum Betreiber sorgfältig. Wir empfehlen die Adresse händisch einzugeben.",
-    "description": "Warn about possible phish."
-  },
-
-  "recommendationHttps": {
+  "recommendationHttpsAvailable": {
     "message": "Rufen Sie diese Seite immer im sicheren Modus (mit https) auf. [mehr]",
     "description": "Recommendation to use https"
   },
 
-  "moreRecommendationsHttps": {
+  "moreRecommendationHttpsAvailable": {
     "message": "Rufen Sie diese Seite immer im sicheren Modus (mit https) auf. Um immer automatisch auf den sicheren Modus weitergeleitet zu werden, klicken Sie auf 'Sicherer Modus'. [weniger]",
     "description": "More recommendations info to use https"
   },
 
-  "passwordConsequenceHttps": {
-    "message": "Wenn Sie Ihr Passwort auf dieser Webseite eingeben, können Unbefugte es abfangen. Diese können dann Ihr Passwort für den Zugriff auf Ihre persönlichen Daten nutzen.",
-    "description": "Consequence https: user enters login data."
-  },
-
-  "passwordInfoHttps": {
+  "passwordInfoHttpsAvailable": {
     "message": "Mehr Informationen: Der sichere Modus (mit https) schützt Ihr Passwort vor dem Abhören und nachfolgend vor unbefugtem Zugriff auf die persönlichen Daten Ihres Nutzerkontos, wie z.B. Ihre E-Mails/Nachrichten, Ihre Bilder, Ihre Bankkonten oder sonstiges. Der sichere Modus (mit https) ist besonders beim Eingeben von Passwörtern, Zahlungsdaten oder anderen sensiblen Informationen wichtig [weniger]",
     "description": "Info https: user enters login data."
   },
@@ -264,12 +259,7 @@
     "description": "Info http: user enters login data."
   },
 
-  "paymentConsequenceHttps": {
-    "message": "Wenn Sie Ihre Zahlungsdaten auf dieser Webseite eingeben, können Unbefugte sie abfangen. Diese können dann Ihre Daten für Zahlungen nutzen.",
-    "description": "Consequence https: user enters payment data."
-  },
-
-  "paymentInfoHttps": {
+  "paymentInfoHttpsAvailable": {
     "message": "Mehr Informationen: Der sichere Modus (mit https) schützt Ihre Zahlungsdaten vor dem Abhören und nachfolgend vor unbefugter Verwendung für Zahlungen. Der sichere Modus (mit https) ist besonders beim Eingeben von Passwörtern, Zahlungsdaten oder anderen sensiblen Informationen wichtig. [weniger].",
     "description": "Info https: user enters payment data."
   },
@@ -289,13 +279,8 @@
     "description": "Info http: user enters payment data."
   },
 
-  "personalConsequenceHttps": {
-    "message": "Wenn Sie Ihre persönlichen Daten auf dieser Webseite eingeben, können Unbefugte sie abfangen. Dies lässt möglicherweise Rückschlüsse auf Ihre Person zu.",
-    "description": "Consequence https: user enters personal data."
-  },
-
-  "personalInfoHttps": {
-    "message": "Mehr Informationen: Der sichere Modus (mit https) schützt Ihre Suchanfragen vor dem Abhören. Der sichere Modus (mit https) ist besonders beim Eingeben von Passwörtern, Zahlungsdaten oder anderen sensiblen Informationen wichtig. [weniger]",
+  "personalInfoHttpsAvailable": {
+    "message": "Mehr Informationen: Der sichere Modus (mit https) schützt Ihre persönlichen Daten vor dem Abhören. Der sichere Modus (mit https) ist besonders beim Eingeben von Passwörtern, Zahlungsdaten oder anderen sensiblen Informationen wichtig. [weniger]",
     "description": "Info https: user enters personal data."
   },
 
@@ -314,12 +299,7 @@
     "description": "Info http: user enters personal data."
   },
 
-  "searchConsequenceHttps": {
-    "message": "Wenn Sie Ihre Suchanfrage auf dieser Webseite eingeben, können Unbefugte sie abfangen. Dies lässt Rückschlüsse auf Ihre persönlichen Interessen zu.",
-    "description": "Consequence https: user enters search queries."
-  },
-
-  "searchInfoHttps": {
+  "searchInfoHttpsAvailable": {
     "message": "Mehr Informationen: Der sichere Modus (mit https) schützt Ihre Suchanfragen vor dem Abhören. Der sichere Modus (mit https) ist besonders beim Eingeben von Passwörtern, Zahlungsdaten oder anderen sensiblen Informationen wichtig. [weniger].",
     "description": "Info https: user enters search queries."
   },
@@ -337,6 +317,26 @@
   "searchInfoHttp": {
     "message": "Mehr Informationen: Diese Webseite bietet keine Möglichkeit Ihre Suchanfrage vor dem Abhören durch Unbefugte zu schützen. Falls Ihre Suchanfrage hier abgehört wird, lässt dies möglicherweise Rückschlüsse auf sensible persönliche Interessen zu. [weniger]",
     "description": "Info http: user enters search queries."
+  },
+
+  "defaultInfoHttpsAvailable": {
+    "message": "Mehr Informationen: Der sichere Modus (mit https) schützt Ihre Daten vor dem Abhören. Der sichere Modus (mit https) ist besonders beim Eingeben von Passwörtern, Zahlungsdaten oder anderen sensiblen Informationen wichtig. [weniger].",
+    "description": "Info https: user enters data."
+  },
+
+  "defaultConsequenceHttp": {
+    "message": "Wenn Sie Ihre Daten auf dieser Webseite eingeben, können Unbefugte sie abfangen.",
+    "description": "Consequence: user enters data."
+  },
+
+  "defaultRecommendationHttp": {
+    "message": "Diese Webseite bietet keinen sicheren Modus (https) an. Geben Sie ihre Daten nur ein, falls diese keine sensiblen Informationen enthält.",
+    "description": "Recommendation: user enters data."
+  },
+
+  "defaultInfoHttp": {
+    "message": "Mehr Informationen: Diese Webseite bietet keine Möglichkeit Ihre Daten vor dem Abhören durch Unbefugte zu schützen. Falls Ihre Daten hier abgehört werden, können Unbefugte diese missbrauchen. [weniger]",
+    "description": "Info http: user enters data."
   },
 
   "passwordWarning": {
@@ -357,5 +357,10 @@
   "searchWarning": {
     "message": "Es ist unsicher, hier Suchanfragen einzugeben!",
     "description": "Warn about insecurity of query field."
+  },
+
+  "defaultWarning": {
+    "message": "Es ist unsicher, hier Daten einzugeben!",
+    "description": "Warn about insecurity of input field of unknown type."
   }
 }

@@ -15,7 +15,9 @@
   },
   "permissions": [
     "<all_urls>",
-    "storage"
+    "storage",
+    "webRequest",
+    "webRequestBlocking"
   ],
   "options_ui": {
     "page": "options.html",
@@ -41,7 +43,7 @@
         "js/jquery.qtip.min.js",
         "js/browser-polyfill.min.js",
         "js/security-status.js",
-        "js/texts.js",
+        "js/tooltip.js",
         "js/input-field.js",
         "js/content-script.js"
       ],

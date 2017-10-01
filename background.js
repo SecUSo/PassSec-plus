@@ -30,6 +30,39 @@ browser.storage.local.get("checkExceptionsAfter20Starts").then(function (item) {
 
 // listen for messages from content script
 browser.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-   if (message.type === "doRedirect")
-       browser.tabs.update({url: message.httpsURL});
+    switch (message.type) {
+        case "doRedirect":
+            registerRedirectHandler();
+            // this is only to directly execute a redirect when the user clicked the 'Secure Mode' button
+            browser.tabs.update({url: message.httpsURL});
+            break;
+        case "registerRedirectHandler":
+            registerRedirectHandler();
+            break;
+    }
 });
+
+// initial setup of the redirect handler
+registerRedirectHandler();
+
+/**
+ * Registers or removes a webRequest listener to handle redirects
+ * This function has to executed each time the list of redirects changed
+ */
+function registerRedirectHandler() {
+    browser.storage.local.get("redirects").then(function (item) {
+        browser.webRequest.onBeforeRequest.removeListener(handleRedirect);
+        if (item.redirects.length > 0)
+            browser.webRequest.onBeforeRequest.addListener(handleRedirect, {urls: item.redirects}, ["blocking"]);
+    });
+}
+
+/**
+ * Callback for webRequest listener
+ * @param requestDetails
+ * @returns {{redirectUrl: string}}
+ */
+function handleRedirect(requestDetails) {
+    let httpsURL = requestDetails.url.replace("http://", "https://");
+    return {redirectUrl: httpsURL};
+}

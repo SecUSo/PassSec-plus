@@ -1,11 +1,16 @@
 .passSecTooltip {
-    border-color: #f7eab2 !important;
-    background-color: #f7eab2 !important;
-    font-size: 13px !important;
     max-width: none !important;
+}
+
+.qtip-content {
+    border-color: #ffffcd !important;
+    background-color: #ffffcd !important;
+    font-size: 13px !important;
     color: black !important;
-    font-family: Helvetica, sans-serif !important;
+    font-family: Corbel, sans-serif !important;
     line-height: 110% !important;
+    cursor: default;
+    text-rendering: optimizeLegibility;
 }
 
 #passSecPhishingText, #passSecConsequenceText, #passSecRecommendationText, #passSecInfoText {
@@ -14,8 +19,8 @@
 
 #passSecPhishingImage, #passSecConsequenceImage, #passSecRecommendationImage, #passSecInfoImage {
     float: left !important;
-    width: 25px !important;
-    height: 25px !important;
+    width: 30px !important;
+    height: 30px !important;
     margin-right: 10px !important;
 }
 
@@ -29,14 +34,11 @@
     margin-bottom: 2px !important;
 }
 
-#passSecURL {
-}
-
 #passSecDomain {
-    margin: 2px 3px 2px 4px !important;
+    margin: 2px 0 2px 4px !important;
     font-weight: bold !important;
     color: black !important;
-    letter-spacing: 4px !important;
+    letter-spacing: 3px !important;
 }
 
 #passSecVerify {
@@ -54,25 +56,26 @@
     margin-top: 2px !important;
 }
 
-#passSecInfo:hover {
-    text-decoration: underline !important;
-}
-
-#passSecButton0 {
-    clear: both !important;
-}
-
-.passSecClickable {
-    text-decoration: none !important;
-}
-
 .passSecClickable:hover {
     text-decoration: underline !important;
+    cursor: pointer !important;
 }
 
-#passSecButton0, #passSecButtonException, #passSecButtonClose {
+#passSecButtonException, #passSecButtonClose {
     float: left !important;
     border: 1px solid black !important;
     background-color: white !important;
-    margin: 3px 5px 0 0 !important;
+    margin: 4px 5px 0 0 !important;
+    display: inline-block;
+    color: black !important;
+    padding: 2px 4px !important;
+    font-family: Corbel, sans-serif !important;
+}
+
+#passSecButtonException.redButton {
+    background-color: red !important;
+}
+
+#passSecButtonException.greenButton {
+    background-color: green !important;
 }

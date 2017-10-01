@@ -13,14 +13,14 @@ function getSecurityStatus(storage) {
             }
             resolve();
         } else if (passSec.url.startsWith("http:")) {
-            passSec.security = "http";
-            let httpsUrl = passSec.url.replace("http://", "https://");
-            // check for redirect set by user and execute it, if one is found
-            if (storage.redirects.includes(passSec.domain)) {
-                browser.runtime.sendMessage({type: "doRedirect", httpsURL: httpsUrl});
-                reject();
+            // check for exception set by user
+            if (storage.exceptions.includes(passSec.domain)) {
+                passSec.security = "httpsEV";
+            } else {
+                passSec.security = "http";
             }
             // check if site offers https
+            let httpsUrl = passSec.url.replace("http://", "https://");
             let httpsRequest = new XMLHttpRequest();
             httpsRequest.open("HEAD", httpsUrl);
             httpsRequest.onreadystatechange = function () {

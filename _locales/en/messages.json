@@ -20,12 +20,17 @@
   },
 
   "exceptionHTTPS": {
-    "message": "I have checked the information.",
+    "message": "I have checked the information",
     "description": "Add an https exception"
   },
 
+  "secureMode": {
+    "message": "Secure Mode",
+    "description": "Secure mode"
+  },
+
   "OK": {
-    "message": "OK, got it.",
+    "message": "OK, got it",
     "description": "OK"
   },
 
@@ -224,28 +229,18 @@
     "description": "Default settings"
   },
 
-  "phishWarning": {
-    "message": "CAUTION! A potential phishing attempt has been detected. Check the above information about the website operator carefully. We recommend that you enter the address manually.",
-    "description": "Warn about possible phish."
-  },
-
-  "recommendationHttps": {
+  "recommendationHttpsAvailable": {
     "message": "You should always use secure mode (https). [more]",
     "description": "Recommendation to use https"
   },
 
-  "moreRecommendationsHttps": {
+  "moreRecommendationHttpsAvailable": {
     "message": "You should always use secure mode (https). Click on the 'secure mode' button and you will be redirected to secure mode automatically in the future‏. [less]",
     "description": "More recommendations info to use https"
   },
 
-  "passwordConsequenceHttps": {
-    "message": "Your password could fall into the hands of an unauthorized person and could be used to access your personal data.",
-    "description": "Consequence https: user enters login data."
-  },
-
-  "passwordInfoHttps": {
-    "message": "More Information: The secure mode (https) to protect your password from being intercepted and subsequently used to gain unauthorized access to your personal data, such as your e-mail/news, pictures, bank accounts or other sensitive information. Using secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
+  "passwordInfoHttpsAvailable": {
+    "message": "More Information: The secure mode (https) protects your password from being intercepted and subsequently used to gain unauthorized access to your personal data, such as your e-mail/news, pictures, bank accounts or other sensitive information. Using secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
     "description": "Info httsp: user enters login data."
   },
 
@@ -264,12 +259,7 @@
     "description": "Info http: user enters login data."
   },
 
-  "paymentConsequenceHttps": {
-    "message": "If you enter your payment information on this website, an unauthorized person can intercept them. They can then use your information for payments.",
-    "description": "Consequence https: user enters payment data."
-  },
-
-  "paymentInfoHttps": {
+  "paymentInfoHttpsAvailable": {
     "message": "More Information: The secure mode (https) protects your payment information from being intercepted and subsequently used to effect unauthorized payments. The secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
     "description": "Info https: user enters payment data."
   },
@@ -289,13 +279,8 @@
     "description": "Info http: user enters payment data."
   },
 
-  "personalConsequenceHttps": {
-    "message": "When you enter your personal information on this site, an unauthorized person could intercept it. This may allow them to draw conclusions about your personal interests.",
-    "description": "Consequence https: user enters personal data."
-  },
-
-  "personalInfoHttps": {
-    "message": "More Information: Secure mode (https) protects your search queries from eavesdropping. Secure mode (https) is particularly important when entering passwords, bank details or other sensitive information[less].",
+  "personalInfoHttpsAvailable": {
+    "message": "More Information: Secure mode (https) protects your personal data from eavesdropping. Secure mode (https) is particularly important when entering passwords, bank details or other sensitive information[less].",
     "description": "Info https: user enters personal data."
   },
 
@@ -310,17 +295,12 @@
   },
 
   "personalInfoHttp": {
-    "message": "More Information: This website does not provide the option of entering and transmitting your password securely (via https). If you use the same password for other website accounts, and your password is intercepted by unauthorized people when you submit here, these people will gain access to your accounts on all websites where you use the same credentials. Therefore, it is very important to change the passwords for the other website accounts immediately. [less]",
+    "message": "More Information: This website does not provide the option of transmitting your personal data (via https). If you enter sensitive personal data here, and it is intercepted by unauthorized people, it can be abused at any time, e.g. for stealing your identity. [less]",
     "description": "Info http: user enters personal data."
   },
 
-  "searchConsequenceHttps": {
-    "message": "When you enter your search queries on this website, an unauthorized person could intercept it. This invades your privacy and betrays  your personal interests.",
-    "description": "Consequence https: user enters search queries."
-  },
-
-  "searchInfoHttps": {
-    "message": "More Information:  Secure mode (https) protects your password because it ensures that the password is securely transmitted.  It prevents unauthorized access to your personal data, e.g. your emails/messages, pictures or banking information. Scammers sometimes put up websites that look like the real thing but these just collect your credentials.  If you're on one of these fake websites using HTTPS doesn't really help - the best way to find out is to check the URL carefully.[less]",
+  "searchInfoHttpsAvailable": {
+    "message": "More Information: Secure mode (https) protects your search query from being intercepted. The secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
     "description": "Info https: user enters search queries."
   },
 
@@ -335,8 +315,28 @@
   },
 
   "searchInfoHttp": {
-    "message": "More Information: This website provides a way to protect your search query from interception by unauthorized persons. If your query is intercepted, this may allow them to draw conclusions about sensitive personal interests. [less]",
+    "message": "More Information: This website does not provides a way to protect your search query from interception by unauthorized persons. If your query is intercepted, this may allow them to draw conclusions about sensitive personal interests. [less]",
     "description": "Info http: user enters search queries."
+  },
+
+  "defaultInfoHttpsAvailable": {
+    "message": "More Information:  Secure mode (https) protects your data from being intercepted. The secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
+    "description": "Info https: user enters data."
+  },
+
+  "defaultConsequenceHttp": {
+    "message": "When you enter your data on this website, an unauthorized person could intercept it.",
+    "description": "Consequence http: user enters data."
+  },
+
+  "defaultRecommendationHttp": {
+    "message": "This website does not provide a secure alternative (https). Enter your data only if it contains no sensitive information.",
+    "description": "Recommendation http: user enters data."
+  },
+
+  "defaultInfoHttp": {
+    "message": "More Information: This website does not provides a way to protect your data from interception by unauthorized persons. If your data is intercepted here, it can be abused at any time. [less]",
+    "description": "Info http: user enters data."
   },
 
   "passwordWarning": {
@@ -357,5 +357,10 @@
   "searchWarning": {
     "message": "It is insecure to enter search queries here!",
     "description": "Warn about insecurity of query field."
+  },
+
+  "defaultWarning": {
+    "message": "It is insecure to enter data here!",
+    "description": "Warn about insecurity of input field of unknown type."
   }
 }
