@@ -1,5 +1,5 @@
 /**
- * Fill tooltip with text
+ * Returns the HTML skeleton for a tooltip
  */
 function getTooltipHTML() {
     return '<span id="passSecWarning" class="http-warning"></span>' +
@@ -25,7 +25,7 @@ function getTooltipHTML() {
 }
 
 /**
- * Fill tooltip items with functionality
+ * Adds functionality for the tooltip elements
  */
 function processTooltip() {
     let tooltip = passSec.tooltip;
@@ -114,7 +114,8 @@ function processTooltip() {
 }
 
 /**
- * Fill the tooltip with texts corresponding to a certain input field type
+ * Fills the tooltip with texts corresponding to a certain input field type
+ * The field type is one of "password", "payment", "personal", "search" or "default"
  */
 function getHttpFieldTexts() {
     let fieldType = $(passSec.target).attr("data-passSec-input-type");

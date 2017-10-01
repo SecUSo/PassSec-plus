@@ -47,7 +47,7 @@ registerRedirectHandler();
 
 /**
  * Registers or removes a webRequest listener to handle redirects
- * This function has to executed each time the list of redirects changed
+ * This function has to be executed each time the list of redirects changed
  */
 function registerRedirectHandler() {
     browser.storage.local.get("redirects").then(function (item) {
@@ -59,7 +59,8 @@ function registerRedirectHandler() {
 
 /**
  * Callback for webRequest listener
- * @param requestDetails
+ *
+ * @param requestDetails The details of the request
  * @returns {{redirectUrl: string}}
  */
 function handleRedirect(requestDetails) {

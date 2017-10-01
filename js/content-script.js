@@ -36,6 +36,13 @@ getTLDs.then(function (tld) {
     });
 });
 
+/**
+ * Creates a tooltip for a specific input element
+ * The tooltip is immediately displayed after creation
+ *
+ * @param element The element the tooltips should be displayed for
+ * @param event The event that triggered the call of this function
+ */
 function applyTooltip(element, event) {
     // only show tooltip on security status "http" or "https", "httpsEV" does not show any tooltips
     if (element.classList.contains("passSec-http") || element.classList.contains("passSec-https")) {
@@ -83,7 +90,10 @@ function applyTooltip(element, event) {
 }
 
 /**
- * extract the domain out of a given hostname
+ * Extracts the domain out of a given URL
+ *
+ * @param url The URL of which the domain should be extracted
+ * @param tld A list of known top level domains
  */
 function extractDomain(url, tld) {
     let split = url.split(".");

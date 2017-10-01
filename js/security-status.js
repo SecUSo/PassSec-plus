@@ -1,5 +1,8 @@
 /**
- *   get security status of website
+ * Determine the security status of the current website
+ *
+ * @param storage Object containing the set options at the time of calling this function
+ * @returns {Promise} Returns when check is finished
  */
 function getSecurityStatus(storage) {
     return new Promise(function (resolve, reject) {

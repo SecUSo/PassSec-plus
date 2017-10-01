@@ -26,7 +26,7 @@ $(document).ready(function () {
 });
 
 /**
- * set texts of options page
+ * Sets the language dependant texts of the options page
  */
 function addTexts() {
     // Title
@@ -73,7 +73,9 @@ function addTexts() {
 }
 
 /**
- * initialize the options page
+ * Initializes the options page by repopulating it with storage content
+ *
+ * @param storage Object containing the stored options at the time of opening the options page
  */
 function init(storage) {
     // Appearance tab
@@ -94,7 +96,9 @@ function init(storage) {
 }
 
 /**
- *   filling the options page elements with functionality
+ *   Adds functionality for the option page elements
+ *
+ *   @param storage Object containing the stored options at the time of opening the options page
  */
 function addEvents(storage) {
     // Appearance tab
@@ -177,6 +181,11 @@ function addEvents(storage) {
     });
 }
 
+/**
+ * Adds or updates the currently chosen secure image
+ *
+ * @param secureImage Integer indicating the current secure image
+ */
 function setImage(secureImage) {
     let imgAddress = browser.extension.getURL("skin/check/gruen/gr_icon" + secureImage + ".png");
     $("#secureInputType").css("background-image", "url('" + imgAddress + "')");
@@ -185,7 +194,10 @@ function setImage(secureImage) {
 }
 
 /**
- * add all entries to the list of either exceptions or redirects
+ * Adds all entries to the list of either exceptions or redirects
+ *
+ * @param listType Either "exceptions" or "redirects", indicating which list to fill
+ * @param listElements Array containing the elements to add to the list
  */
 function fillList(listType, listElements) {
     let htmlListId  = listType === "exceptions" ? "exceptionList" : "redirectList";

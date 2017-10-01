@@ -1,5 +1,8 @@
 /**
- * processes every input field on a page
+ * Examines every input field on a page and applies the necessary
+ * classes and attributes to the relevant input fields
+ *
+ * @param storage Object containing the set options at the time of calling this function
  */
 function processInputs(storage) {
     let borderType = "passSec-" + passSec.security;
