@@ -126,11 +126,11 @@ li.active a, li.active a:hover {
     margin: 10px 5px 15px 5px;
 }
 
-.checkbox {
+.checkbox, #changeIconGroup {
     display: table-row;
 }
 
-label, input[type=checkbox] {
+label, input[type=checkbox], #iconImg, #changeIconButton {
     display: table-cell;
     vertical-align: middle;
 }
