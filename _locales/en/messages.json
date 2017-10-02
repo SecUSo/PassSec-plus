@@ -209,6 +209,11 @@
     "description": "Default settings"
   },
 
+  "defaultSettingsWarning": {
+    "message": "Do you really want to restore the default settings? All stored redirects and exceptions are going to be deleted!",
+    "description": "Warn user before restoring default settings"
+  },
+
   "savedChanges":{
     "message": "Changes saved! Please reload the page on which you are using PassSec+.",
     "description": "Changes saved"
@@ -222,6 +227,11 @@
   "defaultSettingsRestored":{
     "message": "Default settings restored! Please reload the page on which you are using PassSec+.",
     "description": "Default settings"
+  },
+
+  "confirmAddingHttpException": {
+    "message": "Do you really want to add an exception for this website?\n\nIf you add an exception, you are no longer warned on this page, that the input of data is not safe here. Exceptions may be reset in the add-on settings.\n\n If you nevertheless enter your data here, please check the correctness of the address in any case: $URL$. Only enter data on this website if the address is correct. If this is not the case or you are unsure, click 'Cancel' and enter the address by hand. To continue, click 'OK'.",
+    "description": "Warn user before adding exception on http site"
   },
 
   "recommendationHttpsAvailable": {

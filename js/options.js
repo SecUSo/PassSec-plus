@@ -174,10 +174,12 @@ function addEvents(storage) {
     });
 
     $("#defaultSettings").on('click', function (e) {
-        browser.storage.local.set(PassSec);
-        init(PassSec);
-        $("#statusSettings").html(browser.i18n.getMessage("defaultSettingsRestored")).show().delay(7000).fadeOut(500);
-        browser.runtime.sendMessage({type: "registerRedirectHandler"});
+        if (window.confirm(browser.i18n.getMessage("defaultSettingsWarning"))) {
+            browser.storage.local.set(PassSec);
+            init(PassSec);
+            $("#statusSettings").html(browser.i18n.getMessage("defaultSettingsRestored")).show().delay(7000).fadeOut(500);
+            browser.runtime.sendMessage({type: "registerRedirectHandler"});
+        }
     });
 }
 

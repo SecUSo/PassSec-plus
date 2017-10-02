@@ -91,21 +91,23 @@ function processTooltip() {
                         }
                     });
                 } else {
-                    browser.storage.local.get("exceptions").then(function (item) {
-                        if (!item.exceptions.includes(passSec.domain)) {
-                            let updatedExceptions = item.exceptions.slice(0);
-                            updatedExceptions.push(passSec.domain);
-                            browser.storage.local.set({exceptions: updatedExceptions}).then(function () {
+                    if (window.confirm(browser.i18n.getMessage("confirmAddingHttpException", passSec.domain))) {
+                        browser.storage.local.get("exceptions").then(function (item) {
+                            if (!item.exceptions.includes(passSec.domain)) {
+                                let updatedExceptions = item.exceptions.slice(0);
+                                updatedExceptions.push(passSec.domain);
+                                browser.storage.local.set({exceptions: updatedExceptions}).then(function () {
+                                    $('.passSec-http').removeClass("passSec-http").addClass("passSec-httpsEV");
+                                    passSec.security = "httpsEV";
+                                    passSec.api.destroy(true);
+                                });
+                            } else {
                                 $('.passSec-http').removeClass("passSec-http").addClass("passSec-httpsEV");
                                 passSec.security = "httpsEV";
                                 passSec.api.destroy(true);
-                            });
-                        } else {
-                            $('.passSec-http').removeClass("passSec-http").addClass("passSec-httpsEV");
-                            passSec.security = "httpsEV";
-                            passSec.api.destroy(true);
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
             });
             getHttpFieldTexts("http");
