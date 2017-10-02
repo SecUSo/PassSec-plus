@@ -231,7 +231,12 @@
 
   "confirmAddingHttpException": {
     "message": "Do you really want to add an exception for this website?\n\nIf you add an exception, you are no longer warned on this page, that the input of data is not safe here. Exceptions may be reset in the add-on settings.\n\n If you nevertheless enter your data here, please check the correctness of the address in any case: $URL$. Only enter data on this website if the address is correct. If this is not the case or you are unsure, click 'Cancel' and enter the address by hand. To continue, click 'OK'.",
-    "description": "Warn user before adding exception on http site"
+    "description": "Warn user before adding exception on http site",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
   },
 
   "recommendationHttpsAvailable": {

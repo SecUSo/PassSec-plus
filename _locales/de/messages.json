@@ -231,7 +231,12 @@
 
   "confirmAddingHttpException": {
     "message": "Möchten Sie wirklich eine Ausnahme für diese Webseite hinzufügen?\n\nWenn Sie eine Ausnahme hinzufügen, werden Sie auf dieser Webseite nicht mehr gewarnt, dass die Eingabe von Daten hier nicht sicher ist. Ausnahmen können in den Add-On-Einstellungen zurückgesetzt werden.\n\nFalls Sie ihre Daten hier dennoch eingeben, überprüfen sie in jedem Fall die Korrektheit der Adresse: $URL$. Geben Sie Daten auf dieser Webseite nur ein, wenn die Adresse in Ordnung ist. Wenn dies nicht der Fall ist oder Sie sich unsicher sind, klicken sie auf 'Abbrechen' und geben Sie die Adresse von Hand ein. Zum Fortfahren klicken Sie 'OK'.",
-    "description": "Warn user before adding exception on http site"
+    "description": "Warn user before adding exception on http site",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
   },
 
   "recommendationHttpsAvailable": {
