@@ -1,6 +1,7 @@
 body {
     background: #fafafa;
     font-family: Helvetica, sans-serif;
+    min-width: 500px;
 }
 
 #secureInputType {
