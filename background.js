@@ -12,21 +12,21 @@ browser.runtime.onInstalled.addListener(function (details) {
 });
 
 // count browser starts and do exceptions checking if corresponding option is set
-browser.storage.local.get("checkExceptionsAfter20Starts").then(function (item) {
-    let check = item.checkExceptionsAfter20Starts;
-    if (check.doCheck) {
-        let starts = check.count + 1;
-        if (starts === 20) {
-            // reset counter
-            browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: 0}});
-            // check exceptions
-            // TODO
-        } else {
-            // increase counter
-            browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: starts}});
-        }
-    }
-});
+// browser.storage.local.get("checkExceptionsAfter20Starts").then(function (item) {
+//     let check = item.checkExceptionsAfter20Starts;
+//     if (check.doCheck) {
+//         let starts = check.count + 1;
+//         if (starts === 20) {
+//             // reset counter
+//             browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: 0}});
+//             // check exceptions
+//             // TODO
+//         } else {
+//             // increase counter
+//             browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: starts}});
+//         }
+//     }
+// });
 
 // listen for messages from content script
 browser.runtime.onMessage.addListener(function (message, sender, sendResponse) {

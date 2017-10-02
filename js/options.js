@@ -52,8 +52,8 @@ function addTexts() {
     $("#websiteExceptions").html(browser.i18n.getMessage("websiteExceptions"));
     $("#showWebsiteExceptions").html(browser.i18n.getMessage("showWebsiteExceptions"));
     $("#clearExceptionList").html(browser.i18n.getMessage("emptyList"));
-    $("#checkExceptions").html(browser.i18n.getMessage("checkExceptions"));
-    $("#checkAfter20").html(browser.i18n.getMessage("checkExceptions20Starts")).attr("title", browser.i18n.getMessage("checkExceptions20StartsTooltip"));
+    // $("#checkExceptions").html(browser.i18n.getMessage("checkExceptions"));
+    // $("#checkAfter20").html(browser.i18n.getMessage("checkExceptions20Starts")).attr("title", browser.i18n.getMessage("checkExceptions20StartsTooltip"));
 
     // Field tab
     $("#fields").html(browser.i18n.getMessage("tab4"));
@@ -82,7 +82,7 @@ function init(storage) {
     setImage(storage.secureImage);
 
     // Exceptions tab
-    $("#checkAfter20Checkbox").prop("checked", storage.checkExceptionsAfter20Starts.doCheck);
+    // $("#checkAfter20Checkbox").prop("checked", storage.checkExceptionsAfter20Starts.doCheck);
 
     // Field tab
     $("#pwField").prop("checked", storage.passwordField);
@@ -131,22 +131,22 @@ function addEvents(storage) {
             $("#showWebsiteExceptions").html(browser.i18n.getMessage("showWebsiteExceptions"));
     });
 
-    $("#checkExceptions").click(function (e) {
-        // TODO
-    });
+    // $("#checkExceptions").click(function (e) {
+    //     // TODO
+    // });
 
     $("#clearExceptionList").click(function (e) {
         browser.storage.local.set({exceptions: []});
         fillList("exceptions", []);
     });
 
-    $("#checkAfter20Checkbox").on('change', function (e) {
-        let checked = $(this).prop("checked");
-        if (checked)
-            browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: 0}});
-        else
-            browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: false, count: 0}});
-    });
+    // $("#checkAfter20Checkbox").on('change', function (e) {
+    //     let checked = $(this).prop("checked");
+    //     if (checked)
+    //         browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: 0}});
+    //     else
+    //         browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: false, count: 0}});
+    // });
 
     // Fields tab
     $("#pwField").on('change', function (e) {
