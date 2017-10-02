@@ -1,3 +1,6 @@
+// used as a switch activating/disabling saved redirects
+let redirectsActive = true;
+
 // do some stuff on first run
 browser.runtime.onInstalled.addListener(function (details) {
     if (details.reason === "install") {
@@ -9,6 +12,37 @@ browser.runtime.onInstalled.addListener(function (details) {
         // open options page
         browser.runtime.openOptionsPage();
     }
+});
+
+// handle left-click on browser action icon
+browser.browserAction.onClicked.addListener(function (tab) {
+    redirectsActive = !redirectsActive;
+    if (redirectsActive) {
+        browser.browserAction.setIcon({path: "skin/redirectActive.png"});
+        browser.browserAction.setTitle({title: browser.i18n.getMessage("browserActionRedirectActive")});
+    } else {
+        browser.browserAction.setIcon({path: "skin/redirectInactive.png"});
+        browser.browserAction.setTitle({title: browser.i18n.getMessage("browserActionRedirectInactive")});
+    }
+    manageRedirectHandler();
+});
+
+// create context menu for browser action
+browser.contextMenus.create({
+    contexts: ["browser_action"],
+    onclick: function () {
+        browser.tabs.query({currentWindow: true, active: true}).then(function (tabs) {
+            browser.tabs.sendMessage(tabs[0].id, {type: "addException"}, {frameId: 0});
+        });
+    },
+    title: browser.i18n.getMessage("exceptionHTTP") + " (PassSec+)"
+});
+browser.contextMenus.create({
+    contexts: ["browser_action"],
+    onclick: function () {
+        browser.runtime.openOptionsPage();
+    },
+    title: browser.i18n.getMessage("options") + " (PassSec+)"
 });
 
 // count browser starts and do exceptions checking if corresponding option is set
@@ -32,27 +66,27 @@ browser.runtime.onInstalled.addListener(function (details) {
 browser.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     switch (message.type) {
         case "doRedirect":
-            registerRedirectHandler();
+            manageRedirectHandler();
             // this is only to directly execute a redirect when the user clicked the 'Secure Mode' button
             browser.tabs.update({url: message.httpsURL});
             break;
-        case "registerRedirectHandler":
-            registerRedirectHandler();
+        case "manageRedirectHandler":
+            manageRedirectHandler();
             break;
     }
 });
 
 // initial setup of the redirect handler
-registerRedirectHandler();
+manageRedirectHandler();
 
 /**
- * Registers or removes a webRequest listener to handle redirects
+ * Registers or removes a webRequest listener to handle redirects set by the user
  * This function has to be executed each time the list of redirects changed
  */
-function registerRedirectHandler() {
+function manageRedirectHandler() {
     browser.storage.local.get("redirects").then(function (item) {
         browser.webRequest.onBeforeRequest.removeListener(handleRedirect);
-        if (item.redirects.length > 0)
+        if (redirectsActive && item.redirects.length > 0)
             browser.webRequest.onBeforeRequest.addListener(handleRedirect, {urls: item.redirects}, ["blocking"]);
     });
 }

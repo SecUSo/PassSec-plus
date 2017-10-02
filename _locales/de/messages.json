@@ -239,6 +239,31 @@
     }
   },
 
+  "confirmAddingHttpsException": {
+    "message": "Möchten Sie eine Ausnahme für die Webseite $URL$ hinzufügen?",
+    "description": "Warn user before adding exception on https site",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+
+  "browserActionRedirectActive": {
+    "message": "Gespeicherte HTTPS-Weiterleitungen aktiv",
+    "description": "Saved redirects active"
+  },
+
+  "browserActionRedirectInactive": {
+    "message": "Gespeicherte HTTPS-Weiterleitungen inaktiv",
+    "description": "Saved redirects inactive"
+  },
+
+  "options": {
+    "message": "Einstellungen",
+    "description": "Options"
+  },
+
   "recommendationHttpsAvailable": {
     "message": "Rufen Sie diese Seite immer im sicheren Modus (mit https) auf. [mehr]",
     "description": "Recommendation to use https"

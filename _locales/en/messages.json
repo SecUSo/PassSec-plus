@@ -239,6 +239,31 @@
     }
   },
 
+  "confirmAddingHttpsException": {
+    "message": "Do you want to add an exception for the website $URL$?",
+    "description": "Warn user before adding exception on https site",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+
+  "browserActionRedirectActive": {
+    "message": "Stored HTTPS redirects active",
+    "description": "Saved redirects active"
+  },
+
+  "browserActionRedirectInactive": {
+    "message": "Stored HTTPS redirects inactive",
+    "description": "Saved redirects inactive"
+  },
+
+  "options": {
+    "message": "Options",
+    "description": "Options"
+  },
+
   "recommendationHttpsAvailable": {
     "message": "You should always use secure mode (https). [more]",
     "description": "Recommendation to use https"

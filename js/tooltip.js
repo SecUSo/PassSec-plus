@@ -46,16 +46,7 @@ function processTooltip() {
                 event.stopImmediatePropagation();
                 event.preventDefault();
             }).on("mouseup", function (event) {
-                browser.storage.local.get("exceptions").then(function (item) {
-                    if (!item.exceptions.includes(passSec.domain)) {
-                        let updatedExceptions = item.exceptions.slice(0);
-                        updatedExceptions.push(passSec.domain);
-                        browser.storage.local.set({exceptions: updatedExceptions});
-                    }
-                    $('.passSec-https').removeClass("passSec-https").addClass("passSec-httpsEV");
-                    passSec.security = "httpsEV";
-                    passSec.api.destroy(true);
-                });
+                addException(true);
             });
             break;
 
@@ -91,27 +82,48 @@ function processTooltip() {
                         }
                     });
                 } else {
-                    if (window.confirm(browser.i18n.getMessage("confirmAddingHttpException", passSec.domain))) {
-                        browser.storage.local.get("exceptions").then(function (item) {
-                            if (!item.exceptions.includes(passSec.domain)) {
-                                let updatedExceptions = item.exceptions.slice(0);
-                                updatedExceptions.push(passSec.domain);
-                                browser.storage.local.set({exceptions: updatedExceptions}).then(function () {
-                                    $('.passSec-http').removeClass("passSec-http").addClass("passSec-httpsEV");
-                                    passSec.security = "httpsEV";
-                                    passSec.api.destroy(true);
-                                });
-                            } else {
-                                $('.passSec-http').removeClass("passSec-http").addClass("passSec-httpsEV");
-                                passSec.security = "httpsEV";
-                                passSec.api.destroy(true);
-                            }
-                        });
-                    }
+                    addException(true);
                 }
             });
             getHttpFieldTexts("http");
             break;
+    }
+}
+
+/**
+ * Adds an exception to storage
+ *
+ * @param tooltip   Boolean indicating whether this function was triggered by a click inside of a tooltip (true)
+ *                  or by a click in the browser action context menu (false)
+ */
+function addException(tooltip) {
+    function add() {
+        browser.storage.local.get("exceptions").then(function (item) {
+            if (!item.exceptions.includes(passSec.domain)) {
+                let updatedExceptions = item.exceptions.slice(0);
+                updatedExceptions.push(passSec.domain);
+                browser.storage.local.set({exceptions: updatedExceptions}).then(function () {
+                    let classToRemove = passSec.security === "http" ? "passSec-http" : "passSec-https";
+                    $('.' + classToRemove).removeClass(classToRemove).addClass("passSec-httpsEV");
+                    passSec.security = "httpsEV";
+                    if (tooltip)
+                        passSec.api.destroy(true);
+                });
+            } else {
+                $('.passSec-http').removeClass("passSec-http").addClass("passSec-httpsEV");
+                passSec.security = "httpsEV";
+                if (tooltip)
+                    passSec.api.destroy(true);
+            }
+        });
+    }
+    if (!tooltip || passSec.security === "http") {
+        let message = passSec.security === "http" ? "confirmAddingHttpException" : "confirmAddingHttpsException";
+        if (window.confirm(browser.i18n.getMessage(message, passSec.domain))) {
+            add();
+        }
+    } else {
+        add();
     }
 }
 

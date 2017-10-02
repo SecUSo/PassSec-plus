@@ -1,6 +1,12 @@
 let passSec = {};
 let inputElementClicked = false;
 
+// listen for messages from background script
+browser.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+    if (message.type === "addException")
+        addException(false);
+});
+
 // get top level domains (for domain extraction in urls)
 let getTLDs = new Promise(function (resolve, reject) {
     let xhttp = new XMLHttpRequest();

@@ -11,13 +11,15 @@
       "js/default-preferences.js",
       "js/browser-polyfill.min.js",
       "background.js"
-    ]
+    ],
+    "persistent": true
   },
   "permissions": [
     "<all_urls>",
     "storage",
     "webRequest",
-    "webRequestBlocking"
+    "webRequestBlocking",
+    "contextMenus"
   ],
   "options_ui": {
     "page": "options.html",
@@ -50,5 +52,12 @@
       "run_at": "document_end",
       "all_frames": true
     }
-  ]
+  ],
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": {
+      "16": "skin/redirectActive.png"
+    },
+    "default_title": "__MSG_browserActionRedirectActive__"
+  }
 }

@@ -120,7 +120,7 @@ function addEvents(storage) {
     $("#clearRedirectionList").click(function (e) {
         browser.storage.local.set({redirects: []});
         fillList("redirects", []);
-        browser.runtime.sendMessage({type: "registerRedirectHandler"});
+        browser.runtime.sendMessage({type: "manageRedirectHandler"});
     });
 
     // Exceptions tab
@@ -170,7 +170,7 @@ function addEvents(storage) {
         browser.storage.local.set(storage);
         init(storage);
         $("#statusSettings").html(browser.i18n.getMessage("reversedChanges")).show().delay(7000).fadeOut(500);
-        browser.runtime.sendMessage({type: "registerRedirectHandler"});
+        browser.runtime.sendMessage({type: "manageRedirectHandler"});
     });
 
     $("#defaultSettings").on('click', function (e) {
@@ -178,7 +178,7 @@ function addEvents(storage) {
             browser.storage.local.set(PassSec);
             init(PassSec);
             $("#statusSettings").html(browser.i18n.getMessage("defaultSettingsRestored")).show().delay(7000).fadeOut(500);
-            browser.runtime.sendMessage({type: "registerRedirectHandler"});
+            browser.runtime.sendMessage({type: "manageRedirectHandler"});
         }
     });
 }
@@ -221,7 +221,7 @@ function fillList(listType, listElements) {
                     let itemToSet = listType === "exceptions" ? {exceptions: array} : {redirects: array};
                     browser.storage.local.set(itemToSet);
                     if (listType === "redirects") {
-                        browser.runtime.sendMessage({type: "registerRedirectHandler"});
+                        browser.runtime.sendMessage({type: "manageRedirectHandler"});
                     }
                 }
             });
