@@ -179,6 +179,141 @@
     "description": "Search field"
   },
 
+  "tab5": {
+    "message": "Cookies",
+    "description": "Heading for cookies tab"
+  },
+
+  "cookieOptionsHeading": {
+    "message": "Zum Schutz Ihrer Privatsphäre beschäftigen Sie sich mit den folgenden Optionen:",
+    "description": "Heading for cookie options"
+  },
+
+  "cookieIntroQuestion1": {
+    "message": "Was sind Cookies?",
+    "description": "Cookie question"
+  },
+
+  "cookieIntroAnswer1": {
+    "message": "Cookies sind Dateien, die von  Webseiten unverschlüsselt auf Ihrem PC/Laptop gespeichert werden und Informationen wie Passwörter oder Interessen beinhalten.",
+    "description": "Answer to previous question"
+  },
+
+  "cookieIntroQuestion2": {
+    "message": "Wozu werden Cookies verwendet?",
+    "description": "Cookie question"
+  },
+
+  "cookieIntroAnswer2": {
+    "message": "Die Webseite kann Sie damit identifizieren und Inhalte, wie z.B. die Startseite eines Shops, personalisieren.",
+    "description": "Answer to previous question"
+  },
+
+  "cookieIntroQuestion3": {
+    "message": "Was sind Drittanbieter-Cookies?",
+    "description": "Cookie question"
+  },
+
+  "cookieIntroAnswer3": {
+    "message": "Diese Cookies werden nicht von der besuchten Webseite, sondern von einer dritten Webseite auf Ihrem PC/Laptop gespeichert.",
+    "description": "Answer to previous question"
+  },
+
+  "cookieIntroQuestion4": {
+    "message": "Wozu werden Drittanbieter-Cookies verwendet?",
+    "description": "Cookie question"
+  },
+
+  "cookieIntroAnswer4": {
+    "message": "Dritte können Ihnen damit personalisierte Werbung über mehrere Webseiten hinweg anzeigen.",
+    "description": "Answer to previous question"
+  },
+
+  "cookieOptionDeleteOnce1": {
+    "message": "Einmaliges Löschen",
+    "description": "First part of first cookie option heading"
+  },
+
+  "cookieOptionDeleteOnce2": {
+    "message": "aller bestehenden Cookies (inkl. Drittanbieter-Cookies)",
+    "description": "Second part of first cookie option heading"
+  },
+
+  "cookieOptionAdvantage": {
+    "message": "Vorteil:",
+    "description": "Advantage"
+  },
+
+  "cookieOptionAdvantageText1": {
+    "message": "Verhindert, dass in der Vergangenheit besuchte Webseiten und Dritte mit den gespeicherten Cookies weitere Informationen über Sie sammeln können.",
+    "description": "Advantage text"
+  },
+
+  "cookieOptionLimitation": {
+    "message": "Einschränkung:",
+    "description": "Limitation"
+  },
+
+  "cookieOptionLimitationText1": {
+    "message": "Diese Option führt dazu, dass Sie auf Webseiten abgemeldet werden, sofern ein Cookie wie bspw. „Ich möchte angemeldet bleiben“ aktiviert wurde.",
+    "description": "Limitation text"
+  },
+
+  "cookieOptionNote": {
+    "message": "Bitte Beachten Sie:",
+    "description": "Note"
+  },
+
+  "cookieOptionNoteText1": {
+    "message": "Im Web-Browser gespeicherte Passwörter werden nicht gelöscht. Wenn Sie das langfristige Speichern aller Cookies zukünftig verhindern möchten, wählen Sie zusätzlich die nächste Option aus.",
+    "description": "Note text"
+  },
+
+  "cookieOptionDeleteOnceButton": {
+    "message": "Cookies löschen",
+    "description": "Delete cookies"
+  },
+
+  "cookieOptionDeleteOnceWarning": {
+    "message": "Möchten Sie wirklich einmalig alle Cookies löschen?\n\nDieser Schritt kann nicht rückgängig gemacht werden!",
+    "description": "Delete cookies warning"
+  },
+
+  "cookieOptionDeleteAutomatically1": {
+    "message": "Alle Cookies (inkl. Drittanbieter-Cookies)",
+    "description": "First part of second cookie option heading"
+  },
+
+  "cookieOptionDeleteAutomatically2": {
+    "message": "automatisch",
+    "description": "Second part of second cookie option heading"
+  },
+
+  "cookieOptionDeleteAutomatically3": {
+    "message": "nach Öffnen des Web-Browsers löschen",
+    "description": "Third part of second cookie option heading"
+  },
+
+  "cookieOptionAdvantageText2": {
+    "message": "Passwörter werden nicht länger als notwendig unverschlüsselt in Cookies gespeichert.",
+    "description": "Advantage text"
+  },
+
+  "cookieOptionLimitationText2": {
+    "message": "Diese Option führt dazu, dass Sie sich bei jedem Start des Web-Browsers auf Webseiten erneut anmelden müssen (d.h. bei gespeichertem Passwort auf den Login Button drücken müssen).",
+    "description": "Limitation text"
+  },
+
+  "cookieOptionNoteText2": {
+    "message": "Schließen Sie Ihren Web-Browser regelmäßig, damit die Cookies beim nächsten Start gelöscht werden.",
+    "description": "Note text"
+  },
+
+  "cookieOptionDeleteAutomaticallyCheckbox": {
+    "message": "Cookies automatisch löschen",
+    "description": "Checkbox text"
+  },
+
   "httpsSecurity": {
     "message": "HTTPS-Sicherheit",
     "description": "HTTPS Security"

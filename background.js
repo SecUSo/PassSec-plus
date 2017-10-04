@@ -45,22 +45,27 @@ browser.contextMenus.create({
     title: browser.i18n.getMessage("options") + " (PassSec+)"
 });
 
-// count browser starts and do exceptions checking if corresponding option is set
-// browser.storage.local.get("checkExceptionsAfter20Starts").then(function (item) {
-//     let check = item.checkExceptionsAfter20Starts;
-//     if (check.doCheck) {
-//         let starts = check.count + 1;
-//         if (starts === 20) {
-//             // reset counter
-//             browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: 0}});
-//             // check exceptions
-//             // TODO
-//         } else {
-//             // increase counter
-//             browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: starts}});
-//         }
-//     }
-// });
+// execute options if set
+browser.storage.local.get(["deleteCookiesOnStart", "checkExceptionsAfter20Starts"]).then(function (item) {
+    // delete cookies
+    if (item.deleteCookiesOnStart) {
+        browser.browsingData.removeCookies({originTypes: {unprotectedWeb: true}});
+    }
+    // count browser starts and do exceptions checking
+    // let check = item.checkExceptionsAfter20Starts;
+    // if (check && check.doCheck) {
+    //     let starts = check.count + 1;
+    //     if (starts === 20) {
+    //         // reset counter
+    //         browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: 0}});
+    //         // check exceptions
+    //         // TODO
+    //     } else {
+    //         // increase counter
+    //         browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: starts}});
+    //     }
+    // }
+});
 
 // listen for messages from content script
 browser.runtime.onMessage.addListener(function (message, sender, sendResponse) {
@@ -72,6 +77,9 @@ browser.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             break;
         case "manageRedirectHandler":
             manageRedirectHandler();
+            break;
+        case "deleteCookies":
+            browser.browsingData.removeCookies({originTypes: {unprotectedWeb: true}});
             break;
     }
 });
@@ -85,9 +93,11 @@ manageRedirectHandler();
  */
 function manageRedirectHandler() {
     browser.storage.local.get("redirects").then(function (item) {
-        browser.webRequest.onBeforeRequest.removeListener(handleRedirect);
-        if (redirectsActive && item.redirects.length > 0)
-            browser.webRequest.onBeforeRequest.addListener(handleRedirect, {urls: item.redirects}, ["blocking"]);
+        if (item.redirects) {
+            browser.webRequest.onBeforeRequest.removeListener(handleRedirect);
+            if (redirectsActive && item.redirects.length > 0)
+                browser.webRequest.onBeforeRequest.addListener(handleRedirect, {urls: item.redirects}, ["blocking"]);
+        }
     });
 }
 

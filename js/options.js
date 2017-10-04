@@ -63,6 +63,38 @@ function addTexts() {
     $("#personalField").html(browser.i18n.getMessage("personalField"));
     $("#searchField").html(browser.i18n.getMessage("searchField"));
 
+    // Cookies tab
+    $("#cookies").html(browser.i18n.getMessage("tab5"));
+    $("#cookieOptionsHeading").html(browser.i18n.getMessage("cookieOptionsHeading"));
+    $("#cookieIntroQuestion1").html(browser.i18n.getMessage("cookieIntroQuestion1"));
+    $("#cookieIntroAnswer1").html(browser.i18n.getMessage("cookieIntroAnswer1"));
+    $("#cookieIntroQuestion2").html(browser.i18n.getMessage("cookieIntroQuestion2"));
+    $("#cookieIntroAnswer2").html(browser.i18n.getMessage("cookieIntroAnswer2"));
+    $("#cookieIntroQuestion3").html(browser.i18n.getMessage("cookieIntroQuestion3"));
+    $("#cookieIntroAnswer3").html(browser.i18n.getMessage("cookieIntroAnswer3"));
+    $("#cookieIntroQuestion4").html(browser.i18n.getMessage("cookieIntroQuestion4"));
+    $("#cookieIntroAnswer4").html(browser.i18n.getMessage("cookieIntroAnswer4"));
+    $("#cookieOptionDeleteOnce1").html(browser.i18n.getMessage("cookieOptionDeleteOnce1"));
+    $("#cookieOptionDeleteOnce2").html(browser.i18n.getMessage("cookieOptionDeleteOnce2"));
+    $("#cookieOptionAdvantage1").html(browser.i18n.getMessage("cookieOptionAdvantage"));
+    $("#cookieOptionAdvantageText1").html(browser.i18n.getMessage("cookieOptionAdvantageText1"));
+    $("#cookieOptionLimitation1").html(browser.i18n.getMessage("cookieOptionLimitation"));
+    $("#cookieOptionLimitationText1").html(browser.i18n.getMessage("cookieOptionLimitationText1"));
+    $("#cookieOptionNote1").html(browser.i18n.getMessage("cookieOptionNote"));
+    $("#cookieOptionNoteText1").html(browser.i18n.getMessage("cookieOptionNoteText1"));
+    $("#cookieOptionDeleteOnceButton").html(browser.i18n.getMessage("cookieOptionDeleteOnceButton"));
+    $("#cookieOptionDeleteAutomatically1").html(browser.i18n.getMessage("cookieOptionDeleteAutomatically1"));
+    $("#cookieOptionDeleteAutomatically2").html(browser.i18n.getMessage("cookieOptionDeleteAutomatically2"));
+    $("#cookieOptionDeleteAutomatically3").html(browser.i18n.getMessage("cookieOptionDeleteAutomatically3"));
+    $("#cookieOptionAdvantage2").html(browser.i18n.getMessage("cookieOptionAdvantage"));
+    $("#cookieOptionAdvantageText2").html(browser.i18n.getMessage("cookieOptionAdvantageText2"));
+    $("#cookieOptionLimitation2").html(browser.i18n.getMessage("cookieOptionLimitation"));
+    $("#cookieOptionLimitationText2").html(browser.i18n.getMessage("cookieOptionLimitationText2"));
+    $("#cookieOptionNote2").html(browser.i18n.getMessage("cookieOptionNote"));
+    $("#cookieOptionNoteText2").html(browser.i18n.getMessage("cookieOptionNoteText2"));
+    $("#cookieOptionDeleteAutomaticallyCheckbox").html(browser.i18n.getMessage("cookieOptionDeleteAutomaticallyCheckbox"));
+
+
     // Additional buttons
     $("#revertChanges").html(browser.i18n.getMessage("revertChanges"));
     $("#defaultSettings").html(browser.i18n.getMessage("defaultSettings"));
@@ -131,14 +163,14 @@ function addEvents(storage) {
             $("#showWebsiteExceptions").html(browser.i18n.getMessage("showWebsiteExceptions"));
     });
 
-    // $("#checkExceptions").click(function (e) {
-    //     // TODO
-    // });
-
     $("#clearExceptionList").click(function (e) {
         browser.storage.local.set({exceptions: []});
         fillList("exceptions", []);
     });
+
+    // $("#checkExceptions").click(function (e) {
+    //     // TODO
+    // });
 
     // $("#checkAfter20Checkbox").on('change', function (e) {
     //     let checked = $(this).prop("checked");
@@ -163,6 +195,17 @@ function addEvents(storage) {
 
     $("#sField").on('change', function (e) {
         browser.storage.local.set({searchField: $(this).prop("checked")});
+    });
+
+    // Cookies tab
+    $("#cookieOptionDeleteOnceButton").on('click', function (e) {
+        if (window.confirm(browser.i18n.getMessage("cookieOptionDeleteOnceWarning"))) {
+            browser.runtime.sendMessage({type: "deleteCookies"});
+        }
+    });
+
+    $("#deleteCookiesOnStart").on('change', function (e) {
+        browser.storage.local.set({deleteCookiesOnStart: $(this).prop("checked")});
     });
 
     // Option buttons

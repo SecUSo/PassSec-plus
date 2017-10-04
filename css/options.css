@@ -1,7 +1,7 @@
 body {
     background: #fafafa;
     font-family: Helvetica, sans-serif;
-    min-width: 500px;
+    min-width: 600px;
 }
 
 #secureInputType {
@@ -126,7 +126,11 @@ li.active a, li.active a:hover {
     margin: 10px 5px 15px 5px;
 }
 
-.checkbox, #changeIconGroup {
+.tableWrapper {
+    display: table;
+}
+
+.checkbox, #changeIconGroup, .cookieOptionRow {
     display: table-row;
 }
 
@@ -142,4 +146,26 @@ label, input[type=checkbox], #iconImg, #changeIconButton {
 
 label {
     padding-left: 4px;
+}
+
+.boldText {
+    font-weight: bold;
+}
+
+.italicText {
+    font-style: italic;
+}
+
+.cookieOptionLine {
+    display: table-cell;
+    vertical-align: top;
+    padding: 0 0 8px 4px;
+}
+
+.cookieOptionHeading {
+    display: inline-block;
+}
+
+#cookieOptionDeleteOnceButton {
+    margin-bottom: 5px;
 }

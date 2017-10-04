@@ -19,7 +19,8 @@
     "storage",
     "webRequest",
     "webRequestBlocking",
-    "contextMenus"
+    "contextMenus",
+    "browsingData"
   ],
   "options_ui": {
     "page": "options.html",
