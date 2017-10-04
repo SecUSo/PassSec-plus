@@ -74,7 +74,7 @@ function applyTooltip(element, event) {
                 my: 'top left',
                 viewport: true,
                 adjust: {
-                    method: 'shift none',
+                    method: 'shift flip',
                     scroll: false
                 }
             },
