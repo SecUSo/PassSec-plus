@@ -2,54 +2,54 @@
 let redirectsActive = true;
 
 // do some stuff on first run
-browser.runtime.onInstalled.addListener(function (details) {
+chrome.runtime.onInstalled.addListener(function (details) {
     if (details.reason === "install") {
         // init storage
-        browser.storage.local.set(PassSec);
+        chrome.storage.local.set(PassSec);
         // change the secure-image to a random one
         let image = Math.floor(Math.random() * 10) + 1;
-        browser.storage.local.set({secureImage: image});
+        chrome.storage.local.set({secureImage: image});
         // open options page
-        browser.runtime.openOptionsPage();
+        chrome.runtime.openOptionsPage();
     }
 });
 
 // handle left-click on browser action icon
-browser.browserAction.onClicked.addListener(function (tab) {
+chrome.browserAction.onClicked.addListener(function (tab) {
     redirectsActive = !redirectsActive;
     if (redirectsActive) {
-        browser.browserAction.setIcon({path: "skin/redirectActive.png"});
-        browser.browserAction.setTitle({title: browser.i18n.getMessage("browserActionRedirectActive")});
+        chrome.browserAction.setIcon({path: "skin/redirectActive.png"});
+        chrome.browserAction.setTitle({title: chrome.i18n.getMessage("browserActionRedirectActive")});
     } else {
-        browser.browserAction.setIcon({path: "skin/redirectInactive.png"});
-        browser.browserAction.setTitle({title: browser.i18n.getMessage("browserActionRedirectInactive")});
+        chrome.browserAction.setIcon({path: "skin/redirectInactive.png"});
+        chrome.browserAction.setTitle({title: chrome.i18n.getMessage("browserActionRedirectInactive")});
     }
     manageRedirectHandler();
 });
 
 // create context menu for browser action
-browser.contextMenus.create({
+chrome.contextMenus.create({
     contexts: ["browser_action"],
     onclick: function () {
-        browser.tabs.query({currentWindow: true, active: true}).then(function (tabs) {
-            browser.tabs.sendMessage(tabs[0].id, {type: "addException"}, {frameId: 0});
+        chrome.tabs.query({currentWindow: true, active: true}, function (tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, {type: "addException"}, {frameId: 0});
         });
     },
-    title: browser.i18n.getMessage("exceptionHTTP") + " (PassSec+)"
+    title: chrome.i18n.getMessage("exceptionHTTP") + " (PassSec+)"
 });
-browser.contextMenus.create({
+chrome.contextMenus.create({
     contexts: ["browser_action"],
     onclick: function () {
-        browser.runtime.openOptionsPage();
+        chrome.runtime.openOptionsPage();
     },
-    title: browser.i18n.getMessage("options") + " (PassSec+)"
+    title: chrome.i18n.getMessage("options") + " (PassSec+)"
 });
 
 // execute options if set
-browser.storage.local.get(["deleteCookiesOnStart", "checkExceptionsAfter20Starts"]).then(function (item) {
+chrome.storage.local.get(["deleteCookiesOnStart", "checkExceptionsAfter20Starts"], function (item) {
     // delete cookies
     if (item.deleteCookiesOnStart) {
-        browser.browsingData.removeCookies({originTypes: {unprotectedWeb: true}});
+        chrome.browsingData.removeCookies({originTypes: {unprotectedWeb: true}});
     }
     // count browser starts and do exceptions checking
     // let check = item.checkExceptionsAfter20Starts;
@@ -57,29 +57,29 @@ browser.storage.local.get(["deleteCookiesOnStart", "checkExceptionsAfter20Starts
     //     let starts = check.count + 1;
     //     if (starts === 20) {
     //         // reset counter
-    //         browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: 0}});
+    //         chrome.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: 0}});
     //         // check exceptions
     //         // TODO
     //     } else {
     //         // increase counter
-    //         browser.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: starts}});
+    //         chrome.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: starts}});
     //     }
     // }
 });
 
 // listen for messages from content script
-browser.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     switch (message.type) {
         case "doRedirect":
             manageRedirectHandler();
             // this is only to directly execute a redirect when the user clicked the 'Secure Mode' button
-            browser.tabs.update({url: message.httpsURL});
+            chrome.tabs.update({url: message.httpsURL});
             break;
         case "manageRedirectHandler":
             manageRedirectHandler();
             break;
         case "deleteCookies":
-            browser.browsingData.removeCookies({originTypes: {unprotectedWeb: true}});
+            chrome.browsingData.removeCookies({originTypes: {unprotectedWeb: true}});
             break;
     }
 });
@@ -92,11 +92,11 @@ manageRedirectHandler();
  * This function has to be executed each time the list of redirects changed
  */
 function manageRedirectHandler() {
-    browser.storage.local.get("redirects").then(function (item) {
+    chrome.storage.local.get("redirects", function (item) {
         if (item.redirects) {
-            browser.webRequest.onBeforeRequest.removeListener(handleRedirect);
+            chrome.webRequest.onBeforeRequest.removeListener(handleRedirect);
             if (redirectsActive && item.redirects.length > 0)
-                browser.webRequest.onBeforeRequest.addListener(handleRedirect, {urls: item.redirects}, ["blocking"]);
+                chrome.webRequest.onBeforeRequest.addListener(handleRedirect, {urls: item.redirects}, ["blocking"]);
         }
     });
 }

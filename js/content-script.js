@@ -2,7 +2,7 @@ let passSec = {};
 let inputElementClicked = false;
 
 // listen for messages from background script
-browser.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.type === "addException")
         addException(false);
 });
@@ -21,7 +21,7 @@ let getTLDs = new Promise(function (resolve, reject) {
 getTLDs.then(function (tld) {
     passSec.url = document.location.href;
     passSec.domain = extractDomain(document.location.host, tld);
-    browser.storage.local.get().then(function (items) {
+    chrome.storage.local.get(null, function (items) {
         getSecurityStatus(items).then(function () {
             processInputs(items);
             // normally the focus event handler would be enough here, but we need the mousedown down handler

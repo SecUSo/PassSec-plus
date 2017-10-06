@@ -9,7 +9,6 @@
   "background": {
     "scripts": [
       "js/default-preferences.js",
-      "js/browser-polyfill.min.js",
       "background.js"
     ],
     "persistent": true
@@ -23,8 +22,7 @@
     "browsingData"
   ],
   "options_ui": {
-    "page": "options.html",
-    "browser_style": true
+    "page": "options.html"
   },
   "icons": {
     "64": "skin/logo.png"
@@ -44,7 +42,6 @@
       "js": [
         "js/jquery-3.2.1.min.js",
         "js/jquery.qtip.min.js",
-        "js/browser-polyfill.min.js",
         "js/security-status.js",
         "js/tooltip.js",
         "js/input-field.js",
@@ -55,7 +52,6 @@
     }
   ],
   "browser_action": {
-    "browser_style": true,
     "default_icon": {
       "16": "skin/redirectActive.png"
     },

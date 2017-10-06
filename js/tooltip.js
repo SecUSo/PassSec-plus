@@ -4,23 +4,23 @@
 function getTooltipHTML() {
     return '<span id="passSecWarning" class="http-warning"></span>' +
         '<hr class="http-warning">' +
-        '<span id="passSecURL">' + browser.i18n.getMessage("domainInfo") + '<span id="passSecDomain">' + passSec.domain + '</span>.</span>' +
-        '<span id="passSecVerify">' + browser.i18n.getMessage("verifyDomain") + '</span>' +
+        '<span id="passSecURL">' + chrome.i18n.getMessage("domainInfo") + '<span id="passSecDomain">' + passSec.domain + '</span>.</span>' +
+        '<span id="passSecVerify">' + chrome.i18n.getMessage("verifyDomain") + '</span>' +
         '<div id="passSecConsequence" class="http-warning">' +
-        '<img id="passSecConsequenceImage" src=' + browser.extension.getURL("skin/consequence.png") + '>' +
+        '<img id="passSecConsequenceImage" src=' + chrome.extension.getURL("skin/consequence.png") + '>' +
         '<p id="passSecConsequenceText"></p>' +
         '</div>' +
         '<div id="passSecRecommendation" class="http-warning littleText">' +
-        '<img id="passSecRecommendationImage" src=' + browser.extension.getURL("skin/recommendation.png") + '>' +
+        '<img id="passSecRecommendationImage" src=' + chrome.extension.getURL("skin/recommendation.png") + '>' +
         '<p id="passSecRecommendationText"></p>' +
         '</div>' +
         '<div id="passSecInfo" class="http-warning littleText">' +
-        '<img id="passSecInfoImage" src=' + browser.extension.getURL("skin/more_info.png") + '>' +
-        '<p id="passSecInfoText" class="passSecClickable">' + browser.i18n.getMessage("moreInfo") + '</p>' +
+        '<img id="passSecInfoImage" src=' + chrome.extension.getURL("skin/more_info.png") + '>' +
+        '<p id="passSecInfoText" class="passSecClickable">' + chrome.i18n.getMessage("moreInfo") + '</p>' +
         '</div>' +
         '<div id="passSecButtons>">' +
         '<button id="passSecButtonException" type="button"></button>' +
-        '<button id="passSecButtonClose" type="button">' + browser.i18n.getMessage("OK") + ' </button>' +
+        '<button id="passSecButtonClose" type="button">' + chrome.i18n.getMessage("OK") + ' </button>' +
         '</div>';
 }
 
@@ -40,7 +40,7 @@ function processTooltip() {
     switch (passSec.security) {
         case "https":
             $(tooltip.find(".http-warning")).hide();
-            $(tooltip.find("#passSecButtonException")[0]).html(browser.i18n.getMessage("exceptionHTTPS"));
+            $(tooltip.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("exceptionHTTPS"));
             $(tooltip.find("#passSecButtonException")[0]).on("mousedown", function (event) {
                 // prevent input element losing focus
                 event.stopImmediatePropagation();
@@ -54,10 +54,10 @@ function processTooltip() {
             $(tooltip.find(".http-warning")).show();
             if (passSec.httpsAvailable) {
                 $(tooltip.find("#passSecButtonException")[0]).addClass("greenButton");
-                $(tooltip.find("#passSecButtonException")[0]).html(browser.i18n.getMessage("secureMode"));
+                $(tooltip.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("secureMode"));
             } else {
                 $(tooltip.find("#passSecButtonException")[0]).addClass("redButton");
-                $(tooltip.find("#passSecButtonException")[0]).html(browser.i18n.getMessage("exceptionHTTP"));
+                $(tooltip.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("exceptionHTTP"));
             }
             $(tooltip.find("#passSecButtonException")[0]).on("mousedown", function (event) {
                 // prevent input element losing focus
@@ -65,19 +65,19 @@ function processTooltip() {
                 event.preventDefault();
             }).on("mouseup", function (event) {
                 if (passSec.httpsAvailable) {
-                    browser.storage.local.get("redirects").then(function (item) {
+                    chrome.storage.local.get("redirects", function (item) {
                         let redirectPattern = "http://*." + passSec.domain + "/*";
                         if (!item.redirects.includes(redirectPattern)) {
                             let updatedRedirects = item.redirects.slice(0);
                             updatedRedirects.push(redirectPattern);
-                            browser.storage.local.set({redirects: updatedRedirects}).then(function () {
+                            chrome.storage.local.set({redirects: updatedRedirects}, function () {
                                 let httpsUrl = passSec.url.replace("http://", "https://");
-                                browser.runtime.sendMessage({type: "doRedirect", httpsURL: httpsUrl});
+                                chrome.runtime.sendMessage({type: "doRedirect", httpsURL: httpsUrl});
                                 passSec.api.destroy(true);
                             });
                         } else {
                             let httpsUrl = passSec.url.replace("http://", "https://");
-                            browser.runtime.sendMessage({type: "doRedirect", httpsURL: httpsUrl});
+                            chrome.runtime.sendMessage({type: "doRedirect", httpsURL: httpsUrl});
                             passSec.api.destroy(true);
                         }
                     });
@@ -98,11 +98,11 @@ function processTooltip() {
  */
 function addException(tooltip) {
     function add() {
-        browser.storage.local.get("exceptions").then(function (item) {
+        chrome.storage.local.get("exceptions", function (item) {
             if (!item.exceptions.includes(passSec.domain)) {
                 let updatedExceptions = item.exceptions.slice(0);
                 updatedExceptions.push(passSec.domain);
-                browser.storage.local.set({exceptions: updatedExceptions}).then(function () {
+                chrome.storage.local.set({exceptions: updatedExceptions}, function () {
                     let classToRemove = passSec.security === "http" ? "passSec-http" : "passSec-https";
                     $('.' + classToRemove).removeClass(classToRemove).addClass("passSec-httpsEV");
                     passSec.security = "httpsEV";
@@ -119,7 +119,7 @@ function addException(tooltip) {
     }
     if (!tooltip || passSec.security === "http") {
         let message = passSec.security === "http" ? "confirmAddingHttpException" : "confirmAddingHttpsException";
-        if (window.confirm(browser.i18n.getMessage(message, passSec.domain))) {
+        if (window.confirm(chrome.i18n.getMessage(message, passSec.domain))) {
             add();
         }
     } else {
@@ -134,30 +134,30 @@ function addException(tooltip) {
 function getHttpFieldTexts() {
     let fieldType = $(passSec.target).attr("data-passSec-input-type");
     let tooltip = passSec.tooltip;
-    $(tooltip.find("#passSecWarning")[0]).html(browser.i18n.getMessage(fieldType + "Warning"));
-    $(tooltip.find("#passSecConsequenceText")[0]).html(browser.i18n.getMessage(fieldType + "ConsequenceHttp"));
+    $(tooltip.find("#passSecWarning")[0]).html(chrome.i18n.getMessage(fieldType + "Warning"));
+    $(tooltip.find("#passSecConsequenceText")[0]).html(chrome.i18n.getMessage(fieldType + "ConsequenceHttp"));
     if (passSec.httpsAvailable) {
         $(tooltip.find("#passSecRecommendationText")[0]).click(function (e) {
-            if ($(this).html() === browser.i18n.getMessage("moreRecommendationHttpsAvailable")) {
-                $(this).html(browser.i18n.getMessage("recommendationHttpsAvailable"));
+            if ($(this).html() === chrome.i18n.getMessage("moreRecommendationHttpsAvailable")) {
+                $(this).html(chrome.i18n.getMessage("recommendationHttpsAvailable"));
             } else {
-                $(this).html(browser.i18n.getMessage("moreRecommendationHttpsAvailable"));
+                $(this).html(chrome.i18n.getMessage("moreRecommendationHttpsAvailable"));
             }
-        }).addClass("passSecClickable").html(browser.i18n.getMessage("recommendationHttpsAvailable"));
+        }).addClass("passSecClickable").html(chrome.i18n.getMessage("recommendationHttpsAvailable"));
         $(tooltip.find("#passSecInfoText")[0]).click(function (e) {
-            if ($(this).html() === browser.i18n.getMessage("moreInfo")) {
-                $(this).html(browser.i18n.getMessage(fieldType + "InfoHttpsAvailable"));
+            if ($(this).html() === chrome.i18n.getMessage("moreInfo")) {
+                $(this).html(chrome.i18n.getMessage(fieldType + "InfoHttpsAvailable"));
             } else {
-                $(this).html(browser.i18n.getMessage("moreInfo"));
+                $(this).html(chrome.i18n.getMessage("moreInfo"));
             }
         });
     } else {
-        $(tooltip.find("#passSecRecommendationText")[0]).html(browser.i18n.getMessage(fieldType + "RecommendationHttp"));
+        $(tooltip.find("#passSecRecommendationText")[0]).html(chrome.i18n.getMessage(fieldType + "RecommendationHttp"));
         $(tooltip.find("#passSecInfoText")[0]).click(function (e) {
-            if ($(this).html() === browser.i18n.getMessage("moreInfo")) {
-                $(this).html(browser.i18n.getMessage(fieldType + "InfoHttp"));
+            if ($(this).html() === chrome.i18n.getMessage("moreInfo")) {
+                $(this).html(chrome.i18n.getMessage(fieldType + "InfoHttp"));
             } else {
-                $(this).html(browser.i18n.getMessage("moreInfo"));
+                $(this).html(chrome.i18n.getMessage("moreInfo"));
             }
         });
     }
