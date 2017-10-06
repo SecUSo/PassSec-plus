@@ -119,9 +119,24 @@ function addException(tooltip) {
     }
     if (!tooltip || passSec.security === "http") {
         let message = passSec.security === "http" ? "confirmAddingHttpException" : "confirmAddingHttpsException";
-        if (window.confirm(chrome.i18n.getMessage(message, passSec.domain))) {
-            add();
-        }
+        $.confirm({
+            title: "PassSec+",
+            content: chrome.i18n.getMessage(message, passSec.domain),
+            buttons: {
+                ok: function () {
+                    add();
+                },
+                cancel: {
+                    text: chrome.i18n.getMessage("cancelButton")
+                }
+            },
+            backgroundDismissAnimation: "none",
+            animateFromElement: false,
+            animation: "opacity",
+            closeAnimation: "opacity",
+            useBootstrap: false,
+            boxWidth: "40%"
+        });
     } else {
         add();
     }

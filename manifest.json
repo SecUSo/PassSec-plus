@@ -37,11 +37,13 @@
       ],
       "css": [
         "css/jquery.qtip.min.css",
+        "css/jquery-confirm.min.css",
         "css/tooltip.css"
       ],
       "js": [
         "js/jquery-3.2.1.min.js",
         "js/jquery.qtip.min.js",
+        "js/jquery-confirm.min.js",
         "js/security-status.js",
         "js/tooltip.js",
         "js/input-field.js",

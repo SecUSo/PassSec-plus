@@ -29,6 +29,11 @@
     "description": "OK"
   },
 
+  "cancelButton": {
+    "message": "Cancel",
+    "description": "Cancel button label"
+  },
+
   "moreInfo": {
     "message": "More information",
     "description": "More information"

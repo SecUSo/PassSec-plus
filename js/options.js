@@ -199,9 +199,24 @@ function addEvents(storage) {
 
     // Cookies tab
     $("#cookieOptionDeleteOnceButton").on('click', function (e) {
-        if (window.confirm(chrome.i18n.getMessage("cookieOptionDeleteOnceWarning"))) {
-            chrome.runtime.sendMessage({type: "deleteCookies"});
-        }
+        $.confirm({
+            title: "PassSec+",
+            content: chrome.i18n.getMessage("cookieOptionDeleteOnceWarning"),
+            buttons: {
+                ok: function () {
+                    chrome.runtime.sendMessage({type: "deleteCookies"});
+                },
+                cancel: {
+                    text: chrome.i18n.getMessage("cancelButton")
+                }
+            },
+            backgroundDismissAnimation: "none",
+            animateFromElement: false,
+            animation: "opacity",
+            closeAnimation: "opacity",
+            useBootstrap: false,
+            boxWidth: "40%"
+        });
     });
 
     $("#deleteCookiesOnStart").on('change', function (e) {
@@ -217,12 +232,27 @@ function addEvents(storage) {
     });
 
     $("#defaultSettings").on('click', function (e) {
-        if (window.confirm(chrome.i18n.getMessage("defaultSettingsWarning"))) {
-            chrome.storage.local.set(PassSec);
-            init(PassSec);
-            $("#statusSettings").html(chrome.i18n.getMessage("defaultSettingsRestored")).show().delay(7000).fadeOut(500);
-            chrome.runtime.sendMessage({type: "manageRedirectHandler"});
-        }
+        $.confirm({
+            title: "PassSec+",
+            content: chrome.i18n.getMessage("defaultSettingsWarning"),
+            buttons: {
+                ok: function () {
+                    chrome.storage.local.set(PassSec);
+                    init(PassSec);
+                    $("#statusSettings").html(chrome.i18n.getMessage("defaultSettingsRestored")).show().delay(7000).fadeOut(500);
+                    chrome.runtime.sendMessage({type: "manageRedirectHandler"});
+                },
+                cancel: {
+                    text: chrome.i18n.getMessage("cancelButton")
+                }
+            },
+            backgroundDismissAnimation: "none",
+            animateFromElement: false,
+            animation: "opacity",
+            closeAnimation: "opacity",
+            useBootstrap: false,
+            boxWidth: "40%"
+        });
     });
 }
 
