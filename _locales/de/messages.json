@@ -380,7 +380,7 @@
   },
 
   "confirmAddingHttpException": {
-    "message": "Möchten Sie wirklich eine Ausnahme für diese Webseite hinzufügen?\n\nWenn Sie eine Ausnahme hinzufügen, werden Sie auf dieser Webseite nicht mehr gewarnt, dass die Eingabe von Daten hier nicht sicher ist. Ausnahmen können in den Add-On-Einstellungen zurückgesetzt werden.\n\nFalls Sie ihre Daten hier dennoch eingeben, überprüfen sie in jedem Fall die Korrektheit der Adresse: $URL$. Geben Sie Daten auf dieser Webseite nur ein, wenn die Adresse in Ordnung ist. Wenn dies nicht der Fall ist oder Sie sich unsicher sind, klicken sie auf 'Abbrechen' und geben Sie die Adresse von Hand ein. Zum Fortfahren klicken Sie 'OK'.",
+    "message": "<div>Möchten Sie wirklich eine Ausnahme für diese Webseite hinzufügen?<br><br>Wenn Sie eine Ausnahme hinzufügen, werden Sie auf dieser Webseite nicht mehr gewarnt, dass die Eingabe von Daten hier nicht sicher ist. Ausnahmen können in den Add-On-Einstellungen zurückgesetzt werden.<br><br>Falls Sie ihre Daten hier dennoch eingeben, überprüfen sie in jedem Fall die Korrektheit der Adresse: <div class='passSecDomain passSecDomainConfirm'>$URL$</div><br><br>Geben Sie Daten auf dieser Webseite nur ein, wenn die Adresse in Ordnung ist. Wenn dies nicht der Fall ist oder Sie sich unsicher sind, klicken sie auf 'Abbrechen' und geben Sie die Adresse von Hand ein. Zum Fortfahren klicken Sie 'OK'.</div>",
     "description": "Warn user before adding exception on http site",
     "placeholders": {
       "url": {
@@ -390,7 +390,7 @@
   },
 
   "confirmAddingHttpsException": {
-    "message": "Möchten Sie eine Ausnahme für die Webseite $URL$ hinzufügen?",
+    "message": "<div>Möchten Sie eine Ausnahme für die Webseite <div class='passSecDomain passSecDomainConfirm'>$URL$</div> hinzufügen?</div>",
     "description": "Warn user before adding exception on https site",
     "placeholders": {
       "url": {

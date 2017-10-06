@@ -34,11 +34,15 @@
     margin-bottom: 2px !important;
 }
 
-#passSecDomain {
+#passSecDomain, .passSecDomain {
     margin: 2px 0 2px 4px !important;
     font-weight: bold !important;
     color: black !important;
     letter-spacing: 3px !important;
+}
+
+.passSecDomainConfirm {
+    display: inline;
 }
 
 #passSecVerify {

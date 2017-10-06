@@ -121,7 +121,6 @@ function addException(tooltip) {
         let message = passSec.security === "http" ? "confirmAddingHttpException" : "confirmAddingHttpsException";
         $.confirm({
             title: "PassSec+",
-            content: chrome.i18n.getMessage(message, passSec.domain),
             buttons: {
                 ok: function () {
                     add();
@@ -129,6 +128,9 @@ function addException(tooltip) {
                 cancel: {
                     text: chrome.i18n.getMessage("cancelButton")
                 }
+            },
+            onOpenBefore: function () {
+                this.setContent($(chrome.i18n.getMessage(message, passSec.domain)));
             },
             backgroundDismissAnimation: "none",
             animateFromElement: false,
