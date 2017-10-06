@@ -284,6 +284,16 @@
     "description": "Delete cookies warning"
   },
 
+  "cookieOptionDeleteOnceSuccess": {
+    "message": "Cookies erfolgreich gelöscht!",
+    "description": "Delete cookies success"
+  },
+
+  "cookieOptionDeleteOnceFailure": {
+    "message": "Cookies konnten nicht gelöscht werden!",
+    "description": "Delete cookies failure"
+  },
+
   "cookieOptionDeleteAutomatically1": {
     "message": "Alle Cookies (inkl. Drittanbieter-Cookies)",
     "description": "First part of second cookie option heading"

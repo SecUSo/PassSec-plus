@@ -79,7 +79,13 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             manageRedirectHandler();
             break;
         case "deleteCookies":
-            chrome.browsingData.removeCookies({originTypes: {unprotectedWeb: true}});
+            chrome.browsingData.removeCookies({originTypes: {unprotectedWeb: true}}, function (details) {
+                if (chrome.runtime.lastError)
+                    chrome.runtime.sendMessage({type: "deletedCookies", status: "failure"});
+                else {
+                    chrome.runtime.sendMessage({type: "deletedCookies", status: "success"});
+                }
+            });
             break;
     }
 });

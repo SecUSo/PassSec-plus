@@ -1,3 +1,13 @@
+// listen for messages from background script
+chrome.runtime.onMessage.addListener(function (message) {
+    if (message.type === "deletedCookies") {
+        if (message.status === "success")
+            $("#statusSettings").html(chrome.i18n.getMessage("cookieOptionDeleteOnceSuccess")).show().delay(7000).fadeOut(500);
+        else
+            $("#statusSettings").html(chrome.i18n.getMessage("cookieOptionDeleteOnceFailure")).show().delay(7000).fadeOut(500);
+    }
+});
+
 $(document).ready(function () {
     $('.tabs .tab-links a').on('click', function (e) {
         let currentAttrValue = $(this).attr('href');
@@ -55,7 +65,7 @@ function addTexts() {
     // $("#checkExceptions").html(chrome.i18n.getMessage("checkExceptions"));
     // $("#checkAfter20").html(chrome.i18n.getMessage("checkExceptions20Starts")).attr("title", chrome.i18n.getMessage("checkExceptions20StartsTooltip"));
 
-    // Field tab
+    // Fields tab
     $("#fields").html(chrome.i18n.getMessage("tab4"));
     $("#fieldTypes").html(chrome.i18n.getMessage("fieldTypes"));
     $("#passwordField").html(chrome.i18n.getMessage("passwordField"));
@@ -116,15 +126,18 @@ function init(storage) {
     // Exceptions tab
     // $("#checkAfter20Checkbox").prop("checked", storage.checkExceptionsAfter20Starts.doCheck);
 
-    // Field tab
+    // Fields tab
     $("#pwField").prop("checked", storage.passwordField);
     $("#pyField").prop("checked", storage.paymentField);
     $("#perField").prop("checked", storage.personalField);
     $("#sField").prop("checked", storage.searchField);
 
-    // Additional
+    // Redirects and exceptions
     fillList("redirects", storage.redirects);
     fillList("exceptions", storage.exceptions);
+
+    // Cookies tab
+    $("#deleteCookiesOnStart").prop("checked", storage.deleteCookiesOnStart);
 }
 
 /**
