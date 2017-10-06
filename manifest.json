@@ -1,0 +1,62 @@
+{
+  "manifest_version": 2,
+  "name": "PassSec+",
+  "version": "2.0",
+  "author": "TU Darmstadt - SECUSO",
+  "homepage_url": "https://www.secuso.informatik.tu-darmstadt.de/en/secuso/forschung/ergebnisse/passsec/",
+  "description": "PassSec+ alerts the user to enter passwords on websites where they could be compromised.",
+  "default_locale": "de",
+  "background": {
+    "scripts": [
+      "js/default-preferences.js",
+      "background.js"
+    ],
+    "persistent": true
+  },
+  "permissions": [
+    "<all_urls>",
+    "storage",
+    "webRequest",
+    "webRequestBlocking",
+    "contextMenus",
+    "browsingData"
+  ],
+  "options_ui": {
+    "page": "options.html"
+  },
+  "icons": {
+    "64": "skin/logo.png"
+  },
+  "web_accessible_resources": [
+    "skin/*.png"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "css": [
+        "css/jquery.qtip.min.css",
+        "css/jquery-confirm.min.css",
+        "css/tooltip.css"
+      ],
+      "js": [
+        "js/jquery-3.2.1.min.js",
+        "js/jquery.qtip.min.js",
+        "js/jquery-confirm.min.js",
+        "js/security-status.js",
+        "js/tooltip.js",
+        "js/input-field.js",
+        "js/content-script.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": true
+    }
+  ],
+  "browser_action": {
+    "default_icon": {
+      "16": "skin/redirectActive.png"
+    },
+    "default_title": "__MSG_browserActionRedirectActive__"
+  }
+}

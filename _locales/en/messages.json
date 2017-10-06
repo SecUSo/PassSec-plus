@@ -1,0 +1,551 @@
+{
+  "domainInfo": {
+    "message": "The site you are visiting belongs to",
+    "description": "Info about webpage host"
+  },
+
+  "verifyDomain": {
+    "message": "Verify this information before you enter data here.",
+    "description": "Verify domain."
+  },
+
+  "exceptionHTTP": {
+    "message": "Add an exception",
+    "description": "Add an http exception"
+  },
+
+  "exceptionHTTPS": {
+    "message": "I have checked the information",
+    "description": "Add an https exception"
+  },
+
+  "secureMode": {
+    "message": "Secure Mode",
+    "description": "Secure mode"
+  },
+
+  "OK": {
+    "message": "OK, got it",
+    "description": "OK"
+  },
+
+  "cancelButton": {
+    "message": "Cancel",
+    "description": "Cancel button label"
+  },
+
+  "moreInfo": {
+    "message": "More information",
+    "description": "More information"
+  },
+
+  "settingsTitle": {
+    "message": "PassSec+ Settings",
+    "description": "Title for settings"
+  },
+
+  "tab1": {
+    "message": "General",
+    "description": "Heading for general tab"
+  },
+
+  "appearance": {
+    "message": "General appearance",
+    "description": "Title for appearance"
+  },
+
+  "appearanceSecure": {
+    "message": "Appearance, if the input is secure:",
+    "description": "Title for appearance if secure"
+  },
+
+  "appearanceNotSecure": {
+    "message": "Appearance, if the input is NOT secure:",
+    "description": "Title for appearance if not secure"
+  },
+
+  "changeIconText": {
+    "message": "You can change the icon for secure input here:",
+    "description": "Text for icon change"
+  },
+
+  "changeIconButton": {
+    "message": "Next icon",
+    "description": "Show next icon"
+  },
+
+  "tab2": {
+    "message": "Redirects",
+    "description": "Heading for redirects tab"
+  },
+
+  "recommendedRedirects": {
+    "message": "Recommended redirects",
+    "description": "Recommended redirects"
+  },
+
+  "addRedirectionList": {
+    "message": "It is possible to add some redirects recommended by SECUSO. More information and a list of redirects can be found on https://www.secuso.org/passsec.",
+    "description": "Recommended redirection list"
+  },
+
+  "addRecommendedRedirects": {
+    "message": "Add recommended redirects",
+    "description": "Recommended redirects"
+  },
+
+  "httpsRedirects": {
+    "message": "HTTPS redirects (secure mode)",
+    "description": "HTTPS redirects"
+  },
+
+  "showHttpsRedirects": {
+    "message": "Show list of HTTPS redirects",
+    "description": "Show HTTPS redirects"
+  },
+
+  "hideHttpsRedirects": {
+    "message": "Hide list of HTTPS redirects",
+    "description": "Hide HTTPS redirects"
+  },
+
+  "delete": {
+    "message": "Delete",
+    "description": "Delete"
+  },
+
+  "emptyList": {
+    "message": "Clear list",
+    "description": "Empty list"
+  },
+
+  "tab3": {
+    "message": "Exceptions",
+    "description": "Heading for exceptions tab"
+  },
+
+  "websiteExceptions": {
+    "message": "Website exceptions",
+    "description": "Website exceptions"
+  },
+
+  "showWebsiteExceptions": {
+    "message": "Show website exceptions",
+    "description": "Show website exceptions"
+  },
+
+  "hideWebsiteExceptions": {
+    "message": "Hide website exceptions",
+    "description": "Hide website exceptions"
+  },
+
+  "checkExceptions": {
+    "message": "Check exceptions",
+    "description": "Check website exceptions"
+  },
+
+  "checkExceptions20Starts": {
+    "message": "Check exceptions automatically after 20 browser starts.",
+    "description": "Check website exceptions after 20 starts"
+  },
+
+  "checkExceptions20StartsTooltip": {
+    "message": "This check is used to keep the list of exceptions up to date.",
+    "description": "Tooltip for Check website exceptions after 20 starts"
+  },
+
+  "tab4": {
+    "message": "Fields",
+    "description": "Heading for fields tab"
+  },
+
+  "fieldTypes": {
+    "message": "Types of fields, which are taken into consideration",
+    "description": "Types of fields for detection"
+  },
+
+  "passwordField": {
+    "message": "Password fields",
+    "description": "Password field"
+  },
+
+  "paymentField": {
+    "message": "Fields with payment information (E.g. credit card numbers)",
+    "description": "Payment field"
+  },
+
+  "personalField": {
+    "message": "Fields with further personal data (E.g. e-mail addresses)",
+    "description": "Personal field"
+  },
+
+  "searchField": {
+    "message": "Search query fields",
+    "description": "Search field"
+  },
+
+  "tab5": {
+    "message": "Cookies",
+    "description": "Heading for cookies tab"
+  },
+
+  "cookieOptionsHeading": {
+    "message": "To protect your privacy, please read the following paragraphs:",
+    "description": "Heading for cookie options"
+  },
+
+  "cookieIntroQuestion1": {
+    "message": "What are cookies?",
+    "description": "Cookie question"
+  },
+
+  "cookieIntroAnswer1": {
+    "message": "Cookies are files which are stored in plain text by websites on your PC/laptop. They include information such as searches  or preferences.",
+    "description": "Answer to previous question"
+  },
+
+  "cookieIntroQuestion2": {
+    "message": "For what purpose are cookies used?",
+    "description": "Cookie question"
+  },
+
+  "cookieIntroAnswer2": {
+    "message": "The website can identify you and thus personalize content, for example the homepage of a retailer.",
+    "description": "Answer to previous question"
+  },
+
+  "cookieIntroQuestion3": {
+    "message": "What are third-party cookies?",
+    "description": "Cookie question"
+  },
+
+  "cookieIntroAnswer3": {
+    "message": "These cookies are not stored on your PC/laptop by the website you are visiting, but by a third-party.",
+    "description": "Answer to previous question"
+  },
+
+  "cookieIntroQuestion4": {
+    "message": "For what purpose are third-party cookies deployed?",
+    "description": "Cookie question"
+  },
+
+  "cookieIntroAnswer4": {
+    "message": "Any third party can use them to display personalized advertising across multiple websites.",
+    "description": "Answer to previous question"
+  },
+
+  "cookieOptionDeleteOnce1": {
+    "message": "Nonrecurring deletion",
+    "description": "First part of first cookie option heading"
+  },
+
+  "cookieOptionDeleteOnce2": {
+    "message": "of all existing cookies (incl. third-party cookies)",
+    "description": "Second part of first cookie option heading"
+  },
+
+  "cookieOptionAdvantage": {
+    "message": "Advantage:",
+    "description": "Advantage"
+  },
+
+  "cookieOptionAdvantageText1": {
+    "message": "Prevents that any website visited in the past or third parties can use the stored cookies to gather more information about you.",
+    "description": "Advantage text"
+  },
+
+  "cookieOptionLimitation": {
+    "message": "Limitation:",
+    "description": "Limitation"
+  },
+
+  "cookieOptionLimitationText1": {
+    "message": "This option results in logging you out on websites, if an option such as 'Remember me' was activated.",
+    "description": "Limitation text"
+  },
+
+  "cookieOptionNote": {
+    "message": "Please note:",
+    "description": "Note"
+  },
+
+  "cookieOptionNoteText1": {
+    "message": "Passwords saved in the browser are not deleted. If you want to avoid the long-term storage of all cookies in the future, additionally select the next option.",
+    "description": "Note text"
+  },
+
+  "cookieOptionDeleteOnceButton": {
+    "message": "Delete cookies",
+    "description": "Delete cookies"
+  },
+
+  "cookieOptionDeleteOnceWarning": {
+    "message": "Do you really want to nonrecurring delete all cookies?\n\nThis step cannot be undone!",
+    "description": "Delete cookies warning"
+  },
+
+  "cookieOptionDeleteOnceSuccess": {
+    "message": "Cookies successfully deleted!",
+    "description": "Delete cookies success"
+  },
+
+  "cookieOptionDeleteOnceFailure": {
+    "message": "Cookies could not be deleted!",
+    "description": "Delete cookies failure"
+  },
+
+  "cookieOptionDeleteAutomatically1": {
+    "message": "Delete all cookies (incl. third-party cookies)",
+    "description": "First part of second cookie option heading"
+  },
+
+  "cookieOptionDeleteAutomatically2": {
+    "message": "automatically",
+    "description": "Second part of second cookie option heading"
+  },
+
+  "cookieOptionDeleteAutomatically3": {
+    "message": "every time the browser is started",
+    "description": "Third part of second cookie option heading"
+  },
+
+  "cookieOptionAdvantageText2": {
+    "message": "Passwords are stored unencrypted in cookies no longer than necessary.",
+    "description": "Advantage text"
+  },
+
+  "cookieOptionLimitationText2": {
+    "message": "This option means that you have to log in on websites again every time when starting the browser. (e.g. press the login button if you stored the password).",
+    "description": "Limitation text"
+  },
+
+  "cookieOptionNoteText2": {
+    "message": "Close your browser regularly, so that the cookies will be deleted on the next start up",
+    "description": "Note text"
+  },
+
+  "cookieOptionDeleteAutomaticallyCheckbox": {
+    "message": "Delete cookies automatically",
+    "description": "Checkbox text"
+  },
+
+  "httpsSecurity": {
+    "message": "HTTPS security",
+    "description": "HTTPS Security"
+  },
+
+  "brokenHTTPS": {
+    "message": "Classify BROKEN HTTPS connection as safe",
+    "description": "Broken HTTPS Security"
+  },
+
+  "brokenHTTPSDescription": {
+    "message": "BROKEN-HTTPS means that the website is encrypted with HTTPS, but also contains elements that are not encrypted and are therefore blocked by default by the browser.",
+    "description": "Broken HTTPS Security Description"
+  },
+
+  "saveChanges": {
+    "message": "Save changes",
+    "description": "Save changes"
+  },
+
+  "revertChanges": {
+    "message": "Revert changes",
+    "description": "Revert changes"
+  },
+
+  "defaultSettings": {
+    "message": "Restore default settings",
+    "description": "Default settings"
+  },
+
+  "defaultSettingsWarning": {
+    "message": "Do you really want to restore the default settings? All stored redirects and exceptions are going to be deleted!",
+    "description": "Warn user before restoring default settings"
+  },
+
+  "savedChanges":{
+    "message": "Changes saved! Please reload the page on which you are using PassSec+.",
+    "description": "Changes saved"
+  },
+
+  "reversedChanges":{
+    "message": "Changes reversed!",
+    "description": "Changes reversed"
+  },
+
+  "defaultSettingsRestored":{
+    "message": "Default settings restored! Please reload the page on which you are using PassSec+.",
+    "description": "Default settings"
+  },
+
+  "confirmAddingHttpException": {
+    "message": "<div>Do you really want to add an exception for this website?<br><br>If you add an exception, you are no longer warned on this page, that the input of data is not safe here. Exceptions may be reset in the add-on settings.<br><br>If you nevertheless enter your data here, please check the correctness of the address in any case: <div class='passSecDomain passSecDomainConfirm'>$URL$</div><br><br>Only enter data on this website if the address is correct. If this is not the case or you are unsure, click 'Cancel' and enter the address by hand. To continue, click 'OK'.</div>",
+    "description": "Warn user before adding exception on http site",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+
+  "confirmAddingHttpsException": {
+    "message": "<div>Do you want to add an exception for the website <div class='passSecDomain passSecDomainConfirm'>$URL$</div></div>?",
+    "description": "Warn user before adding exception on https site",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+
+  "browserActionRedirectActive": {
+    "message": "Stored HTTPS redirects active",
+    "description": "Saved redirects active"
+  },
+
+  "browserActionRedirectInactive": {
+    "message": "Stored HTTPS redirects inactive",
+    "description": "Saved redirects inactive"
+  },
+
+  "options": {
+    "message": "Options",
+    "description": "Options"
+  },
+
+  "recommendationHttpsAvailable": {
+    "message": "You should always use secure mode (https). [more]",
+    "description": "Recommendation to use https"
+  },
+
+  "moreRecommendationHttpsAvailable": {
+    "message": "You should always use secure mode (https). Click on the 'secure mode' button and you will be redirected to secure mode automatically in the future‏. [less]",
+    "description": "More recommendations info to use https"
+  },
+
+  "passwordInfoHttpsAvailable": {
+    "message": "More Information: The secure mode (https) protects your password from being intercepted and subsequently used to gain unauthorized access to your personal data, such as your e-mail/news, pictures, bank accounts or other sensitive information. Using secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
+    "description": "Info httsp: user enters login data."
+  },
+
+  "passwordConsequenceHttp": {
+    "message": "Your password could fall into the hands of an unauthorized person and could be used to access your personal data.",
+    "description": "Consequence http: user enters login data."
+  },
+
+  "passwordRecommendationHttp": {
+    "message": "This website does not offer a secure alternative (https). If you decide to log into this website anyway and you use the same password for other website accounts, you should change them immediately.",
+    "description": "Recommendation http: user enters login data."
+  },
+
+  "passwordInfoHttp": {
+    "message": "More Information: This website does not provide the option of entering and transmitting your password securely (via https). If you use the same password for other website accounts, and your password is intercepted by unauthorized people when you submit here, these people will gain access to your account on this webpage and also to all other websites where you use the same credentials. Therefore, it is very important to change the other website passwords immediately. [less]",
+    "description": "Info http: user enters login data."
+  },
+
+  "paymentInfoHttpsAvailable": {
+    "message": "More Information: The secure mode (https) protects your payment information from being intercepted and subsequently used to effect unauthorized payments. The secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
+    "description": "Info https: user enters payment data."
+  },
+
+  "paymentConsequenceHttp": {
+    "message": "If you enter your payment information on this website, an unauthorized persons can intercept them. They can then use your information for payments.",
+    "description": "Consequence http: user enters payment data."
+  },
+
+  "paymentRecommendationHttp": {
+    "message": "This website does not provide a secure alternative (https). You should not enter your payment details here.",
+    "description": "Recommendation http: user enters payment data."
+  },
+
+  "paymentInfoHttp": {
+    "message": "More Information: This website provides no way to protect your payment information from interception by unauthorized persons. If your payment information is intercepted here, it can be abused at any time, e.g. for fraudulent payments on the Internet. [less]",
+    "description": "Info http: user enters payment data."
+  },
+
+  "personalInfoHttpsAvailable": {
+    "message": "More Information: Secure mode (https) protects your personal data from eavesdropping. Secure mode (https) is particularly important when entering passwords, bank details or other sensitive information[less].",
+    "description": "Info https: user enters personal data."
+  },
+
+  "personalConsequenceHttp": {
+    "message": "When you enter your personal information on this site, an unauthorized person could intercept it. This may allow conclusions to be drawn about personal matters.",
+    "description": "Consequence http: user enters personal data."
+  },
+
+  "personalRecommendationHttp": {
+    "message": "This website does not provide a secure alternative (https). You should not enter any sensitive personal data here.",
+    "description": "Recommendation http: user enters personal data."
+  },
+
+  "personalInfoHttp": {
+    "message": "More Information: This website does not provide the option of transmitting your personal data (via https). If you enter sensitive personal data here, and it is intercepted by unauthorized people, it can be abused at any time, e.g. for stealing your identity. [less]",
+    "description": "Info http: user enters personal data."
+  },
+
+  "searchInfoHttpsAvailable": {
+    "message": "More Information: Secure mode (https) protects your search query from being intercepted. The secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
+    "description": "Info https: user enters search queries."
+  },
+
+  "searchConsequenceHttp": {
+    "message": "When you enter your search queries on this website, an unauthorized person could intercept it. This allows conclusions about your personal interests.",
+    "description": "Consequence http: user enters search queries."
+  },
+
+  "searchRecommendationHttp": {
+    "message": "This website does not provide a secure alternative (https). Enter your search query only if it contains no sensitive data.",
+    "description": "Recommendation http: user enters search queries."
+  },
+
+  "searchInfoHttp": {
+    "message": "More Information: This website does not provides a way to protect your search query from interception by unauthorized persons. If your query is intercepted, this may allow them to draw conclusions about sensitive personal interests. [less]",
+    "description": "Info http: user enters search queries."
+  },
+
+  "defaultInfoHttpsAvailable": {
+    "message": "More Information:  Secure mode (https) protects your data from being intercepted. The secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
+    "description": "Info https: user enters data."
+  },
+
+  "defaultConsequenceHttp": {
+    "message": "When you enter your data on this website, an unauthorized person could intercept it.",
+    "description": "Consequence http: user enters data."
+  },
+
+  "defaultRecommendationHttp": {
+    "message": "This website does not provide a secure alternative (https). Enter your data only if it contains no sensitive information.",
+    "description": "Recommendation http: user enters data."
+  },
+
+  "defaultInfoHttp": {
+    "message": "More Information: This website does not provides a way to protect your data from interception by unauthorized persons. If your data is intercepted here, it can be abused at any time. [less]",
+    "description": "Info http: user enters data."
+  },
+
+  "passwordWarning": {
+    "message": "It is insecure to enter a password here!",
+    "description": "Warn about insecurity of password field."
+  },
+
+  "paymentWarning": {
+    "message": "It is insecure to enter payment information here!",
+    "description": "Warn about insecurity of payment field."
+  },
+
+  "personalWarning": {
+    "message": "It is insecure to enter personal information here!",
+    "description": "Warn about insecurity of personal data field."
+  },
+
+  "searchWarning": {
+    "message": "It is insecure to enter search queries here!",
+    "description": "Warn about insecurity of query field."
+  },
+
+  "defaultWarning": {
+    "message": "It is insecure to enter data here!",
+    "description": "Warn about insecurity of input field of unknown type."
+  }
+}

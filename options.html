@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title id="title"></title>
+    <link type="text/css" rel="stylesheet" href="css/options.css"/>
+    <link type="text/css" rel="stylesheet" href="css/jquery-confirm.min.css"/>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-confirm.min.js"></script>
+    <script type="text/javascript" src="js/default-preferences.js"></script>
+    <script type="text/javascript" src="js/options.js"></script>
+</head>
+<body>
+<h1 id="options"></h1>
+<div class="tabs">
+    <ul class="tab-links">
+        <li class="active"><a href="#tab1" id="general"></a></li>
+        <li><a href="#tab2" id="redirects"></a></li>
+        <li><a href="#tab3" id="exceptions"></a></li>
+        <li><a href="#tab4" id="fields"></a></li>
+        <li><a href="#tab5" id="cookies"></a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="tab1" class="tab active">
+            <h3 id="appearance"></h3>
+            <p id="appearanceSecure"></p>
+            <input id="secureInputType" type="text" value="***"></p>
+            <p id="appearanceNotSecure"></p>
+            <input id="notSecureInputType" type="text" value="***"></p>
+            <p id="changeIconText"></p>
+            <div id="changeIconGroup">
+                <button id="changeIconButton" class="float"></button>
+                <img id="iconImg" alt="Icon">
+            </div>
+        </div>
+
+        <div id="tab2" class="tab">
+            <h3 id="httpsRedirects"></h3>
+            <button id="showRedirects"></button>
+            <br><br>
+            <button id="clearRedirectionList"></button>
+        </div>
+
+        <div id="tab3" class="tab">
+            <h3 id="websiteExceptions"></h3>
+            <button id="showWebsiteExceptions"></button>
+            <br><br>
+            <button id="clearExceptionList"></button>
+            <!--
+            <br><br>
+            <button id="checkExceptions"></button>
+            <br><br>
+            <div class="checkbox">
+                <input id="checkAfter20Checkbox" type="checkbox">
+                <label for="checkAfter20Checkbox" id="checkAfter20"></label>
+            </div>
+            -->
+        </div>
+
+        <div id="tab4" class="tab">
+            <h3 id="fieldTypes"></h3>
+            <div class="tableWrapper">
+                <div class="checkbox">
+                    <input id="pwField" type="checkbox">
+                    <label for="pwField" id="passwordField"></label>
+                </div>
+                <div class="checkbox">
+                    <input id="pyField" type="checkbox">
+                    <label for="pyField" id="paymentField"></label>
+                </div>
+                <div class="checkbox">
+                    <input id="perField" type="checkbox">
+                    <label for="perField" id="personalField"></label>
+                </div>
+                <div class="checkbox">
+                    <input id="sField" type="checkbox" class="float">
+                    <label for="sField" id="searchField"></label>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab5" class="tab">
+            <h3 id="cookieOptionsHeading" class="cookieOptionHeading"></h3>
+            <div class="tableWrapper">
+                <div class="cookieOptionRow">
+                    <p id="cookieIntroQuestion1" class="cookieOptionLine boldText"></p>
+                    <p id="cookieIntroAnswer1" class="cookieOptionLine"></p>
+                </div>
+                <div class="cookieOptionRow">
+                    <p id="cookieIntroQuestion2" class="cookieOptionLine boldText"></p>
+                    <p id="cookieIntroAnswer2" class="cookieOptionLine"></p>
+                </div>
+                <div class="cookieOptionRow">
+                    <p id="cookieIntroQuestion3" class="cookieOptionLine boldText"></p>
+                    <p id="cookieIntroAnswer3" class="cookieOptionLine"></p>
+                </div>
+                <div class="cookieOptionRow">
+                    <p id="cookieIntroQuestion4" class="cookieOptionLine boldText"></p>
+                    <p id="cookieIntroAnswer4" class="cookieOptionLine"></p>
+                </div>
+            </div>
+            <hr>
+            <h3 id="cookieOptionDeleteOnce1" class="cookieOptionHeading boldText italicText"></h3>
+            <h3 id="cookieOptionDeleteOnce2" class="cookieOptionHeading boldText"></h3>
+            <div class="tableWrapper">
+                <div class="cookieOptionRow">
+                    <p id="cookieOptionAdvantage1" class="cookieOptionLine boldText"></p>
+                    <p id="cookieOptionAdvantageText1" class="cookieOptionLine"></p>
+                </div>
+                <div class="cookieOptionRow">
+                    <p id="cookieOptionLimitation1" class="cookieOptionLine boldText"></p>
+                    <p id="cookieOptionLimitationText1" class="cookieOptionLine"></p>
+                </div>
+                <div class="cookieOptionRow">
+                    <p id="cookieOptionNote1" class="cookieOptionLine boldText"></p>
+                    <p id="cookieOptionNoteText1" class="cookieOptionLine"></p>
+                </div>
+            </div>
+            <button id="cookieOptionDeleteOnceButton"></button>
+            <hr>
+            <h3 id="cookieOptionDeleteAutomatically1" class="cookieOptionHeading boldText"></h3>
+            <h3 id="cookieOptionDeleteAutomatically2" class="cookieOptionHeading boldText italicText"></h3>
+            <h3 id="cookieOptionDeleteAutomatically3" class="cookieOptionHeading boldText"></h3>
+            <div class="tableWrapper">
+                <div class="cookieOptionRow">
+                    <p id="cookieOptionAdvantage2" class="cookieOptionLine boldText"></p>
+                    <p id="cookieOptionAdvantageText2" class="cookieOptionLine"></p>
+                </div>
+                <div class="cookieOptionRow">
+                    <p id="cookieOptionLimitation2" class="cookieOptionLine boldText"></p>
+                    <p id="cookieOptionLimitationText2" class="cookieOptionLine"></p>
+                </div>
+                <div class="cookieOptionRow">
+                    <p id="cookieOptionNote2" class="cookieOptionLine boldText"></p>
+                    <p id="cookieOptionNoteText2" class="cookieOptionLine"></p>
+                </div>
+            </div>
+            <div class="checkbox">
+                <input id="deleteCookiesOnStart" type="checkbox" class="float">
+                <label for="deleteCookiesOnStart" id="cookieOptionDeleteAutomaticallyCheckbox"></label>
+            </div>
+        </div>
+    </div>
+
+    <div id="optionButtons">
+        <button id="revertChanges"></button>
+        <button id="defaultSettings"></button>
+    </div>
+
+    <p id="statusSettings"></p>
+
+    <div class="lists">
+        <table id="redirectList">
+            <tr>
+                <th id="redirectListTitle"></th>
+            </tr>
+        </table>
+        <table id="exceptionList">
+            <tr>
+                <th id="exceptionListTitle"></th>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
