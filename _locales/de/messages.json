@@ -285,7 +285,7 @@
   },
 
   "cookieOptionDeleteOnceSuccess": {
-    "message": "Cookies erfolgreich gelöscht!",
+    "message": "Cookies erfolgreich gelöscht! Sie müssen sich gegebenenfalls auf Webseiten erneut anmelden.",
     "description": "Delete cookies success"
   },
 

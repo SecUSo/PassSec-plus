@@ -49,7 +49,17 @@ chrome.contextMenus.create({
 chrome.storage.local.get(["deleteCookiesOnStart", "checkExceptionsAfter20Starts"], function (item) {
     // delete cookies
     if (item.deleteCookiesOnStart) {
-        chrome.browsingData.removeCookies({originTypes: {unprotectedWeb: true}});
+        chrome.browsingData.removeCookies({originTypes: {unprotectedWeb: true}}, function (details) {
+            let messageToDisplay = chrome.i18n.getMessage("cookieOptionDeleteOnceSuccess");
+            if (chrome.runtime.lastError)
+                messageToDisplay = chrome.i18n.getMessage("cookieOptionDeleteOnceFailure");
+            chrome.notifications.create({
+                type: "basic",
+                title: "PassSec+",
+                message: messageToDisplay,
+                iconUrl: chrome.extension.getURL("skin/logo.png")
+            });
+        });
     }
     // count browser starts and do exceptions checking
     // let check = item.checkExceptionsAfter20Starts;

@@ -19,7 +19,8 @@
     "webRequest",
     "webRequestBlocking",
     "contextMenus",
-    "browsingData"
+    "browsingData",
+    "notifications"
   ],
   "options_ui": {
     "page": "options.html"
