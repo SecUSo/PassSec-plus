@@ -14,6 +14,11 @@ chrome.runtime.onInstalled.addListener(function (details) {
     }
 });
 
+// set correct browser action icon on startup, because Chrome sometimes switches the set default_icon
+// to the last used one, which can produce undesired behaviour: browser action icon was red when
+// closing the browser -> active redirecting, but red icon on next startup
+chrome.browserAction.setIcon({path: "skin/redirectActive.png"});
+
 // handle left-click on browser action icon
 chrome.browserAction.onClicked.addListener(function (tab) {
     redirectsActive = !redirectsActive;
