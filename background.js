@@ -1,16 +1,41 @@
 // used as a switch activating/disabling saved redirects
 let redirectsActive = true;
 
-// do some stuff on first run
+// initialize storage on first run or add-on update
 chrome.runtime.onInstalled.addListener(function (details) {
-    if (details.reason === "install") {
+    function initStorage() {
         // init storage
-        chrome.storage.local.set(PassSec);
-        // change the secure-image to a random one
-        let image = Math.floor(Math.random() * 10) + 1;
-        chrome.storage.local.set({secureImage: image});
-        // open options page
-        chrome.runtime.openOptionsPage();
+        chrome.storage.local.set(PassSec, function () {
+            // change the secure-image to a random one
+            let image = Math.floor(Math.random() * 10) + 1;
+            chrome.storage.local.set({secureImage: image}, function () {
+                // open options page
+                chrome.runtime.openOptionsPage();
+            });
+        });
+    }
+    if (details.reason === "install") {
+        initStorage();
+    }
+    if (details.reason === "update") {
+        chrome.storage.local.get(null, function (items) {
+            let storageKeys = Object.keys(items);
+            if (storageKeys.length === 0) {
+                // if we update from the old XUL version, the listener is never triggered
+                // with reason 'install', so we have to do the storage initialization here
+                initStorage();
+            } else {
+                // if the update introduced new options, we only initialize those
+                let newOptions = {};
+                Object.keys(PassSec).forEach(function (key) {
+                    if (!storageKeys.includes(key)) {
+                        newOptions[key] = PassSec[key];
+                    }
+                });
+                if (Object.keys(newOptions).length > 0)
+                    chrome.storage.local.set(newOptions);
+            }
+        });
     }
 });
 
