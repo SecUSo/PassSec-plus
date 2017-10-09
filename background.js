@@ -1,42 +1,27 @@
 // used as a switch activating/disabling saved redirects
 let redirectsActive = true;
 
-// initialize storage on first run or add-on update
-chrome.runtime.onInstalled.addListener(function (details) {
-    function initStorage() {
-        // init storage
-        chrome.storage.local.set(PassSec, function () {
-            // change the secure-image to a random one
-            let image = Math.floor(Math.random() * 10) + 1;
-            chrome.storage.local.set({secureImage: image}, function () {
-                // open options page
-                chrome.runtime.openOptionsPage();
-            });
-        });
-    }
-    if (details.reason === "install") {
-        initStorage();
-    }
-    if (details.reason === "update") {
-        chrome.storage.local.get(null, function (items) {
-            let storageKeys = Object.keys(items);
-            if (storageKeys.length === 0) {
-                // if we update from the old XUL version, the listener is never triggered
-                // with reason 'install', so we have to do the storage initialization here
-                initStorage();
+// initialize storage
+chrome.storage.local.get(null, function (items) {
+    let storageKeys = Object.keys(items);
+    // init storage with all options that are not present
+    let newOptions = {};
+    Object.keys(PassSec).forEach(function (key) {
+        if (!storageKeys.includes(key)) {
+            if (key === "secureImage") {
+                // set a random secure-image instead of the default one
+                newOptions[key] = Math.floor(Math.random() * 10) + 1;
             } else {
-                // if the update introduced new options, we only initialize those
-                let newOptions = {};
-                Object.keys(PassSec).forEach(function (key) {
-                    if (!storageKeys.includes(key)) {
-                        newOptions[key] = PassSec[key];
-                    }
-                });
-                if (Object.keys(newOptions).length > 0)
-                    chrome.storage.local.set(newOptions);
+                newOptions[key] = PassSec[key];
             }
+        }
+    });
+    if (Object.keys(newOptions).length > 0)
+        chrome.storage.local.set(newOptions, function () {
+            if (storageKeys.length === 0)
+                // storage was empty -> first run of this WebExtensions version (install or update)
+                chrome.runtime.openOptionsPage();
         });
-    }
 });
 
 // set correct browser action icon on startup, because Chrome sometimes switches the set default_icon
