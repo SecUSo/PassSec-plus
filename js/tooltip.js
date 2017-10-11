@@ -105,6 +105,7 @@ function addException(tooltip) {
                 chrome.storage.local.set({exceptions: updatedExceptions}, function () {
                     let classToRemove = passSec.security === "http" ? "passSec-http" : "passSec-https";
                     $('.' + classToRemove).removeClass(classToRemove).addClass("passSec-httpsEV");
+                    $('[data-passSec-security='+ classToRemove + ']').attr("data-passSec-security", "passSec-httpsEV");
                     passSec.security = "httpsEV";
                     if (tooltip)
                         passSec.api.destroy(true);

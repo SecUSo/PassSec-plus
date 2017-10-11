@@ -11,6 +11,9 @@ function processInputs(storage) {
         let fieldType = determineFieldType(this, storage);
         if (typeof fieldType !== "undefined") {
             $(this).addClass(borderType);
+            // add border type as attribute, so we have a backup selector for websites that
+            // reset the 'class' attribute for styling, instead of only adding/removing classes
+            $(this).attr("data-passSec-security", borderType);
             // add field type as attribute, so we don't have to do the check a second time when opening the tooltip
             switch (fieldType) {
                 case "password":
@@ -37,7 +40,7 @@ function processInputs(storage) {
     //If the css is not in the document, add the css to the current document
     if (!dynamicStyle) {
         let secureImageStyle = '' +
-            '.passSec-https {' +
+            '.passSec-https, [data-passSec-security=passSec-https] {' +
             '    background-image: url("' + chrome.extension.getURL("skin/check/orange/o_icon" + storage.secureImage + ".png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +
@@ -46,7 +49,7 @@ function processInputs(storage) {
             '}\n';
 
         let secureEVImageStyle = '' +
-            '.passSec-httpsEV {' +
+            '.passSec-httpsEV, [data-passSec-security=passSec-httpsEV] {' +
             '    background-image: url("' + chrome.extension.getURL("skin/check/gruen/gr_icon" + storage.secureImage + ".png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +
@@ -55,7 +58,7 @@ function processInputs(storage) {
             '}\n';
 
         let warningImageStyle = '' +
-            '.passSec-http {' +
+            '.passSec-http, [data-passSec-security=passSec-http] {' +
             '    background-image: url("' + chrome.extension.getURL("skin/yellow_triangle.png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +

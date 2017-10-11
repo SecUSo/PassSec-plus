@@ -51,7 +51,7 @@ getTLDs.then(function (tld) {
  */
 function applyTooltip(element, event) {
     // only show tooltip on security status "http" or "https", "httpsEV" does not show any tooltips
-    if (element.classList.contains("passSec-http") || element.classList.contains("passSec-https")) {
+    if ($(element).hasClass("passSec-http") || $(element).hasClass("passSec-https") || $(element).attr("data-passSec-security") === "passSec-http" || $(element).attr("data-passSec-security") === "passSec-https") {
         passSec.target = element;
         $(element).qtip({
             overwrite: true,
