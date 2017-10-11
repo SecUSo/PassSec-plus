@@ -2,25 +2,25 @@
  * Returns the HTML skeleton for a tooltip
  */
 function getTooltipHTML() {
-    return '<span id="passSecWarning" class="http-warning"></span>' +
+    return '<span id="passSecWarning" class="http-warning passSecTooltipText"></span>' +
         '<hr class="http-warning">' +
-        '<span id="passSecURL">' + chrome.i18n.getMessage("domainInfo") + '<span id="passSecDomain">' + passSec.domain + '</span>.</span>' +
-        '<span id="passSecVerify">' + chrome.i18n.getMessage("verifyDomain") + '</span>' +
+        '<span id="passSecURL" class="passSecTooltipText">' + chrome.i18n.getMessage("domainInfo") + '<span id="passSecDomain" class="passSecTooltipText">' + passSec.domain + '</span>.</span>' +
+        '<span id="passSecVerify" class="passSecTooltipText">' + chrome.i18n.getMessage("verifyDomain") + '</span>' +
         '<div id="passSecConsequence" class="http-warning">' +
         '<img id="passSecConsequenceImage" src=' + chrome.extension.getURL("skin/consequence.png") + '>' +
-        '<p id="passSecConsequenceText"></p>' +
+        '<p id="passSecConsequenceText" class="passSecTooltipText"></p>' +
         '</div>' +
         '<div id="passSecRecommendation" class="http-warning littleText">' +
         '<img id="passSecRecommendationImage" src=' + chrome.extension.getURL("skin/recommendation.png") + '>' +
-        '<p id="passSecRecommendationText"></p>' +
+        '<p id="passSecRecommendationText" class="passSecTooltipText"></p>' +
         '</div>' +
         '<div id="passSecInfo" class="http-warning littleText">' +
         '<img id="passSecInfoImage" src=' + chrome.extension.getURL("skin/more_info.png") + '>' +
-        '<p id="passSecInfoText" class="passSecClickable">' + chrome.i18n.getMessage("moreInfo") + '</p>' +
+        '<p id="passSecInfoText" class="passSecClickable passSecTooltipText">' + chrome.i18n.getMessage("moreInfo") + '</p>' +
         '</div>' +
         '<div id="passSecButtons>">' +
-        '<button id="passSecButtonException" type="button"></button>' +
-        '<button id="passSecButtonClose" type="button">' + chrome.i18n.getMessage("OK") + ' </button>' +
+        '<button id="passSecButtonException" type="button" class="passSecTooltipText"></button>' +
+        '<button id="passSecButtonClose" type="button" class="passSecTooltipText">' + chrome.i18n.getMessage("OK") + ' </button>' +
         '</div>';
 }
 

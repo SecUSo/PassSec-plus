@@ -81,7 +81,6 @@ function applyTooltip(element, event) {
             style: {
                 tip: false,
                 classes: 'passSecTooltip',
-                widget: true,
                 def: false
             },
             events: {

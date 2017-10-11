@@ -5,12 +5,27 @@
 .qtip-content {
     border-color: #ffffcd !important;
     background-color: #ffffcd !important;
+    cursor: default;
+    text-rendering: optimizeLegibility;
+}
+
+.passSecTooltipText {
     font-size: 13px !important;
     color: black !important;
     font-family: Corbel, sans-serif !important;
     line-height: 110% !important;
-    cursor: default;
-    text-rendering: optimizeLegibility;
+}
+
+p.passSecTooltipText {
+    margin: 13px 0;
+}
+
+hr.http-warning {
+    margin: 5px 0;
+    border: 0;
+    height: 1px;
+    color: black;
+    background-color: black;
 }
 
 #passSecPhishingText, #passSecConsequenceText, #passSecRecommendationText, #passSecInfoText {
