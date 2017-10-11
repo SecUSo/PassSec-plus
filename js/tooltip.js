@@ -110,11 +110,6 @@ function addException(tooltip) {
                     if (tooltip)
                         passSec.api.destroy(true);
                 });
-            } else {
-                $('.passSec-http').removeClass("passSec-http").addClass("passSec-httpsEV");
-                passSec.security = "httpsEV";
-                if (tooltip)
-                    passSec.api.destroy(true);
             }
         });
     }
