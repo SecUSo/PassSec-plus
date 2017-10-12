@@ -89,6 +89,9 @@ hr.http-warning {
     color: black !important;
     padding: 2px 4px !important;
     font-family: Corbel, sans-serif !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    cursor: default !important;
 }
 
 #passSecButtonException.redButton {
