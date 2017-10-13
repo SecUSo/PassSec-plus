@@ -22,22 +22,21 @@ getTLDs.then(function (tld) {
     passSec.url = document.location.href;
     passSec.domain = extractDomain(document.location.host, tld);
     chrome.storage.local.get(null, function (items) {
-        getSecurityStatus(items).then(function () {
-            processInputs(items);
-            // normally the focus event handler would be enough here, but we need the mousedown down handler
-            // and the 'inputElementClicked' flag to accomplish the following: When the user closes the tooltip
-            // by clicking 'Ok, got it.', the tooltip should open up again when clicking on the still focused
-            // input element (so the tooltip should open, even though no focus event is fired, but it should not
-            // open up twice if focus of an element is caused by a click)
-            $('body').on('mousedown', 'input', function (event) {
-                if (!$(event.target).is($(document.activeElement)))
-                    inputElementClicked = true;
+        getSecurityStatus(items);
+        processInputs(items);
+        // normally the focus event handler would be enough here, but we need the mousedown down handler
+        // and the 'inputElementClicked' flag to accomplish the following: When the user closes the tooltip
+        // by clicking 'Ok, got it.', the tooltip should open up again when clicking on the still focused
+        // input element (so the tooltip should open, even though no focus event is fired, but it should not
+        // open up twice if focus of an element is caused by a click)
+        $('body').on('mousedown', 'input', function (event) {
+            if (!$(event.target).is($(document.activeElement)))
+                inputElementClicked = true;
+            applyTooltip(event.target, event);
+        }).on('focus', 'input', function (event) {
+            if (!inputElementClicked)
                 applyTooltip(event.target, event);
-            }).on('focus', 'input', function (event) {
-                if (!inputElementClicked)
-                    applyTooltip(event.target, event);
-                inputElementClicked = false;
-            });
+            inputElementClicked = false;
         });
     });
 });
