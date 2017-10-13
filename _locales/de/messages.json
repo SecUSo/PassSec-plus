@@ -1,4 +1,9 @@
 {
+  "addOnDescription": {
+    "message": "PassSec+ warnt den Benutzer davor Kennwörter auf unsicheren Webseiten einzugeben.",
+    "description": "Short description of the add-on's functionality"
+  },
+
   "domainInfo": {
     "message": "Sie besuchen eine Seite des Betreibers",
     "description": "Info about webpage host"

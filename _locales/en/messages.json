@@ -1,4 +1,9 @@
 {
+  "addOnDescription": {
+    "message": "PassSec+ alerts the user to enter passwords on websites where they could be compromised.",
+    "description": "Short description of the add-on's functionality"
+  },
+
   "domainInfo": {
     "message": "The site you are visiting belongs to",
     "description": "Info about webpage host"
