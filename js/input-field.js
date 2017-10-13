@@ -164,7 +164,7 @@ function determineFieldType(element, storage) {
     }
 
     // Add the appropriate field type if it is set by the type attribute
-    let attr = element.getAttribute("type").toLowerCase();
+    let attr = element.getAttribute("type");
     if (attr) {
         switch (attr) {
             case "password":
