@@ -16,6 +16,10 @@
     line-height: 110% !important;
 }
 
+.passSecTooltipText#passSecDomain {
+    font-family: Calibri, sans-serif !important;
+}
+
 p.passSecTooltipText {
     margin: 13px 0;
 }
