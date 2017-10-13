@@ -29,11 +29,11 @@ getTLDs.then(function (tld) {
         // by clicking 'Ok, got it.', the tooltip should open up again when clicking on the still focused
         // input element (so the tooltip should open, even though no focus event is fired, but it should not
         // open up twice if focus of an element is caused by a click)
-        $('body').on('mousedown', 'input', function (event) {
+        $('body').on('mousedown', 'input,textarea', function (event) {
             if (!$(event.target).is($(document.activeElement)))
                 inputElementClicked = true;
             applyTooltip(event.target, event);
-        }).on('focus', 'input', function (event) {
+        }).on('focus', 'input,textarea', function (event) {
             if (!inputElementClicked)
                 applyTooltip(event.target, event);
             inputElementClicked = false;
