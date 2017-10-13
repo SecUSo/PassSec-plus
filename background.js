@@ -1,5 +1,9 @@
 // used as a switch activating/disabling saved redirects
 let redirectsActive = true;
+// list of top level domains for domain extraction
+let tldList = null;
+// queue of content scripts (as [host, tabId, frameId]) waiting for domain extraction
+let domainExtractionQueue = [];
 
 // initialize storage
 chrome.storage.local.get(null, function (items) {
@@ -112,6 +116,34 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                 }
             });
             break;
+        case "extractDomain":
+            if (tldList === null) {
+                // tldList is not yet present -> add request to queue
+                domainExtractionQueue.push([message.host, sender.tab.id, sender.frameId]);
+            } else {
+                let domain = extractDomain(message.host, tldList);
+                chrome.tabs.sendMessage(sender.tab.id, {type: "extractedDomain", domain: domain}, {frameId: sender.frameId});
+            }
+            break;
+    }
+});
+
+// get top level domains (for domain extraction in urls)
+let getTLDs = new Promise(function (resolve, reject) {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (xhttp.readyState === 4)
+            resolve(xhttp.response);
+    };
+    xhttp.open('GET', "https://publicsuffix.org/list/public_suffix_list.dat", true);
+    xhttp.send(null);
+});
+getTLDs.then(function (tld) {
+    tldList = tld;
+    // if there are any content scripts waiting for domain extraction, process them now
+    for (let i = 0; i < domainExtractionQueue.length; i++) {
+        let domain = extractDomain(domainExtractionQueue[i][0], tldList);
+        chrome.tabs.sendMessage(domainExtractionQueue[i][1], {type: "extractedDomain", domain: domain}, {frameId: domainExtractionQueue[i][2]});
     }
 });
 
@@ -141,4 +173,28 @@ function manageRedirectHandler() {
 function handleRedirect(requestDetails) {
     let httpsURL = requestDetails.url.replace("http://", "https://");
     return {redirectUrl: httpsURL};
+}
+
+/**
+ * Extracts the domain out of a given URL
+ *
+ * @param url The URL of which the domain should be extracted
+ * @param tld A list of known top level domains
+ */
+function extractDomain(url, tld) {
+    let split = url.split(".");
+    if (split.length > 2) url = split[split.length - 2] + "." + split[split.length - 1];
+
+    let arr = tld.split("\n").filter(function (value) {
+        return value !== "" && !value.startsWith("//") && value.split(".").length >= 3
+    });
+    if (arr.toString().indexOf(url) > -1) {
+        let arr2 = tld.split("\n").filter(function (value) {
+            return value !== "" && !value.startsWith("//") && value.indexOf(url) > -1
+        });
+        let temp = "bla";
+        if (split.length >= 3) temp = split[split.length - 3] + "." + split[split.length - 2] + "." + split[split.length - 1];
+        if (arr2.indexOf(temp) > -1 || (arr2.indexOf("*." + url) > -1 && arr2.indexOf("!" + temp) === -1)) return temp;
+    }
+    return url;
 }
