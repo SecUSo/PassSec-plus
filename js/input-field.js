@@ -6,8 +6,9 @@
  */
 function processInputs(storage) {
     let borderType = "passSec-" + passSec.security;
-    // process only input fields set in options
-    $("input").not("input[type=submit]").each(function (index) {
+    // exclude input elements from analysis that cannot be used to input meaningful data (type submit|reset|button|image)
+    // and that cannot be styled appropriately (type radio|checkbox)
+    $('input:not([type=submit],[type=reset],[type=button],[type=image],[type=radio],[type=checkbox])').each(function (index) {
         let fieldType = determineFieldType(this, storage);
         if (typeof fieldType !== "undefined") {
             $(this).addClass(borderType);
@@ -76,13 +77,15 @@ function processInputs(storage) {
  * Determines the type of the field by doing heuristic checks.
  * Returns the type of the field or undefined if the field should not be handled.
  *
- * @param element the input field element to be analyzed
- * @returns the field type as a string, undefined otherwise
+ * @param element The input field element to be analyzed
+ * @param storage Object containing the set options at the time of calling this function
+ * @returns The field type as a string, undefined otherwise
  */
 function determineFieldType(element, storage) {
     let fieldType = undefined;
     let determineMap = {};
 
+    // only process input fields set in options
     let detectPwFields = storage.passwordField;
     let detectPayFields = storage.paymentField;
     let detectPersonalFields = storage.personalField;
