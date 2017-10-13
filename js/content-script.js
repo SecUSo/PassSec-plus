@@ -73,7 +73,10 @@ function applyTooltip(element, event) {
                 my: 'top left',
                 viewport: true,
                 adjust: {
-                    method: 'shift flip',
+                    // We don't do a vertical flip here, because if we do a flip, it can happen that the tooltip is
+                    // displayed outside of the viewport, but if we don't do the flip, the height is extended and the
+                    // user can scroll down to see the tooltip contents
+                    method: 'shift none',
                     scroll: false
                 }
             },
