@@ -385,7 +385,7 @@
   },
 
   "confirmAddingHttpException": {
-    "message": "<div>Do you really want to add an exception for this website?<br><br>If you add an exception, you are no longer warned on this page, that the input of data is not safe here. Exceptions may be reset in the add-on settings.<br><br>If you nevertheless enter your data here, please check the correctness of the address in any case: <div class='passSecDomain passSecDomainConfirm'>$URL$</div><br><br>Only enter data on this website if the address is correct. If this is not the case or you are unsure, click 'Cancel' and enter the address by hand. To continue, click 'OK'.</div>",
+    "message": "<div class='passSecConfirm'>Do you really want to add an exception for this website?<br><br>If you add an exception, you are no longer warned on this page, that the input of data is not safe here. Exceptions may be reset in the add-on settings.<br><br>If you nevertheless enter your data here, please check the correctness of the address in any case: <div class='passSecDomain passSecDomainConfirm'>$URL$</div><br><br>Only enter data on this website if the address is correct. If this is not the case or you are unsure, click 'Cancel' and enter the address by hand. To continue, click 'OK'.</div>",
     "description": "Warn user before adding exception on http site",
     "placeholders": {
       "url": {

@@ -117,6 +117,7 @@ function addException(tooltip) {
         let message = passSec.security === "http" ? "confirmAddingHttpException" : "confirmAddingHttpsException";
         $.confirm({
             title: "PassSec+",
+            titleClass: "passSecConfirmTitle",
             buttons: {
                 ok: function () {
                     add();

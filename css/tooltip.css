@@ -11,12 +11,19 @@
 
 .passSecTooltipText {
     font-size: 13px !important;
-    color: black !important;
-    font-family: Corbel, sans-serif !important;
     line-height: 110% !important;
 }
 
-.passSecTooltipText#passSecDomain {
+.passSecConfirm {
+    font-size: 14px !important;
+}
+
+.passSecTooltipText, .passSecConfirmTitle, .passSecConfirm {
+    color: black !important;
+    font-family: Corbel, sans-serif !important;
+}
+
+.passSecTooltipText#passSecDomain, .passSecDomain.passSecDomainConfirm {
     font-family: Calibri, sans-serif !important;
 }
 
