@@ -395,7 +395,7 @@
   },
 
   "confirmAddingHttpsException": {
-    "message": "<div>Do you want to add an exception for the website <div class='passSecDomain passSecDomainConfirm'>$URL$</div></div>?",
+    "message": "<div class='passSecConfirm'>Do you want to add an exception for the website <div class='passSecDomain passSecDomainConfirm'>$URL$</div></div>?",
     "description": "Warn user before adding exception on https site",
     "placeholders": {
       "url": {
