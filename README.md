@@ -1,8 +1,7 @@
 # PassSec+
-PassSec+ is an extension of the original PassSec add-on. The functionality of the Firefox-desktop add-on is split into two key functions, as explained in more detail on the website.
+PassSec+ is an extension of the original PassSec add-on. The functionality of the Firefox-desktop add-on is explained in more detail on the website.
 
 * Protection of passwords, bank details and other sensitive data
-* Changing cookie settings for more privacy
 
 **The extension is available here (search for 'PassSec+'):**<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<https://addons.mozilla.org/en/firefox/><br>

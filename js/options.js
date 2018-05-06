@@ -1,12 +1,3 @@
-// listen for messages from background script
-chrome.runtime.onMessage.addListener(function (message) {
-    if (message.type === "deletedCookies") {
-        if (message.status === "success")
-            $("#statusSettings").html(chrome.i18n.getMessage("cookieOptionDeleteOnceSuccess")).show().delay(7000).fadeOut(500);
-        else
-            $("#statusSettings").html(chrome.i18n.getMessage("cookieOptionDeleteOnceFailure")).show().delay(7000).fadeOut(500);
-    }
-});
 
 $(document).ready(function () {
     $('.tabs .tab-links a').on('click', function (e) {
@@ -73,37 +64,7 @@ function addTexts() {
     $("#personalField").html(chrome.i18n.getMessage("personalField"));
     $("#searchField").html(chrome.i18n.getMessage("searchField"));
 
-    // Cookies tab
-    $("#cookies").html(chrome.i18n.getMessage("tab5"));
-    $("#cookieOptionsHeading").html(chrome.i18n.getMessage("cookieOptionsHeading"));
-    $("#cookieIntroQuestion1").html(chrome.i18n.getMessage("cookieIntroQuestion1"));
-    $("#cookieIntroAnswer1").html(chrome.i18n.getMessage("cookieIntroAnswer1"));
-    $("#cookieIntroQuestion2").html(chrome.i18n.getMessage("cookieIntroQuestion2"));
-    $("#cookieIntroAnswer2").html(chrome.i18n.getMessage("cookieIntroAnswer2"));
-    $("#cookieIntroQuestion3").html(chrome.i18n.getMessage("cookieIntroQuestion3"));
-    $("#cookieIntroAnswer3").html(chrome.i18n.getMessage("cookieIntroAnswer3"));
-    $("#cookieIntroQuestion4").html(chrome.i18n.getMessage("cookieIntroQuestion4"));
-    $("#cookieIntroAnswer4").html(chrome.i18n.getMessage("cookieIntroAnswer4"));
-    $("#cookieOptionDeleteOnce1").html(chrome.i18n.getMessage("cookieOptionDeleteOnce1"));
-    $("#cookieOptionDeleteOnce2").html(chrome.i18n.getMessage("cookieOptionDeleteOnce2"));
-    $("#cookieOptionAdvantage1").html(chrome.i18n.getMessage("cookieOptionAdvantage"));
-    $("#cookieOptionAdvantageText1").html(chrome.i18n.getMessage("cookieOptionAdvantageText1"));
-    $("#cookieOptionLimitation1").html(chrome.i18n.getMessage("cookieOptionLimitation"));
-    $("#cookieOptionLimitationText1").html(chrome.i18n.getMessage("cookieOptionLimitationText1"));
-    $("#cookieOptionNote1").html(chrome.i18n.getMessage("cookieOptionNote"));
-    $("#cookieOptionNoteText1").html(chrome.i18n.getMessage("cookieOptionNoteText1"));
-    $("#cookieOptionDeleteOnceButton").html(chrome.i18n.getMessage("cookieOptionDeleteOnceButton"));
-    $("#cookieOptionDeleteAutomatically1").html(chrome.i18n.getMessage("cookieOptionDeleteAutomatically1"));
-    $("#cookieOptionDeleteAutomatically2").html(chrome.i18n.getMessage("cookieOptionDeleteAutomatically2"));
-    $("#cookieOptionDeleteAutomatically3").html(chrome.i18n.getMessage("cookieOptionDeleteAutomatically3"));
-    $("#cookieOptionAdvantage2").html(chrome.i18n.getMessage("cookieOptionAdvantage"));
-    $("#cookieOptionAdvantageText2").html(chrome.i18n.getMessage("cookieOptionAdvantageText2"));
-    $("#cookieOptionLimitation2").html(chrome.i18n.getMessage("cookieOptionLimitation"));
-    $("#cookieOptionLimitationText2").html(chrome.i18n.getMessage("cookieOptionLimitationText2"));
-    $("#cookieOptionNote2").html(chrome.i18n.getMessage("cookieOptionNote"));
-    $("#cookieOptionNoteText2").html(chrome.i18n.getMessage("cookieOptionNoteText2"));
-    $("#cookieOptionDeleteAutomaticallyCheckbox").html(chrome.i18n.getMessage("cookieOptionDeleteAutomaticallyCheckbox"));
-
+    
 
     // Additional buttons
     $("#revertChanges").html(chrome.i18n.getMessage("revertChanges"));
@@ -136,8 +97,7 @@ function init(storage) {
     fillList("redirects", storage.redirects);
     fillList("exceptions", storage.exceptions);
 
-    // Cookies tab
-    $("#deleteCookiesOnStart").prop("checked", storage.deleteCookiesOnStart);
+   
 }
 
 /**
@@ -210,32 +170,7 @@ function addEvents(storage) {
         chrome.storage.local.set({searchField: $(this).prop("checked")});
     });
 
-    // Cookies tab
-    $("#cookieOptionDeleteOnceButton").on('click', function (e) {
-        $.confirm({
-            title: "PassSec+",
-            content: chrome.i18n.getMessage("cookieOptionDeleteOnceWarning"),
-            buttons: {
-                ok: function () {
-                    chrome.runtime.sendMessage({type: "deleteCookies"});
-                },
-                cancel: {
-                    text: chrome.i18n.getMessage("cancelButton")
-                }
-            },
-            backgroundDismissAnimation: "none",
-            animateFromElement: false,
-            animation: "opacity",
-            closeAnimation: "opacity",
-            useBootstrap: false,
-            boxWidth: "40%"
-        });
-    });
-
-    $("#deleteCookiesOnStart").on('change', function (e) {
-        chrome.storage.local.set({deleteCookiesOnStart: $(this).prop("checked")});
-    });
-
+    
     // Option buttons
     $("#revertChanges").on('click', function (e) {
         chrome.storage.local.set(storage);

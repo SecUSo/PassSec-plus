@@ -6,6 +6,5 @@ let PassSec = {
     personalField: false,
     paymentField: true,
     searchField: false,
-    deleteCookiesOnStart: false,
     checkExceptionsAfter20Starts: {doCheck: false, count: 0}
 };

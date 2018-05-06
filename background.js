@@ -65,21 +65,7 @@ chrome.contextMenus.create({
 });
 
 // execute options if set
-chrome.storage.local.get(["deleteCookiesOnStart", "checkExceptionsAfter20Starts"], function (item) {
-    // delete cookies
-    if (item.deleteCookiesOnStart) {
-        chrome.browsingData.removeCookies({originTypes: {unprotectedWeb: true}}, function (details) {
-            let messageToDisplay = chrome.i18n.getMessage("cookieOptionDeleteOnceSuccess");
-            if (chrome.runtime.lastError)
-                messageToDisplay = chrome.i18n.getMessage("cookieOptionDeleteOnceFailure");
-            chrome.notifications.create({
-                type: "basic",
-                title: "PassSec+",
-                message: messageToDisplay,
-                iconUrl: chrome.extension.getURL("skin/logo.png")
-            });
-        });
-    }
+
     // count browser starts and do exceptions checking
     // let check = item.checkExceptionsAfter20Starts;
     // if (check && check.doCheck) {
@@ -94,7 +80,7 @@ chrome.storage.local.get(["deleteCookiesOnStart", "checkExceptionsAfter20Starts"
     //         chrome.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: starts}});
     //     }
     // }
-});
+
 
 // listen for messages from content script
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
@@ -106,15 +92,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             break;
         case "manageRedirectHandler":
             manageRedirectHandler();
-            break;
-        case "deleteCookies":
-            chrome.browsingData.removeCookies({originTypes: {unprotectedWeb: true}}, function (details) {
-                if (chrome.runtime.lastError)
-                    chrome.runtime.sendMessage({type: "deletedCookies", status: "failure"});
-                else {
-                    chrome.runtime.sendMessage({type: "deletedCookies", status: "success"});
-                }
-            });
             break;
         case "extractDomain":
             if (tldList === null) {
