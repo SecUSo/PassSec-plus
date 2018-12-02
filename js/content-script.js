@@ -5,13 +5,14 @@ let inputElementClicked = false;
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     switch (message.type) {
         case "addException":
-            addException(false);
+            addException(false, "none");
             break;
         case "extractedDomain":
             passSec.domain = message.domain;
             chrome.storage.local.get(null, function (items) {
-                getSecurityStatus(items);
+                //getSecurityStatus(items);
                 processInputs(items);
+				
                 // normally the focus event handler would be enough here, but we need the mousedown down handler
                 // and the 'inputElementClicked' flag to accomplish the following: When the user closes the tooltip
                 // by clicking 'Ok, got it.', the tooltip should open up again when clicking on the still focused
@@ -45,8 +46,10 @@ chrome.runtime.sendMessage({type: "extractDomain", host: document.location.host}
  */
 function applyTooltip(element, event) {
     // only show tooltip on security status "http" or "https", "httpsEV" does not show any tooltips
-    if ($(element).hasClass("passSec-http") || $(element).hasClass("passSec-https") || $(element).attr("data-passSec-security") === "passSec-http" || $(element).attr("data-passSec-security") === "passSec-https") {
+	securityStatus = $(element).attr("data-passSec-security");
+    if ($(element).hasClass("passSec-http") || $(element).hasClass("passSec-https") || securityStatus === "passSec-http" || securityStatus === "passSec-https") {
         passSec.target = element;
+		
         $(element).qtip({
             overwrite: true,
             suppress: true,
@@ -84,7 +87,7 @@ function applyTooltip(element, event) {
                 render: function (event, api) {
                     passSec.api = api;
                     passSec.tooltip = api.elements.content;
-                    processTooltip();
+                    processTooltip(securityStatus);
                 }
             }
         }, event);

@@ -3,15 +3,29 @@
  *
  * @param storage Object containing the set options at the time of calling this function
  */
-function getSecurityStatus(storage) {
+function getSecurityStatus(storage, actform) {
     if (passSec.url.startsWith("https")) {
         // TODO do EV cert check
         // check for exception set by user
-        passSec.security = storage.exceptions.includes(passSec.domain) ? "httpsEV" : "https";
+		if(actform.action.includes("http") && !(actform.action.includes("https"))){
+			if(storage.exceptions.includes(passSec.domain +  "passSec-http") || storage.exceptions.includes(passSec.domain + "passSec-all") ){
+				passSec.security = "none";
+			}else{
+				passSec.security = "http";
+			}
+		}
+		else{
+			if(storage.exceptions.includes(passSec.domain + "passSec-https") || storage.exceptions.includes(passSec.domain + "passSec-all")){
+				passSec.security = "httpsEV";
+			}else{
+				passSec.security = "https";
+			}
+		}
+		
     } else if (passSec.url.startsWith("http:")) {
         // check for exception set by user
-        passSec.security = storage.exceptions.includes(passSec.domain) ? "httpsEV" : "http";
-        // check if site offers https
+        passSec.security = storage.exceptions.includes(passSec.domain + "passSec-http")? "none" : "http";
+		// check if site offers https
         passSec.httpsAvailable = false;
         let httpsUrl = passSec.url.replace("http://", "https://");
         let httpsRequest = new XMLHttpRequest();

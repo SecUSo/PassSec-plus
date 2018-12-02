@@ -27,7 +27,7 @@ function getTooltipHTML() {
 /**
  * Adds functionality for the tooltip elements
  */
-function processTooltip() {
+function processTooltip(securityStatus) {
     let tooltip = passSec.tooltip;
     $(tooltip.find("#passSecButtonClose")[0]).on("mousedown", function (event) {
         // prevent input element losing focus
@@ -37,8 +37,8 @@ function processTooltip() {
         passSec.api.destroy(true);
     });
 
-    switch (passSec.security) {
-        case "https":
+    switch (securityStatus){
+        case "passSec-https"://"https":
             $(tooltip.find(".http-warning")).hide();
             $(tooltip.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("exceptionHTTPS"));
             $(tooltip.find("#passSecButtonException")[0]).on("mousedown", function (event) {
@@ -46,11 +46,11 @@ function processTooltip() {
                 event.stopImmediatePropagation();
                 event.preventDefault();
             }).on("mouseup", function (event) {
-                addException(true);
+                addException(true , securityStatus);
             });
             break;
 
-        case "http":
+        case "passSec-http":
             $(tooltip.find(".http-warning")).show();
             if (passSec.httpsAvailable) {
                 $(tooltip.find("#passSecButtonException")[0]).addClass("greenButton");
@@ -82,7 +82,7 @@ function processTooltip() {
                         }
                     });
                 } else {
-                    addException(true);
+                    addException(true, securityStatus);
                 }
             });
             getHttpFieldTexts("http");
@@ -96,25 +96,56 @@ function processTooltip() {
  * @param tooltip   Boolean indicating whether this function was triggered by a click inside of a tooltip (true)
  *                  or by a click in the browser action context menu (false)
  */
-function addException(tooltip) {
-    function add() {
+function addException(tooltip, securityStatus) {
+	function add() {
         chrome.storage.local.get("exceptions", function (item) {
-            if (!item.exceptions.includes(passSec.domain)) {
+			let field = $(passSec.target)
+			let classToRemove = field.attr("data-passSec-security");
+			let oppositeClass = "";
+			
+			if(classToRemove == "passSec-http"){
+				oppositeClass = "passSec-https";
+			}else if(classToRemove == "passSec-https"){
+				oppositeClass = "passSec-http";
+			}
+				
+			
+            if (!item.exceptions.includes(passSec.domain + classToRemove )) {
                 let updatedExceptions = item.exceptions.slice(0);
-                updatedExceptions.push(passSec.domain);
+				
+				if (!item.exceptions.includes(passSec.domain + oppositeClass )) {
+					updatedExceptions.push(passSec.domain + classToRemove);
+				}else {
+					name = passSec.domain + oppositeClass;
+					nameToReplace = passSec.domain + "passSec-all";
+					let index = updatedExceptions.indexOf(name);
+					
+					updatedExceptions.splice(index, 1, nameToReplace);
+                  
+                    chrome.storage.local.set({exceptions: updatedExceptions});
+					
+				
+				}
+			
                 chrome.storage.local.set({exceptions: updatedExceptions}, function () {
-                    let classToRemove = passSec.security === "http" ? "passSec-http" : "passSec-https";
-                    $('.' + classToRemove).removeClass(classToRemove).addClass("passSec-httpsEV");
-                    $('[data-passSec-security='+ classToRemove + ']').attr("data-passSec-security", "passSec-httpsEV");
-                    passSec.security = "httpsEV";
+                    updateElem = $('.' + classToRemove)
+					updateElem.removeClass(classToRemove)
+					if(classToRemove == "passSec-https"){
+					updateElem.addClass("passSec-httpsEV");
+					$('[data-passSec-security='+ classToRemove + ']').attr("data-passSec-security", "passSec-httpsEV");
+					}else{
+					$('[data-passSec-security='+ classToRemove + ']').attr("data-passSec-security", "passSec-none");
+					}
+                    
                     if (tooltip)
                         passSec.api.destroy(true);
                 });
             }
         });
     }
-    if (!tooltip || passSec.security === "http") {
-        let message = passSec.security === "http" ? "confirmAddingHttpException" : "confirmAddingHttpsException";
+	
+    if (!tooltip || securityStatus === "passSec-http"){
+        let message = securityStatus === "passSec-http" ? "confirmAddingHttpException" : "confirmAddingHttpsException";
         $.confirm({
             title: "PassSec+",
             titleClass: "passSecConfirmTitle",
@@ -148,6 +179,20 @@ function addException(tooltip) {
 function getHttpFieldTexts() {
     let fieldType = $(passSec.target).attr("data-passSec-input-type");
     let tooltip = passSec.tooltip;
+	
+	if (passSec.url.startsWith("https")) {
+		$(tooltip.find("#passSecWarning")[0]).html(chrome.i18n.getMessage(fieldType + "Warning"));
+		$(tooltip.find("#passSecConsequenceText")[0]).html(chrome.i18n.getMessage(fieldType + "ConsequenceHttp"));
+		$(tooltip.find("#passSecRecommendationText")[0]).html(chrome.i18n.getMessage(fieldType + "RecommendationHttpMixed"));
+        $(tooltip.find("#passSecInfoText")[0]).click(function (e) {
+            if ($(this).html() === chrome.i18n.getMessage("moreInfo")) {
+                $(this).html(chrome.i18n.getMessage(fieldType + "InfoHttpMixed"));
+            } else {
+                $(this).html(chrome.i18n.getMessage("moreInfo"));
+            }
+        });
+	
+	}else{
     $(tooltip.find("#passSecWarning")[0]).html(chrome.i18n.getMessage(fieldType + "Warning"));
     $(tooltip.find("#passSecConsequenceText")[0]).html(chrome.i18n.getMessage(fieldType + "ConsequenceHttp"));
     if (passSec.httpsAvailable) {
@@ -165,7 +210,7 @@ function getHttpFieldTexts() {
                 $(this).html(chrome.i18n.getMessage("moreInfo"));
             }
         });
-    } else {
+    }else {
         $(tooltip.find("#passSecRecommendationText")[0]).html(chrome.i18n.getMessage(fieldType + "RecommendationHttp"));
         $(tooltip.find("#passSecInfoText")[0]).click(function (e) {
             if ($(this).html() === chrome.i18n.getMessage("moreInfo")) {
@@ -173,6 +218,7 @@ function getHttpFieldTexts() {
             } else {
                 $(this).html(chrome.i18n.getMessage("moreInfo"));
             }
-        });
-    }
+         });
+		}
+	}
 }

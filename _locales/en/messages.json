@@ -299,12 +299,21 @@
     "message": "This website does not offer a secure alternative (https). If you decide to log into this website anyway and you use the same password for other website accounts, you should change them immediately.",
     "description": "Recommendation http: user enters login data."
   },
+  
+   "passwordRecommendationHttpMixed": {
+    "message": "This website appears to be configured incorrectly: Your password will be transmitted insecurely through the internet.",
+    "description": "Recommendation http: user enters login data."
+  },
 
   "passwordInfoHttp": {
     "message": "More Information: This website does not provide the option of entering and transmitting your password securely (via https). If you use the same password for other website accounts, and your password is intercepted by unauthorized people when you submit here, these people will gain access to your account on this webpage and also to all other websites where you use the same credentials. Therefore, it is very important to change the other website passwords immediately. [less]",
     "description": "Info http: user enters login data."
   },
-
+  
+  "passwordInfoHttpMixed": {
+    "message": "More Information: This website does not provide the option of entering and transmitting your password securely (via https). If you use the same password for other website accounts, and your password is intercepted by unauthorized people when you submit here, these people will gain access to your account on this webpage and also to all other websites where you use the same credentials. Therefore, it is very important to change the other website passwords immediately. It is recommended to contact the website provider and inform them about the incorrect configuration. [less]",
+    "description": "Info http: user enters login data."
+  },
   "paymentInfoHttpsAvailable": {
     "message": "More Information: The secure mode (https) protects your payment information from being intercepted and subsequently used to effect unauthorized payments. The secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
     "description": "Info https: user enters payment data."
@@ -319,9 +328,19 @@
     "message": "This website does not provide a secure alternative (https). You should not enter your payment details here.",
     "description": "Recommendation http: user enters payment data."
   },
+  
+  "paymentRecommendationHttpMixed": {
+    "message": "This website appears to be configured incorrectly: Your payment details will be transmitted insecurely through the internet. ",
+    "description": "Recommendation http: user enters payment data."
+  },
 
   "paymentInfoHttp": {
     "message": "More Information: This website provides no way to protect your payment information from interception by unauthorized persons. If your payment information is intercepted here, it can be abused at any time, e.g. for fraudulent payments on the Internet. [less]",
+    "description": "Info http: user enters payment data."
+  },
+  
+  "paymentInfoHttpMixed": {
+    "message": "More Information: This website provides no way to protect your payment information from interception by unauthorized persons. If your payment information is intercepted here, it can be abused at any time, e.g. for fraudulent payments on the Internet. It is recommended to contact the website provider and inform them about the incorrect configuration. [less]",
     "description": "Info http: user enters payment data."
   },
 
@@ -339,9 +358,19 @@
     "message": "This website does not provide a secure alternative (https). You should not enter any sensitive personal data here.",
     "description": "Recommendation http: user enters personal data."
   },
+  
+  "personalRecommendationHttpMixed": {
+    "message": "This website appears to be configured incorrectly: Your personal data will be transmitted insecurely through the internet.",
+    "description": "Recommendation http: user enters personal data."
+  },
 
   "personalInfoHttp": {
     "message": "More Information: This website does not provide the option of transmitting your personal data (via https). If you enter sensitive personal data here, and it is intercepted by unauthorized people, it can be abused at any time, e.g. for stealing your identity. [less]",
+    "description": "Info http: user enters personal data."
+  },
+  
+   "personalInfoHttpMixed": {
+    "message": "More Information: This website does not provide the option of transmitting your personal data (via https). If you enter sensitive personal data here, and it is intercepted by unauthorized people, it can be abused at any time, e.g. for stealing your identity. It is recommended to contact the website provider and inform them about the incorrect configuration. [less]",
     "description": "Info http: user enters personal data."
   },
 
@@ -359,15 +388,30 @@
     "message": "This website does not provide a secure alternative (https). Enter your search query only if it contains no sensitive data.",
     "description": "Recommendation http: user enters search queries."
   },
+  
+  "searchRecommendationHttpMixed": {
+    "message": "This website appears to be configured incorrectly: Your search queries will be transmitted insecurely through the internet.",
+    "description": "Recommendation: user enters search queries."
+  },
 
   "searchInfoHttp": {
     "message": "More Information: This website does not provides a way to protect your search query from interception by unauthorized persons. If your query is intercepted, this may allow them to draw conclusions about sensitive personal interests. [less]",
+    "description": "Info http: user enters search queries."
+  },
+  
+  "searchInfoHttpMixed": {
+    "message": "More Information: This website does not provides a way to protect your search query from interception by unauthorized persons. If your query is intercepted, this may allow them to draw conclusions about sensitive personal interests. It is recommended to contact the website provider and inform them about the incorrect configuration. [less]",
     "description": "Info http: user enters search queries."
   },
 
   "defaultInfoHttpsAvailable": {
     "message": "More Information:  Secure mode (https) protects your data from being intercepted. The secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
     "description": "Info https: user enters data."
+  },
+  
+   "defaultInfoHttpMixed": {
+    "message": "More Information:  Secure mode (https) protects your data from being intercepted. The secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. It is recommended to contact the website provider and inform them about the incorrect configuration. [less]",
+    "description": "Info http: user enters data."
   },
 
   "defaultConsequenceHttp": {
@@ -378,6 +422,11 @@
   "defaultRecommendationHttp": {
     "message": "This website does not provide a secure alternative (https). Enter your data only if it contains no sensitive information.",
     "description": "Recommendation http: user enters data."
+  },
+  
+    "defaultRecommendationHttpMixed": {
+    "message": "This website appears to be configured incorrectly: Your data will be transmitted insecurely through the internet.",
+    "description": "Recommendation: user enters data."
   },
 
   "defaultInfoHttp": {

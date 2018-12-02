@@ -47,7 +47,7 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 });
 
 // create context menu for browser action
-chrome.contextMenus.create({
+/*chrome.contextMenus.create({
     contexts: ["browser_action"],
     onclick: function () {
         chrome.tabs.query({currentWindow: true, active: true}, function (tabs) {
@@ -55,7 +55,7 @@ chrome.contextMenus.create({
         });
     },
     title: chrome.i18n.getMessage("exceptionHTTP") + " (PassSec+)"
-});
+});*/
 chrome.contextMenus.create({
     contexts: ["browser_action"],
     onclick: function () {

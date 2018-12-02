@@ -229,7 +229,7 @@ function fillList(listType, listElements) {
     for (let i = 0; i < listElements.length; i++) {
         let row = table.insertRow(table.rows.length);
         let cell = row.insertCell(0);
-        let nameToDisplay = listType === "exceptions" ? listElements[i] : listElements[i].slice(9).slice(0, listElements[i].length - 11);
+        let nameToDisplay = listType === "exceptions" ? listElements[i].split("passSec-")[0] : listElements[i].slice(9).slice(0, listElements[i].length - 11);
             $(cell).html('<div><button id="' + listType + i + '" name="' + listElements[i] + '" style="margin-right:10px;color:red">X</button><span>' + nameToDisplay + '</span></div>');
         $("#" + listType + i).on("click", function (e) {
             let elementToRemove = $(this).attr("name");

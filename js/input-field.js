@@ -5,13 +5,14 @@
  * @param storage Object containing the set options at the time of calling this function
  */
 function processInputs(storage) {
-    let borderType = "passSec-" + passSec.security;
     // exclude input elements from analysis that cannot be used to input meaningful data (type submit|reset|button|image)
     // and that cannot be styled appropriately (type radio|checkbox)
     $('input:not([type=submit],[type=reset],[type=button],[type=image],[type=radio],[type=checkbox]),textarea').each(function (index) {
         let fieldType = determineFieldType(this, storage);
         if (typeof fieldType !== "undefined") {
-            $(this).addClass(borderType);
+			getSecurityStatus(storage, this.form);
+			let borderType = "passSec-" + passSec.security;
+			$(this).addClass(borderType);
             // add border type as attribute, so we have a backup selector for websites that
             // reset the 'class' attribute for styling, instead of only adding/removing classes
             $(this).attr("data-passSec-security", borderType);
@@ -35,8 +36,8 @@ function processInputs(storage) {
                     break;
             }
         }
+		
     });
-
     let dynamicStyle = document.getElementById("addedPassSecCSS");
     //If the css is not in the document, add the css to the current document
     if (!dynamicStyle) {
@@ -67,8 +68,16 @@ function processInputs(storage) {
             '    background-color: red !important;' +
             '    border: 2px solid red !important;' +
             '}\n';
+		
+		let warningExceptionImageStyle = '' +
+            '.passSec-none, [data-passSec-security=passSec-none] {' +
+            '    background-image: url("' + chrome.extension.getURL("skin/yellow_triangle.png") + '") !important;' +
+            '    background-repeat: no-repeat !important;' +
+            '    background-size: contain !important;' +
+            '    background-position: right center !important;' +
+            '}\n';
 
-        let css = secureImageStyle + warningImageStyle + secureEVImageStyle;
+        let css = secureImageStyle + warningImageStyle + secureEVImageStyle + warningExceptionImageStyle;
         $('head').append('<style id="addedPassSecCSS" type="text/css">' + css + '</style>');
     }
 }
