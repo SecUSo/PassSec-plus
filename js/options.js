@@ -41,6 +41,7 @@ function addTexts() {
     $("#appearanceNotSecure").html(chrome.i18n.getMessage("appearanceNotSecure"));
     $("#changeIconText").html(chrome.i18n.getMessage("changeIconText"));
     $("#changeIconButton").html(chrome.i18n.getMessage("changeIconButton"));
+    $("#addNewIconButton").html(chrome.i18n.getMessage("addNewIconButton"));
 
     // Redirects tab
     $("#redirects").html(chrome.i18n.getMessage("tab2"));
@@ -109,7 +110,7 @@ function addEvents(storage) {
     // Appearance tab
     $("#changeIconButton").click(function (e) {
         let currentSecureImage = $("#iconImg").attr("src").split("icon")[1].split(".")[0];
-        currentSecureImage = (currentSecureImage % 10) + 1;
+        currentSecureImage = (currentSecureImage % 11) + 1;
         chrome.storage.local.set({secureImage: currentSecureImage});
         setImage(currentSecureImage);
     });
@@ -211,9 +212,11 @@ function addEvents(storage) {
  */
 function setImage(secureImage) {
     let imgAddress = chrome.extension.getURL("skin/check/gruen/gr_icon" + secureImage + ".png");
+    let ownImgAddress = chrome.extension.getURL("skin/check/gruen/gr_icon11.png");
     $("#secureInputType").css("background-image", "url('" + imgAddress + "')");
     $("#notSecureInputType").css("background-image", "url('" + chrome.extension.getURL("skin/yellow_triangle.png") + "')");
     $("#iconImg").attr("src", imgAddress);
+    $("#newIconImg").attr("src", ownImgAddress);
 }
 
 /**

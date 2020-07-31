@@ -79,6 +79,11 @@
     "description": "Show next icon"
   },
 
+  "addNewIconButton": {
+    "message": "Add new icon",
+    "description": "Add new icon"
+  },
+
   "tab2": {
     "message": "Redirects",
     "description": "Heading for redirects tab"

@@ -19,9 +19,10 @@ body {
     border: 2px solid red !important;
 }
 
-#iconImg {
+#iconImg, #newIconImg {
     width: 16px;
     height: 20px;
+    margin-top: 3px;
 }
 
 #redirectList {
@@ -139,9 +140,10 @@ label, input[type=checkbox], #iconImg, #changeIconButton {
     vertical-align: middle;
 }
 
-#changeIconButton {
+#changeIconButton, #addNewIconButton {
     float: left;
     margin-right: 5px;
+    margin-top: 2px;
 }
 
 label {
