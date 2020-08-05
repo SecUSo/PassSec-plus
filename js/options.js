@@ -109,11 +109,25 @@ function init(storage) {
 function addEvents(storage) {
     // Appearance tab
     $("#changeIconButton").click(function (e) {
-        let currentSecureImage = $("#iconImg").attr("src").split("icon")[1].split(".")[0];
-        currentSecureImage = (currentSecureImage % 11) + 1;
-        chrome.storage.local.set({secureImage: currentSecureImage});
-        setImage(currentSecureImage);
+        if (typeof storage.secureImage != 'number') {
+            console.log("storage.secureImage is not a number");
+            let currentSecureImage = $("#iconImg").attr("src").split("icon")[1].split(".")[0];
+            currentSecureImage = (currentSecureImage % 10) + 1;
+            chrome.storage.local.set({'secureImage': currentSecureImage});
+            setImage(currentSecureImage);
+        } else {
+            let currentSecureImage = $("#iconImg").attr("src").split("icon")[1].split(".")[0];
+            currentSecureImage = (currentSecureImage % 10) + 1;
+            chrome.storage.local.set({secureImage: currentSecureImage});
+            setImage(currentSecureImage);
+        }
     });
+
+    $("#addNewIconButton").change(function (e) {
+        const fileList = e.target.files;
+        fileupload(fileList);
+    });
+
 
     // Redirects tab
     $("#showRedirects").click(function (e) {
@@ -211,13 +225,43 @@ function addEvents(storage) {
  * @param secureImage Integer indicating the current secure image
  */
 function setImage(secureImage) {
-    let imgAddress = chrome.extension.getURL("skin/check/gruen/gr_icon" + secureImage + ".png");
-    let ownImgAddress = chrome.extension.getURL("skin/check/gruen/gr_icon11.png");
-    $("#secureInputType").css("background-image", "url('" + imgAddress + "')");
+    $("#iconImg").attr("src", chrome.extension.getURL("skin/check/gruen/gr_icon1.png"));
     $("#notSecureInputType").css("background-image", "url('" + chrome.extension.getURL("skin/yellow_triangle.png") + "')");
-    $("#iconImg").attr("src", imgAddress);
-    $("#newIconImg").attr("src", ownImgAddress);
+    
+    if(typeof secureImage === 'number') {
+        console.log("secureImage is a number: " + secureImage);
+        let imgAddress = chrome.extension.getURL("skin/check/gruen/gr_icon" + secureImage + ".png");
+        $("#secureInputType").css("background-image", "url('" + imgAddress + "')");
+        $("#iconImg").attr("src", imgAddress);
+    } else {
+        console.log("secure Image is not a number its data:image");
+        let customImgAddress = chrome.extension.getURL(localStorage.getItem('customIcon')); // customImgAddress = "chrome-extension://mhgmcanloimbdgagakolhennlaklhink/data:image/png;base64,"
+        chrome.storage.local.get('secureImage', function(data) {
+            $("#newIconImg").attr("src",data.secureImage);
+        });
+        /*  $("#newIconImg").css("background-image", "url(" + localStorage['customIcon'] + ")");
+            $("#iconImg").attr("src", customImgAddress); */
+    }
 }
+
+function fileupload(fileList) {
+    // erste Datei auswählen (wichtig, weil IMMER ein FileList Objekt generiert wird)
+    var uploadFile = fileList[0];
+    
+    // Ein Objekt um Dateien einzulesen
+    var reader = new FileReader();
+
+    // Wenn der Dateiinhalt ausgelesen wurde...
+    reader.onload = function(theFileData) {
+        var icon = theFileData.target.result; // Ergebnis vom FileReader auslesen
+        localStorage['customIcon'] = icon;
+        chrome.storage.local.set({'secureImage': icon}, function() {alert('Image set!')});
+    };
+    // Die Datei einlesen und in eine Data-URL konvertieren
+    reader.readAsDataURL(uploadFile);
+    setImage("custom");
+}
+
 
 /**
  * Adds all entries to the list of either exceptions or redirects
