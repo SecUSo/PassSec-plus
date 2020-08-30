@@ -1,6 +1,11 @@
 let passSec = {};
 let inputElementClicked = false;
 
+// processing starts here and is continued when the background script sends the extracted domain
+passSec.url = document.location.href;
+chrome.runtime.sendMessage({type: "extractDomain", host: document.location.host});
+
+
 // listen for messages from background script
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     switch (message.type) {
@@ -10,7 +15,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         case "extractedDomain":
             passSec.domain = message.domain;
             chrome.storage.local.get(null, function (items) {
-                //getSecurityStatus(items);
                 processInputs(items);
 				
                 // normally the focus event handler would be enough here, but we need the mousedown down handler
@@ -21,21 +25,16 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                 $('body').on('mousedown', 'input,textarea', function (event) {
                     if (!$(event.target).is($(document.activeElement)))
                         inputElementClicked = true;
-                    applyTooltip(event.target, event);
+                    applyTooltip(event.target, event);    
                 }).on('focus', 'input,textarea', function (event) {
                     if (!inputElementClicked)
                         applyTooltip(event.target, event);
-                    inputElementClicked = false;
-                });
-            });
+                    inputElementClicked = false;    
+                });    
+            });    
             break;
-    }
-});
-
-// processing starts here and is continued when the background script sends the extracted domain
-passSec.url = document.location.href;
-chrome.runtime.sendMessage({type: "extractDomain", host: document.location.host});
-
+    }        
+});    
 
 /**
  * Creates a tooltip for a specific input element
