@@ -5,7 +5,6 @@ let inputElementClicked = false;
 passSec.url = document.location.href;
 chrome.runtime.sendMessage({type: "extractDomain", host: document.location.host});
 
-
 // listen for messages from background script
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     switch (message.type) {
