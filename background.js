@@ -182,14 +182,16 @@ function extractDomain(url, tld) {
     return url;
 }
 
-
+/**
+ * Extracts the information out of the receiving certificates for every incoming HTTPS connection
+ */
 function getCertificateInfos () {
 
     var log = console.log.bind(console)
 
     log(`\n\nTLS browser extension loaded`)
 
-    // only get https connections - http is insecure at all
+    // get only https connections - http is insecure at all
     var HTTPS_SITES = { urls: ['https://*/*'] }
 
     // Mozilla doesn't use tlsInfo in extraInfoSpec 

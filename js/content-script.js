@@ -15,7 +15,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             passSec.domain = message.domain;
             chrome.storage.local.get(null, function (items) {
                 processInputs(items);
-				
                 // normally the focus event handler would be enough here, but we need the mousedown down handler
                 // and the 'inputElementClicked' flag to accomplish the following: When the user closes the tooltip
                 // by clicking 'Ok, got it.', the tooltip should open up again when clicking on the still focused
@@ -24,13 +23,13 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                 $('body').on('mousedown', 'input,textarea', function (event) {
                     if (!$(event.target).is($(document.activeElement)))
                         inputElementClicked = true;
-                    applyTooltip(event.target, event);    
+                    applyTooltip(event.target, event);
                 }).on('focus', 'input,textarea', function (event) {
                     if (!inputElementClicked)
                         applyTooltip(event.target, event);
-                    inputElementClicked = false;    
-                });    
-            });    
+                    inputElementClicked = false;
+                });
+            });
             break;
     }        
 });    
