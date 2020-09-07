@@ -245,19 +245,20 @@ function setImage(secureImage) {
 }
 
 function fileupload(fileList) {
-    // erste Datei auswählen (wichtig, weil IMMER ein FileList Objekt generiert wird)
+    
+    // select first file (input type=file creates always a file list)
     var uploadFile = fileList[0];
     
-    // Ein Objekt um Dateien einzulesen
+    // An object to read files
     var reader = new FileReader();
 
-    // Wenn der Dateiinhalt ausgelesen wurde...
+    // After the data content was extracted...
     reader.onload = function(theFileData) {
-        var icon = theFileData.target.result; // Ergebnis vom FileReader auslesen
+        var icon = theFileData.target.result; // read output of FileReader
         localStorage['customIcon'] = icon;
-        chrome.storage.local.set({'secureImage': icon}, function() {alert('Image set!')});
+        chrome.storage.local.set({'secureImage': icon});
     };
-    // Die Datei einlesen und in eine Data-URL konvertieren
+    //  read the file and convert to data-URL
     reader.readAsDataURL(uploadFile);
     setImage("custom");
 }

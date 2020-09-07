@@ -205,8 +205,7 @@ function getCertificateInfos () {
         var requestId = details.requestId
 
         var securityInfo = await browser.webRequest.getSecurityInfo(requestId, {
-            certificateChain: true,
-            rawDER: false
+            certificateChain: true
         });
 
         log(`securityInfo: ${JSON.stringify(securityInfo, null, 2)}`)
