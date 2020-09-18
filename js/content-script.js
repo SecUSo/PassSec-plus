@@ -14,7 +14,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         case "extractedDomain":
             passSec.domain = message.domain;
             chrome.storage.local.get(null, function (items) {
-                processInputs(items);
+                processInputs(items, message.certificate);
                 // normally the focus event handler would be enough here, but we need the mousedown down handler
                 // and the 'inputElementClicked' flag to accomplish the following: When the user closes the tooltip
                 // by clicking 'Ok, got it.', the tooltip should open up again when clicking on the still focused

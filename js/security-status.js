@@ -3,7 +3,7 @@
  *
  * @param storage Object containing the set options at the time of calling this function
  */
-function getSecurityStatus(storage, actform) {
+function getSecurityStatus(storage, actform, certificate) {
     if (passSec.url.startsWith("https")) {
         // TODO do EV cert check
         // check for exception set by user
@@ -15,10 +15,26 @@ function getSecurityStatus(storage, actform) {
 			}
 		}
 		else{
+            console.log("else case ");
+            // check for exception set by user
 			if(storage.exceptions.includes(passSec.domain + "passSec-https") || storage.exceptions.includes(passSec.domain + "passSec-all")){
 				passSec.security = "httpsEV";
 			}else{
-				passSec.security = "https";
+                switch (certificate.state) {
+                    case "insecure":
+                        passSec.security = "http";
+                        break;
+                    case "weak": // equals to (certificate.protocolVersion === ("TLSv1.1" || "TLSv1"))
+                        passSec.security = "http";
+                        break;
+                    case "secure":
+                        if (true == (cert.isDomainMismatch || cert.isNotValidAtThisTime || cert.isUntrusted)) {
+                            passSec.security = "http";
+                        }
+                        passSec.security = "https";
+                    default:
+                        passSec.security = "https";
+                }
 			}
 		}
 		

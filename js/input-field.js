@@ -4,13 +4,13 @@
  *
  * @param storage Object containing the set options at the time of calling this function
  */
-function processInputs(storage) {
+function processInputs(storage, certificate) {
     // exclude input elements from analysis that cannot be used to input meaningful data (type submit|reset|button|image)
     // and that cannot be styled appropriately (type radio|checkbox)
     $('input:not([type=submit],[type=reset],[type=button],[type=image],[type=radio],[type=checkbox]),textarea').each(function (index) {
         let fieldType = determineFieldType(this, storage);
         if (typeof fieldType !== "undefined") {
-			getSecurityStatus(storage, this.form);
+			getSecurityStatus(storage, this.form, certificate);
 			let borderType = "passSec-" + passSec.security;
 			$(this).addClass(borderType);
             // add border type as attribute, so we have a backup selector for websites that

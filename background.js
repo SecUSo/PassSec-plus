@@ -4,6 +4,8 @@ let redirectsActive = true;
 let tldList = null;
 // queue of content scripts (as [host, tabId, frameId]) waiting for domain extraction
 let domainExtractionQueue = [];
+// certificate information
+let certInfos;
 
 // initialize storage
 chrome.storage.local.get(null, function (items) {
@@ -35,7 +37,6 @@ chrome.browserAction.setIcon({path: "skin/redirectActive.png"});
 
 // initial setup of the redirect handler & get Certificate Infos
 manageRedirectHandler();
-getCertificateInfos();
 
 
 // handle left-click on browser action icon
@@ -107,7 +108,8 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                 domainExtractionQueue.push([message.host, sender.tab.id, sender.frameId]);
             } else {
                 let domain = extractDomain(message.host, tldList);
-                chrome.tabs.sendMessage(sender.tab.id, {type: "extractedDomain", domain: domain}, {frameId: sender.frameId});
+                let cert = getCertificateInfos(message.host);
+                chrome.tabs.sendMessage(sender.tab.id, {type: "extractedDomain", domain: domain, certificate: cert}, {frameId: sender.frameId});
             }
             break;
     }
@@ -185,33 +187,31 @@ function extractDomain(url, tld) {
 /**
  * Extracts the information out of the receiving certificates for every incoming HTTPS connection
  */
-function getCertificateInfos () {
-
-    var log = console.log.bind(console)
-
-    log(`\n\nTLS browser extension loaded`)
+function getCertificateInfos (active_url) {
+    var log = console.log.bind(console);
+     /*
+    var url_cert = `'*://${active_url}/*'`;
+    console.log(url_cert);
 
     // get only https connections - http is insecure at all
-    var HTTPS_SITES = { urls: ['https://*/*'] }
+   // var HTTPS_SITES = { urls: ['*://self-signed.badssl.com/*'] }
+    var HTTPS_SITES = { urls: [`${url_cert}`] }
+    console.log(HTTPS_SITES);  */
+    var ALL_SITES = { urls: ['<all_urls>'] }
 
     // Mozilla doesn't use tlsInfo in extraInfoSpec 
     var extraInfoSpec = ['blocking']; 
 
     // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/webRequest/onHeadersReceived
     browser.webRequest.onHeadersReceived.addListener(async function(details){
-        log(`\n\nGot a request for ${details.url} with ID ${details.requestId}`)
-
-        // Yeah this is a String, even though the content is a Number
         var requestId = details.requestId
+        if ("https://"+active_url+"/" === details.originUrl || "http://"+active_url+"/" === details.originUrl) {
+            certInfos = await browser.webRequest.getSecurityInfo(requestId, {
+                certificateChain: true
+            });
+            log(`securityInfo: ${JSON.stringify(certInfos, null, 2)}`)
+        }
 
-        var securityInfo = await browser.webRequest.getSecurityInfo(requestId, {
-            certificateChain: true
-        });
-
-        log(`securityInfo: ${JSON.stringify(securityInfo, null, 2)}`)
-
-    }, HTTPS_SITES, extraInfoSpec) 
-
-    log('Added listener')
-
+    }, ALL_SITES, extraInfoSpec) 
+    return certInfos;
 }
