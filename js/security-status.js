@@ -2,6 +2,8 @@
  * Determine the security status of the current website
  *
  * @param storage Object containing the set options at the time of calling this function
+ * @param actform Object containing the form of the input fields
+ * @param certificate Object containing the extracted certificate of the website
  */
 function getSecurityStatus(storage, actform, certificate) {
     if (passSec.url.startsWith("https")) {
@@ -24,16 +26,16 @@ function getSecurityStatus(storage, actform, certificate) {
                     case "insecure":
                         passSec.security = "http";
                         break;
-                    case "weak": // equals to (certificate.protocolVersion === ("TLSv1.1" || "TLSv1"))
+                    case "weak": // equals to (certificate.protocolVersion === ("TLSv1.1" || "TLSv1" || "unknown"))
                         passSec.security = "http";
                         break;
                     case "secure":
-                        if (true == (cert.isDomainMismatch || cert.isNotValidAtThisTime || cert.isUntrusted)) {
+                        if (true == (certificate.isDomainMismatch || certificate.isNotValidAtThisTime || certificate.isUntrusted || certificate.cipherSuite.includes('3DES') || certificate.cipherSuite.includes('CBC'))) {
                             passSec.security = "http";
                         }
                         passSec.security = "https";
                     default:
-                        passSec.security = "https";
+                        passSec.security = "http";
                 }
 			}
 		}

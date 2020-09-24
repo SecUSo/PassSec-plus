@@ -3,6 +3,7 @@
  * classes and attributes to the relevant input fields
  *
  * @param storage Object containing the set options at the time of calling this function
+ * @param certificate Object containing the extracted certificate of the website
  */
 function processInputs(storage, certificate) {
     // exclude input elements from analysis that cannot be used to input meaningful data (type submit|reset|button|image)

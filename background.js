@@ -4,7 +4,7 @@ let redirectsActive = true;
 let tldList = null;
 // queue of content scripts (as [host, tabId, frameId]) waiting for domain extraction
 let domainExtractionQueue = [];
-// certificate information
+// certificate information variable
 let certInfos;
 
 // initialize storage
@@ -37,7 +37,7 @@ chrome.browserAction.setIcon({path: "skin/redirectActive.png"});
 
 // initial setup of the redirect handler & get Certificate Infos
 manageRedirectHandler();
-
+getCertificateInfos();
 
 // handle left-click on browser action icon
 chrome.browserAction.onClicked.addListener(function (tab) {
@@ -189,20 +189,17 @@ function extractDomain(url, tld) {
  */
 function getCertificateInfos (active_url) {
     var log = console.log.bind(console);
-     /*
-    var url_cert = `'*://${active_url}/*'`;
-    console.log(url_cert);
-
-    // get only https connections - http is insecure at all
-   // var HTTPS_SITES = { urls: ['*://self-signed.badssl.com/*'] }
-    var HTTPS_SITES = { urls: [`${url_cert}`] }
-    console.log(HTTPS_SITES);  */
+    /*
+     * Parsing issue regex does not apply with the active_url
+     * var url_regex = `'*://${active_url}/*'`;
+     * var ACTIVE_DOMAIN = { urls: [`${url_regex}`] }
+     * https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Match_patterns#Examples
+     */
     var ALL_SITES = { urls: ['<all_urls>'] }
 
     // Mozilla doesn't use tlsInfo in extraInfoSpec 
     var extraInfoSpec = ['blocking']; 
 
-    // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/webRequest/onHeadersReceived
     browser.webRequest.onHeadersReceived.addListener(async function(details){
         var requestId = details.requestId
         if ("https://"+active_url+"/" === details.originUrl || "http://"+active_url+"/" === details.originUrl) {

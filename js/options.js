@@ -108,19 +108,12 @@ function init(storage) {
  */
 function addEvents(storage) {
     // Appearance tab
+    console.log("addevents");
     $("#changeIconButton").click(function (e) {
-        if (typeof storage.secureImage != 'number') {
-            console.log("storage.secureImage is not a number");
-            let currentSecureImage = $("#iconImg").attr("src").split("icon")[1].split(".")[0];
-            currentSecureImage = (currentSecureImage % 10) + 1;
-            chrome.storage.local.set({'secureImage': currentSecureImage});
-            setImage(currentSecureImage);
-        } else {
-            let currentSecureImage = $("#iconImg").attr("src").split("icon")[1].split(".")[0];
-            currentSecureImage = (currentSecureImage % 10) + 1;
-            chrome.storage.local.set({secureImage: currentSecureImage});
-            setImage(currentSecureImage);
-        }
+        let currentSecureImage = $("#iconImg").attr("src").split("icon")[1].split(".")[0];
+        currentSecureImage = (currentSecureImage % 10) + 1;
+        chrome.storage.local.set({secureImage: currentSecureImage});
+        setImage(currentSecureImage);
     });
 
     $("#addNewIconButton").change(function (e) {
@@ -225,24 +218,12 @@ function addEvents(storage) {
  * @param secureImage Integer indicating the current secure image
  */
 function setImage(secureImage) {
-    $("#iconImg").attr("src", chrome.extension.getURL("skin/check/gruen/gr_icon1.png"));
+    let imgAddress = chrome.extension.getURL("skin/check/gruen/gr_icon" + secureImage + ".png");
+    $("#secureInputType").css("background-image", "url('" + imgAddress + "')");
     $("#notSecureInputType").css("background-image", "url('" + chrome.extension.getURL("skin/yellow_triangle.png") + "')");
-    
-    if(typeof secureImage === 'number') {
-        console.log("secureImage is a number: " + secureImage);
-        let imgAddress = chrome.extension.getURL("skin/check/gruen/gr_icon" + secureImage + ".png");
-        $("#secureInputType").css("background-image", "url('" + imgAddress + "')");
-        $("#iconImg").attr("src", imgAddress);
-    } else {
-        console.log("secure Image is not a number its data:image");
-        let customImgAddress = chrome.extension.getURL(localStorage.getItem('customIcon')); // customImgAddress = "chrome-extension://mhgmcanloimbdgagakolhennlaklhink/data:image/png;base64,"
-        chrome.storage.local.get('secureImage', function(data) {
-            $("#newIconImg").attr("src",data.secureImage);
-        });
-        /*  $("#newIconImg").css("background-image", "url(" + localStorage['customIcon'] + ")");
-            $("#iconImg").attr("src", customImgAddress); */
-    }
+    $("#iconImg").attr("src", imgAddress);
 }
+
 
 function fileupload(fileList) {
     
@@ -255,12 +236,11 @@ function fileupload(fileList) {
     // After the data content was extracted...
     reader.onload = function(theFileData) {
         var icon = theFileData.target.result; // read output of FileReader
-        localStorage['customIcon'] = icon;
-        chrome.storage.local.set({'secureImage': icon});
+        chrome.storage.local.set({'secureCustomImage': icon});
     };
     //  read the file and convert to data-URL
     reader.readAsDataURL(uploadFile);
-    setImage("custom");
+    setCustomImage();
 }
 
 
