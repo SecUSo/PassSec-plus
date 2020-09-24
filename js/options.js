@@ -84,6 +84,7 @@ function addTexts() {
 function init(storage) {
     // Appearance tab
     setImage(storage.secureImage);
+    $("#newIconImg").attr("src",storage.secureCustomImage);
 
     // Exceptions tab
     // $("#checkAfter20Checkbox").prop("checked", storage.checkExceptionsAfter20Starts.doCheck);
@@ -224,7 +225,26 @@ function setImage(secureImage) {
     $("#iconImg").attr("src", imgAddress);
 }
 
+/**
+ * Show the uploaded Icon as feedback for the user
+ * 
+ * ToDo: Set the uploaded icon as new warning icon.
+ */
+function showUploadFeedback() {
+    
+    chrome.storage.local.get('secureCustomImage', function(data) {
+        customIcon = data.secureCustomImage;
+        $("#newIconImg").attr("src",data.secureCustomImage);
+    });
+    $("#newIconImg").load(location.href + " #newIconImg");
+    location.reload();
+}
 
+/**
+ * Adds or updates the currently chosen secure image
+ *
+ * @param fileList Array of selected images from input button.
+ */
 function fileupload(fileList) {
     
     // select first file (input type=file creates always a file list)
@@ -238,9 +258,8 @@ function fileupload(fileList) {
         var icon = theFileData.target.result; // read output of FileReader
         chrome.storage.local.set({'secureCustomImage': icon});
     };
-    //  read the file and convert to data-URL
-    reader.readAsDataURL(uploadFile);
-    setCustomImage();
+
+    showUploadFeedback();
 }
 
 
