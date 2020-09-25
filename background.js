@@ -35,9 +35,8 @@ chrome.storage.local.get(null, function (items) {
 // closing the browser -> active redirecting, but red icon on next startup
 chrome.browserAction.setIcon({path: "skin/redirectActive.png"});
 
-// initial setup of the redirect handler & get Certificate Infos
+// initial setup of the redirect handler
 manageRedirectHandler();
-getCertificateInfos();
 
 // handle left-click on browser action icon
 chrome.browserAction.onClicked.addListener(function (tab) {
@@ -108,8 +107,8 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                 domainExtractionQueue.push([message.host, sender.tab.id, sender.frameId]);
             } else {
                 let domain = extractDomain(message.host, tldList);
-                let cert = getCertificateInfos(message.host);
-                chrome.tabs.sendMessage(sender.tab.id, {type: "extractedDomain", domain: domain, certificate: cert}, {frameId: sender.frameId});
+                certInfos = getCertificateInfos(message.host);
+                chrome.tabs.sendMessage(sender.tab.id, {type: "extractedDomain", domain: domain, certificate: certInfos}, {frameId: sender.frameId});
             }
             break;
     }
@@ -186,6 +185,8 @@ function extractDomain(url, tld) {
 
 /**
  * Extracts the information out of the receiving certificates for every incoming HTTPS connection
+ * 
+ * @param active_url The URL of the extracted domain 
  */
 function getCertificateInfos (active_url) {
     var log = console.log.bind(console);
@@ -195,17 +196,17 @@ function getCertificateInfos (active_url) {
      * var ACTIVE_DOMAIN = { urls: [`${url_regex}`] }
      * https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Match_patterns#Examples
      */
+   
     var ALL_SITES = { urls: ['<all_urls>'] }
-
     // Mozilla doesn't use tlsInfo in extraInfoSpec 
     var extraInfoSpec = ['blocking']; 
 
     browser.webRequest.onHeadersReceived.addListener(async function(details){
         var requestId = details.requestId
-        if ("https://"+active_url+"/" === details.originUrl || "http://"+active_url+"/" === details.originUrl) {
+        if ("https://"+active_url+"/" === details.originUrl) {
             certInfos = await browser.webRequest.getSecurityInfo(requestId, {
                 certificateChain: true
-            });
+            }).then;
             log(`securityInfo: ${JSON.stringify(certInfos, null, 2)}`)
         }
 

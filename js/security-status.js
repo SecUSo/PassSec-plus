@@ -17,7 +17,6 @@ function getSecurityStatus(storage, actform, certificate) {
 			}
 		}
 		else{
-            console.log("else case ");
             // check for exception set by user
 			if(storage.exceptions.includes(passSec.domain + "passSec-https") || storage.exceptions.includes(passSec.domain + "passSec-all")){
 				passSec.security = "httpsEV";
