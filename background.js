@@ -191,7 +191,8 @@ function extractDomain(url, tld) {
 function getCertificateInfos (active_url) {
     var log = console.log.bind(console);
     /*
-     * Parsing issue regex does not apply with the active_url
+     * Parsing issue: regex does not apply the transfered active_url
+     * Hardcoded it works, parsed not. Values are the same if you compare them in console.
      * var url_regex = `'*://${active_url}/*'`;
      * var ACTIVE_DOMAIN = { urls: [`${url_regex}`] }
      * https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Match_patterns#Examples
@@ -206,10 +207,9 @@ function getCertificateInfos (active_url) {
         if ("https://"+active_url+"/" === details.originUrl) {
             certInfos = await browser.webRequest.getSecurityInfo(requestId, {
                 certificateChain: true
-            }).then;
+            });
             log(`securityInfo: ${JSON.stringify(certInfos, null, 2)}`)
         }
-
     }, ALL_SITES, extraInfoSpec) 
     return certInfos;
 }
