@@ -1,7 +1,7 @@
 /**
  * Returns the HTML skeleton for a tooltip
  */
-function getTooltipHTML() {
+ function getTooltipHTML() {
     return '<span id="passSecWarning" class="http-warning passSecTooltipText"></span>' +
         '<hr class="http-warning">' +
         '<span id="passSecURL" class="passSecTooltipText">' + chrome.i18n.getMessage("domainInfo") + '<span id="passSecDomain" class="passSecTooltipText">' + passSec.domain + '</span>.</span>' +
@@ -18,17 +18,22 @@ function getTooltipHTML() {
         '<img id="passSecInfoImage" src=' + chrome.extension.getURL("skin/more_info.png") + '>' +
         '<p id="passSecInfoText" class="passSecClickable passSecTooltipText">' + chrome.i18n.getMessage("moreInfo") + '</p>' +
         '</div>' +
+        '<p id="passSecTimer"></p>' +
         '<div id="passSecButtons>">' +
         '<button id="passSecButtonException" type="button" class="passSecTooltipText"></button>' +
         '<button id="passSecButtonClose" type="button" class="passSecTooltipText">' + chrome.i18n.getMessage("OK") + ' </button>' +
         '</div>';
 }
 
+function creatUserException(websiteProtocol, websiteDomain, formProtocol, formDomain) {
+    return {"siteProtocol":websiteProtocol,"siteDom":websiteDomain,"formProtocol":formProtocol,"formDom":formDomain};
+}
 /**
  * Adds functionality for the tooltip elements
  */
-function processTooltip(securityStatus) {
+function processTooltip(securityStatus, element, creatUserException) {
     let tooltip = passSec.tooltip;
+
     $(tooltip.find("#passSecButtonClose")[0]).on("mousedown", function (event) {
         // prevent input element losing focus
         event.stopImmediatePropagation();
@@ -37,8 +42,10 @@ function processTooltip(securityStatus) {
         passSec.api.destroy(true);
     });
 
-    switch (securityStatus){
-        case "passSec-https"://"https":
+    switch (securityStatus) {
+        case "passSec-https":
+            passSecTimer.countdown(tooltip, element);
+
             $(tooltip.find(".http-warning")).hide();
             $(tooltip.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("exceptionHTTPS"));
             $(tooltip.find("#passSecButtonException")[0]).on("mousedown", function (event) {
@@ -46,11 +53,12 @@ function processTooltip(securityStatus) {
                 event.stopImmediatePropagation();
                 event.preventDefault();
             }).on("mouseup", function (event) {
-                addException(true , securityStatus);
+                addUserException(true, securityStatus, passSec.domain, "userTrustedDomains");
             });
             break;
 
         case "passSec-http":
+            passSecTimer.countdown(tooltip, element);
             $(tooltip.find(".http-warning")).show();
             if (passSec.httpsAvailable) {
                 $(tooltip.find("#passSecButtonException")[0]).addClass("greenButton");
@@ -70,19 +78,22 @@ function processTooltip(securityStatus) {
                         if (!item.redirects.includes(redirectPattern)) {
                             let updatedRedirects = item.redirects.slice(0);
                             updatedRedirects.push(redirectPattern);
-                            chrome.storage.local.set({redirects: updatedRedirects}, function () {
+                            chrome.storage.local.set({ redirects: updatedRedirects }, function () {
                                 let httpsUrl = passSec.url.replace("http://", "https://");
-                                chrome.runtime.sendMessage({type: "doRedirect", httpsURL: httpsUrl});
+                                chrome.runtime.sendMessage({ type: "doRedirect", httpsURL: httpsUrl });
                                 passSec.api.destroy(true);
                             });
                         } else {
                             let httpsUrl = passSec.url.replace("http://", "https://");
-                            chrome.runtime.sendMessage({type: "doRedirect", httpsURL: httpsUrl});
+                            chrome.runtime.sendMessage({ type: "doRedirect", httpsURL: httpsUrl });
                             passSec.api.destroy(true);
                         }
                     });
                 } else {
-                    addException(true, securityStatus);
+                    var form = element.form;
+                    var formURLObj = getProtocolAndDomainFromURL(form.action);
+                    let exception = creatUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
+                    openConfirmAddingHttpExceptionDialog("confirmAddingHttpException", tooltip, securityStatus, exception, "exceptions");
                 }
             });
             getHttpFieldTexts("http");
@@ -90,86 +101,56 @@ function processTooltip(securityStatus) {
     }
 }
 
-/**
- * Adds an exception to storage
- *
- * @param tooltip   Boolean indicating whether this function was triggered by a click inside of a tooltip (true)
- *                  or by a click in the browser action context menu (false)
- */
-function addException(tooltip, securityStatus) {
-	function add() {
-        chrome.storage.local.get("exceptions", function (item) {
-			let field = $(passSec.target)
-			let classToRemove = field.attr("data-passSec-security");
-			let oppositeClass = "";
-			
-			if(classToRemove == "passSec-http"){
-				oppositeClass = "passSec-https";
-			}else if(classToRemove == "passSec-https"){
-				oppositeClass = "passSec-http";
-			}
-				
-			
-            if (!item.exceptions.includes(passSec.domain + classToRemove )) {
-                let updatedExceptions = item.exceptions.slice(0);
-				
-				if (!item.exceptions.includes(passSec.domain + oppositeClass )) {
-					updatedExceptions.push(passSec.domain + classToRemove);
-				}else {
-					name = passSec.domain + oppositeClass;
-					nameToReplace = passSec.domain + "passSec-all";
-					let index = updatedExceptions.indexOf(name);
-					
-					updatedExceptions.splice(index, 1, nameToReplace);
-                  
-                    chrome.storage.local.set({exceptions: updatedExceptions});
-					
-				
-				}
-			
-                chrome.storage.local.set({exceptions: updatedExceptions}, function () {
-                    updateElem = $('.' + classToRemove)
-					updateElem.removeClass(classToRemove)
-					if(classToRemove == "passSec-https"){
-					updateElem.addClass("passSec-httpsEV");
-					$('[data-passSec-security='+ classToRemove + ']').attr("data-passSec-security", "passSec-httpsEV");
-					}else{
-					$('[data-passSec-security='+ classToRemove + ']').attr("data-passSec-security", "passSec-none");
-					}
-                    
-                    if (tooltip)
-                        passSec.api.destroy(true);
-                });
+
+function updateSecurityClass(prevSecurityClass) {
+    updateElem = $('.' + prevSecurityClass);
+    updateElem.removeClass(prevSecurityClass);
+
+    if (prevSecurityClass == "passSec-https") {
+        updateElem.addClass("passSec-userTrusted");
+        $('[data-passSec-security=' + prevSecurityClass + ']').attr("data-passSec-security", "passSec-userTrusted");
+    } else {
+        $('[data-passSec-security=' + prevSecurityClass + ']').attr("data-passSec-security", "passSec-none");
+    }
+}
+
+function addUserException(tooltip, securityStatus, exception, storageListName) {
+    chrome.storage.local.get(storageListName, function (item) {
+        let updatedExceptions = item[storageListName].slice(0);
+        updatedExceptions.push(exception);
+        chrome.storage.local.set({ [storageListName]: updatedExceptions }, function () {
+            updateSecurityClass(securityStatus);
+
+            if (tooltip) {
+                passSec.api.destroy(true);
             }
         });
-    }
-	
-    if (!tooltip || securityStatus === "passSec-http"){
-        let message = securityStatus === "passSec-http" ? "confirmAddingHttpException" : "confirmAddingHttpsException";
-        $.confirm({
-            title: "PassSec+",
-            titleClass: "passSecConfirmTitle",
-            buttons: {
-                ok: function () {
-                    add();
-                },
-                cancel: {
-                    text: chrome.i18n.getMessage("cancelButton")
-                }
+    });
+}
+
+
+function openConfirmAddingHttpExceptionDialog(message, tooltip, securityStatus, exception, storageListName) {
+    $.confirm({
+        title: "PassSec+",
+        titleClass: "passSecConfirmTitle",
+        buttons: {
+            ok: function () {
+                addUserException(tooltip, securityStatus, exception, storageListName);
             },
-            onOpenBefore: function () {
-                this.setContent($(chrome.i18n.getMessage(message, passSec.domain)));
-            },
-            backgroundDismissAnimation: "none",
-            animateFromElement: false,
-            animation: "opacity",
-            closeAnimation: "opacity",
-            useBootstrap: false,
-            boxWidth: "40%"
-        });
-    } else {
-        add();
-    }
+            cancel: {
+                text: chrome.i18n.getMessage("cancelButton")
+            }
+        },
+        onOpenBefore: function () {
+            this.setContent($(chrome.i18n.getMessage(message, passSec.domain)));
+        },
+        backgroundDismissAnimation: "none",
+        animateFromElement: false,
+        animation: "opacity",
+        closeAnimation: "opacity",
+        useBootstrap: false,
+        boxWidth: "40%"
+    });
 }
 
 /**
@@ -179,11 +160,11 @@ function addException(tooltip, securityStatus) {
 function getHttpFieldTexts() {
     let fieldType = $(passSec.target).attr("data-passSec-input-type");
     let tooltip = passSec.tooltip;
-	
-	if (passSec.url.startsWith("https")) {
-		$(tooltip.find("#passSecWarning")[0]).html(chrome.i18n.getMessage(fieldType + "Warning"));
-		$(tooltip.find("#passSecConsequenceText")[0]).html(chrome.i18n.getMessage(fieldType + "ConsequenceHttp"));
-		$(tooltip.find("#passSecRecommendationText")[0]).html(chrome.i18n.getMessage(fieldType + "RecommendationHttpMixed"));
+
+    if (passSec.url.startsWith("https")) {
+        $(tooltip.find("#passSecWarning")[0]).html(chrome.i18n.getMessage(fieldType + "Warning"));
+        $(tooltip.find("#passSecConsequenceText")[0]).html(chrome.i18n.getMessage(fieldType + "ConsequenceHttp"));
+        $(tooltip.find("#passSecRecommendationText")[0]).html(chrome.i18n.getMessage(fieldType + "RecommendationHttpMixed"));
         $(tooltip.find("#passSecInfoText")[0]).click(function (e) {
             if ($(this).html() === chrome.i18n.getMessage("moreInfo")) {
                 $(this).html(chrome.i18n.getMessage(fieldType + "InfoHttpMixed"));
@@ -191,34 +172,45 @@ function getHttpFieldTexts() {
                 $(this).html(chrome.i18n.getMessage("moreInfo"));
             }
         });
-	
-	}else{
-    $(tooltip.find("#passSecWarning")[0]).html(chrome.i18n.getMessage(fieldType + "Warning"));
-    $(tooltip.find("#passSecConsequenceText")[0]).html(chrome.i18n.getMessage(fieldType + "ConsequenceHttp"));
-    if (passSec.httpsAvailable) {
-        $(tooltip.find("#passSecRecommendationText")[0]).click(function (e) {
-            if ($(this).html() === chrome.i18n.getMessage("moreRecommendationHttpsAvailable")) {
-                $(this).html(chrome.i18n.getMessage("recommendationHttpsAvailable"));
-            } else {
-                $(this).html(chrome.i18n.getMessage("moreRecommendationHttpsAvailable"));
-            }
-        }).addClass("passSecClickable").html(chrome.i18n.getMessage("recommendationHttpsAvailable"));
-        $(tooltip.find("#passSecInfoText")[0]).click(function (e) {
-            if ($(this).html() === chrome.i18n.getMessage("moreInfo")) {
-                $(this).html(chrome.i18n.getMessage(fieldType + "InfoHttpsAvailable"));
-            } else {
-                $(this).html(chrome.i18n.getMessage("moreInfo"));
-            }
-        });
-    }else {
-        $(tooltip.find("#passSecRecommendationText")[0]).html(chrome.i18n.getMessage(fieldType + "RecommendationHttp"));
-        $(tooltip.find("#passSecInfoText")[0]).click(function (e) {
-            if ($(this).html() === chrome.i18n.getMessage("moreInfo")) {
-                $(this).html(chrome.i18n.getMessage(fieldType + "InfoHttp"));
-            } else {
-                $(this).html(chrome.i18n.getMessage("moreInfo"));
-            }
-         });
-		}
-	}
+
+    } else {
+        $(tooltip.find("#passSecWarning")[0]).html(chrome.i18n.getMessage(fieldType + "Warning"));
+        $(tooltip.find("#passSecConsequenceText")[0]).html(chrome.i18n.getMessage(fieldType + "ConsequenceHttp"));
+        if (passSec.httpsAvailable) {
+            $(tooltip.find("#passSecRecommendationText")[0]).click(function (e) {
+                if ($(this).html() === chrome.i18n.getMessage("moreRecommendationHttpsAvailable")) {
+                    $(this).html(chrome.i18n.getMessage("recommendationHttpsAvailable"));
+                } else {
+                    $(this).html(chrome.i18n.getMessage("moreRecommendationHttpsAvailable"));
+                }
+            }).addClass("passSecClickable").html(chrome.i18n.getMessage("recommendationHttpsAvailable"));
+            $(tooltip.find("#passSecInfoText")[0]).click(function (e) {
+                if ($(this).html() === chrome.i18n.getMessage("moreInfo")) {
+                    $(this).html(chrome.i18n.getMessage(fieldType + "InfoHttpsAvailable"));
+                } else {
+                    $(this).html(chrome.i18n.getMessage("moreInfo"));
+                }
+            });
+        } else {
+            $(tooltip.find("#passSecRecommendationText")[0]).html(chrome.i18n.getMessage(fieldType + "RecommendationHttp"));
+            $(tooltip.find("#passSecInfoText")[0]).click(function (e) {
+                if ($(this).html() === chrome.i18n.getMessage("moreInfo")) {
+                    $(this).html(chrome.i18n.getMessage(fieldType + "InfoHttp"));
+                } else {
+                    $(this).html(chrome.i18n.getMessage("moreInfo"));
+                }
+            });
+        }
+    }
+}
+
+
+function getProtocolAndDomainFromURL(urlStr) {
+    let url = new URL(urlStr);
+    let domain = extractDomain(url.host);
+    let protocol = url.protocol;
+    return {
+        protocol: protocol,
+        domain: domain
+    };
 }

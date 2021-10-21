@@ -30,9 +30,19 @@ body {
     border: 2.5px solid black;
 }
 
-#exceptionList {
-    margin-right: 10px;
-    border: 2.5px solid black;
+#trustedList, #trustedlist{
+    display: inline-block;
+    border: 2.5px solid green;
+  }
+
+#exceptionList, #userTrustedList {
+    display: inline-block;
+    border: 2.5px solid #1a509d;
+}
+
+#exceptionHttpList, #userExceptionList {
+    display: inline-block;
+    border: 2.5px solid red;
 }
 
 .left {

@@ -14,6 +14,17 @@
     "description": "Verify domain."
   },
 
+  "verbleibendeZeit": {
+    "message": "Verbleibende Zeit: $TIME$ Sekunde(n).",
+    "description": "Remaining time until field is activated.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+
   "exceptionHTTP": {
     "message": "Add an exception",
     "description": "Add an http exception"
@@ -49,9 +60,9 @@
     "description": "Title for settings"
   },
 
-  "tab1": {
-    "message": "General",
-    "description": "Heading for general tab"
+  "symbolTab": {
+    "message": "Symbol",
+    "description": "Heading for symbol tab"
   },
 
   "appearance": {
@@ -72,6 +83,11 @@
   "changeIconText": {
     "message": "You can change the icon for secure input here:",
     "description": "Text for icon change"
+  },
+
+  "iconHint": {
+    "message": "Note: If there were only one icon, fraudulent websites could fool you into thinking that it is safe to enter a password or other sensitive data, because the website itself would display the field with a green border and add the appropriate icon.",
+    "description": "Text for icon hint"
   },
 
   "changeIconButton": {
@@ -100,7 +116,7 @@
   },
 
   "httpsRedirects": {
-    "message": "HTTPS redirects (secure mode)",
+    "message": "List of domains that are automatically redirected from http to https (secure mode)",
     "description": "HTTPS redirects"
   },
 
@@ -124,14 +140,79 @@
     "description": "Empty list"
   },
 
-  "tab3": {
-    "message": "Exceptions",
+  "domainsTab": {
+    "message": "Domains",
     "description": "Heading for exceptions tab"
   },
 
-  "websiteExceptions": {
-    "message": "Website exceptions",
-    "description": "Website exceptions"
+  "websiteHttpsExceptions": {
+    "message": "HTTPS website exceptions",
+    "description": "Website https exceptions"
+  },
+
+  "websiteHttpExceptions": {
+    "message": "HTTP website exceptions",
+    "description": "Website http exceptions"
+  },
+
+  "trustedList": {
+    "message": "List of developers",
+    "description": "Trusted domains."
+  },
+
+  "userTrustedList": {
+    "message": "List of domains you classify as 'low risk'.",
+    "description": "User trusted domains."
+  },
+
+  "userExceptionList": {
+    "message": "List of domains you classify as 'low risk'.",
+    "description": "User exception domains."
+  },
+
+  "showLowRiskList": {
+    "message": "Show entries",
+    "description": "Show list of trusted domains."
+  },
+
+  "lowRiskDomains": {
+    "message": "List of domains considered 'low risk' by developers (green frame).",
+    "description": "Activate timer on list of trusted domains."
+  },
+
+  "activateLowRiskList": {
+    "message": "Activate list of domains the developers consider as 'low-risk'",
+    "description": "Activate list of trusted domains."
+  },
+
+  "userTrustedDomains": {
+    "message": "List of HTTPS websites that you have classified as 'low risk' (blue frame).",
+    "description": "List of user risk domains (websites with https)."
+  },
+
+  "userExceptions": {
+    "message": "List of special cases where PassSec+ has detected an anomaly but you have decided that there is a low risk (red background)",
+    "description": "List of user risk domains (websites with http)."
+  },
+
+  "userList": {
+    "message": "List of domains you classify as 'low risk'.",
+    "description": "User risk domains."
+  },
+
+  "editUserList": {
+    "message": "Show / edit entries",
+    "description": "Show and edit list of user risk domains."
+  },
+
+  "showList": {
+    "message": "Show list",
+    "description": "Show list"
+  },
+
+  "editList": {
+    "message": "Edit list",
+    "description": "Edit list"
   },
 
   "showWebsiteExceptions": {
@@ -159,7 +240,7 @@
     "description": "Tooltip for Check website exceptions after 20 starts"
   },
 
-  "tab4": {
+  "fieldsTab": {
     "message": "Fields",
     "description": "Heading for fields tab"
   },
@@ -189,6 +270,30 @@
     "description": "Search field"
   },
 
+  "notesOnFields": {
+    "message": "Note: PassSec+ makes every effort to identify and then mark the appropriate fields. Unfortunately, this is not always possible. If you notice on a web page that a field was not recognized, you are welcome to send us this web page and we will try to further develop PassSec+ accordingly.",
+    "description": "Text for notes on the fields"
+  },
+
+  "timerTab": {
+    "message": "Timer",
+    "description": "Heading for timer tab"
+  },
+
+  "timerActivated": {
+    "message": "Input delay timer activated",
+    "description": "Timer activated"
+  },
+
+  "timerAmount": {
+    "message": "Input delay timer set to",
+    "description": "Timer amount"
+  },
+
+  "seconds": {
+    "message": "second(s).",
+    "description": "Seconds"
+  },
  
   "httpsSecurity": {
     "message": "HTTPS security",
@@ -314,6 +419,7 @@
     "message": "More Information: This website does not provide the option of entering and transmitting your password securely (via https). If you use the same password for other website accounts, and your password is intercepted by unauthorized people when you submit here, these people will gain access to your account on this webpage and also to all other websites where you use the same credentials. Therefore, it is very important to change the other website passwords immediately. It is recommended to contact the website provider and inform them about the incorrect configuration. [less]",
     "description": "Info http: user enters login data."
   },
+  
   "paymentInfoHttpsAvailable": {
     "message": "More Information: The secure mode (https) protects your payment information from being intercepted and subsequently used to effect unauthorized payments. The secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
     "description": "Info https: user enters payment data."

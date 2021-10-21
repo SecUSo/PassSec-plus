@@ -14,6 +14,17 @@
     "description": "Verify domain."
   },
 
+  "verbleibendeZeit": {
+    "message": "Verbleibende Zeit: $TIME$ Sekunde(n).",
+    "description": "Remaining time until field is activated.",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+
   "exceptionHTTP": {
     "message": "Ausnahme hinzufügen",
     "description": "Add an http exception"
@@ -49,9 +60,9 @@
     "description": "Title for settings"
   },
 
-  "tab1": {
-    "message": "Allgemein",
-    "description": "Heading for general tab"
+  "symbolTab": {
+    "message": "Symbol",
+    "description": "Heading for symbol tab"
   },
 
   "appearance": {
@@ -70,8 +81,13 @@
   },
 
   "changeIconText": {
-    "message": "Sie können das Symbol für die sichere Eingabe hier ändern:",
+    "message": "PassSec+ zeigt Ihnen in den Fällen mit unbekanntem oder niedrigem Risiko ein Sicherheitssymbol an. Bei der Installation hat PassSec+ Ihnen eins der vorhandenen Symbole zufällig zugeordnet. Sie können sich hier auch ein anderes Symbol wählen, in dem Sie auf den Button 'Nächstes Symbol' klicken",
     "description": "Text for icon change"
+  },
+
+  "iconHint": {
+    "message": "Hinweis: Wenn es nur ein Symbol geben würde, könnten betrügerische Webseiten Ihnen vorgaukeln, dass es sicher ist eine Passwort oder andere sensible Daten einzugeben, weil die Webseite selbst, das Feld mit einem grünen Rand darstellt und mit dem entsprechenden Symbol versieht.",
+    "description": "Text for icon hint"
   },
 
   "changeIconButton": {
@@ -100,7 +116,7 @@
   },
 
   "httpsRedirects": {
-    "message": "HTTPS-Weiterleitungen (Sicherer Modus)",
+    "message": "Liste, der Domains, die automatisch von http auf https umgeleitet werden (sicherer Modus)",
     "description": "HTTPS redirects"
   },
 
@@ -124,14 +140,79 @@
     "description": "Empty list"
   },
 
-  "tab3": {
-    "message": "Ausnahmen",
+  "domainsTab": {
+    "message": "Domains",
     "description": "Heading for exceptions tab"
   },
 
-  "websiteExceptions": {
-    "message": "Webseiten-Ausnahmen",
-    "description": "Website exceptions"
+  "websiteHttpsExceptions": {
+    "message": "HTTPS-Webseiten-Ausnahmen",
+    "description": "Website https exceptions"
+  },
+
+  "websiteHttpExceptions": {
+    "message": "HTTP-Webseiten-Ausnahmen",
+    "description": "Website http exceptions"
+  },
+
+  "trustedList": {
+    "message": "Liste der Entwickler",
+    "description": "Trusted domains."
+  },
+
+  "userTrustedList": {
+    "message": "Liste der von Ihnen als 'geringes Risiko' eingestuften Domains",
+    "description": "User trusted domains."
+  },
+
+  "userExceptionList": {
+    "message": "Liste der von Ihnen als 'geringes Risiko' eingestuften Domains",
+    "description": "User exception domains."
+  },
+  
+  "showLowRiskList": {
+    "message": "Anzeigen der Einträge",
+    "description": "Show list of trusted domains."
+  },
+
+  "lowRiskDomains": {
+    "message": "Liste der Domains, die von den Entwicklern als ‚geringes Risiko‘ eingestuft wurden (grüner Rahmen)",
+    "description": "List of trusted domains."
+  },
+
+  "activateLowRiskList": {
+    "message": "Liste der Entwickler aktivieren",
+    "description": "Activate list of trusted domains."
+  },
+
+  "userTrustedDomains": {
+    "message": "Liste der HTTPS Webseiten, die Sie als 'geringes Risiko' eingestuft haben (blauer Rahmen)",
+    "description": "List of user risk domains (websites with https)."
+  },
+
+  "userExceptions": {
+    "message": "Liste der Sonderfälle, bei denen PassSec+ eine Auffälligkeit entdeckt hat Sie aber entschieden haben, dass ein geringes Risiko vorliegt (roter Hintergund)",
+    "description": "List of user risk domains (websites with http)."
+  },
+
+  "userList": {
+    "message": "Liste der von Ihnen als 'geringes Risiko' eingestuften Domains",
+    "description": "User risk domains."
+  },
+
+  "editUserList": {
+    "message": "Einträge anzeigen / bearbeiten",
+    "description": "Show and edit list of user risk domains."
+  },
+
+  "showList": {
+    "message": "Liste ansehen",
+    "description": "Show list"
+  },
+
+  "editList": {
+    "message": "Liste bearbeiten",
+    "description": "Edit list"
   },
 
   "showWebsiteExceptions": {
@@ -159,7 +240,7 @@
     "description": "Tooltip for Check website exceptions after 20 starts"
   },
 
-  "tab4": {
+  "fieldsTab": {
     "message": "Felder",
     "description": "Heading for fields tab"
   },
@@ -189,6 +270,31 @@
     "description": "Search field"
   },
 
+  "notesOnFields": {
+    "message": "Hinweis: PassSec+ ist bemüht, die entsprechenden Felder zu identifizieren und dann zu markieren. Leider ist dies nicht immer möglich. Wenn Sie auf einer Webseite feststellen, dass ein Feld nicht erkannt wurde, können Sie uns diese Webseite gerne schicken und wir versuchen PassSec+ entsprechend weiter zu entwickeln.",
+    "description": "Text for notes on the fields"
+  },
+
+  "timerTab": {
+    "message": "Timer",
+    "description": "Heading for timer tab"
+  },
+
+  "timerActivated": {
+    "message": "Eingabe-Verzögerung aktiviert",
+    "description": "Timer activated"
+  },
+
+  "timerAmount": {
+    "message": "Eingabe-Verzögerung Zeit auf:",
+    "description": "Timer amount"
+  },
+
+  "seconds": {
+    "message": "Sekunde(n).",
+    "description": "Seconds"
+  },
+  
   "httpsSecurity": {
     "message": "HTTPS-Sicherheit",
     "description": "HTTPS Security"

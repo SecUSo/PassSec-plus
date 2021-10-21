@@ -1,4 +1,4 @@
-let passSec = {};
+var passSec = passSec || {};
 let inputElementClicked = false;
 
 // listen for messages from background script
@@ -60,7 +60,6 @@ function extractDomain(hostname) {
         return hostname;
     } else {
         var psl = passSec.publicSuffixList.getDomain(hostname);
-        console.log("Psl " + psl);
         // psl empty -> url is already a valid domain
         return psl != "" ? psl : hostname;
     }
@@ -75,10 +74,15 @@ function extractDomain(hostname) {
  */
 function applyTooltip(element, event) {
     // only show tooltip on security status "http" or "https", "httpsEV" does not show any tooltips
-	securityStatus = $(element).attr("data-passSec-security");
+    securityStatus = $(element).attr("data-passSec-security");
+
+    if (passSecTimer.time != 0 && ($(element).hasClass("passSec-http") || $(element).hasClass("passSec-https"))) {
+        $(element).prop("disabled", true);
+    }
+
     if ($(element).hasClass("passSec-http") || $(element).hasClass("passSec-https") || securityStatus === "passSec-http" || securityStatus === "passSec-https") {
         passSec.target = element;
-		
+
         $(element).qtip({
             overwrite: true,
             suppress: true,
@@ -116,7 +120,22 @@ function applyTooltip(element, event) {
                 render: function (event, api) {
                     passSec.api = api;
                     passSec.tooltip = api.elements.content;
-                    processTooltip(securityStatus);
+
+                    processTooltip(securityStatus, element, creatUserException);
+                    if (passSecTimer.time != 0 && ($(element).hasClass("passSec-http") || $(element).hasClass("passSec-https"))) {
+                        $(passSec.tooltip.find("#passSecButtonClose")[0]).prop("disabled", true);
+                        $(passSec.tooltip.find("#passSecButtonException")[0]).prop("disabled", true);
+                    }
+                },
+                hide: function () {
+                    if (passSecTimer.timerIntervall != null) {
+                        clearInterval(passSecTimer.timerIntervall.id());
+                    }
+                },
+                show: function () {
+                    if (passSecTimer.timerIntervall != null) {
+                        passSecTimer.timerIntervall.resume();
+                    }
                 }
             }
         }, event);
