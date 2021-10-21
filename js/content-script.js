@@ -7,35 +7,64 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         case "addException":
             addException(false, "none");
             break;
-        case "extractedDomain":
-            passSec.domain = message.domain;
-            chrome.storage.local.get(null, function (items) {
-                //getSecurityStatus(items);
-                processInputs(items);
-				
-                // normally the focus event handler would be enough here, but we need the mousedown down handler
-                // and the 'inputElementClicked' flag to accomplish the following: When the user closes the tooltip
-                // by clicking 'Ok, got it.', the tooltip should open up again when clicking on the still focused
-                // input element (so the tooltip should open, even though no focus event is fired, but it should not
-                // open up twice if focus of an element is caused by a click)
-                $('body').on('mousedown', 'input,textarea', function (event) {
-                    if (!$(event.target).is($(document.activeElement)))
-                        inputElementClicked = true;
-                    applyTooltip(event.target, event);
-                }).on('focus', 'input,textarea', function (event) {
-                    if (!inputElementClicked)
-                        applyTooltip(event.target, event);
-                    inputElementClicked = false;
-                });
-            });
-            break;
     }
 });
 
 // processing starts here and is continued when the background script sends the extracted domain
 passSec.url = document.location.href;
-chrome.runtime.sendMessage({type: "extractDomain", host: document.location.host});
+$(document).ready(function () {
+    chrome.runtime.sendMessage({ type: "TLD" }, function (r) {
+        passSec.publicSuffixList.parse(r, punycode.toASCII);
+    });
 
+    passSec.domain = passSec.publicSuffixList.getDomain(document.location.host);
+    passSec.websiteProtocol = document.location.protocol;
+
+    chrome.storage.local.get(null, function (items) {
+        processInputs(items);
+
+        // normally the focus event handler would be enough here, but we need the mousedown down handler
+        // and the 'inputElementClicked' flag to accomplish the following: When the user closes the tooltip
+        // by clicking 'Ok, got it.', the tooltip should open up again when clicking on the still focused
+        // input element (so the tooltip should open, even though no focus event is fired, but it should not
+        // open up twice if focus of an element is caused by a click)
+        $('body').on('mousedown', 'input,textarea', function (event) {
+            if (!$(event.target).is($(document.activeElement)))
+                inputElementClicked = true;
+            applyTooltip(event.target, event);
+
+        }).on('focus', 'input,textarea', function (event) {
+            if (!inputElementClicked)
+                applyTooltip(event.target, event);
+            inputElementClicked = false;
+        });
+    });
+});
+
+
+function isIP(address) {
+    const ipWithProtocol = new RegExp(
+        "^http[s]?://((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])"
+    );
+    const ipWithoutProtocol = new RegExp(
+        "^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])"
+    );
+    return ipWithProtocol.test(address) || ipWithoutProtocol.test(address);
+}
+
+/**
+ * get domain out of hostname
+ */
+function extractDomain(hostname) {
+    if (isIP(hostname)) {
+        return hostname;
+    } else {
+        var psl = passSec.publicSuffixList.getDomain(hostname);
+        console.log("Psl " + psl);
+        // psl empty -> url is already a valid domain
+        return psl != "" ? psl : hostname;
+    }
+}
 
 /**
  * Creates a tooltip for a specific input element
