@@ -62,6 +62,21 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             // this is only to directly execute a redirect when the user clicked the 'Secure Mode' button
             chrome.tabs.update({ url: message.httpsURL });
             break;
+        case "checkHttpsAvailable":
+            let httpsUrl = message.httpsURL.replace("http://", "https://");
+            let httpsRequest = new XMLHttpRequest();
+            httpsRequest.open("HEAD", httpsUrl);
+            httpsRequest.onreadystatechange = function () {
+                if (this.readyState === this.DONE) {
+                    var httpsAvailable = this.status >= 200 && this.status <= 299 && this.responseURL.startsWith("https");
+                    // if there is an open tooltip while httpsAvailable switches to true, trigger focus event to reopen tooltip with correct content
+                    if (httpsAvailable === true)
+                        sendResponse(true);
+                    //$(':focus').focus();
+                }
+            };
+            httpsRequest.send();
+            return true;
         case "manageRedirectHandler":
             manageRedirectHandler();
             break;

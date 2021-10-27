@@ -31,18 +31,9 @@
 
         if (passSec.url.startsWith("http://")) {
             passSec.httpsAvailable = false;
-            let httpsUrl = passSec.url.replace("http://", "https://");
-            let httpsRequest = new XMLHttpRequest();
-            httpsRequest.open("HEAD", httpsUrl);
-            httpsRequest.onreadystatechange = function () {
-                if (this.readyState === this.DONE) {
-                    passSec.httpsAvailable = this.status >= 200 && this.status <= 299 && this.responseURL.startsWith("https");
-                    // if there is an open tooltip while httpsAvailable switches to true, trigger focus event to reopen tooltip with correct content
-                    if (passSec.httpsAvailable === true)
-                        $(':focus').focus();
-                }
-            };
-            httpsRequest.send();
+            chrome.runtime.sendMessage({ type: "checkHttpsAvailable", httpsURL: passSec.url }, function (httpsAvailable) {
+                passSec.httpsAvailable = httpsAvailable;
+            });
         }
     }
 
