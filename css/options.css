@@ -25,22 +25,21 @@ body {
 }
 
 #redirectList {
-    float: left;
     display: inline-block;
     border: 2.5px solid black;
 }
 
-#trustedList, #trustedlist{
+#trustedlist{
     display: inline-block;
     border: 2.5px solid green;
   }
 
-#exceptionList, #userTrustedList {
+#userTrustedList {
     display: inline-block;
     border: 2.5px solid #1a509d;
 }
 
-#exceptionHttpList, #userExceptionList {
+#userExceptionList {
     display: inline-block;
     border: 2.5px solid red;
 }
@@ -65,7 +64,7 @@ body {
     margin-top: 10px;
 }
 
-#statusSettings, #redirectList, #exceptionList {
+#statusSettings {
     display: none;
 }
 
@@ -164,18 +163,4 @@ label {
 
 .italicText {
     font-style: italic;
-}
-
-.cookieOptionLine {
-    display: table-cell;
-    vertical-align: top;
-    padding: 0 0 8px 4px;
-}
-
-.cookieOptionHeading {
-    display: inline-block;
-}
-
-#cookieOptionDeleteOnceButton {
-    margin-bottom: 5px;
 }

@@ -42,8 +42,7 @@ function addTexts() {
 
     // Domains tab
     $("#httpsRedirects").html(chrome.i18n.getMessage("httpsRedirects"));
-    $("#showRedirects").html(chrome.i18n.getMessage("showList"));
-    $("#clearRedirectionList").html(chrome.i18n.getMessage("emptyList"));
+    $("#showRedirects").html(chrome.i18n.getMessage("editList"));
     $("#exceptions").html(chrome.i18n.getMessage("domainsTab"));
     $("#trustedListText").html(chrome.i18n.getMessage("lowRiskDomains"));
     $("#activateTrustedList").html(chrome.i18n.getMessage("activateLowRiskList"));
@@ -52,7 +51,7 @@ function addTexts() {
     $("#userHttpListText").html(chrome.i18n.getMessage("userExceptions"));
     $("#editUserDefined").html(chrome.i18n.getMessage("editList"));
     $("#editHttpUserDefined").html(chrome.i18n.getMessage("editList"));;
-    
+
     // Timer tab
     $("#passSecTimer").html(chrome.i18n.getMessage("timerTab"));
     $("#timerCheckboxText").html(chrome.i18n.getMessage("timerActivated"));
@@ -82,7 +81,7 @@ function init(storage) {
 
     // Redirects and exceptions
     $("#trustedListActivated").prop("checked", storage.trustedListActivated);
- }
+}
 
 /**
  *   Adds functionality for the option page elements
@@ -98,26 +97,52 @@ function addEvents(storage) {
         setImage(currentSecureImage);
     });
 
-    $("#clearRedirectionList").click(function (e) {
-        chrome.storage.local.set({ redirects: [] });
-        fillList("redirects", "redirectList", []);
-        chrome.runtime.sendMessage({ type: "manageRedirectHandler" });
-    });
 
     // Exceptions tab
     $("#trustedListActivated").on('change', function (e) {
         chrome.storage.local.set({ trustedListActivated: $(this).prop("checked") });
     });
 
-    $("#showTrustedDomains").click(function (e) {
-        $("#exceptionList").hide();
-        $("#exceptionHttpList").hide();
-
-        $.dialog({
-            title: chrome.i18n.getMessage("domainsTab"),
+    $("#showRedirects").click(function (e) {
+        var redirectsDialog = $.dialog({
+            title: chrome.i18n.getMessage("domainsTab") + ": " + chrome.i18n.getMessage("httpsRedirects"),
             onOpenBefore: function () {
-                let listHeader = chrome.i18n.getMessage("trustedList");
-                let listHTMLStr = getListHTML("trustedlist", listHeader, storage.trustedDomains, false);
+                chrome.storage.local.get("redirects", function (item) {
+                    var listHTMLStr = "Die Liste ist leer";
+                    if (item.redirects.length > 0) {
+                        listHTMLStr = getListHTML("redirectList", item.redirects, true);
+                        listHTMLStr += "<div><button id='clearRedirectList'>Liste leeren</button></div>";
+                    }
+                    redirectsDialog.setContent(listHTMLStr);
+                });
+            },
+            onContentReady: function () {
+                var table = document.getElementById('redirectList');
+                if (table != null) {
+                    let tableRowsArr = document.getElementById('redirectList').getElementsByTagName("td");
+
+                    for (let i = 0; i < tableRowsArr.length; i++) {
+                        this.$content.find('#redirectList' + i).on("mousedown", function (event) {
+                            $(this).parent().parent().parent().remove();
+                            removeUserException("redirects", i);
+                        });
+                    }
+                }
+                this.$content.find('#clearRedirectList').on("mousedown", function (event) {
+                    removeAll("redirects");
+                    userTrustedDialog.close();
+                });
+            }
+        });
+    });
+
+    $("#showTrustedDomains").click(function (e) {
+        $.dialog({
+            title: chrome.i18n.getMessage("domainsTab") + ": " + chrome.i18n.getMessage("lowRiskDomains"),
+            draggable: true,
+            dragWindowBorder: false,
+            onOpenBefore: function () {
+                let listHTMLStr = getListHTML("trustedlist", storage.trustedDomains, false);
                 this.setContent(listHTMLStr);
             },
         });
@@ -125,25 +150,41 @@ function addEvents(storage) {
 
     $("#editUserDefined").click(function (e) {
         var userTrustedDialog = $.dialog({
-            title: chrome.i18n.getMessage("domainsTab"),
+            title: chrome.i18n.getMessage("domainsTab") + ": " + chrome.i18n.getMessage("userTrustedDomains"),
             onOpenBefore: function () {
                 chrome.storage.local.get("userTrustedDomains", function (item) {
-                    let listHeader = chrome.i18n.getMessage("userTrustedList");
-                    let listHTMLStr = getListHTML("userTrustedList", listHeader, item.userTrustedDomains, true);
+                    buttonText = chrome.i18n.getMessage("addEntries");
+                    var listHTMLStr = "<div><input id='userDefinedInput' type='text' autofocus/><button id='addUserDefined'>" + buttonText + "</button></div>";
+
+                    if (item.userTrustedDomains.length > 0) {
+                        listHTMLStr += getListHTML("userTrustedList", item.userTrustedDomains, true);
+                        listHTMLStr += "<div><button id='clearUserTrustedList'>Liste leeren</button></div>";
+                    } else {
+                        listHTMLStr += "Die Liste ist leer";
+                    }
                     userTrustedDialog.setContent(listHTMLStr);
                 });
             },
             onContentReady: function () {
-                let tableRowsArr = document.getElementById('userTrustedList').getElementsByTagName("td");
-                for (let i = 0; i < tableRowsArr.length; i++) {
-                    this.$content.find('#userTrustedList' + i).on("mousedown", function (event) {
-                        $(this).parent().parent().parent().remove();
-                        removeUserException("userTrustedDomains", i);
-                    });
+                var table = document.getElementById('userTrustedList');
+                if (table != null) {
+                    let tableRowsArr = table.getElementsByTagName("td");
+                    for (let i = 0; i < tableRowsArr.length; i++) {
+                        this.$content.find('#userTrustedList' + i).on("mousedown", function (event) {
+                            $(this).parent().parent().parent().remove();
+                            removeUserException("userTrustedDomains", i);
+                        });
+                    }
                 }
                 this.$content.find('#clearUserTrustedList').on("mousedown", function (event) {
                     removeAll("userTrustedDomains");
                     userTrustedDialog.close();
+                });
+
+                this.$content.find('#addUserDefined').on("mousedown", function (event) {
+                    var userInput = $("#userDefinedInput").val().replace(" ", "");
+                    //TODO: add a check that verifies whether the input is valid or not
+                    addUserDefined(userInput, "userTrustedDomains");
                 });
             }
         });
@@ -151,22 +192,27 @@ function addEvents(storage) {
 
     $("#editHttpUserDefined").click(function (e) {
         var userExceptionsDialog = $.dialog({
-            title: chrome.i18n.getMessage("domainsTab"),
+            title: chrome.i18n.getMessage("domainsTab") + ": " + chrome.i18n.getMessage("userExceptions"),
             onOpenBefore: function () {
                 chrome.storage.local.get("exceptions", function (item) {
-                    let listHeader = chrome.i18n.getMessage("userExceptionList");
-                    let listHTMLStr = getListHTML("userExceptionList", listHeader, item.exceptions, true);
-                    listHTMLStr += "<div><button id='clearUserExceptionList'>Liste leeren</button></div>";
+                    var listHTMLStr = "Die Liste ist leer";
+                    if (item.exceptions.length > 0) {
+                        let listHTMLStr = getListHTML("userExceptionList", item.exceptions, true);
+                        listHTMLStr += "<div><button id='clearUserExceptionList'>Liste leeren</button></div>";
+                    }
                     userExceptionsDialog.setContent(listHTMLStr);
                 });
             },
             onContentReady: function () {
-                let tableRowsArr = document.getElementById('userExceptionList').getElementsByTagName("td");
-                for (let i = 0; i < tableRowsArr.length; i++) {
-                    this.$content.find('#userExceptionList' + i).on("mousedown", function (event) {
-                        $(this).parent().parent().parent().remove();
-                        removeUserException("exceptions", i);
-                    });
+                var table = document.getElementById('userExceptionList');
+                if (table != null) {
+                    let tableRowsArr = table.getElementsByTagName("td");
+                    for (let i = 0; i < tableRowsArr.length; i++) {
+                        this.$content.find('#userExceptionList' + i).on("mousedown", function (event) {
+                            $(this).parent().parent().parent().remove();
+                            removeUserException("exceptions", i);
+                        });
+                    }
                 }
                 this.$content.find('#clearUserExceptionList').on("mousedown", function (event) {
                     removeAll("exceptions");
@@ -228,9 +274,8 @@ function addEvents(storage) {
     });
 }
 
-function getListHTML(id, listHeader, listElements, deleteOpt) {
+function getListHTML(id, listElements, deleteOpt) {
     var listHTML = "<table id='" + id + "'>";
-    listHTML += "<tr><th>" + listHeader + "</th></tr>";
     for (let i = 0; i < listElements.length; i++) {
         switch (id) {
             case "trustedlist", "userTrustedList":
@@ -238,8 +283,10 @@ function getListHTML(id, listHeader, listElements, deleteOpt) {
                 break;
             case "userExceptionList":
                 let obj = listElements[i];
-                var displayedContent = obj.siteProtocol.toString() + obj.siteDom.toString() + " nach " + obj.formProtocol.toString() + obj.formDom.toString();
+                var displayedContent = obj.siteProtocol.toString() + obj.siteDom.toString() + "<em> nach </em> " + obj.formProtocol.toString() + obj.formDom.toString();
                 break;
+            case "redirectList":
+                var displayedContent = listElements[i].substring(9, listElements[i].length - 2);
         }
         if (deleteOpt) {
             listHTML += '<tr><td><div><button id="' + id + i + '" style="margin-right:10px;color:red">X</button><span>' + displayedContent + '</span></div></td></tr>';
@@ -248,6 +295,7 @@ function getListHTML(id, listHeader, listElements, deleteOpt) {
         }
     }
     listHTML += "</table>";
+
     return listHTML;
 }
 
@@ -263,29 +311,18 @@ function setImage(secureImage) {
     $("#iconImg").attr("src", imgAddress);
 }
 
-/**
- * 
- * @param {string} list 
- * @returns result object which contains a list of all https exceptions and a list of all http exceptions
- */
 
-function getExceptions(list) {
-    let result = {
-        httpsExceptionList: [],
-        httpExceptionList: []
-    }
-    for (let listitem of list) {
-        let listitemTuple = listitem.split("passSec-");
-        let listitemSecurityStatus = listitemTuple[1]
-        if (listitemSecurityStatus == "all" || listitemSecurityStatus == "https") {
-            result.httpsExceptionList.push(listitem);
+function addUserDefined(exception, storageListName) {
+    chrome.storage.local.get(storageListName, function (item) {
+        let updatedExceptions = item[storageListName].slice(0);
+        if (!updatedExceptions.includes(exception)) {
+            updatedExceptions.push(exception);
+            chrome.storage.local.set({ [storageListName]: updatedExceptions });
         }
-        if (listitemSecurityStatus == "all" || listitemSecurityStatus == "http") {
-            result.httpExceptionList.push(listitem);
-        }
-    }
-    return result;
+    });
 }
+
+
 function removeUserException(storageListName, index) {
     chrome.storage.local.get(storageListName, function (item) {
         let listItems = item[storageListName].slice(0);
@@ -300,43 +337,3 @@ function removeAll(storageListName) {
     chrome.storage.local.set({ [storageListName]: [] });
 }
 
-
-function removeException(list, listName, elementToRemove) {
-    chrome.storage.local.get(list, function (storage) {
-        let listItems = storage[list].slice(0);
-        let index = listItems.indexOf(elementToRemove);
-        if (index !== -1) {
-            if (elementToRemove.endsWith("passSec-all")) {
-                if (listName == "exceptionsHttpList")
-                    listItems.push(elementToRemove.replace("passSec-all", "passSec-https"));
-                else {
-                    listItems.push(elementToRemove.replace("passSec-all", "passSec-http"));
-                }
-            }
-            listItems.splice(index, 1);
-            chrome.storage.local.set({ exceptions: listItems });
-        }
-    });
-}
-/**
- * Adds all entries to the list of either exceptions or redirects
- *
- * @param listType Either "exceptions" or "redirects", indicating which list to fill
- * @param listElements Array containing the elements to add to the list
- */
-function fillList(listType, listName, listElements) {
-    let htmlListId = listName; //listType === "exceptions" ? "exceptionList" : "redirectList";
-    let table = document.getElementById(htmlListId);
-    table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
-    for (let i = 0; i < listElements.length; i++) {
-        let row = table.insertRow(table.rows.length);
-        let cell = row.insertCell(0);
-        let nameToDisplay = (listType === "exceptions" || listType === "httpExceptions") ? listElements[i].split("passSec-")[0] : listElements[i].slice(9).slice(0, listElements[i].length - 11);
-        $(cell).html('<div><button id="' + listName + i + '" name="' + listElements[i] + '" style="margin-right:10px;color:red">X</button><span>' + nameToDisplay + '</span></div>');
-        $("#" + listName + i).on("click", function (e) {
-            let elementToRemove = $(this).attr("name");
-            $(this).parent().parent().parent().remove();
-            removeException(listType, listName, elementToRemove);
-        });
-    }
-}

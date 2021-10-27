@@ -320,6 +320,11 @@
     "description": "Revert changes"
   },
 
+  "addEntries": {
+    "message": "Add entry",
+    "description": "Add entry"
+  },
+
   "defaultSettings": {
     "message": "Restore default settings",
     "description": "Default settings"

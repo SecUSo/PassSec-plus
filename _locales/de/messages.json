@@ -320,6 +320,11 @@
     "description": "Revert changes"
   },
 
+  "addEntries": {
+    "message": "Eintrag hinzufügen",
+    "description": "Add entry"
+  },
+
   "defaultSettings": {
     "message": "Standard-Einstellungen wiederherstellen",
     "description": "Default settings"
