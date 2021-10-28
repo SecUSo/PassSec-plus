@@ -65,6 +65,25 @@ function extractDomain(hostname) {
     }
 }
 
+function constructURL(urlStr) {
+    try {
+        const url = new URL(urlStr);
+    } catch (e) {
+        return null;
+    }
+}
+
+function getProtocolAndDomainFromURL(urlStr) {
+    let url = new URL(urlStr);
+    let domain = extractDomain(url.host);
+    let protocol = url.protocol;
+    return {
+        protocol: protocol,
+        domain: domain
+    };
+}
+
+
 /**
  * Creates a tooltip for a specific input element
  * The tooltip is immediately displayed after creation
@@ -75,13 +94,13 @@ function extractDomain(hostname) {
 function applyTooltip(element, event) {
     // only show tooltip on security status "http" or "https", "httpsEV" does not show any tooltips
     securityStatus = $(element).attr("data-passSec-security");
-
-    if (passSecTimer.time != 0 && ($(element).hasClass("passSec-http") || $(element).hasClass("passSec-https"))) {
-        $(element).prop("disabled", true);
-    }
-
+    var fieldType = $(element).attr("data-passsec-input-type");
+  
     if ($(element).hasClass("passSec-http") || $(element).hasClass("passSec-https") || securityStatus === "passSec-http" || securityStatus === "passSec-https") {
         passSec.target = element;
+        var form = element.form;
+        var formURLObj = getProtocolAndDomainFromURL(form.action);
+        var timerType = passSecTimer.determineTypeOfTimer(fieldType, passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain)
 
         $(element).qtip({
             overwrite: true,
@@ -121,21 +140,12 @@ function applyTooltip(element, event) {
                     passSec.api = api;
                     passSec.tooltip = api.elements.content;
 
-                    processTooltip(securityStatus, element, creatUserException);
-                    if (passSecTimer.time != 0 && ($(element).hasClass("passSec-http") || $(element).hasClass("passSec-https"))) {
-                        $(passSec.tooltip.find("#passSecButtonClose")[0]).prop("disabled", true);
-                        $(passSec.tooltip.find("#passSecButtonException")[0]).prop("disabled", true);
-                    }
+                    processTooltip(passSec.tooltip, securityStatus, timerType, element, formURLObj, creatUserException);
+
                 },
                 hide: function () {
-                    if (passSecTimer.timerIntervall != null) {
-                        clearInterval(passSecTimer.timerIntervall.id());
-                    }
                 },
                 show: function () {
-                    if (passSecTimer.timerIntervall != null) {
-                        passSecTimer.timerIntervall.resume();
-                    }
                 }
             }
         }, event);

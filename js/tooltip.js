@@ -1,3 +1,5 @@
+var timerArr = [];
+
 /**
  * Returns the HTML skeleton for a tooltip
  */
@@ -31,8 +33,7 @@ function creatUserException(websiteProtocol, websiteDomain, formProtocol, formDo
 /**
  * Adds functionality for the tooltip elements
  */
-function processTooltip(securityStatus, element, creatUserException) {
-    let tooltip = passSec.tooltip;
+function processTooltip(tooltip, securityStatus, timerType, element, formURLObj, creatUserException) {
 
     $(tooltip.find("#passSecButtonClose")[0]).on("mousedown", function (event) {
         // prevent input element losing focus
@@ -44,8 +45,7 @@ function processTooltip(securityStatus, element, creatUserException) {
 
     switch (securityStatus) {
         case "passSec-https":
-            passSecTimer.countdown(tooltip, element);
-
+            passSecTimer.startCountdown(timerType, tooltip, element);
             $(tooltip.find(".http-warning")).hide();
             $(tooltip.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("exceptionHTTPS"));
             $(tooltip.find("#passSecButtonException")[0]).on("mousedown", function (event) {
@@ -58,7 +58,7 @@ function processTooltip(securityStatus, element, creatUserException) {
             break;
 
         case "passSec-http":
-            passSecTimer.countdown(tooltip, element);
+            passSecTimer.startCountdown(timerType, tooltip, element);
             $(tooltip.find(".http-warning")).show();
             if (passSec.httpsAvailable) {
                 $(tooltip.find("#passSecButtonException")[0]).addClass("greenButton");
@@ -90,8 +90,6 @@ function processTooltip(securityStatus, element, creatUserException) {
                         }
                     });
                 } else {
-                    var form = element.form;
-                    var formURLObj = getProtocolAndDomainFromURL(form.action);
                     let exception = creatUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
                     openConfirmAddingHttpExceptionDialog("confirmAddingHttpException", tooltip, securityStatus, exception, "exceptions");
                 }
@@ -202,15 +200,4 @@ function getHttpFieldTexts() {
             });
         }
     }
-}
-
-
-function getProtocolAndDomainFromURL(urlStr) {
-    let url = new URL(urlStr);
-    let domain = extractDomain(url.host);
-    let protocol = url.protocol;
-    return {
-        protocol: protocol,
-        domain: domain
-    };
 }

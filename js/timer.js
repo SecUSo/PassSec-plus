@@ -1,53 +1,60 @@
+class PassSecTimer {
+  constructor(timerName, time, timerIntervall) {
+    this.name = timerName;
+    this.time = time;
+    this.timerIntervall = timerIntervall;
+  }
 
-function initTimer() {
-  chrome.storage.local.get("timer", function (storage) {
-    passSecTimer.time = storage.timer;
-  });
-}
-
-initTimer();
-
-var passSecTimer = {
-
-  time: 0,
-  timerIntervall: null,
-
-  /**
-    * assert time to tooltip text
-    */
-  showTime: function (tooltip, time) {
-    try {
-      tooltip.find("#passSecTimer")[0].textContent = chrome.i18n.getMessage("verbleibendeZeit", "" + time)
-    } catch (e) { }
-  },
-
-  countdown: function (tooltip, element) {
-    if (passSecTimer.time == 0) {
-      passSecTimer.showTime(tooltip, passSecTimer.time);
+  decreaseTimer(tooltip, element) {
+    this.showTime(tooltip, this.time);
+    if (this.time == 0) {
+      clearInterval(this.timerIntervall.id());
       $(element).prop("disabled", false);
-      $(passSec.tooltip.find("#passSecButtonClose")[0]).prop("disabled", false);
-        $(passSec.tooltip.find("#passSecButtonException")[0]).prop("disabled", false);
+      $(element).focus();
+      $(tooltip.find("#passSecButtonClose")[0]).prop("disabled", false);
+      $(tooltip.find("#passSecButtonException")[0]).prop("disabled", false);
+    } else {
+      --this.time;
+    }
+  }
+
+  showTime(tooltip) {
+    try {
+      tooltip.find("#passSecTimer")[0].textContent = chrome.i18n.getMessage("verbleibendeZeit", "" + this.time)
+    } catch (e) { }
+  }
+
+
+  countdown(tooltip, element) {
+    if (this.time == 0) {
+      this.showTime(tooltip);
+      $(element).prop("disabled", false);
+      $(tooltip.find("#passSecButtonClose")[0]).prop("disabled", false);
+      $(tooltip.find("#passSecButtonException")[0]).prop("disabled", false);
       return;
+    } else {
+      $(element).prop("disabled", true);
+      $(tooltip.find("#passSecButtonClose")[0]).prop("disabled", true);
+      $(tooltip.find("#passSecButtonException")[0]).prop("disabled", true);
     }
 
-    passSecTimer.showTime(tooltip, passSecTimer.time);
-    if (passSecTimer.time > 0) passSecTimer.time--;
-    this.timerIntervall = this.Interval(function () {
-      passSecTimer.showTime(tooltip, passSecTimer.time);
-      if (passSecTimer.time == 0) {
-        clearInterval(passSecTimer.timerIntervall.id());
-        $(element).prop("disabled", false);
-        $(element).focus();
-        $(passSec.tooltip.find("#passSecButtonClose")[0]).prop("disabled", false);
-        $(passSec.tooltip.find("#passSecButtonException")[0]).prop("disabled", false);
-      } else {
-        --passSecTimer.time;
+    this.showTime(tooltip, this.time);
+
+    if (this.time > 0) {
+      this.time--;
+    }
+
+    function getDecreaseTimerFunc(timer) {
+      return function () {
+        timer.decreaseTimer(tooltip, element)
       }
-    }, 1000);
-  },
+    }
 
+    var timerIntervall = this.Interval(getDecreaseTimerFunc(this), 1000);
+    this.timerIntervall = timerIntervall;
+  }
 
-  Interval: function (callback, freq) {
+  Interval(callback, freq) {
     var args = arguments,
       callbacks = [callback],
       paused = false;
@@ -78,13 +85,61 @@ var passSecTimer = {
         paused = false;
       }
     };
+  }
+}
+
+
+var passSecTimer = {
+  timerArr: [],
+
+  getTimer(timerName) {
+    for (let timer of this.timerArr) {
+      if (timer.name == timerName) {
+        return timer;
+      }
+    }
+    return null;
   },
 
-  getTimer: function () {
-    return this.time;
+  getTimerName(status) {
+    var timerName = "";
+    switch (status) {
+      case "<Password_Field>":
+        timerName = "passwordFieldTimer";
+        break;
+      case "<Different_Domains>":
+        timerName = "differentDomainsTimer";
+        break;
+      case "<Different_Protocols>":
+        timerName = "differentProtocolTimer";
+        break;
+      case "<No_Anomaly>":
+        timerName = "timer";
+        break;
+    }
+    return timerName;
   },
 
-  setTimer: function (time) {
-    time = this.time;
+  determineTypeOfTimer(fieldType, websiteProtocol, websiteDomain, formProtocol, formDomain) {
+    if (fieldType == "password") {
+      return "<Password_Field>"
+    } else if (websiteDomain != formDomain) {
+      return "<Different_Domains>";
+    } else if (websiteProtocol != formProtocol) {
+      return "<Different_Protocol>";
+    }
+    return "<No_Anomaly>";
+  },
+
+  startCountdown(status, tooltip, element) {
+    chrome.storage.local.get("timer", function (storage) {
+      let timerName = passSecTimer.getTimerName(status);
+      let timer = passSecTimer.getTimer(timerName);
+      if (timer == null) {
+        timer = new PassSecTimer(timerName, storage.timer, null);
+        passSecTimer.timerArr.push(timer);
+      }
+      timer.countdown(tooltip, element);
+    });
   },
 };
