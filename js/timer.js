@@ -126,7 +126,7 @@ var passSecTimer = {
     } else if (websiteDomain != formDomain) {
       return "<Different_Domains>";
     } else if (websiteProtocol != formProtocol) {
-      return "<Different_Protocol>";
+      return "<Different_Protocols>";
     }
     return "<No_Anomaly>";
   },

@@ -144,6 +144,14 @@ function applyTooltip(element, event) {
 
                 },
                 hide: function () {
+                    if(passSecTimer.timerArr != null) {
+                        let fieldTimerName = passSecTimer.getTimerName(timerType);
+                        for(let timer of passSecTimer.timerArr) {
+                            if(timer.name == fieldTimerName) {
+                                timer.timerIntervall.pause();
+                            }
+                        }
+                    }
                 },
                 show: function () {
                 }
