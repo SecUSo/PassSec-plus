@@ -135,9 +135,19 @@
     "description": "Delete"
   },
 
+  "deleteEntryWarning": {
+    "message": "Möchten Sie wirklich den Eintrag in der Liste löschen?",
+    "description": "Warn user before deleting a list entry"
+  },
+
   "emptyList": {
     "message": "Liste leeren",
     "description": "Empty list"
+  },
+
+  "deleteAllEntriesWarning": {
+    "message": "Möchten Sie wirklich alle Einträge der Liste löschen?",
+    "description": "Warn user before deleting all list entries"
   },
 
   "domainsTab": {
@@ -186,7 +196,7 @@
   },
 
   "userTrustedDomains": {
-    "message": "Liste der HTTPS Webseiten, die Sie als 'geringes Risiko' eingestuft haben (blauer Rahmen)",
+    "message": "Liste der Domains, die Sie als 'geringes Risiko' eingestuft haben (blauer Rahmen)",
     "description": "List of user risk domains (websites with https)."
   },
 

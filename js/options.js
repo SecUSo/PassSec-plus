@@ -40,9 +40,7 @@ function addTexts() {
     $("#iconHint").html(chrome.i18n.getMessage("iconHint"));
     $("#changeIconButton").html(chrome.i18n.getMessage("changeIconButton"));
 
-    // Domains tab
-    $("#httpsRedirects").html(chrome.i18n.getMessage("httpsRedirects"));
-    $("#showRedirects").html(chrome.i18n.getMessage("editList"));
+    // Domains and redirects exception tab
     $("#exceptions").html(chrome.i18n.getMessage("domainsTab"));
     $("#trustedListText").html(chrome.i18n.getMessage("lowRiskDomains"));
     $("#activateTrustedList").html(chrome.i18n.getMessage("activateLowRiskList"));
@@ -50,7 +48,9 @@ function addTexts() {
     $("#userListText").html(chrome.i18n.getMessage("userTrustedDomains"));
     $("#userHttpListText").html(chrome.i18n.getMessage("userExceptions"));
     $("#editUserDefined").html(chrome.i18n.getMessage("editList"));
-    $("#editHttpUserDefined").html(chrome.i18n.getMessage("editList"));;
+    $("#editHttpUserDefined").html(chrome.i18n.getMessage("editList"));
+    $("#httpsRedirects").html(chrome.i18n.getMessage("httpsRedirects"));
+    $("#showRedirects").html(chrome.i18n.getMessage("editList"));
 
     // Timer tab
     $("#passSecTimer").html(chrome.i18n.getMessage("timerTab"));
@@ -81,6 +81,24 @@ function init(storage) {
 
     // Redirects and exceptions
     $("#trustedListActivated").prop("checked", storage.trustedListActivated);
+
+    //timer tab
+    $("#timerCheckbox").prop("checked", storage.timer > 0);
+    $("#timerInput").val(storage.timer);
+}
+function openConfirmDialog(title, content, confirmButtonFunction, cancelButtonText) {
+    $.confirm({
+        title: title,
+        content: content,
+        buttons: {
+            ok: function () {
+                confirmButtonFunction();
+            },       
+            cancel: {
+                text: cancelButtonText
+            }
+        },
+    });
 }
 
 /**
@@ -111,6 +129,7 @@ function addEvents(storage) {
                     var listHTMLStr = "Die Liste ist leer";
                     if (item.redirects.length > 0) {
                         listHTMLStr = getListHTML("redirectList", item.redirects, true);
+                        listHTMLStr += "<br><br>";
                         listHTMLStr += "<div><button id='clearRedirectList'>Liste leeren</button></div>";
                     }
                     redirectsDialog.setContent(listHTMLStr);
@@ -122,15 +141,21 @@ function addEvents(storage) {
                     let tableRowsArr = document.getElementById('redirectList').getElementsByTagName("td");
 
                     for (let i = 0; i < tableRowsArr.length; i++) {
-                        this.$content.find('#redirectList' + i).on("mousedown", function (event) {
-                            $(this).parent().parent().parent().remove();
-                            removeUserException("redirects", i);
+                        this.$content.find('#redirectList' + i).on("mousedown", function () {
+                            var removeEntryDialogAcceptFunc = function () {
+                                $(redirectsDialog).parent().parent().parent().remove();
+                                removeUserException("redirects", i);
+                            }
+                            openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteEntryWarning"), removeEntryDialogAcceptFunc, chrome.i18n.getMessage("cancelButton"));
                         });
                     }
                 }
-                this.$content.find('#clearRedirectList').on("mousedown", function (event) {
-                    removeAll("redirects");
-                    userTrustedDialog.close();
+                redirectsDialog.$content.find('#clearRedirectList').on("mousedown", function () {
+                    var removeAllEntriesDialogFunc = function () {
+                        removeAll("redirects");
+                    }
+                    openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteAllEntriesWarning"), removeAllEntriesDialogFunc, chrome.i18n.getMessage("cancelButton"));
+                    redirectsDialog.setContent("Die Liste ist leer.");
                 });
             }
         });
@@ -155,9 +180,10 @@ function addEvents(storage) {
                 chrome.storage.local.get("userTrustedDomains", function (item) {
                     buttonText = chrome.i18n.getMessage("addEntries");
                     var listHTMLStr = "<div><input id='userDefinedInput' type='text' autofocus/><button id='addUserDefined'>" + buttonText + "</button></div>";
-
+                    listHTMLStr += "<br><br>";
                     if (item.userTrustedDomains.length > 0) {
                         listHTMLStr += getListHTML("userTrustedList", item.userTrustedDomains, true);
+                        listHTMLStr += "<br><br>";
                         listHTMLStr += "<div><button id='clearUserTrustedList'>Liste leeren</button></div>";
                     } else {
                         listHTMLStr += "Die Liste ist leer";
@@ -170,21 +196,29 @@ function addEvents(storage) {
                 if (table != null) {
                     let tableRowsArr = table.getElementsByTagName("td");
                     for (let i = 0; i < tableRowsArr.length; i++) {
-                        this.$content.find('#userTrustedList' + i).on("mousedown", function (event) {
-                            $(this).parent().parent().parent().remove();
-                            removeUserException("userTrustedDomains", i);
+                        var elementToDelete = this.$content.find('#userTrustedList' + i)
+                        elementToDelete.on("mousedown", function (event) {
+                            var removeEntryDialogAcceptFunc = function () {
+                                $(userTrustedDialog).parent().parent().parent().remove();
+                                removeUserException("userTrustedDomains", i);
+                            }
+                            openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteEntryWarning"), removeEntryDialogAcceptFunc, chrome.i18n.getMessage("cancelButton"));
                         });
                     }
                 }
                 this.$content.find('#clearUserTrustedList').on("mousedown", function (event) {
-                    removeAll("userTrustedDomains");
-                    userTrustedDialog.close();
+                    var removeAllEntriesDialogFunc = function () {
+                        removeAll("userTrustedDomains");
+                    }
+                    openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteAllEntriesWarning"), removeAllEntriesDialogFunc, chrome.i18n.getMessage("cancelButton"));
+                    userTrustedDialog.setContent("Die Liste ist leer.")
                 });
 
                 this.$content.find('#addUserDefined').on("mousedown", function (event) {
                     var userInput = $("#userDefinedInput").val().replace(" ", "");
-                    //TODO: add a check that verifies whether the input is valid or not
                     addUserDefined(userInput, "userTrustedDomains");
+                    $("#userDefinedInput").val("");
+                    userTrustedDialog.close();
                 });
             }
         });
@@ -196,8 +230,9 @@ function addEvents(storage) {
             onOpenBefore: function () {
                 chrome.storage.local.get("exceptions", function (item) {
                     var listHTMLStr = "Die Liste ist leer";
+
                     if (item.exceptions.length > 0) {
-                        let listHTMLStr = getListHTML("userExceptionList", item.exceptions, true);
+                        listHTMLStr = getListHTML("userExceptionList", item.exceptions, true);
                         listHTMLStr += "<div><button id='clearUserExceptionList'>Liste leeren</button></div>";
                     }
                     userExceptionsDialog.setContent(listHTMLStr);
@@ -209,14 +244,20 @@ function addEvents(storage) {
                     let tableRowsArr = table.getElementsByTagName("td");
                     for (let i = 0; i < tableRowsArr.length; i++) {
                         this.$content.find('#userExceptionList' + i).on("mousedown", function (event) {
-                            $(this).parent().parent().parent().remove();
-                            removeUserException("exceptions", i);
+                            var removeEntryDialogAcceptFunc = function () {
+                                $(userExceptionsDialog).parent().parent().parent().remove();
+                                removeUserException("exceptions", i);
+                            }
+                            openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteEntryWarning"), removeEntryDialogAcceptFunc, chrome.i18n.getMessage("cancelButton"));
                         });
                     }
                 }
                 this.$content.find('#clearUserExceptionList').on("mousedown", function (event) {
-                    removeAll("exceptions");
-                    userExceptionsDialog.close();
+                    var removeAllEntriesDialogFunc = function () {
+                        removeAll("exceptions");
+                    }
+                    openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteAllEntriesWarning"), removeAllEntriesDialogFunc, chrome.i18n.getMessage("cancelButton"));
+                    userExceptionsDialog.setContent("Die Liste ist leer.");
                 });
             }
         });
@@ -239,6 +280,25 @@ function addEvents(storage) {
     $("#sField").on('change', function (e) {
         chrome.storage.local.set({ searchField: $(this).prop("checked") });
     });
+
+    //timer tab
+    $("#timerCheckbox").on("change", function (e) {
+        var checked = $(this).prop("checked");
+        if (!checked) {
+          chrome.storage.local.set({ timer: 0 });
+          $("#timerInput").val("0");
+        } else {
+          chrome.storage.local.set({ timer: 3 });
+          $("#timerInput").val("3");
+        }
+      });
+
+    $("#timerInput").on("change", function (e) {
+        var timer = $(this).val();
+        chrome.storage.local.set({ timer: timer });
+        if (timer == 0) $("#timerCheckbox").prop("checked", false);
+        else $("#timerCheckbox").prop("checked", true);
+      });
 
 
     // Option buttons
@@ -283,7 +343,7 @@ function getListHTML(id, listElements, deleteOpt) {
                 break;
             case "userExceptionList":
                 let obj = listElements[i];
-                var displayedContent = obj.siteProtocol.toString() + obj.siteDom.toString() + "<em> nach </em> " + obj.formProtocol.toString() + obj.formDom.toString();
+                var displayedContent = obj.siteProtocol.toString() + obj.siteDom.toString() + "<em> nach </em>" + obj.formProtocol.toString() + obj.formDom.toString();
                 break;
             case "redirectList":
                 var displayedContent = listElements[i].substring(9, listElements[i].length - 2);
@@ -295,7 +355,6 @@ function getListHTML(id, listElements, deleteOpt) {
         }
     }
     listHTML += "</table>";
-
     return listHTML;
 }
 
