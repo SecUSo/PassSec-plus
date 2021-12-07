@@ -91,7 +91,7 @@ hr.http-warning {
     cursor: pointer !important;
 }
 
-#passSecButtonException, #passSecButtonClose {
+#passSecButtonException, #passSecButtonClose, #passSecButtonSecureMode {
     float: left !important;
     border: 1px solid black !important;
     background-color: white !important;
@@ -109,6 +109,6 @@ hr.http-warning {
     background-color: red !important;
 }
 
-#passSecButtonException.greenButton {
+#passSecButtonSecureMode.greenButton {
     background-color: green !important;
 }

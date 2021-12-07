@@ -3,7 +3,7 @@ var timerArr = [];
 /**
  * Returns the HTML skeleton for a tooltip
  */
- function getTooltipHTML() {
+function getTooltipHTML() {
     return '<span id="passSecWarning" class="http-warning passSecTooltipText"></span>' +
         '<hr class="http-warning">' +
         '<span id="passSecURL" class="passSecTooltipText">' + chrome.i18n.getMessage("domainInfo") + '<span id="passSecDomain" class="passSecTooltipText">' + passSec.domain + '</span>.</span>' +
@@ -23,12 +23,13 @@ var timerArr = [];
         '<p id="passSecTimer"></p>' +
         '<div id="passSecButtons>">' +
         '<button id="passSecButtonException" type="button" class="passSecTooltipText"></button>' +
+        '<button id="passSecButtonSecureMode" type="button" class="passSecTooltipText, greenButton" style="display: none"></button>' +
         '<button id="passSecButtonClose" type="button" class="passSecTooltipText">' + chrome.i18n.getMessage("OK") + ' </button>' +
         '</div>';
 }
 
 function creatUserException(websiteProtocol, websiteDomain, formProtocol, formDomain) {
-    return {"siteProtocol":websiteProtocol,"siteDom":websiteDomain,"formProtocol":formProtocol,"formDom":formDomain};
+    return { "siteProtocol": websiteProtocol, "siteDom": websiteDomain, "formProtocol": formProtocol, "formDom": formDomain };
 }
 /**
  * Adds functionality for the tooltip elements
@@ -61,18 +62,10 @@ function processTooltip(tooltip, securityStatus, timerType, element, formURLObj,
             passSecTimer.startCountdown(timerType, tooltip, element);
             $(tooltip.find(".http-warning")).show();
             if (passSec.httpsAvailable) {
-                $(tooltip.find("#passSecButtonException")[0]).addClass("greenButton");
-                $(tooltip.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("secureMode"));
-            } else {
-                $(tooltip.find("#passSecButtonException")[0]).addClass("redButton");
-                $(tooltip.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("exceptionHTTP"));
-            }
-            $(tooltip.find("#passSecButtonException")[0]).on("mousedown", function (event) {
-                // prevent input element losing focus
-                event.stopImmediatePropagation();
-                event.preventDefault();
-            }).on("mouseup", function (event) {
-                if (passSec.httpsAvailable) {
+                $(tooltip.find("#passSecButtonSecureMode")[0]).show();
+                $(tooltip.find("#passSecButtonSecureMode")[0]).addClass("greenButton");
+                $(tooltip.find("#passSecButtonSecureMode")[0]).html(chrome.i18n.getMessage("secureMode"));
+                $(tooltip.find("#passSecButtonSecureMode")[0]).on("mousedown", function () {
                     chrome.storage.local.get("redirects", function (item) {
                         let redirectPattern = "http://*." + passSec.domain + "/*";
                         if (!item.redirects.includes(redirectPattern)) {
@@ -89,10 +82,18 @@ function processTooltip(tooltip, securityStatus, timerType, element, formURLObj,
                             passSec.api.destroy(true);
                         }
                     });
-                } else {
-                    let exception = creatUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
-                    openConfirmAddingHttpExceptionDialog("confirmAddingHttpException", tooltip, securityStatus, exception, "exceptions");
-                }
+                });
+            }
+            $(tooltip.find("#passSecButtonException")[0]).addClass("redButton");
+            $(tooltip.find("#passSecButtonException")[0]).html(chrome.i18n.getMessage("exceptionHTTP"));
+
+            $(tooltip.find("#passSecButtonException")[0]).on("mousedown", function (event) {
+                // prevent input element losing focus
+                event.stopImmediatePropagation();
+                event.preventDefault();
+            }).on("mouseup", function (event) {
+                let exception = creatUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
+                openConfirmAddingHttpExceptionDialog("confirmAddingHttpException", tooltip, securityStatus, exception, "exceptions");
             });
             getHttpFieldTexts("http");
             break;
