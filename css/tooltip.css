@@ -3,7 +3,8 @@
 }
 
 .qtip-content {
-    border-color: #ffffcd !important;
+    border: solid 0.3rem #bfb9b9;
+    border-radius: 5px;
     background-color: #ffffcd !important;
     cursor: default;
     text-rendering: optimizeLegibility;
@@ -11,7 +12,7 @@
 
 .passSecTooltipText {
     font-size: 13px !important;
-    line-height: 110% !important;
+    line-height: 140% !important;
 }
 
 .passSecConfirm {

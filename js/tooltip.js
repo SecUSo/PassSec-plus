@@ -20,11 +20,11 @@ function getTooltipHTML() {
         '<img id="passSecInfoImage" src=' + chrome.extension.getURL("skin/more_info.png") + '>' +
         '<p id="passSecInfoText" class="passSecClickable passSecTooltipText">' + chrome.i18n.getMessage("moreInfo") + '</p>' +
         '</div>' +
-        '<p id="passSecTimer"></p>' +
+        '<p id="passSecTimer" class="passSecTooltipText"></p>' +
         '<div id="passSecButtons>">' +
         '<button id="passSecButtonException" type="button" class="passSecTooltipText"></button>' +
         '<button id="passSecButtonSecureMode" type="button" class="passSecTooltipText, greenButton" style="display: none"></button>' +
-        '<button id="passSecButtonClose" type="button" class="passSecTooltipText">' + chrome.i18n.getMessage("OK") + ' </button>' +
+        '<button id="passSecButtonClose" type="button" class="passSecTooltipText">' + chrome.i18n.getMessage("CloseDialog") + ' </button>' +
         '</div>';
 }
 
