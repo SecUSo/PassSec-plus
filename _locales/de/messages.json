@@ -40,9 +40,9 @@
     "description": "Secure mode"
   },
 
-  "OK": {
-    "message": "Ok, verstanden",
-    "description": "OK"
+  "CloseDialog": {
+    "message": "Dialog schließen",
+    "description": "Close dialog"
   },
 
   "cancelButton": {
@@ -136,8 +136,14 @@
   },
 
   "deleteEntryWarning": {
-    "message": "Möchten Sie wirklich den Eintrag in der Liste löschen?",
-    "description": "Warn user before deleting a list entry"
+    "message": "Möchten Sie wirklich den Eintrag  '$ENTRY$'  aus ihrer Liste löschen?",
+    "description": "Warn user before deleting a list entry",
+    "placeholders": {
+      "entry": {
+        "content": "$1",
+        "example": ""
+      }
+    }
   },
 
   "emptyList": {

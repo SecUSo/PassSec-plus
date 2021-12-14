@@ -86,6 +86,7 @@ function init(storage) {
     $("#timerCheckbox").prop("checked", storage.timer > 0);
     $("#timerInput").val(storage.timer);
 }
+
 function openConfirmDialog(title, content, confirmButtonFunction, cancelButtonText) {
     $.confirm({
         title: title,
@@ -93,13 +94,14 @@ function openConfirmDialog(title, content, confirmButtonFunction, cancelButtonTe
         buttons: {
             ok: function () {
                 confirmButtonFunction();
-            },       
+            },
             cancel: {
                 text: cancelButtonText
             }
         },
     });
 }
+
 
 /**
  *   Adds functionality for the option page elements
@@ -126,12 +128,7 @@ function addEvents(storage) {
             title: chrome.i18n.getMessage("domainsTab") + ": " + chrome.i18n.getMessage("httpsRedirects"),
             onOpenBefore: function () {
                 chrome.storage.local.get("redirects", function (item) {
-                    var listHTMLStr = "Die Liste ist leer";
-                    if (item.redirects.length > 0) {
-                        listHTMLStr = getListHTML("redirectList", item.redirects, true);
-                        listHTMLStr += "<br><br>";
-                        listHTMLStr += "<div><button id='clearRedirectList'>Liste leeren</button></div>";
-                    }
+                    var listHTMLStr = getListHTML("redirectList", item.redirects, false, true, true);
                     redirectsDialog.setContent(listHTMLStr);
                 });
             },
@@ -141,21 +138,23 @@ function addEvents(storage) {
                     let tableRowsArr = document.getElementById('redirectList').getElementsByTagName("td");
 
                     for (let i = 0; i < tableRowsArr.length; i++) {
-                        this.$content.find('#redirectList' + i).on("mousedown", function () {
+                        var elementToDelete = this.$content.find('#redirectList' + i);
+                        elementToDelete.on("mousedown", function () {
                             var removeEntryDialogAcceptFunc = function () {
                                 $(redirectsDialog).parent().parent().parent().remove();
                                 removeUserException("redirects", i);
                             }
-                            openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteEntryWarning"), removeEntryDialogAcceptFunc, chrome.i18n.getMessage("cancelButton"));
+                            var deleteEntryWarning = chrome.i18n.getMessage("deleteEntryWarning", elementToDelete.next().text());
+                            openConfirmDialog("PassSec+", deleteEntryWarning, removeEntryDialogAcceptFunc, chrome.i18n.getMessage("cancelButton"));
                         });
                     }
                 }
-                redirectsDialog.$content.find('#clearRedirectList').on("mousedown", function () {
+                redirectsDialog.$content.find('#clearList').on("mousedown", function () {
                     var removeAllEntriesDialogFunc = function () {
                         removeAll("redirects");
+                        redirectsDialog.setContent("Die Liste ist leer.");
                     }
                     openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteAllEntriesWarning"), removeAllEntriesDialogFunc, chrome.i18n.getMessage("cancelButton"));
-                    redirectsDialog.setContent("Die Liste ist leer.");
                 });
             }
         });
@@ -167,7 +166,7 @@ function addEvents(storage) {
             draggable: true,
             dragWindowBorder: false,
             onOpenBefore: function () {
-                let listHTMLStr = getListHTML("trustedlist", storage.trustedDomains, false);
+                let listHTMLStr = getListHTML("trustedlist", storage.trustedDomains, false, false, false);
                 this.setContent(listHTMLStr);
             },
         });
@@ -178,16 +177,7 @@ function addEvents(storage) {
             title: chrome.i18n.getMessage("domainsTab") + ": " + chrome.i18n.getMessage("userTrustedDomains"),
             onOpenBefore: function () {
                 chrome.storage.local.get("userTrustedDomains", function (item) {
-                    buttonText = chrome.i18n.getMessage("addEntries");
-                    var listHTMLStr = "<div><input id='userDefinedInput' type='text' autofocus/><button id='addUserDefined'>" + buttonText + "</button></div>";
-                    listHTMLStr += "<br><br>";
-                    if (item.userTrustedDomains.length > 0) {
-                        listHTMLStr += getListHTML("userTrustedList", item.userTrustedDomains, true);
-                        listHTMLStr += "<br><br>";
-                        listHTMLStr += "<div><button id='clearUserTrustedList'>Liste leeren</button></div>";
-                    } else {
-                        listHTMLStr += "Die Liste ist leer";
-                    }
+                    var listHTMLStr = getListHTML("userTrustedList", item.userTrustedDomains, true, true, true);             
                     userTrustedDialog.setContent(listHTMLStr);
                 });
             },
@@ -196,22 +186,23 @@ function addEvents(storage) {
                 if (table != null) {
                     let tableRowsArr = table.getElementsByTagName("td");
                     for (let i = 0; i < tableRowsArr.length; i++) {
-                        var elementToDelete = this.$content.find('#userTrustedList' + i)
+                        let elementToDelete = this.$content.find('#userTrustedList' + i);
                         elementToDelete.on("mousedown", function (event) {
                             var removeEntryDialogAcceptFunc = function () {
-                                $(userTrustedDialog).parent().parent().parent().remove();
+                                elementToDelete.parent().parent().parent().remove();
                                 removeUserException("userTrustedDomains", i);
                             }
-                            openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteEntryWarning"), removeEntryDialogAcceptFunc, chrome.i18n.getMessage("cancelButton"));
+                            var deleteEntryWarning = chrome.i18n.getMessage("deleteEntryWarning", elementToDelete.next().text());
+                            openConfirmDialog("PassSec+", deleteEntryWarning, removeEntryDialogAcceptFunc, chrome.i18n.getMessage("cancelButton"));
                         });
                     }
                 }
-                this.$content.find('#clearUserTrustedList').on("mousedown", function (event) {
+                this.$content.find('#clearList').on("mousedown", function (event) {
                     var removeAllEntriesDialogFunc = function () {
                         removeAll("userTrustedDomains");
+                        userTrustedDialog.setContent("Die Liste ist leer.");
                     }
                     openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteAllEntriesWarning"), removeAllEntriesDialogFunc, chrome.i18n.getMessage("cancelButton"));
-                    userTrustedDialog.setContent("Die Liste ist leer.")
                 });
 
                 this.$content.find('#addUserDefined').on("mousedown", function (event) {
@@ -228,13 +219,8 @@ function addEvents(storage) {
         var userExceptionsDialog = $.dialog({
             title: chrome.i18n.getMessage("domainsTab") + ": " + chrome.i18n.getMessage("userExceptions"),
             onOpenBefore: function () {
-                chrome.storage.local.get("exceptions", function (item) {
-                    var listHTMLStr = "Die Liste ist leer";
-
-                    if (item.exceptions.length > 0) {
-                        listHTMLStr = getListHTML("userExceptionList", item.exceptions, true);
-                        listHTMLStr += "<div><button id='clearUserExceptionList'>Liste leeren</button></div>";
-                    }
+                chrome.storage.local.get("userExceptions", function (item) {
+                    var listHTMLStr = getListHTML("userExceptionList", item.userExceptions, false, true, true);
                     userExceptionsDialog.setContent(listHTMLStr);
                 });
             },
@@ -243,21 +229,23 @@ function addEvents(storage) {
                 if (table != null) {
                     let tableRowsArr = table.getElementsByTagName("td");
                     for (let i = 0; i < tableRowsArr.length; i++) {
-                        this.$content.find('#userExceptionList' + i).on("mousedown", function (event) {
+                        var elementToDelete = this.$content.find('#userExceptionList' + i);
+                        elementToDelete.on("mousedown", function (event) {
                             var removeEntryDialogAcceptFunc = function () {
                                 $(userExceptionsDialog).parent().parent().parent().remove();
-                                removeUserException("exceptions", i);
+                                removeUserException("userExceptions", i);
                             }
-                            openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteEntryWarning"), removeEntryDialogAcceptFunc, chrome.i18n.getMessage("cancelButton"));
+                            var deleteEntryWarning = chrome.i18n.getMessage("deleteEntryWarning", elementToDelete.next().text());
+                            openConfirmDialog("PassSec+", deleteEntryWarning, removeEntryDialogAcceptFunc, chrome.i18n.getMessage("cancelButton"));
                         });
                     }
                 }
-                this.$content.find('#clearUserExceptionList').on("mousedown", function (event) {
+                this.$content.find('#clearList').on("mousedown", function (event) {
                     var removeAllEntriesDialogFunc = function () {
-                        removeAll("exceptions");
+                        removeAll("userExceptions");
+                        userExceptionsDialog.setContent("Die Liste ist leer.");
                     }
                     openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteAllEntriesWarning"), removeAllEntriesDialogFunc, chrome.i18n.getMessage("cancelButton"));
-                    userExceptionsDialog.setContent("Die Liste ist leer.");
                 });
             }
         });
@@ -285,20 +273,20 @@ function addEvents(storage) {
     $("#timerCheckbox").on("change", function (e) {
         var checked = $(this).prop("checked");
         if (!checked) {
-          chrome.storage.local.set({ timer: 0 });
-          $("#timerInput").val("0");
+            chrome.storage.local.set({ timer: 0 });
+            $("#timerInput").val("0");
         } else {
-          chrome.storage.local.set({ timer: 3 });
-          $("#timerInput").val("3");
+            chrome.storage.local.set({ timer: 3 });
+            $("#timerInput").val("3");
         }
-      });
+    });
 
     $("#timerInput").on("change", function (e) {
         var timer = $(this).val();
         chrome.storage.local.set({ timer: timer });
         if (timer == 0) $("#timerCheckbox").prop("checked", false);
         else $("#timerCheckbox").prop("checked", true);
-      });
+    });
 
 
     // Option buttons
@@ -334,27 +322,41 @@ function addEvents(storage) {
     });
 }
 
-function getListHTML(id, listElements, deleteOpt) {
-    var listHTML = "<table id='" + id + "'>";
-    for (let i = 0; i < listElements.length; i++) {
-        switch (id) {
-            case "trustedlist", "userTrustedList":
-                var displayedContent = listElements[i];
-                break;
-            case "userExceptionList":
-                let obj = listElements[i];
-                var displayedContent = obj.siteProtocol.toString() + obj.siteDom.toString() + "<em> nach </em>" + obj.formProtocol.toString() + obj.formDom.toString();
-                break;
-            case "redirectList":
-                var displayedContent = listElements[i].substring(9, listElements[i].length - 2);
+function getListHTML(id, listElements, userInputOpt, deleteOpt, deleteAllOpt) {
+    var listHTML = "";
+    if (userInputOpt) {
+        buttonText = chrome.i18n.getMessage("addEntries");
+        listHTML += "<div><input id='userDefinedInput' type='text' autofocus/><button id='addUserDefined'>" + buttonText + "</button></div>";
+        listHTML += "<br><br>";
+    } 
+    if (listElements.length == 0) {
+        listHTML += "Die Liste ist leer.";
+    } else {
+        listHTML += "<table id='" + id + "'>";
+        for (let i = 0; i < listElements.length; i++) {
+            switch (id) {
+                case "trustedlist", "userTrustedList":
+                    var displayedContent = listElements[i];
+                    break;
+                case "userExceptionList":
+                    let obj = listElements[i];
+                    var displayedContent = obj.siteProtocol.toString() + obj.siteDom.toString() + "<em> nach </em>" + obj.formProtocol.toString() + obj.formDom.toString();
+                    break;
+                case "redirectList":
+                    var displayedContent = listElements[i].substring(9, listElements[i].length - 2);
+            }
+            if (deleteOpt) {
+                listHTML += '<tr><td><div><button id="' + id + i + '" style="margin-right:10px;color:red">X</button><span>' + displayedContent + '</span></div></td></tr>';
+            } else {
+                listHTML += "<tr><td>" + listElements[i] + "</td></tr>";
+            }
         }
-        if (deleteOpt) {
-            listHTML += '<tr><td><div><button id="' + id + i + '" style="margin-right:10px;color:red">X</button><span>' + displayedContent + '</span></div></td></tr>';
-        } else {
-            listHTML += "<tr><td>" + listElements[i] + "</td></tr>";
-        }
+        listHTML += "</table>";
+        if (deleteAllOpt) {
+            listHTML += "<br><br>";
+            listHTML += "<div><button id='clearList'>Liste leeren</button></div>";
+        } 
     }
-    listHTML += "</table>";
     return listHTML;
 }
 

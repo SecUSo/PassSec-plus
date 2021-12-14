@@ -15,7 +15,7 @@
   },
 
   "verbleibendeZeit": {
-    "message": "Verbleibende Zeit: $TIME$ Sekunde(n).",
+    "message": "Time remaining: $TIME$ second(s).",
     "description": "Remaining time until field is activated.",
     "placeholders": {
       "time": {
@@ -40,9 +40,9 @@
     "description": "Secure mode"
   },
 
-  "OK": {
-    "message": "OK, got it",
-    "description": "OK"
+  "CloseDialog": {
+    "message": "Close dialog",
+    "description": "Close dialog"
   },
 
   "cancelButton": {
@@ -136,8 +136,14 @@
   },
 
   "deleteEntryWarning": {
-    "message": "Are you sure you want to delete the list entry?",
-    "description": "Warn user before deleting a list entry"
+    "message": "Are you sure you want to delete the list entry  '$ENTRY$' ?",
+    "description": "Warn user before deleting a list entry",
+    "placeholders": {
+      "entry": {
+        "content": "$1",
+        "example": ""
+      }
+    }
   },
 
   "emptyList": {
