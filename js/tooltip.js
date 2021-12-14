@@ -93,7 +93,7 @@ function processTooltip(tooltip, securityStatus, timerType, element, formURLObj,
                 event.preventDefault();
             }).on("mouseup", function (event) {
                 let exception = creatUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
-                openConfirmAddingHttpExceptionDialog("confirmAddingHttpException", tooltip, securityStatus, exception, "exceptions");
+                openConfirmAddingHttpExceptionDialog("confirmAddingHttpException", tooltip, securityStatus, exception, "userExceptions");
             });
             getHttpFieldTexts("http");
             break;

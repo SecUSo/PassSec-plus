@@ -23,7 +23,7 @@
             securityStatus = "https"; 
         }
     } else {
-        if (userExceptionArrIncludesObj(storage.exceptions, {"formDom": actformActionDomain,"formProtocol": actformActionURL.protocol,"siteDom": passSec.domain,"siteProtocol": passSec.websiteProtocol})) {
+        if (userExceptionArrIncludesObj(storage.userExceptions, {"formDom": actformActionDomain,"formProtocol": actformActionURL.protocol,"siteDom": passSec.domain,"siteProtocol": passSec.websiteProtocol})) {
             securityStatus = "none";
         } else {
             securityStatus = "http";

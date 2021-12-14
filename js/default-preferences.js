@@ -86,6 +86,7 @@ let PassSec = {
         "zillow.com",
     ],
     userTrustedDomains: [],
+    userExceptions: [],
     exceptions: [],
     passwordField: true,
     personalField: false,
