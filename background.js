@@ -46,6 +46,23 @@ chrome.browserAction.onClicked.addListener(function (tab) {
     manageRedirectHandler();
 });
 
+function transferOfTrustworthyDomainsSetByUser() {
+    chrome.storage.local.get("exceptions", function (storageExceptionObj) {
+        let prevExceptionsSetByUserArr = storageExceptionObj["exceptions"];
+        let httpsExceptionsArr = prevExceptionsSetByUserArr.filter(exception => (exception.split("passSec-")[1]) == "https");
+        let exceptionHttpsDomainsArr = httpsExceptionsArr.map(exception => exception.split("passSec-")[0]);
+        chrome.storage.local.set({ userTrustedDomains: exceptionHttpsDomainsArr });
+    });
+}
+
+chrome.runtime.onInstalled.addListener(function (details) {
+    if (details.reason == "update") {
+      if(details.previousVersion <= 2.11) {
+          transferOfTrustworthyDomainsSetByUser();
+      }
+    }
+});
+
 chrome.contextMenus.create({
     contexts: ["browser_action"],
     onclick: function () {
