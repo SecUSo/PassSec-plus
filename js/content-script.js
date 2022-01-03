@@ -73,11 +73,12 @@ function constructURL(urlStr) {
     }
 }
 
-function getProtocolAndDomainFromURL(urlStr) {
+function getURLInfos(urlStr) {
     let url = new URL(urlStr);
     let domain = extractDomain(url.host);
     let protocol = url.protocol;
     return {
+        url: urlStr,
         protocol: protocol,
         domain: domain
     };
@@ -93,20 +94,21 @@ function getProtocolAndDomainFromURL(urlStr) {
  */
 function applyTooltip(element, event) {
     // only show tooltip on security status "http" or "https", "httpsEV" does not show any tooltips
-    securityStatus = $(element).attr("data-passSec-security");
+    let securityStatus = $(element).attr("data-passSec-security");
+    let securityStatusClass = $(element).attr("data-passSec-security-class");
     var fieldType = $(element).attr("data-passsec-input-type");
   
-    if ($(element).hasClass("passSec-http") || $(element).hasClass("passSec-https") || securityStatus === "passSec-http" || securityStatus === "passSec-https") {
+    if ($(element).hasClass("passSec-red") || $(element).hasClass("passSec-grey") || securityStatusClass === "passSec-red" || securityStatusClass === "passSec-grey") {
         passSec.target = element;
         var form = element.form;
-        var formURLObj = getProtocolAndDomainFromURL(form.action);
+        var formURLObj = getURLInfos(form.action);
         var timerType = passSecTimer.determineTypeOfTimer(fieldType, passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain)
 
         $(element).qtip({
             overwrite: true,
             suppress: true,
             content: {
-                text: getTooltipHTML()
+                text: getTooltipHTML(securityStatus, passSec.httpsAvailable, fieldType)
             },
             show: {
                 event: event.type,
@@ -140,7 +142,7 @@ function applyTooltip(element, event) {
                     passSec.api = api;
                     passSec.tooltip = api.elements.content;
 
-                    processTooltip(passSec.tooltip, securityStatus, timerType, element, formURLObj, creatUserException);
+                    processTooltip(passSec.tooltip, securityStatus, timerType, fieldType, element, formURLObj, creatUserException);
 
                 },
                 hide: function () {
