@@ -28,10 +28,10 @@ function addTexts() {
     // Fields tab
     $("#fields").html(chrome.i18n.getMessage("fieldsTab"));
     $("#fieldTypes").html(chrome.i18n.getMessage("fieldTypes"));
-    $("#passwordField").html(chrome.i18n.getMessage("passwordField"));
-    $("#paymentField").html(chrome.i18n.getMessage("paymentField"));
-    $("#personalField").html(chrome.i18n.getMessage("personalField"));
-    $("#searchField").html(chrome.i18n.getMessage("searchField"));
+    $("#passwordField").html(chrome.i18n.getMessage("passwordFieldDescription"));
+    $("#paymentField").html(chrome.i18n.getMessage("paymentFieldDescription"));
+    $("#personalField").html(chrome.i18n.getMessage("personalFieldDescription"));
+    $("#searchField").html(chrome.i18n.getMessage("searchFieldDescription"));
     $("#notesOnFields").html(chrome.i18n.getMessage("notesOnFields"));
 
     // Symbol tab
