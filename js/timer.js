@@ -5,40 +5,46 @@ class PassSecTimer {
     this.timerIntervall = timerIntervall;
   }
 
-  decreaseTimer(tooltip, element) {
-    this.showTime(tooltip, this.time);
+  decreaseTimer(elementToDisplayTimer, inputField, elementsToDisableWhenTimerIsActivated, isDialog) {
+    this.showTime(elementToDisplayTimer, this.time);
     if (this.time == 0) {
       clearInterval(this.timerIntervall.id());
-      $(element).prop("disabled", false);
-      $(element).focus();
-      $(tooltip.find("#passSecButtonClose")[0]).prop("disabled", false);
-      $(tooltip.find("#passSecButtonException")[0]).prop("disabled", false);
+      if (isDialog) {
+        enableDialogButtons(elementsToDisableWhenTimerIsActivated);
+      } else {
+        enableElements(elementsToDisableWhenTimerIsActivated);
+        $(inputField).focus();
+      }
     } else {
       --this.time;
     }
   }
 
-  showTime(tooltip) {
+  showTime(elementToDisplayTimer) {
     try {
-      tooltip.find("#passSecTimer")[0].textContent = chrome.i18n.getMessage("verbleibendeZeit", "" + this.time)
+      elementToDisplayTimer.textContent = chrome.i18n.getMessage("verbleibendeZeit", "" + this.time)
     } catch (e) { }
   }
 
 
-  countdown(tooltip, element) {
+  countdown(elementToDisplayTimer, inputField, elementsToDisableWhenTimerIsActivated, isDialog) {
     if (this.time == 0) {
-      this.showTime(tooltip);
-      $(element).prop("disabled", false);
-      $(tooltip.find("#passSecButtonClose")[0]).prop("disabled", false);
-      $(tooltip.find("#passSecButtonException")[0]).prop("disabled", false);
+      this.showTime(elementToDisplayTimer);
+      if (isDialog) {
+        enableDialogButtons(elementsToDisableWhenTimerIsActivated);
+      } else {
+        enableElements(elementsToDisableWhenTimerIsActivated);
+      }
       return;
     } else {
-      $(element).prop("disabled", true);
-      $(tooltip.find("#passSecButtonClose")[0]).prop("disabled", true);
-      $(tooltip.find("#passSecButtonException")[0]).prop("disabled", true);
+      if (isDialog) {
+        disableDialogButtons(elementsToDisableWhenTimerIsActivated);
+      } else {
+        disableElements(elementsToDisableWhenTimerIsActivated);
+      }
     }
 
-    this.showTime(tooltip, this.time);
+    this.showTime(elementToDisplayTimer, this.time);
 
     if (this.time > 0) {
       this.time--;
@@ -46,7 +52,7 @@ class PassSecTimer {
 
     function getDecreaseTimerFunc(timer) {
       return function () {
-        timer.decreaseTimer(tooltip, element)
+        timer.decreaseTimer(elementToDisplayTimer, inputField, elementsToDisableWhenTimerIsActivated, isDialog)
       }
     }
 
@@ -131,7 +137,7 @@ var passSecTimer = {
     return "<No_Anomaly>";
   },
 
-  startCountdown(status, tooltip, element) {
+  startCountdown(status, elementToDisplayTimer, inputField, elementsToDisableWhenTimerIsActivated, isDialog) {
     chrome.storage.local.get("timer", function (storage) {
       let timerName = passSecTimer.getTimerName(status);
       let timer = passSecTimer.getTimer(timerName);
@@ -139,7 +145,7 @@ var passSecTimer = {
         timer = new PassSecTimer(timerName, storage.timer, null);
         passSecTimer.timerArr.push(timer);
       }
-      timer.countdown(tooltip, element);
+      timer.countdown(elementToDisplayTimer, inputField, elementsToDisableWhenTimerIsActivated, isDialog);
     });
   },
 };
