@@ -1,19 +1,45 @@
 .passSecTooltip {
-    max-width: none !important;
+    max-width: 450px !important;
+    border: solid 0.3rem #bfb9b9;
+    border-radius: 5px;
+    background-color: white !important;
+}
+
+.passSecHighRisk {
+    border: 0.3rem solid red !important;
+  }
+
+.passSecTooltip div {
+    margin: 0 0 10px 0;
+}
+
+.passSecTooltip img {
+    float: left;
+    width: 25px;
+    height: 25px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .qtip-content {
-    border: solid 0.3rem #bfb9b9;
-    border-radius: 5px;
-    background-color: #ffffcd !important;
+    background-color: white !important;
     cursor: default;
     text-rendering: optimizeLegibility;
 }
 
 .passSecTooltipText {
-    font-size: 13px !important;
-    line-height: 140% !important;
+    font-size: 14px !important;
+    line-height: 130% !important;
+    max-width: 350px !important;
 }
+
+.passSecHighlight {
+    font-weight: bold;
+    display: inline;
+    margin-bottom: 0px !important;
+    margin-right: 2px;
+  }
 
 .passSecConfirm {
     font-size: 14px !important;
@@ -21,11 +47,11 @@
 
 .passSecTooltipText, .passSecConfirmTitle, .passSecConfirm {
     color: black !important;
-    font-family: Corbel, sans-serif !important;
+    font-family: Helvetica !important;
 }
 
 .passSecTooltipText#passSecDomain, .passSecDomain.passSecDomainConfirm {
-    font-family: Calibri, sans-serif !important;
+    font-family: Helvetica !important;
 }
 
 p.passSecTooltipText {
@@ -40,7 +66,15 @@ hr.http-warning {
     background-color: black;
 }
 
-#passSecPhishingText, #passSecConsequenceText, #passSecRecommendationText, #passSecInfoText {
+hr.https {
+    margin: 5px 0;
+    border: 0;
+    height: 1px;
+    color: black;
+    background-color: black;
+}
+
+#passSecPhishingText, #passSecConsequenceText, #passSecRecommendationText, #passSecInfoText, #passSecTooltipSummary {
     overflow: hidden !important;
 }
 
@@ -48,7 +82,7 @@ hr.http-warning {
     float: left !important;
     width: 30px !important;
     height: 30px !important;
-    margin-right: 10px !important;
+    padding-right: 10px !important;
 }
 
 .passSecTooltip > .littleText {
@@ -56,9 +90,11 @@ hr.http-warning {
     padding-bottom: 1px !important;
 }
 
-#passSecWarning {
+#passSecTooltipSummary {
     font-weight: bold !important;
     margin-bottom: 2px !important;
+    max-width: 350px !important;
+    word-break: break-word;
 }
 
 #passSecDomain, .passSecDomain {
@@ -72,24 +108,39 @@ hr.http-warning {
     display: inline;
 }
 
-#passSecVerify {
+#passSecRiskText {
     display: block !important;
 }
 
-#passSecPhishing, #passSecConsequence {
+#passSecPhishing, #passSecConsequence, #passSecRiskText, #passSecTooltipSummary, #passSecURL, .passSecTooltipText {
     max-width: 350px !important;
 }
 
-#passSecRecommendation, #passSecInfo, #passSecButtons {
+#passSecRecommendation, #passSecInfo, #passSecButtons, #passSecInputDelayText, #passSecTooltipSummary {
     text-decoration: none !important;
     clear: both !important;
     max-width: 350px !important;
-    margin-top: 2px !important;
+    margin-top: 10px !important;
+}
+
+#passSecURL {
+    margin-top: 10px !important;
+    word-break: break-all;
+    margin-bottom: 13px;
+    text-decoration: none;
 }
 
 .passSecClickable:hover {
     text-decoration: underline !important;
     cursor: pointer !important;
+}
+
+#passSecButtonSecureMode {
+    color: white !important;
+}
+
+#passSecButtonException, #passSecButtonClose {
+    color: black !important;
 }
 
 #passSecButtonException, #passSecButtonClose, #passSecButtonSecureMode {
@@ -98,9 +149,8 @@ hr.http-warning {
     background-color: white !important;
     margin: 4px 5px 0 0 !important;
     display: inline-block;
-    color: black !important;
     padding: 2px 4px !important;
-    font-family: Corbel, sans-serif !important;
+    font-family: Helvetica !important;
     text-decoration: none !important;
     box-shadow: none !important;
     cursor: default !important;
