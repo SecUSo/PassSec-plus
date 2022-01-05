@@ -334,6 +334,10 @@
       }
     }
   },
+  "confirmExceptionButton": {
+    "message": "Ja, ich weiß, was ich tue!",
+    "description": "Text for 'confirming exception' button"
+  },
   "buttonDeactivationAddingHttpException": {
     "message": "<div class='passSecConfirm'>Der linke Button wurde deaktiviert, damit Sie in Ruhe überlegen können, ob Sie die Ausnahme hinzufügen möchten. </div>",
     "description": "Disabling the button for adding the exception."
@@ -411,7 +415,7 @@
     "description": "More recommendations info to use https"
   },
   "moreInfoHttpOnlyData": {
-    "message": "Es ist nicht möglich, diese Webseite mit „https“ aufzurufen. Diese Webseite bietet also keine Möglichkeit, Ihre hier eingegebenen Daten vor dem Abhören durch Unbefugte zu schützen. Falls Sie sich entscheiden sollten, hier doch ein Passwort einzugeben, stellen Sie sicher, dass dies kein Passwort ist, welches Sie auch für andere Webseiten nutzen. Sonst können Unbefugte, die dieses Passwort abhören, sich auch auf anderen Benutzerkonten von Ihnen anmelden.",
+    "message": "Es ist nicht möglich, diese Webseite mit „https“ aufzurufen. Diese Webseite bietet also keine Möglichkeit, Ihre hier eingegebenen Daten vor dem Abhören durch Unbefugte zu schützen.",
     "description": "Info https: user enters login data."
   },
   "riskTooltipSummaryHttpOnlyPassword": {
@@ -497,7 +501,7 @@
     "message": "Das Passwort würde an einen anderen Server übertragen werden.",
     "description": "Tooltip summary"
   },
-  "riskText4110": {
+  "riskText4110Password": {
     "message": "<div class='passSecHighlight'>Hohes Risiko:</div> Das Risiko für die Eingabe Ihres Passworts wird als hoch eingestuft, da die Webseite das eingegebene Passwort an einen anderen Server überträgt.",
     "description": ""
   },
@@ -570,7 +574,7 @@
     "description": "More recommendations info"
   },
   "moreInfo4100Data": {
-    "message": "Die Webseite übertragt das Passwort mittels „http“ statt „https“. Diese Webseite bietet also keine Möglichkeit, Ihr Passwort vor dem Abhören durch Unbefugte zu schützen. Außerdem wird das Passwort an einen anderen Server übertragen. Falls Sie sich entscheiden sollten, hier doch ein Passwort einzugeben, stellen Sie sicher, dass dies kein Passwort ist, welches Sie auch für andere Webseiten nutzen. Sonst können Unbefugte, die dieses Passwort abhören, sich auch auf anderen Benutzerkonten von Ihnen anmelden. [weniger]",
+    "message": "Die Webseite übertragt Ihre Daten mittels „http“ statt „https“. Diese Webseite bietet also keine Möglichkeit, Ihre hier eingegebenen Daten vor dem Abhören durch Unbefugte zu schützen. Außerdem werden die sensiblen Daten an einen anderen Server übertragen. [weniger]",
     "description": "Info https: user enters login data."
   },
   "riskTooltipSummary4100Password": {
@@ -590,7 +594,7 @@
     "description": "More recommendations info"
   },
   "moreInfo4100Password": {
-    "message": "Die Webseite übertragt Ihre Daten mittels „http“ statt „https“. Diese Webseite bietet also keine Möglichkeit, Ihre hier eingegebenen Daten vor dem Abhören durch Unbefugte zu schützen. Außerdem werden die sensiblen Daten an einen anderen Server übertragen. [weniger]",
+    "message": "Die Webseite übertragt das Passwort mittels „http“ statt „https“. Diese Webseite bietet also keine Möglichkeit, Ihr Passwort vor dem Abhören durch Unbefugte zu schützen. Außerdem wird das Passwort an einen anderen Server übertragen. Falls Sie sich entscheiden sollten, hier doch ein Passwort einzugeben, stellen Sie sicher, dass dies kein Passwort ist, welches Sie auch für andere Webseiten nutzen. Sonst können Unbefugte, die dieses Passwort abhören, sich auch auf anderen Benutzerkonten von Ihnen anmelden. [weniger]",
     "description": "Info https: user enters login data."
   },
   "inputDelayText": {

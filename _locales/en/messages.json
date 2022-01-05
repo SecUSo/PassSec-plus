@@ -3,17 +3,14 @@
     "message": "PassSec+ alerts the user to enter passwords on websites where they could be compromised.",
     "description": "Short description of the add-on's functionality"
   },
-
-  "domainInfo": {
-    "message": "The site you are visiting belongs to",
-    "description": "Info about webpage host"
+  "urlInfoText": {
+    "message": "You are visiting the following website:",
+    "description": "Info about webpage"
   },
-
   "verifyDomain": {
     "message": "Verify this information before you enter data here.",
     "description": "Verify domain."
   },
-
   "verbleibendeZeit": {
     "message": "Time remaining: $TIME$ second(s).",
     "description": "Remaining time until field is activated.",
@@ -24,117 +21,94 @@
       }
     }
   },
-
   "exceptionHTTP": {
     "message": "Add an exception",
     "description": "Add an http exception"
   },
-
   "exceptionHTTPS": {
     "message": "I have checked the information",
     "description": "Add an https exception"
   },
-
   "secureMode": {
-    "message": "Secure Mode",
+    "message": "Switch to 'https'",
     "description": "Secure mode"
   },
-
   "CloseDialog": {
     "message": "Close dialog",
     "description": "Close dialog"
   },
-
   "cancelButton": {
     "message": "Cancel",
     "description": "Cancel button label"
   },
-
   "moreInfo": {
     "message": "More information",
     "description": "More information"
   },
-
   "settingsTitle": {
     "message": "PassSec+ Settings",
     "description": "Title for settings"
   },
-
   "symbolTab": {
     "message": "Symbol",
     "description": "Heading for symbol tab"
   },
-
   "appearance": {
     "message": "General appearance",
     "description": "Title for appearance"
   },
-
   "appearanceSecure": {
     "message": "Appearance, if the input is secure:",
     "description": "Title for appearance if secure"
   },
-
   "appearanceNotSecure": {
     "message": "Appearance, if the input is NOT secure:",
     "description": "Title for appearance if not secure"
   },
-
   "changeIconText": {
     "message": "You can change the icon for secure input here:",
     "description": "Text for icon change"
   },
-
   "iconHint": {
     "message": "Note: If there were only one icon, fraudulent websites could fool you into thinking that it is safe to enter a password or other sensitive data, because the website itself would display the field with a green border and add the appropriate icon.",
     "description": "Text for icon hint"
   },
-
   "changeIconButton": {
     "message": "Next icon",
     "description": "Show next icon"
   },
-
   "tab2": {
     "message": "Redirects",
     "description": "Heading for redirects tab"
   },
-
   "recommendedRedirects": {
     "message": "Recommended redirects",
     "description": "Recommended redirects"
   },
-
   "addRedirectionList": {
     "message": "It is possible to add some redirects recommended by SECUSO. More information and a list of redirects can be found on https://www.secuso.org/passsec.",
     "description": "Recommended redirection list"
   },
-
   "addRecommendedRedirects": {
     "message": "Add recommended redirects",
     "description": "Recommended redirects"
   },
-
   "httpsRedirects": {
     "message": "List of domains that are automatically redirected from http to https (secure mode)",
     "description": "HTTPS redirects"
   },
-
   "showHttpsRedirects": {
     "message": "Show list of HTTPS redirects",
     "description": "Show HTTPS redirects"
   },
-
   "hideHttpsRedirects": {
     "message": "Hide list of HTTPS redirects",
     "description": "Hide HTTPS redirects"
   },
-
   "delete": {
     "message": "Delete",
     "description": "Delete"
   },
-
   "deleteEntryWarning": {
     "message": "Are you sure you want to delete the list entry  '$ENTRY$' ?",
     "description": "Warn user before deleting a list entry",
@@ -145,237 +119,204 @@
       }
     }
   },
-
   "emptyList": {
     "message": "Clear list",
     "description": "Empty list"
   },
-
   "deleteAllEntriesWarning": {
     "message": "Are you sure you want to delete all entries in the list?",
     "description": "Warn user before deleting all list entries"
   },
-
   "domainsTab": {
     "message": "Domains",
     "description": "Heading for exceptions tab"
   },
-
   "websiteHttpsExceptions": {
     "message": "HTTPS website exceptions",
     "description": "Website https exceptions"
   },
-
   "websiteHttpExceptions": {
     "message": "HTTP website exceptions",
     "description": "Website http exceptions"
   },
-
   "trustedList": {
     "message": "List of developers",
     "description": "Trusted domains."
   },
-
   "userTrustedList": {
     "message": "List of domains you classify as 'low risk'.",
     "description": "User trusted domains."
   },
-
   "userExceptionList": {
     "message": "List of domains you classify as 'low risk'.",
     "description": "User exception domains."
   },
-
   "showLowRiskList": {
     "message": "Show entries",
     "description": "Show list of trusted domains."
   },
-
   "lowRiskDomains": {
     "message": "List of domains considered 'low risk' by developers (green frame).",
     "description": "Activate timer on list of trusted domains."
   },
-
   "activateLowRiskList": {
     "message": "Activate list of domains the developers consider as 'low-risk'",
     "description": "Activate list of trusted domains."
   },
-
   "userTrustedDomains": {
     "message": "List of domains that you have classified as 'low risk' (blue frame).",
     "description": "List of user risk domains (websites with https)."
   },
-
   "userExceptions": {
     "message": "List of special cases where PassSec+ has detected an anomaly but you have decided that there is a low risk (red background)",
     "description": "List of user risk domains (websites with http)."
   },
-
   "userList": {
     "message": "List of domains you classify as 'low risk'.",
     "description": "User risk domains."
   },
-
   "editUserList": {
     "message": "Show / edit entries",
     "description": "Show and edit list of user risk domains."
   },
-
   "showList": {
     "message": "Show list",
     "description": "Show list"
   },
-
   "editList": {
     "message": "Edit list",
     "description": "Edit list"
   },
-
   "showWebsiteExceptions": {
     "message": "Show website exceptions",
     "description": "Show website exceptions"
   },
-
   "hideWebsiteExceptions": {
     "message": "Hide website exceptions",
     "description": "Hide website exceptions"
   },
-
   "checkExceptions": {
     "message": "Check exceptions",
     "description": "Check website exceptions"
   },
-
   "checkExceptions20Starts": {
     "message": "Check exceptions automatically after 20 browser starts.",
     "description": "Check website exceptions after 20 starts"
   },
-
   "checkExceptions20StartsTooltip": {
     "message": "This check is used to keep the list of exceptions up to date.",
     "description": "Tooltip for Check website exceptions after 20 starts"
   },
-
   "fieldsTab": {
     "message": "Fields",
     "description": "Heading for fields tab"
   },
-
   "fieldTypes": {
     "message": "Types of fields, which are taken into consideration",
     "description": "Types of fields for detection"
   },
-
-  "passwordField": {
+  "passwordFieldDescription": {
     "message": "Password fields",
     "description": "Password field"
   },
-
-  "paymentField": {
+  "paymentFieldDescription": {
     "message": "Fields with payment information (E.g. credit card numbers)",
     "description": "Payment field"
   },
-
-  "personalField": {
+  "personalFieldDescription": {
     "message": "Fields with further personal data (E.g. e-mail addresses)",
     "description": "Personal field"
   },
-
-  "searchField": {
+  "searchFieldDescription": {
     "message": "Search query fields",
     "description": "Search field"
   },
-
   "notesOnFields": {
     "message": "Note: PassSec+ makes every effort to identify and then mark the appropriate fields. Unfortunately, this is not always possible. If you notice on a web page that a field was not recognized, you are welcome to send us this web page and we will try to further develop PassSec+ accordingly.",
     "description": "Text for notes on the fields"
   },
-
   "timerTab": {
     "message": "Timer",
     "description": "Heading for timer tab"
   },
-
   "timerActivated": {
     "message": "Input delay timer activated",
     "description": "Timer activated"
   },
-
   "timerAmount": {
     "message": "Input delay timer set to",
     "description": "Timer amount"
   },
-
   "seconds": {
     "message": "second(s).",
     "description": "Seconds"
   },
- 
   "httpsSecurity": {
     "message": "HTTPS security",
     "description": "HTTPS Security"
   },
-
   "brokenHTTPS": {
     "message": "Classify BROKEN HTTPS connection as safe",
     "description": "Broken HTTPS Security"
   },
-
   "brokenHTTPSDescription": {
     "message": "BROKEN-HTTPS means that the website is encrypted with HTTPS, but also contains elements that are not encrypted and are therefore blocked by default by the browser.",
     "description": "Broken HTTPS Security Description"
   },
-
   "saveChanges": {
     "message": "Save changes",
     "description": "Save changes"
   },
-
   "revertChanges": {
     "message": "Revert changes",
     "description": "Revert changes"
   },
-
   "addEntries": {
     "message": "Add entry",
     "description": "Add entry"
   },
-
   "defaultSettings": {
     "message": "Restore default settings",
     "description": "Default settings"
   },
-
   "defaultSettingsWarning": {
     "message": "Do you really want to restore the default settings? All stored redirects and exceptions are going to be deleted!",
     "description": "Warn user before restoring default settings"
   },
-
-  "savedChanges":{
+  "savedChanges": {
     "message": "Changes saved! Please reload the page on which you are using PassSec+.",
     "description": "Changes saved"
   },
-
-  "reversedChanges":{
+  "reversedChanges": {
     "message": "Changes reversed!",
     "description": "Changes reversed"
   },
-
-  "defaultSettingsRestored":{
+  "defaultSettingsRestored": {
     "message": "Default settings restored! Please reload the page on which you are using PassSec+.",
     "description": "Default settings"
   },
-
+  "confirmAddingHttpExceptionTitle": {
+    "message": "Do you really want to add an exception?",
+    "description": "Title for adding exception on http site"
+  },
   "confirmAddingHttpException": {
-    "message": "<div class='passSecConfirm'>Do you really want to add an exception for this website?<br><br>If you add an exception, you are no longer warned on this page, that the input of data is not safe here. Exceptions may be reset in the add-on settings.<br><br>If you nevertheless enter your data here, please check the correctness of the address in any case: <div class='passSecDomain passSecDomainConfirm'>$URL$</div><br><br>Only enter data on this website if the address is correct. If this is not the case or you are unsure, click 'Cancel' and enter the address by hand. To continue, click 'OK'.</div>",
+    "message": "<div class='passSecConfirm'> If you add this exception, then you will no longer be warned when you visit websites from <div class='passSecDomain passSecDomainConfirm'>$SITEDOMAIN$</div> with <div class='passSecHighlight'>$SITEPROTOCOL$</div> and if the website is configured so that data you enter is sent with <div class='passSecHighlight'>$FORMPROTOCOL$</div> to a website from <div class='passSecDomain passSecDomainConfirm'>$FORMDOMAIN$</div></div>",
     "description": "Warn user before adding exception on http site",
     "placeholders": {
-      "url": {
+      "siteDomain": {
         "content": "$1"
+      },
+      "siteProtocol": {
+        "content": "$2"
+      },
+      "formProtocol": {
+        "content": "$3"
+      },
+      "formDomain": {
+        "content": "$4"
       }
     }
   },
-
   "confirmAddingHttpsException": {
     "message": "<div class='passSecConfirm'>Do you want to add an exception for the website <div class='passSecDomain passSecDomainConfirm'>$URL$</div></div>?",
     "description": "Warn user before adding exception on https site",
@@ -385,204 +326,271 @@
       }
     }
   },
-
+  "confirmExceptionButton": {
+    "message": "Yes, I know what I am doing!",
+    "description": "Text for 'confirming exception' button"
+  },
+  "buttonDeactivationAddingHttpException": {
+    "message": "<div class='passSecConfirm'>The left button has been disabled so you can consider if you want to add the exception.</div>",
+    "description": "Disabling the button for adding the exception."
+  },
   "browserActionRedirectActive": {
     "message": "Stored HTTPS redirects active",
     "description": "Saved redirects active"
   },
-
   "browserActionRedirectInactive": {
     "message": "Stored HTTPS redirects inactive",
     "description": "Saved redirects inactive"
   },
-
   "options": {
     "message": "Options",
     "description": "Options"
   },
-
-  "recommendationHttpsAvailable": {
-    "message": "You should always use secure mode (https). [more]",
+  "riskTooltipSummary4111Data": {
+    "message": "",
+    "description": "Tooltip summary"
+  },
+  "riskText4111Data": {
+    "message": "<div class='passSecHighlight'>Unknown risk:</div> The risk for entering sensitive data in this field cannot be determined. You have to classify the risk yourself.",
+    "description": ""
+  },
+  "riskRecommendation4111Data": {
+    "message": "Check the domain (bold area of the URL).",
+    "description": "Recommendation: unknown domain."
+  },
+  "moreRecommendation4111Data": {
+    "message": "Check the domain (bold area of the URL).",
+    "description": "Recommendation: unknown domain."
+  },
+  "moreInfo4111Data": {
+    "message": "This means that the domain (bold highlighted area) of the URL and thus its trustworthiness is not known to PassSec. It is not among the most frequently visited domains in Germany. URLs with this domain have also not been identified as trustable by you in the past. [less]",
+    "description": "Info text if the domain is unknown but the website uses https."
+  },
+  "inputDelayText4111": {
+    "message": "The input has been disabled to give you time to check the domain.",
+    "description": "Text for Deactivation of the link"
+  },
+  "riskTooltipSummary4111Password": {
+    "message": "",
+    "description": "Tooltip summary"
+  },
+  "riskText4111Password": {
+    "message": "<div class='passSecHighlight'>Unknown risk:</div> The risk for entering your password in this field cannot be determined. You have to classify the risk yourself.",
+    "description": ""
+  },
+  "riskRecommendation4111Password": {
+    "message": "Check the domain (bold area of the URL).",
+    "description": "Recommendation: unknown domain."
+  },
+  "moreRecommendation4111Password": {
+    "message": "Check the domain (bold area of the URL).",
+    "description": "Recommendation: unknown domain."
+  },
+  "moreInfo4111Password": {
+    "message": "This means that the domain (bold highlighted area) of the URL and thus its trustworthiness is not known to PassSec. It is not among the most frequently visited domains in Germany. URLs with this domain have also not been identified as trustable by you in the past. [less]",
+    "description": "Info text if the domain is unknown but the website uses https."
+  },
+  "riskTooltipSummaryHttpOnlyData": {
+    "message": "There is no secure connection to the website.",
+    "description": "Tooltip summary"
+  },
+  "riskTextHttpOnlyData": {
+    "message": "<div class='passSecHighlight'>High risk:</div> The risk for entering sensitive data is considered high because the website was accessed with 'http'. Accessing with 'http' does not establish a secure connection to the website.",
+    "description": ""
+  },
+  "riskRecommendationHttpOnlyData": {
+    "message": "Do not enter sensitive data here. [more]",
     "description": "Recommendation to use https"
   },
-
-  "moreRecommendationHttpsAvailable": {
-    "message": "You should always use secure mode (https). Click on the 'secure mode' button and you will be redirected to secure mode automatically in the future‏. [less]",
+  "moreRecommendationHttpOnlyData": {
+    "message": "Do not enter sensitive data here. If necessary, contact the website operator and ask to enable https. [less]",
     "description": "More recommendations info to use https"
   },
-
-  "passwordInfoHttpsAvailable": {
-    "message": "More Information: The secure mode (https) protects your password from being intercepted and subsequently used to gain unauthorized access to your personal data, such as your e-mail/news, pictures, bank accounts or other sensitive information. Using secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
-    "description": "Info httsp: user enters login data."
+  "moreInfoHttpOnlyData": {
+    "message": "It is not possible to access this website with 'https'. This website therefore offers no possibility to protect your data entered here from being intercepted by unauthorized persons.",
+    "description": "Info https: user enters login data."
   },
-
-  "passwordConsequenceHttp": {
-    "message": "Your password could fall into the hands of an unauthorized person and could be used to access your personal data.",
-    "description": "Consequence http: user enters login data."
+  "riskTooltipSummaryHttpOnlyPassword": {
+    "message": "There is no secure connection to the website.",
+    "description": "Tooltip summary"
   },
-
-  "passwordRecommendationHttp": {
-    "message": "This website does not offer a secure alternative (https). If you decide to log into this website anyway and you use the same password for other website accounts, you should change them immediately.",
-    "description": "Recommendation http: user enters login data."
+  "riskTextHttpOnlyPassWord": {
+    "message": "<div class='passSecHighlight'>High risk:</div> The risk for entering your password is considered high because the website was accessed with 'http'. Accessing with 'http' does not establish a secure connection to the website.",
+    "description": ""
   },
-  
-   "passwordRecommendationHttpMixed": {
-    "message": "This website appears to be configured incorrectly: Your password will be transmitted insecurely through the internet.",
-    "description": "Recommendation http: user enters login data."
+  "riskRecommendationHttpOnlyPassword": {
+    "message": "Do not enter a password here. [more]",
+    "description": "Recommendation to use https"
   },
-
-  "passwordInfoHttp": {
-    "message": "More Information: This website does not provide the option of entering and transmitting your password securely (via https). If you use the same password for other website accounts, and your password is intercepted by unauthorized people when you submit here, these people will gain access to your account on this webpage and also to all other websites where you use the same credentials. Therefore, it is very important to change the other website passwords immediately. [less]",
-    "description": "Info http: user enters login data."
+  "moreRecommendationHttpOnlyPassword": {
+    "message": "Do not enter a password here. If necessary, contact the website operator and ask to enable https. [less]",
+    "description": "More recommendations info to use https"
   },
-  
-  "passwordInfoHttpMixed": {
-    "message": "More Information: This website does not provide the option of entering and transmitting your password securely (via https). If you use the same password for other website accounts, and your password is intercepted by unauthorized people when you submit here, these people will gain access to your account on this webpage and also to all other websites where you use the same credentials. Therefore, it is very important to change the other website passwords immediately. It is recommended to contact the website provider and inform them about the incorrect configuration. [less]",
-    "description": "Info http: user enters login data."
+  "moreInfoHttpOnlyPassword": {
+    "message": "It is not possible to access this website with 'https'. This website therefore offers no possibility to protect your password entered here from being intercepted by unauthorized persons. If you decide to enter a password here after all, make sure that this is not a password that you also use for other websites. Otherwise, unauthorized persons who eavesdrop on this password will be able to log in to other user accounts of yours as well.",
+    "description": "Info https: user enters login data."
   },
-  
-  "paymentInfoHttpsAvailable": {
-    "message": "More Information: The secure mode (https) protects your payment information from being intercepted and subsequently used to effect unauthorized payments. The secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
-    "description": "Info https: user enters payment data."
+  "riskTooltipSummaryHttpsAvailableData": {
+    "message": "There is no secure connection to the website.",
+    "description": "Tooltip summary"
   },
-
-  "paymentConsequenceHttp": {
-    "message": "If you enter your payment information on this website, an unauthorized persons can intercept them. They can then use your information for payments.",
-    "description": "Consequence http: user enters payment data."
+  "riskTextHttpsAvailableData": {
+    "message": "<div class='passSecHighlight'>High risk:</div> The risk for entering sensitive data is considered high because the website was accessed with 'http'. Accessing with 'http' does not establish a secure connection to the website.",
+    "description": ""
   },
-
-  "paymentRecommendationHttp": {
-    "message": "This website does not provide a secure alternative (https). You should not enter your payment details here.",
-    "description": "Recommendation http: user enters payment data."
+  "riskRecommendationHttpsAvailableData": {
+    "message": "Switch to the 'https' version, of this website. [more]",
+    "description": "Recommendation to use https"
   },
-  
-  "paymentRecommendationHttpMixed": {
-    "message": "This website appears to be configured incorrectly: Your payment details will be transmitted insecurely through the internet. ",
-    "description": "Recommendation http: user enters payment data."
+  "moreRecommendationHttpsAvailableData": {
+    "message": "Switch to the 'https' version, of this website. To always access this website automatically via 'https', click on 'Switch to https'. [less]",
+    "description": "More recommendations info to use https"
   },
-
-  "paymentInfoHttp": {
-    "message": "More Information: This website provides no way to protect your payment information from interception by unauthorized persons. If your payment information is intercepted here, it can be abused at any time, e.g. for fraudulent payments on the Internet. [less]",
-    "description": "Info http: user enters payment data."
+  "moreInfoHttpsAvailableData": {
+    "message": "If you access the website with 'https', there is a secure connection to the server. This is one of three conditions that should be fulfilled before you enter sensitive data on a website. It is also important that you are connected to the correct server and that the sensitive data you enter is also sent to that same server over a secure connection. The input field is red if any of these conditions are not fulfilled. [less]",
+    "description": "Info https: user enters login data."
   },
-  
-  "paymentInfoHttpMixed": {
-    "message": "More Information: This website provides no way to protect your payment information from interception by unauthorized persons. If your payment information is intercepted here, it can be abused at any time, e.g. for fraudulent payments on the Internet. It is recommended to contact the website provider and inform them about the incorrect configuration. [less]",
-    "description": "Info http: user enters payment data."
+  "riskTooltipSummaryHttpsAvailablePassword": {
+    "message": "There is no secure connection to the website.",
+    "description": "Tooltip summary"
   },
-
-  "personalInfoHttpsAvailable": {
-    "message": "More Information: Secure mode (https) protects your personal data from eavesdropping. Secure mode (https) is particularly important when entering passwords, bank details or other sensitive information[less].",
-    "description": "Info https: user enters personal data."
+  "riskTextHttpsAvailablePassword": {
+    "message": "<div class='passSecHighlight'>High risk:</div> The risk for entering your password is considered high because the website was accessed with 'http'. Accessing with 'http' does not establish a secure connection to the website.",
+    "description": ""
   },
-
-  "personalConsequenceHttp": {
-    "message": "When you enter your personal information on this site, an unauthorized person could intercept it. This may allow conclusions to be drawn about personal matters.",
-    "description": "Consequence http: user enters personal data."
+  "riskRecommendationHttpsAvailablePassword": {
+    "message": "Switch to the 'https' version, of this website. [more]",
+    "description": "Recommendation to use https"
   },
-
-  "personalRecommendationHttp": {
-    "message": "This website does not provide a secure alternative (https). You should not enter any sensitive personal data here.",
-    "description": "Recommendation http: user enters personal data."
+  "moreRecommendationHttpsAvailablePassword": {
+    "message": "Switch to the 'https' version, of this website. To always access this website automatically via 'https', click on 'Switch to https'. [less]",
+    "description": "More recommendations info to use https"
   },
-  
-  "personalRecommendationHttpMixed": {
-    "message": "This website appears to be configured incorrectly: Your personal data will be transmitted insecurely through the internet.",
-    "description": "Recommendation http: user enters personal data."
+  "moreInfoHttpsAvailablePassword": {
+    "message": "If you access the website with 'https', there is a secure connection to the server. This is one of three conditions that should be fulfilled before you enter your password on a website. It is also important that you are connected to the correct server and that the password you enter is also sent to that same server over a secure connection. The password field is red if any of these conditions are not fulfilled. [less]",
+    "description": "Info https: user enters login data."
   },
-
-  "personalInfoHttp": {
-    "message": "More Information: This website does not provide the option of transmitting your personal data (via https). If you enter sensitive personal data here, and it is intercepted by unauthorized people, it can be abused at any time, e.g. for stealing your identity. [less]",
-    "description": "Info http: user enters personal data."
+  "riskTooltipSummary4110Data": {
+    "message": "Your entered data would be sent to another server.",
+    "description": "Tooltip summary"
   },
-  
-   "personalInfoHttpMixed": {
-    "message": "More Information: This website does not provide the option of transmitting your personal data (via https). If you enter sensitive personal data here, and it is intercepted by unauthorized people, it can be abused at any time, e.g. for stealing your identity. It is recommended to contact the website provider and inform them about the incorrect configuration. [less]",
-    "description": "Info http: user enters personal data."
+  "riskText4110Data": {
+    "message": "<div class='passSecHighlight'>High risk:</div> The risk for entering sensitive data is considered high because the website will send the entered data to another server.",
+    "description": ""
   },
-
-  "searchInfoHttpsAvailable": {
-    "message": "More Information: Secure mode (https) protects your search query from being intercepted. The secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
-    "description": "Info https: user enters search queries."
+  "riskRecommendation4110Data": {
+    "message": "Do not enter sensitive data here. [more]",
+    "description": "Recommendation info"
   },
-
-  "searchConsequenceHttp": {
-    "message": "When you enter your search queries on this website, an unauthorized person could intercept it. This allows conclusions about your personal interests.",
-    "description": "Consequence http: user enters search queries."
+  "moreRecommendation4110Data": {
+    "message": "Do not enter sensitive data here. If necessary, contact the website operator and ask to check the configuration of this website. [less]",
+    "description": "More recommendations info"
   },
-
-  "searchRecommendationHttp": {
-    "message": "This website does not provide a secure alternative (https). Enter your search query only if it contains no sensitive data.",
-    "description": "Recommendation http: user enters search queries."
+  "moreInfo4110Data": {
+    "message": "The website will send the sensitive data to another server."
   },
-  
-  "searchRecommendationHttpMixed": {
-    "message": "This website appears to be configured incorrectly: Your search queries will be transmitted insecurely through the internet.",
-    "description": "Recommendation: user enters search queries."
+  "riskTooltipSummary4110Password": {
+    "message": "The password would be sent to another server.",
+    "description": "Tooltip summary"
   },
-
-  "searchInfoHttp": {
-    "message": "More Information: This website does not provides a way to protect your search query from interception by unauthorized persons. If your query is intercepted, this may allow them to draw conclusions about sensitive personal interests. [less]",
-    "description": "Info http: user enters search queries."
+  "riskText4110Password": {
+    "message": "<div class='passSecHighlight'>High risk:</div> The risk for entering your password is considered high because the website will send the entered password to another server.",
+    "description": ""
   },
-  
-  "searchInfoHttpMixed": {
-    "message": "More Information: This website does not provides a way to protect your search query from interception by unauthorized persons. If your query is intercepted, this may allow them to draw conclusions about sensitive personal interests. It is recommended to contact the website provider and inform them about the incorrect configuration. [less]",
-    "description": "Info http: user enters search queries."
+  "riskRecommendation4110Password": {
+    "message": "Do not enter a password here. [more]",
+    "description": "Recommendation info"
   },
-
-  "defaultInfoHttpsAvailable": {
-    "message": "More Information:  Secure mode (https) protects your data from being intercepted. The secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. [less]",
-    "description": "Info https: user enters data."
+  "moreRecommendation4110Password": {
+    "message": "Do not enter a password here. If necessary, contact the website operator and ask to check the configuration of this website. [less]",
+    "description": "More recommendations info"
   },
-  
-   "defaultInfoHttpMixed": {
-    "message": "More Information:  Secure mode (https) protects your data from being intercepted. The secure mode (https) is particularly important when entering passwords, bank details or other sensitive information. It is recommended to contact the website provider and inform them about the incorrect configuration. [less]",
-    "description": "Info http: user enters data."
+  "moreInfo4110Password": {
+    "message": "The website will send the password to another server. If you do decide to enter a password here, make sure it is not one you use for other websites. [less]",
+    "description": "Info https: user enters login data."
   },
-
-  "defaultConsequenceHttp": {
-    "message": "When you enter your data on this website, an unauthorized person could intercept it.",
-    "description": "Consequence http: user enters data."
+  "riskTooltipSummary4101Data": {
+    "message": "Your entered data would be sent over an insecure connection.",
+    "description": "Tooltip summary"
   },
-
-  "defaultRecommendationHttp": {
-    "message": "This website does not provide a secure alternative (https). Enter your data only if it contains no sensitive information.",
-    "description": "Recommendation http: user enters data."
+  "riskText4101Data": {
+    "message": "<div class='passSecHighlight'>High risk:</div> The risk for entering sensitive data is considered high because the website does not send the entered data to the server over a secure connection.",
+    "description": ""
   },
-  
-    "defaultRecommendationHttpMixed": {
-    "message": "This website appears to be configured incorrectly: Your data will be transmitted insecurely through the internet.",
-    "description": "Recommendation: user enters data."
+  "riskRecommendation4101Data": {
+    "message": "Do not enter sensitive data here. [more]",
+    "description": "Recommendation"
   },
-
-  "defaultInfoHttp": {
-    "message": "More Information: This website does not provides a way to protect your data from interception by unauthorized persons. If your data is intercepted here, it can be abused at any time. [less]",
-    "description": "Info http: user enters data."
+  "moreRecommendation4101Data": {
+    "message": "Do not enter sensitive data here. If necessary, contact the website operator and ask to use https. [less]",
+    "description": "More recommendations info"
   },
-
-  "passwordWarning": {
-    "message": "It is insecure to enter a password here!",
-    "description": "Warn about insecurity of password field."
+  "moreInfo4101Data": {
+    "message": "The website sends your data via 'http' instead of 'https'. So this website does not provide any way to protect your data entered here from being intercepted by unauthorized persons. [less]",
+    "description": "Info https: user enters login data."
   },
-
-  "paymentWarning": {
-    "message": "It is insecure to enter payment information here!",
-    "description": "Warn about insecurity of payment field."
+  "riskTooltipSummary4101Password": {
+    "message": "The password would be sent over an insecure connection.",
+    "description": "Tooltip summary"
   },
-
-  "personalWarning": {
-    "message": "It is insecure to enter personal information here!",
-    "description": "Warn about insecurity of personal data field."
+  "riskText4101Password": {
+    "message": "<div class='passSecHighlight'>High risk:</div> The risk for entering your password is considered high because the website does not send the entered password to the server through a secure connection.",
+    "description": ""
   },
-
-  "searchWarning": {
-    "message": "It is insecure to enter search queries here!",
-    "description": "Warn about insecurity of query field."
+  "riskRecommendation4101Password": {
+    "message": "Do not enter a password here. [more]",
+    "description": "Recommendation"
   },
-
-  "defaultWarning": {
-    "message": "It is insecure to enter data here!",
-    "description": "Warn about insecurity of input field of unknown type."
+  "moreRecommendation4101Password": {
+    "message": "Do not enter a password here. If necessary, contact the website operator and ask to use https. [less]",
+    "description": "More recommendations info"
+  },
+  "moreInfo4101Password": {
+    "message": "The website sends the password via 'http' instead of 'https'. This website does not offer any way to protect your password from being intercepted by unauthorized persons. If you decide to enter a password here, make sure that it is not a password that you use for other websites. Otherwise, unauthorized people who eavesdrop on this password will be able to log in to other user accounts of yours as well. [less]",
+    "description": "Info https: user enters login data."
+  },
+  "riskTooltipSummary4100Data": {
+    "message": "Your entered data would be sent to another server via an insecure connection. ",
+    "description": "Tooltip summary"
+  },
+  "riskText4100Data": {
+    "message": "<div class='passSecHighlight'>High risk:</div> The risk for entering sensitive data is considered high, as the website, does not send the entered data over a secure connection and additionally to another server.",
+    "description": ""
+  },
+  "riskRecommendation4100Data": {
+    "message": "Do not enter sensitive data here. [more]",
+    "description": "Recommendation info"
+  },
+  "moreRecommendation4100Data": {
+    "message": "Do not enter sensitive data here. If necessary, contact the website operator and ask to check the configuration of this website. [less]",
+    "description": "More recommendations info"
+  },
+  "moreInfo4100Data": {
+    "message": "The website sends your data via 'http' instead of 'https'. So this website does not provide any way to protect your data entered here from being intercepted by unauthorized persons. Moreover, the sensitive data is sent to another server.  [less]",
+    "description": "Info https: user enters login data."
+  },
+  "riskTooltipSummary4100Password": {
+    "message": "The password would be sent to another server over an insecure connection.",
+    "description": "Tooltip summary"
+  },
+  "riskText4100Password": {
+    "message": "<div class='passSecHighlight'>High risk:</div> The risk for entering your password is considered high, because the website, does not send the entered password over a secure connection and additionally to another server.",
+    "description": ""
+  },
+  "riskRecommendation4100Password": {
+    "message": "Do not enter a password here. [more]",
+    "description": "Recommendation info"
+  },
+  "moreRecommendation4100Password": {
+    "message": "Do not enter a password here. If necessary, contact the website operator and ask to check the configuration of this website. [less]",
+    "description": "More recommendations info"
+  },
+  "moreInfo4100Password": {
+    "message": "The website sends the password via 'http' instead of 'https'. So, this website does not provide any way to protect your password from being intercepted by unauthorized people. Moreover, the password is sent to another server. If you decide to enter a password here after all, make sure that this is not a password you use for other websites as well. Otherwise, unauthorized people who eavesdrop on this password can log in to other user accounts of yours as well. [less]",
+    "description": "Info https: user enters login data."
+  },
+  "inputDelayText": {
+    "message": "The input has been disabled so that you can consider how to continue.",
+    "description": "Tooltip summary"
   }
 }

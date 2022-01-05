@@ -263,7 +263,7 @@ function openConfirmAddingHttpExceptionDialog(message, tooltip, securityStatus, 
         type: 'red',
         buttons: {
             addingException: {
-                text: 'Ja, ich weiß, was ich tue!',
+                text: chrome.i18n.getMessage("confirmExceptionButton"),
                 btnClass: 'btn-red',
                 isHidden: false, // initially not hidden
                 isDisabled: false, // initially not disabled
