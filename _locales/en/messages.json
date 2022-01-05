@@ -7,6 +7,14 @@
     "message": "You are visiting the following website:",
     "description": "Info about webpage"
   },
+  "formURLInfoTextData": {
+    "message": "The data entered would be sent to the following website:",
+    "description": "Info about webpage"
+  },
+  "formURLInfoTextPassword": {
+    "message": "The password would be sent to the following website:",
+    "description": "Info about webpage"
+  },
   "verifyDomain": {
     "message": "Verify this information before you enter data here.",
     "description": "Verify domain."
