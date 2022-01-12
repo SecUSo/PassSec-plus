@@ -229,17 +229,22 @@ function processTooltip(tooltip, securityStatus, timerType, fieldType, element, 
 
 
 function updateSecurityClass(prevSecurityStatus) {
-    updateElem = $('.' + prevSecurityStatus);
-    updateElem.removeClass(prevSecurityStatus);
+    let updateElem = $('[data-passSec-security=' + prevSecurityStatus + ']');
+    let classToRemove = "";
+    let classToAdd = "";
 
     if (prevSecurityStatus == "4111") {
-        updateElem.addClass("passSec-blue");
-        updateElem.attr("data-passSec-security", "2111");
-        updateElem.attr("data-passSec-security-class", "passSec-blue");
+        classToRemove = "passSec-grey";
+        classToAdd = "passSec-blue";
     } else {
-        $('[data-passSec-security=' + prevSecurityStatus + ']').attr("data-passSec-security-class", "passSec-redException");
+        classToRemove = "passSec-red";
+        classToAdd = "passSec-redException";
     }
-}
+
+    updateElem.removeClass(classToRemove);
+    updateElem.addClass(classToAdd);
+    updateElem.attr("data-passSec-security-class", classToAdd);
+};
 
 function addUserException(tooltip, securityStatus, exception, storageListName) {
     chrome.storage.local.get(storageListName, function (item) {
@@ -253,7 +258,7 @@ function addUserException(tooltip, securityStatus, exception, storageListName) {
             }
         });
     });
-}
+};
 
 
 function openConfirmAddingHttpExceptionDialog(message, tooltip, securityStatus, exception, storageListName) {
