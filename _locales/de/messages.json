@@ -374,7 +374,7 @@
     "message": "Das bedeutet, dass die Domain (fett hervorgehobener Bereich) der URL und damit auch ihre Vertrauenswürdigkeit PassSec nicht bekannt ist. Diese ist also nicht unter den in Deutschland am Häufigsten besuchten Domains. URLs mit dieser Domain wurden auch nicht von Ihnen in der Vergangenheit als vertrauenswürdig eingestuft. [weniger]",
     "description": "Info text if the domain is unknown but the website uses https."
   },
-  "inputDelayText4111": {
+  "inputDelayText4111Data": {
     "message": "Die Eingabe wurde deaktiviert, damit Sie die Domain in Ruhe prüfen.",
     "description": "Text for Deactivation of the link"
   },
@@ -397,6 +397,10 @@
   "moreInfo4111Password": {
     "message": "Das bedeutet, dass die Domain (fett hervorgehobener Bereich) der URL und damit auch ihre Vertrauenswürdigkeit PassSec nicht bekannt ist. Diese ist also nicht unter den in Deutschland am Häufigsten besuchten Domains. URLs mit dieser Domain wurden auch nicht von Ihnen in der Vergangenheit als vertrauenswürdig eingestuft. [weniger]",
     "description": "Info text if the domain is unknown but the website uses https."
+  },
+  "inputDelayText4111Password": {
+    "message": "Das Passwortfeld wurde deaktiviert, damit Sie die Domain in Ruhe prüfen.",
+    "description": "Text for Deactivation of the link"
   },
   "riskTooltipSummaryHttpOnlyData": {
     "message": "Es besteht keine sichere Verbindung zur Webseite.",
@@ -597,8 +601,12 @@
     "message": "Die Webseite übertragt das Passwort mittels „http“ statt „https“. Diese Webseite bietet also keine Möglichkeit, Ihr Passwort vor dem Abhören durch Unbefugte zu schützen. Außerdem wird das Passwort an einen anderen Server übertragen. Falls Sie sich entscheiden sollten, hier doch ein Passwort einzugeben, stellen Sie sicher, dass dies kein Passwort ist, welches Sie auch für andere Webseiten nutzen. Sonst können Unbefugte, die dieses Passwort abhören, sich auch auf anderen Benutzerkonten von Ihnen anmelden. [weniger]",
     "description": "Info https: user enters login data."
   },
-  "inputDelayText": {
+  "inputDelayTextData": {
     "message": "Die Eingabe wurde deaktiviert, damit Sie in Ruhe überlegen können, wie Sie fortfahren möchten.",
+    "description": "Tooltip summary"
+  },
+  "inputDelayTextPassword": {
+    "message": "Das Passwortfeld wurde deaktiviert, damit Sie in Ruhe überlegen können, wie Sie fortfahren möchten.",
     "description": "Tooltip summary"
   }
 }
