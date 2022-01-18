@@ -29,18 +29,26 @@ $(document).ready(function () {
         // input element (so the tooltip should open, even though no focus event is fired, but it should not
         // open up twice if focus of an element is caused by a click)
         $('body').on('mousedown', 'input,textarea', function (event) {
-            if (!$(event.target).is($(document.activeElement)))
-                inputElementClicked = true;
             applyTooltip(event.target, event);
-
         }).on('focus', 'input,textarea', function (event) {
-            if (!inputElementClicked)
+            if (!elementHasAlreadyOpenTooltip(event.target)) {
                 applyTooltip(event.target, event);
-            inputElementClicked = false;
+            }
         });
     });
 });
 
+
+function elementHasAlreadyOpenTooltip(element) {
+    let qtipID = $(element).attr("data-hasqtip");
+    if (qtipID != undefined) {
+        let qtipElem = $("[data-qtip-id=" + qtipID + "]");
+        let qtipIsHiddenAttrStr = qtipElem.attr("aria-hidden").toLowerCase().trim();
+        let qtipIsHidden = (qtipIsHiddenAttrStr === 'true');
+        return !qtipIsHidden;
+    }
+    return false;
+}
 
 function isIP(address) {
     const ipWithProtocol = new RegExp(
@@ -97,7 +105,7 @@ function applyTooltip(element, event) {
     let securityStatus = $(element).attr("data-passSec-security");
     let securityStatusClass = $(element).attr("data-passSec-security-class");
     var fieldType = $(element).attr("data-passsec-input-type");
-  
+
     if ($(element).hasClass("passSec-red") || $(element).hasClass("passSec-grey") || securityStatusClass === "passSec-red" || securityStatusClass === "passSec-grey") {
         passSec.target = element;
         var form = element.form;
@@ -146,16 +154,14 @@ function applyTooltip(element, event) {
 
                 },
                 hide: function () {
-                    if(passSecTimer.timerArr != null) {
+                    if (passSecTimer.timerArr != null) {
                         let fieldTimerName = passSecTimer.getTimerName(timerType);
-                        for(let timer of passSecTimer.timerArr) {
-                            if(timer.name == fieldTimerName) {
-                                timer.timerIntervall.pause();
-                            }
+                        let timer = passSecTimer.getTimer(fieldTimerName);
+                        if (timer != null) {
+                            timer.timerIntervall.pause();
+                            $(element).prop("disabled", false);
                         }
                     }
-                },
-                show: function () {
                 }
             }
         }, event);
