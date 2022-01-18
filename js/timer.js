@@ -13,7 +13,9 @@ class PassSecTimer {
         enableDialogButtons(elementsToDisableWhenTimerIsActivated);
       } else {
         enableElements(elementsToDisableWhenTimerIsActivated);
-        $(inputField).focus();
+        if (inputField != null) {
+          $(inputField).focus();
+        }
       }
     } else {
       --this.time;
@@ -23,7 +25,9 @@ class PassSecTimer {
   showTime(elementToDisplayTimer) {
     try {
       elementToDisplayTimer.textContent = chrome.i18n.getMessage("verbleibendeZeit", "" + this.time)
-    } catch (e) { }
+    } catch (e) {
+      console.log("Error: " + e);
+    }
   }
 
 

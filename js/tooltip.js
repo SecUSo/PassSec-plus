@@ -16,15 +16,15 @@ function getTooltipHTML(securityStatus, httpsAvailable, fieldType) {
         '<hr class="https">' +
         '<div id="passSecRiskText" class="passSecTooltipText littleText">' + textObj.riskText + '</div>' +
         /* '<div id="passSecConsequence" class="http-warning">' +
-        '<img id="passSecConsequenceImage" src=' + chrome.extension.getURL("skin/consequence.png") + '>' +
+        '<img id="passSecConsequenceImage" src=' + chrome.runtime.getURL("skin/consequence.png") + '>' +
         '<p id="passSecConsequenceText" class="passSecTooltipText"></p>' +
         '</div>' +*/
         '<div id="passSecRecommendation" littleText">' +
-        '<img id="passSecRecommendationImage" src=' + chrome.extension.getURL("skin/recommendation.png") + '>' +
+        '<img id="passSecRecommendationImage" src=' + chrome.runtime.getURL("skin/recommendation.png") + '>' +
         '<p id="passSecRecommendationText" class="passSecTooltipText">' + textObj.recommendation + '</p>' +
         '</div>' +
         '<div id="passSecInfo" class="littleText">' +
-        '<img id="passSecInfoImage" src=' + chrome.extension.getURL("skin/more_info.png") + '>' +
+        '<img id="passSecInfoImage" src=' + chrome.runtime.getURL("skin/more_info.png") + '>' +
         '<p id="passSecInfoText" class="passSecClickable passSecTooltipText">' + chrome.i18n.getMessage("moreInfo") + '</p>' +
         '</div>' +
         '<div id="passSecInputDelayText" class="passSecTooltipText">' + textObj.inputDelay + '</div>' +
@@ -114,18 +114,27 @@ function processTooltip(tooltip, securityStatus, timerType, fieldType, element, 
         event.preventDefault();
     }).on("mouseup", function (event) {
         passSec.api.destroy(true);
+        if (passSecTimer.timerArr != null) {
+            let fieldTimerName = passSecTimer.getTimerName(timerType);
+            let timer = passSecTimer.getTimer(fieldTimerName);
+            if (timer != null) {
+                timer.timerIntervall.pause();
+                $(element).prop("disabled", false);
+            }
+        }
     });
 
     passSecURLElem.html(url.replace(passSec.domain, '<span id="passSecDomain">' + passSec.domain + "</span>"));
     var elementsToDisableWhenTimerIsActivated = [$(element), exceptionButton];
     var elementToDisplayTimer = tooltip.find("#passSecTimer")[0];
+    let fieldTypeForText = getFieldTypeForText(fieldType);
 
     if (securityStatus == 4111) {
         $(tooltip.find(".http-warning")).hide();
         $(tooltip.find(".highRisk")).hide();
         $(tooltip.find(".unknownRisk")).show();
         exceptionButton.html(chrome.i18n.getMessage("exceptionHTTPS"));
-        inputDelayTextElem.html(chrome.i18n.getMessage("inputDelayText4111"));
+        inputDelayTextElem.html(chrome.i18n.getMessage("inputDelayText4111" + fieldTypeForText));
 
         exceptionButton.on("mousedown", function (event) {
             // prevent input element losing focus
@@ -139,7 +148,7 @@ function processTooltip(tooltip, securityStatus, timerType, fieldType, element, 
 
         exceptionButton.addClass("redButton");
         exceptionButton.html(chrome.i18n.getMessage("exceptionHTTP"));
-        inputDelayTextElem.html(chrome.i18n.getMessage("inputDelayText"));
+        inputDelayTextElem.html(chrome.i18n.getMessage("inputDelayText" + fieldTypeForText));
 
         exceptionButton.on("mousedown", function (event) {
             // prevent input element losing focus
@@ -152,7 +161,6 @@ function processTooltip(tooltip, securityStatus, timerType, fieldType, element, 
     }
 
     let statusCodeForText = getStatusCodeForText(securityStatus, passSec.httpsAvailable);
-    let fieldTypeForText = getFieldTypeForText(fieldType);
 
     // Data is transferred to another server 
     if (securityStatus[3] == 0) {
@@ -281,7 +289,9 @@ function openConfirmAddingHttpExceptionDialog(message, tooltip, securityStatus, 
             }
         },
         onOpenBefore: function () {
-            let confirmHttpExceptionDialogContent = chrome.i18n.getMessage(message, [exception.siteDom, exception.siteProtocol.replace(":", ""), exception.formProtocol.replace(":", ""), exception.formDom]);
+            let exceptionSiteProtocolStr = '"' + exception.siteProtocol.replace(":", "").toUpperCase() + '"';
+            let exceptionFormProtocolStr = '"' + exception.formProtocol.replace(":", "").toUpperCase() + '"';
+            let confirmHttpExceptionDialogContent = chrome.i18n.getMessage(message, [exception.siteDom, exceptionSiteProtocolStr, exceptionFormProtocolStr, exception.formDom]);
             confirmHttpExceptionDialogContent += "<br>";
             confirmHttpExceptionDialogContent += chrome.i18n.getMessage("buttonDeactivationAddingHttpException");
             confirmHttpExceptionDialogContent += '<p id="passSecExceptionDialogTimer" class="passSecConfirm"></p>'
@@ -290,7 +300,7 @@ function openConfirmAddingHttpExceptionDialog(message, tooltip, securityStatus, 
         onContentReady: function () {
             chrome.storage.local.get("timer", function (storageObj) {
                 var dialogTimer = timer = new PassSecTimer("dialogTimer", storageObj.timer, null);
-                var elementToDisplayTimer = $(passSecExceptionDialogTimer)[0];
+                var elementToDisplayTimer = $("#passSecExceptionDialogTimer")[0];
                 dialogTimer.countdown(elementToDisplayTimer, null, [confirmDialog.buttons.addingException], true);
             });
         },
