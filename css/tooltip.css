@@ -31,7 +31,7 @@
 .passSecTooltipText {
     font-size: 14px !important;
     line-height: 130% !important;
-    max-width: 350px !important;
+    max-width: 450px !important;
 }
 
 .passSecHighlight {
@@ -93,7 +93,7 @@ hr.https {
 #passSecTooltipSummary {
     font-weight: bold !important;
     margin-bottom: 2px !important;
-    max-width: 350px !important;
+    max-width: 450px !important;
     word-break: break-word;
 }
 
@@ -113,13 +113,13 @@ hr.https {
 }
 
 #passSecPhishing, #passSecConsequence, #passSecRiskText, #passSecTooltipSummary, #passSecURL, .passSecTooltipText {
-    max-width: 350px !important;
+    max-width: 450px !important;
 }
 
 #passSecRecommendation, #passSecInfo, #passSecButtons, #passSecInputDelayText, #passSecTooltipSummary {
     text-decoration: none !important;
     clear: both !important;
-    max-width: 350px !important;
+    max-width: 450px !important;
     margin-top: 10px !important;
 }
 
