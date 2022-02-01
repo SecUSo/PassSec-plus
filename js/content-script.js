@@ -1,5 +1,6 @@
 var passSec = passSec || {};
 let inputElementClicked = false;
+var activeElement = null;
 
 // listen for messages from background script
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
@@ -9,6 +10,10 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             break;
     }
 });
+
+const showTooltipEvent = jQuery.Event('showTooltip');
+const timerIsZeroEvent = jQuery.Event('timerIsZero');
+
 
 // processing starts here and is continued when the background script sends the extracted domain
 passSec.url = document.location.href;
@@ -29,15 +34,31 @@ $(document).ready(function () {
         // input element (so the tooltip should open, even though no focus event is fired, but it should not
         // open up twice if focus of an element is caused by a click)
         $('body').on('mousedown', 'input,textarea', function (event) {
-            applyTooltip(event.target, event);
+            if (!elementHasAlreadyOpenTooltip(event.target)) {
+                $(event.target).trigger(showTooltipEvent);
+                if (!elementHasTooltip(event.target)) {
+                    applyTooltip(event.target, event);
+                }
+            }
         }).on('focus', 'input,textarea', function (event) {
             if (!elementHasAlreadyOpenTooltip(event.target)) {
-                applyTooltip(event.target, event);
+                $(event.target).trigger(showTooltipEvent);
+                if (!elementHasTooltip(event.target)) {
+                    applyTooltip(event.target, event);
+                }
             }
+        }).on('timerIsZero', function (event) {
+            $(activeElement).prop("disabled", false);
+            $(passSec.tooltip.find("#passSecButtonException")[0]).prop("disabled", false);
+            $(activeElement).focus();
         });
     });
 });
 
+function elementHasTooltip(element) {
+    let qtipID = $(element).attr("data-hasqtip");
+    return (qtipID != undefined);
+}
 
 function elementHasAlreadyOpenTooltip(element) {
     let qtipID = $(element).attr("data-hasqtip");
@@ -73,6 +94,13 @@ function extractDomain(hostname) {
     }
 }
 
+function getDomainFromFormActionAttr(formElem) {
+    var formAction = formElem.action;
+    var formActionURL = new URL(formAction);
+    var formActionDomain = extractDomain(formActionURL.host);
+    return formActionDomain;
+}
+
 function constructURL(urlStr) {
     try {
         const url = new URL(urlStr);
@@ -101,16 +129,17 @@ function getURLInfos(urlStr) {
  * @param event The event that triggered the call of this function
  */
 function applyTooltip(element, event) {
-    // only show tooltip on security status "http" or "https", "httpsEV" does not show any tooltips
     let securityStatus = $(element).attr("data-passSec-security");
     let securityStatusClass = $(element).attr("data-passSec-security-class");
     var fieldType = $(element).attr("data-passsec-input-type");
 
+    // only show tooltip on security status "http" or "https", "httpsEV" does not show any tooltips
     if ($(element).hasClass("passSec-red") || $(element).hasClass("passSec-grey") || securityStatusClass === "passSec-red" || securityStatusClass === "passSec-grey") {
         passSec.target = element;
         var form = element.form;
         var formURLObj = getURLInfos(form.action);
-        var timerType = passSecTimer.determineTypeOfTimer(fieldType, passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain)
+        var timerName = passSecTimer.determineNameOfTimer(fieldType, passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
+        // $(element).attr("data-passSec-timer", timerName);
 
         $(element).qtip({
             overwrite: true,
@@ -119,7 +148,7 @@ function applyTooltip(element, event) {
                 text: getTooltipHTML(securityStatus, passSec.httpsAvailable, fieldType)
             },
             show: {
-                event: event.type,
+                event: 'showTooltip',
                 ready: true,
                 solo: true,
                 delay: 0
@@ -162,15 +191,27 @@ function applyTooltip(element, event) {
                         timer.qtipIDs.push(qtipID);
                     }
                     passSecTimer.startCountdown(timerName, elementToDisplayTimer, element, elementsToDisableWhenTimerIsActivated, false, qtipID);
-
                 },
                 hide: function () {
                     if (passSecTimer.timerArr != null) {
-                        let fieldTimerName = passSecTimer.getTimerName(timerType);
-                        let timer = passSecTimer.getTimer(fieldTimerName);
+                        let timer = passSecTimer.getTimer(timerName);
                         if (timer != null) {
-                            timer.timerIntervall.pause();
-                            $(element).prop("disabled", false);
+                            if (timer.timerIntervall.id() != null) {
+                                timer.timerIntervall.pause();
+                                $(element).prop("disabled", false);
+                            }
+                        }
+                    }
+                },
+                show: function () {
+                    activeElement = element;
+                    if (passSecTimer.timerArr != null) {
+                        let timer = passSecTimer.getTimer(timerName);
+                        if (timer != null) {
+                            if (timer.timerIntervall.id() != null) {
+                                timer.timerIntervall.resume();
+                                $(element).prop("disabled", true);
+                            }
                         }
                     }
                 }

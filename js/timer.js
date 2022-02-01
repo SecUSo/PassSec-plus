@@ -1,5 +1,5 @@
 class PassSecTimer {
-  constructor(timerName, time, timerIntervall) {
+  constructor(timerName, time, timerIntervall, qtipIDsArr) {
     this.name = timerName;
     this.time = time;
     this.timerIntervall = timerIntervall;
@@ -8,15 +8,12 @@ class PassSecTimer {
 
   decreaseTimer(elementToDisplayTimer, inputField, elementsToDisableWhenTimerIsActivated, isDialog) {
     this.showTime(elementToDisplayTimer, this.time);
-    if (this.time == 0) {
-      clearInterval(this.timerIntervall.id());
+    if (this.time <= 0) {
+      this.timerIntervall.clear();
       if (isDialog) {
         enableDialogButtons(elementsToDisableWhenTimerIsActivated);
       } else {
-        enableElements(elementsToDisableWhenTimerIsActivated);
-        if (inputField != null) {
-          $(inputField).focus();
-        }
+        $(inputField).trigger(timerIsZeroEvent);
       }
     } else {
       --this.time;
@@ -25,7 +22,7 @@ class PassSecTimer {
 
   showTime(elementToDisplayTimer) {
     try {
-      elementToDisplayTimer.textContent = chrome.i18n.getMessage("verbleibendeZeit", "" + this.time)
+      this.qtipIDs.forEach(qtipID => $("#" + qtipID).find("#passSecTimer")[0].textContent = chrome.i18n.getMessage("verbleibendeZeit", "" + this.time));
     } catch (e) {
       console.log("Error: " + e);
     }
@@ -48,7 +45,6 @@ class PassSecTimer {
         disableElements(elementsToDisableWhenTimerIsActivated);
       }
     }
-
     this.showTime(elementToDisplayTimer, this.time);
 
     if (this.time > 0) {
@@ -60,9 +56,10 @@ class PassSecTimer {
         timer.decreaseTimer(elementToDisplayTimer, inputField, elementsToDisableWhenTimerIsActivated, isDialog)
       }
     }
-
-    var timerIntervall = this.Interval(getDecreaseTimerFunc(this), 1000);
-    this.timerIntervall = timerIntervall;
+    if (this.timerIntervall == null) {
+      var timerIntervall = this.Interval(getDecreaseTimerFunc(this), 1000);
+      this.timerIntervall = timerIntervall;
+    }
   }
 
   Interval(callback, freq) {
@@ -142,12 +139,25 @@ var passSecTimer = {
     return "<No_Anomaly>";
   },
 
-  startCountdown(status, elementToDisplayTimer, inputField, elementsToDisableWhenTimerIsActivated, isDialog) {
+  determineNameOfTimer(fieldType, websiteProtocol, websiteDomain, formProtocol, formDomain) {
+    if (fieldType == "password") {
+      return "passwordFieldTimer";
+    } else if (websiteDomain != formDomain) {
+      return "differentDomainsTimer";
+    } else if (websiteProtocol != formProtocol) {
+      return "differentProtocolTimer";
+    }
+    // No anomaly
+    return "timer";
+  },
+
+
+
+  startCountdown(timerName, elementToDisplayTimer, inputField, elementsToDisableWhenTimerIsActivated, isDialog, qtipID) {
     chrome.storage.local.get("timer", function (storage) {
-      let timerName = passSecTimer.getTimerName(status);
       let timer = passSecTimer.getTimer(timerName);
       if (timer == null) {
-        timer = new PassSecTimer(timerName, storage.timer, null);
+        timer = new PassSecTimer(timerName, storage.timer, null, [qtipID]);
         passSecTimer.timerArr.push(timer);
       }
       timer.countdown(elementToDisplayTimer, inputField, elementsToDisableWhenTimerIsActivated, isDialog);
