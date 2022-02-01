@@ -149,8 +149,19 @@ function applyTooltip(element, event) {
                 render: function (event, api) {
                     passSec.api = api;
                     passSec.tooltip = api.elements.content;
+                    let qtipID = $(this).attr('id');
 
-                    processTooltip(passSec.tooltip, securityStatus, timerType, fieldType, element, formURLObj, creatUserException);
+                    assignText(passSec.tooltip, passSec.url, securityStatus, fieldType, formURLObj, qtipID);
+                    addFunctionalityForTooltipElements(passSec.tooltip, securityStatus, timerName, fieldType, element, formURLObj, creatUserException);
+
+                    var exceptionButton = $(passSec.tooltip.find("#passSecButtonException")[0]);
+                    var elementsToDisableWhenTimerIsActivated = [$(element), exceptionButton];
+                    var elementToDisplayTimer = passSec.tooltip.find("#passSecTimer")[0];
+                    let timer = passSecTimer.getTimer(timerName);
+                    if (timer != null) {
+                        timer.qtipIDs.push(qtipID);
+                    }
+                    passSecTimer.startCountdown(timerName, elementToDisplayTimer, element, elementsToDisableWhenTimerIsActivated, false, qtipID);
 
                 },
                 hide: function () {

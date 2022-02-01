@@ -3,6 +3,7 @@ class PassSecTimer {
     this.name = timerName;
     this.time = time;
     this.timerIntervall = timerIntervall;
+    this.qtipIDs = qtipIDsArr;
   }
 
   decreaseTimer(elementToDisplayTimer, inputField, elementsToDisableWhenTimerIsActivated, isDialog) {

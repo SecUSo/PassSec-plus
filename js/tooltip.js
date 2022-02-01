@@ -71,7 +71,7 @@ function getStatusCodeForText(securityStatus, httpsAvailable) {
     if (siteProtocolStatus == 0) {
         return (httpsAvailable ? "HttpsAvailable" : "HttpOnly");
     } else {
-        return securityStatus;
+        return securityStatus[1] + securityStatus[2] + securityStatus[3];
     }
 };
 
@@ -92,88 +92,89 @@ function getTooltipText(securityStatus, httpsAvailable, fieldType) {
     }
 };
 
-/**
- * Adds functionality for the tooltip elements
- */
-function processTooltip(tooltip, securityStatus, timerType, fieldType, element, formURLObj, creatUserException) {
-    let url = passSec.url;
-
-    let passSecURLTextElem = $(tooltip.find("#passSecURLText")[0]);
+function assignText(tooltip, url, securityStatus, fieldType, formURLObj, qtipID) {
     let passSecURLElem = $(tooltip.find("#passSecURL")[0]);
     let passSecFormURLTextElem = $(tooltip.find("#passSecFormURLText")[0]);
     let passSecFormURLElem = $(tooltip.find("#passSecFormURL")[0]);
+    let inputDelayTextElem = $(tooltip.find("#passSecInputDelayText")[0]);
+    let exceptionButton = $(tooltip.find("#passSecButtonException")[0]);
+
+    passSecURLElem.html(url.replace(passSec.domain, '<span id="passSecDomain">' + passSec.domain + "</span>"));
+    let fieldTypeForText = getFieldTypeForText(fieldType);
+
+    let siteUseHttps = securityStatus[1];
+    let formUseHttps = securityStatus[2];
+    let sameDomain = securityStatus[3];
+    switch (siteUseHttps + formUseHttps + sameDomain) {
+        // site protocol is https
+        case "111":
+            $(tooltip.find(".http-warning")).hide();
+            $(tooltip.find(".highRisk")).hide();
+            $(tooltip.find(".unknownRisk")).show();
+            exceptionButton.html(chrome.i18n.getMessage("exceptionHTTPS"));
+            inputDelayTextElem.html(chrome.i18n.getMessage("inputDelayText111" + fieldTypeForText));
+            break;
+        // site protocol is https
+        case "100": case "110": case "101":
+            $("#" + qtipID).addClass("passSecHighRisk");
+            exceptionButton.addClass("redButton");
+            exceptionButton.html(chrome.i18n.getMessage("exceptionHTTP"));
+            inputDelayTextElem.html(chrome.i18n.getMessage("inputDelayText" + fieldTypeForText));
+
+            $(tooltip.find(".http-warning")).hide();
+            $(tooltip.find(".https")).show();
+
+            // Data is transferred to another server 
+            if (securityStatus[3] == 0) {
+                passSecFormURLTextElem.html(chrome.i18n.getMessage("formURLInfoText" + fieldTypeForText));
+                let formURLStr = formURLObj.url;
+                let formDomain = formURLObj.domain
+                formURLHTML = formURLStr.replace(formDomain, '<span id="passSecDomain">' + formURLObj.domain + "</span>");
+                passSecFormURLElem.html(formURLHTML);
+                $(tooltip.find(".otherServer")).show();
+            }
+            break;
+        // site protocol is http
+        case "000": case "001": case "010": case "011":
+            $("#" + qtipID).addClass("passSecHighRisk");
+            exceptionButton.addClass("redButton");
+            exceptionButton.html(chrome.i18n.getMessage("exceptionHTTP"));
+            inputDelayTextElem.html(chrome.i18n.getMessage("inputDelayText" + fieldTypeForText));
+
+            $(tooltip.find(".http-warning")).show();
+            $(tooltip.find(".https")).hide();
+
+            if (passSec.httpsAvailable) {
+                let changeToHttpsButton = $(tooltip.find("#passSecButtonSecureMode")[0]);
+                changeToHttpsButton.show();
+                changeToHttpsButton.addClass("greenButton");
+            }
+            break;
+    }
+}
+
+function addFunctionalityForTooltipElements(tooltip, securityStatus, timerName, fieldType, element, formURLObj, creatUserException) {
     let passSecInfoTextElem = $(tooltip.find("#passSecInfoText")[0]);
     let passSecRecommendationTextElem = $(tooltip.find("#passSecRecommendationText")[0]);
-    let inputDelayTextElem = $(tooltip.find("#passSecInputDelayText")[0]);
     let exceptionButton = $(tooltip.find("#passSecButtonException")[0]);
     let closeButton = $(tooltip.find("#passSecButtonClose")[0]);
 
-    closeButton.on("mousedown", function (event) {
-        // prevent input element losing focus
-        event.stopImmediatePropagation();
-        event.preventDefault();
-    }).on("mouseup", function (event) {
-        passSec.api.destroy(true);
-        if (passSecTimer.timerArr != null) {
-            let fieldTimerName = passSecTimer.getTimerName(timerType);
-            let timer = passSecTimer.getTimer(fieldTimerName);
-            if (timer != null) {
-                timer.timerIntervall.pause();
-                $(element).prop("disabled", false);
-            }
-        }
+    [exceptionButton, closeButton].forEach(function (element) {
+        element.on("mousedown", function (event) {
+            // prevent input element losing focus
+            event.stopImmediatePropagation();
+            event.preventDefault();
+        });
+    });
+    // Close Button Event
+    closeButton.on("mouseup", function (event) {
+        $(element).qtip("hide");
     });
 
-    passSecURLElem.html(url.replace(passSec.domain, '<span id="passSecDomain">' + passSec.domain + "</span>"));
-    var elementsToDisableWhenTimerIsActivated = [$(element), exceptionButton];
-    var elementToDisplayTimer = tooltip.find("#passSecTimer")[0];
     let fieldTypeForText = getFieldTypeForText(fieldType);
-
-    if (securityStatus == 4111) {
-        $(tooltip.find(".http-warning")).hide();
-        $(tooltip.find(".highRisk")).hide();
-        $(tooltip.find(".unknownRisk")).show();
-        exceptionButton.html(chrome.i18n.getMessage("exceptionHTTPS"));
-        inputDelayTextElem.html(chrome.i18n.getMessage("inputDelayText4111" + fieldTypeForText));
-
-        exceptionButton.on("mousedown", function (event) {
-            // prevent input element losing focus
-            event.stopImmediatePropagation();
-            event.preventDefault();
-        }).on("mouseup", function () {
-            addUserException(true, securityStatus, passSec.domain, "userTrustedDomains");
-        });
-    } else {
-        $(".passSecTooltip").addClass("passSecHighRisk");
-
-        exceptionButton.addClass("redButton");
-        exceptionButton.html(chrome.i18n.getMessage("exceptionHTTP"));
-        inputDelayTextElem.html(chrome.i18n.getMessage("inputDelayText" + fieldTypeForText));
-
-        exceptionButton.on("mousedown", function (event) {
-            // prevent input element losing focus
-            event.stopImmediatePropagation();
-            event.preventDefault();
-        }).on("mouseup", function (event) {
-            let exception = creatUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
-            openConfirmAddingHttpExceptionDialog("confirmAddingHttpException", tooltip, securityStatus, exception, "userExceptions");
-        });
-    }
-
     let statusCodeForText = getStatusCodeForText(securityStatus, passSec.httpsAvailable);
 
-    // Data is transferred to another server 
-    if (securityStatus[3] == 0) {
-        passSecFormURLTextElem.html(chrome.i18n.getMessage("formURLInfoText" + fieldTypeForText));
-        let formURLStr = formURLObj.url;
-        let formDomain = formURLObj.domain
-        formURLHTML = formURLStr.replace(formDomain, '<span id="passSecDomain">' + formURLObj.domain + "</span>");
-        passSecFormURLElem.html(formURLHTML);
-        $(tooltip.find(".otherServer")).show();
-
-    }
-
-
+    // Click Event Recommendation Element
     passSecRecommendationTextElem.click(function (e) {
         if ($(this).html() === chrome.i18n.getMessage("moreRecommendation" + statusCodeForText + fieldTypeForText)) {
             $(this).html(chrome.i18n.getMessage("riskRecommendation" + statusCodeForText + fieldTypeForText));
@@ -182,6 +183,7 @@ function processTooltip(tooltip, securityStatus, timerType, fieldType, element, 
         }
     }).addClass("passSecClickable");
 
+    // Click Event Info Element
     passSecInfoTextElem.click(function (e) {
         if ($(this).html() === chrome.i18n.getMessage("moreInfo")) {
             $(this).html(chrome.i18n.getMessage("moreInfo" + statusCodeForText + fieldTypeForText));
@@ -190,28 +192,35 @@ function processTooltip(tooltip, securityStatus, timerType, fieldType, element, 
         }
     });
 
-    var siteProtocolStatus = securityStatus[1];
-    switch (siteProtocolStatus) {
+    let siteUseHttps = securityStatus[1];
+    let formUseHttps = securityStatus[2];
+    let sameDomain = securityStatus[3];
+    switch (siteUseHttps + formUseHttps + sameDomain) {
         // site protocol is https
-        case "1":
-            passSecTimer.startCountdown(timerType, elementToDisplayTimer, element, elementsToDisableWhenTimerIsActivated, false);
+        case "111":
+            exceptionButton.on("mouseup", function () {
+                addUserException(true, securityStatus, passSec.domain, "userTrustedDomains");
+            });
 
-            $(tooltip.find(".http-warning")).hide();
-            $(tooltip.find(".https")).show();
+            break;
+        // site protocol is https
+        case "100": case "110": case "101":
+            exceptionButton.on("mouseup", function () {
+                let exception = creatUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
+                openConfirmAddingHttpExceptionDialog("confirmAddingHttpException", tooltip, securityStatus, exception, "userExceptions");
+            });
 
             break;
         // site protocol is http
-        case "0":
-            passSecTimer.startCountdown(timerType, elementToDisplayTimer, element, elementsToDisableWhenTimerIsActivated, false);
-            $(tooltip.find(".http-warning")).show();
-            $(tooltip.find(".https")).hide();
+        case "000": case "001": case "010": case "011":
+            exceptionButton.on("mouseup", function () {
+                let exception = creatUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
+                openConfirmAddingHttpExceptionDialog("confirmAddingHttpException", tooltip, securityStatus, exception, "userExceptions");
+            });
 
             if (passSec.httpsAvailable) {
-                // Buttons 
+                // "Switch to HTTPS" Event
                 let changeToHttpsButton = $(tooltip.find("#passSecButtonSecureMode")[0]);
-                changeToHttpsButton.show();
-
-                changeToHttpsButton.addClass("greenButton");
                 changeToHttpsButton.on("mousedown", function () {
                     chrome.storage.local.get("redirects", function (item) {
                         let redirectPattern = "http://*." + passSec.domain + "/*";
@@ -233,8 +242,20 @@ function processTooltip(tooltip, securityStatus, timerType, fieldType, element, 
             }
             break;
     }
-}
+};
 
+function getElementsToUpdateAfterAddingException(prevSecurityStatus, exception) {
+    let elementsWithSameSecStatObj = $('[data-passSec-security=' + prevSecurityStatus + ']');
+    let elementsToUpdateAfterAddingExceptionArr = [];
+    for (let elem of Object.entries(elementsWithSameSecStatObj)) {
+        let formElem = elem[1].form;
+        let formDomain = getDomainFromFormActionAttr(formElem);
+        if(formDomain && exception.formDom == formDomain) {
+            elementsToUpdateAfterAddingExceptionArr.push(elem[1]);
+        }
+    }
+    return elementsToUpdateAfterAddingExceptionArr;
+}
 
 function updateSecurityClass(prevSecurityStatus, exception) {
     let updateElementsObj = $('[data-passSec-security=' + prevSecurityStatus + ']');
@@ -280,10 +301,10 @@ function openConfirmAddingHttpExceptionDialog(message, tooltip, securityStatus, 
             addingException: {
                 text: chrome.i18n.getMessage("confirmExceptionButton"),
                 btnClass: 'btn-red',
-                isHidden: false, // initially not hidden
-                isDisabled: false, // initially not disabled
+                isHidden: false,
+                isDisabled: false,
                 action: function () {
-                    addUserException(tooltip, securityStatus, exception, storageListName);
+                    addUserException(true, securityStatus, exception, storageListName);
                 }
             },
             cancel: {
@@ -293,16 +314,18 @@ function openConfirmAddingHttpExceptionDialog(message, tooltip, securityStatus, 
         onOpenBefore: function () {
             let exceptionSiteProtocolStr = '"' + exception.siteProtocol.replace(":", "").toUpperCase() + '"';
             let exceptionFormProtocolStr = '"' + exception.formProtocol.replace(":", "").toUpperCase() + '"';
-            let confirmHttpExceptionDialogContent = chrome.i18n.getMessage(message, [exception.siteDom, exceptionSiteProtocolStr, exceptionFormProtocolStr, exception.formDom]);
+            let confirmHttpExceptionDialogContent = '<div id="passSecConfirmDialog">';
+            confirmHttpExceptionDialogContent += chrome.i18n.getMessage(message, [exception.siteDom, exceptionSiteProtocolStr, exceptionFormProtocolStr, exception.formDom]);
             confirmHttpExceptionDialogContent += "<br>";
             confirmHttpExceptionDialogContent += chrome.i18n.getMessage("buttonDeactivationAddingHttpException");
-            confirmHttpExceptionDialogContent += '<p id="passSecExceptionDialogTimer" class="passSecConfirm"></p>'
+            confirmHttpExceptionDialogContent += '<p id="passSecTimer" class="passSecConfirm"></p>'
+            confirmHttpExceptionDialogContent += '</div>';
             this.setContent(confirmHttpExceptionDialogContent);
         },
         onContentReady: function () {
             chrome.storage.local.get("timer", function (storageObj) {
-                var dialogTimer = timer = new PassSecTimer("dialogTimer", storageObj.timer, null);
-                var elementToDisplayTimer = $("#passSecExceptionDialogTimer")[0];
+                var dialogTimer = timer = new PassSecTimer("dialogTimer", storageObj.timer, null, ["passSecConfirmDialog"]);
+                var elementToDisplayTimer = $("#passSecTimer")[0];
                 dialogTimer.countdown(elementToDisplayTimer, null, [confirmDialog.buttons.addingException], true);
             });
         },
