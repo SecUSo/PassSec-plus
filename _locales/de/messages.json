@@ -354,51 +354,51 @@
     "message": "Einstellungen",
     "description": "Options"
   },
-  "riskTooltipSummary4111Data": {
+  "riskTooltipSummary111Data": {
     "message": "",
     "description": "Tooltip summary"
   },
-  "riskText4111Data": {
+  "riskText111Data": {
     "message": "<div class='passSecHighlight'>Unbekanntes Risiko:</div> Das Risiko für die Eingabe von sensiblen Daten in diesem Feld kann nicht bestimmt werden. Sie müssen hier das Risiko selbst einstufen.",
     "description": ""
   },
-  "riskRecommendation4111Data": {
+  "riskRecommendation111Data": {
     "message": "Prüfen Sie die Domain (fett hervorgehobener Bereich der URL).",
     "description": "Recommendation: unknown domain."
   },
-  "moreRecommendation4111Data": {
+  "moreRecommendation111Data": {
     "message": "Prüfen Sie die Domain (fett hervorgehobener Bereich der URL).",
     "description": "Recommendation: unknown domain."
   },
-  "moreInfo4111Data": {
+  "moreInfo111Data": {
     "message": "Das bedeutet, dass die Domain (fett hervorgehobener Bereich) der URL und damit auch ihre Vertrauenswürdigkeit PassSec nicht bekannt ist. Diese ist also nicht unter den in Deutschland am Häufigsten besuchten Domains. URLs mit dieser Domain wurden auch nicht von Ihnen in der Vergangenheit als vertrauenswürdig eingestuft. [weniger]",
     "description": "Info text if the domain is unknown but the website uses https."
   },
-  "inputDelayText4111Data": {
+  "inputDelayText111Data": {
     "message": "Die Eingabe wurde deaktiviert, damit Sie die Domain in Ruhe prüfen.",
     "description": "Text for Deactivation of the link"
   },
-  "riskTooltipSummary4111Password": {
+  "riskTooltipSummary111Password": {
     "message": "",
     "description": "Tooltip summary"
   },
-  "riskText4111Password": {
+  "riskText111Password": {
     "message": "<div class='passSecHighlight'>Unbekanntes Risiko:</div> Das Risiko für die Eingabe Ihres Passworts in diesem Feld kann nicht bestimmt werden. Sie müssen hier das Risiko selbst einstufen.",
     "description": ""
   },
-  "riskRecommendation4111Password": {
+  "riskRecommendation111Password": {
     "message": "Prüfen Sie die Domain (fett hervorgehobener Bereich der URL).",
     "description": "Recommendation: unknown domain."
   },
-  "moreRecommendation4111Password": {
+  "moreRecommendation111Password": {
     "message": "Prüfen Sie die Domain (fett hervorgehobener Bereich der URL).",
     "description": "Recommendation: unknown domain."
   },
-  "moreInfo4111Password": {
+  "moreInfo111Password": {
     "message": "Das bedeutet, dass die Domain (fett hervorgehobener Bereich) der URL und damit auch ihre Vertrauenswürdigkeit PassSec nicht bekannt ist. Diese ist also nicht unter den in Deutschland am Häufigsten besuchten Domains. URLs mit dieser Domain wurden auch nicht von Ihnen in der Vergangenheit als vertrauenswürdig eingestuft. [weniger]",
     "description": "Info text if the domain is unknown but the website uses https."
   },
-  "inputDelayText4111Password": {
+  "inputDelayText111Password": {
     "message": "Das Passwortfeld wurde deaktiviert, damit Sie die Domain in Ruhe prüfen.",
     "description": "Text for Deactivation of the link"
   },
@@ -482,122 +482,122 @@
     "message": "Wenn Sie die Webseite mit „https“ aufrufen, besteht eine sichere Verbindung zu dem Server. Dies ist eine von drei Bedingungen, die erfüllt sein sollten, bevor Sie Ihr Passwort auf einer Webseite eingeben. Außerdem ist es wichtig, dass Sie mit dem richtigen Server verbunden sind und dass das eingegebene Passwort ebenfalls über eine sichere Verbindung an genau diesen Server geschickt wird. Das Passwortfeld ist rot, wenn eine dieser Bedingungen nicht erfüllt ist. [weniger]",
     "description": "Info https: user enters login data."
   },
-  "riskTooltipSummary4110Data": {
+  "riskTooltipSummary110Data": {
     "message": "Ihre eingegebenen Daten würden an einen anderen Server übertragen werden.",
     "description": "Tooltip summary"
   },
-  "riskText4110Data": {
+  "riskText110Data": {
     "message": "<div class='passSecHighlight'>Hohes Risiko:</div> Das Risiko für die Eingabe sensibler Daten wird als hoch eingestuft, da die Webseite die eingegebenen Daten an einen anderen Server überträgt.",
     "description": ""
   },
-  "riskRecommendation4110Data": {
+  "riskRecommendation110Data": {
     "message": "Geben Sie hier keine sensiblen Daten ein. [mehr]",
     "description": "Recommendation info"
   },
-  "moreRecommendation4110Data": {
+  "moreRecommendation110Data": {
     "message": "Geben Sie hier keine sensiblen Daten ein. Kontaktieren Sie ggf. den Betreiber der Webseite und bitten darum, die Einstellungen auf dieser Webseite zu überprüfen. [weniger]",
     "description": "More recommendations info"
   },
-  "moreInfo4110Data": {
+  "moreInfo110Data": {
     "message": "Die Webseite wird die sensiblen Daten an einen anderen Server übertragen."
   },
-  "riskTooltipSummary4110Password": {
+  "riskTooltipSummary110Password": {
     "message": "Das Passwort würde an einen anderen Server übertragen werden.",
     "description": "Tooltip summary"
   },
-  "riskText4110Password": {
+  "riskText110Password": {
     "message": "<div class='passSecHighlight'>Hohes Risiko:</div> Das Risiko für die Eingabe Ihres Passworts wird als hoch eingestuft, da die Webseite das eingegebene Passwort an einen anderen Server überträgt.",
     "description": ""
   },
-  "riskRecommendation4110Password": {
+  "riskRecommendation110Password": {
     "message": "Geben Sie hier kein Passwort ein. [mehr]",
     "description": "Recommendation info"
   },
-  "moreRecommendation4110Password": {
+  "moreRecommendation110Password": {
     "message": "Geben Sie hier kein Passwort ein. Kontaktieren Sie ggf. den Betreiber der Webseite und bitten darum, die Einstellungen auf dieser Webseite zu überprüfen. [weniger]",
     "description": "More recommendations info"
   },
-  "moreInfo4110Password": {
+  "moreInfo110Password": {
     "message": "Die Webseite wird das Passwort an einen anderen Server übertragen. Falls Sie sich entscheiden sollten, hier doch ein Passwort einzugeben, stellen Sie sicher, dass dies kein Passwort ist, welches Sie auch für andere Webseiten nutzen. [weniger]",
     "description": "Info https: user enters login data."
   },
-  "riskTooltipSummary4101Data": {
+  "riskTooltipSummary101Data": {
     "message": "Ihre eingegebenen Daten würden über eine unsichere Verbindung übertragen werden.",
     "description": "Tooltip summary"
   },
-  "riskText4101Data": {
+  "riskText101Data": {
     "message": "<div class='passSecHighlight'>Hohes Risiko:</div> Das Risiko für die Eingabe sensibler Daten wird als hoch eingestuft, da die Webseite die eingegebenen Daten nicht über eine sichere Verbindung an den Server überträgt.",
     "description": ""
   },
-  "riskRecommendation4101Data": {
+  "riskRecommendation101Data": {
     "message": "Geben Sie hier keine sensiblen Daten ein. [mehr]",
     "description": "Recommendation"
   },
-  "moreRecommendation4101Data": {
+  "moreRecommendation101Data": {
     "message": "Geben Sie hier keine sensiblen Daten ein. Kontaktieren Sie ggf. den Betreiber der Webseite und bitten darum, https zu nutzen. [weniger].",
     "description": "More recommendations info"
   },
-  "moreInfo4101Data": {
+  "moreInfo101Data": {
     "message": "Die Webseite übertragt Ihre Daten mittels „http“ statt „https“. Diese Webseite bietet also keine Möglichkeit, Ihre hier eingegebenen Daten vor dem Abhören durch Unbefugte zu schützen. [weniger]",
     "description": "Info https: user enters login data."
   },
-  "riskTooltipSummary4101Password": {
+  "riskTooltipSummary101Password": {
     "message": "Das Passwort würde über eine unsichere Verbindung übertragen werden.",
     "description": "Tooltip summary"
   },
-  "riskText4101Password": {
+  "riskText101Password": {
     "message": "<div class='passSecHighlight'>Hohes Risiko:</div> Das Risiko für die Eingabe Ihres Passworts wird als hoch eingestuft, da die Webseite das eingegebene Passwort nicht über eine sichere Verbindung an den Server überträgt.",
     "description": ""
   },
-  "riskRecommendation4101Password": {
+  "riskRecommendation101Password": {
     "message": "Geben Sie hier kein Passwort ein. [mehr]",
     "description": "Recommendation"
   },
-  "moreRecommendation4101Password": {
+  "moreRecommendation101Password": {
     "message": "Geben Sie hier kein Passwort ein. Kontaktieren Sie ggf. den Betreiber der Webseite und bitten darum, https zu nutzen. [weniger].",
     "description": "More recommendations info"
   },
-  "moreInfo4101Password": {
+  "moreInfo101Password": {
     "message": "Die Webseite übertragt das Passwort mittels „http“ statt „https“. Diese Webseite bietet also keine Möglichkeit, Ihr Passwort vor dem Abhören durch Unbefugte zu schützen. Falls Sie sich entscheiden sollten, hier doch ein Passwort einzugeben, stellen Sie sicher, dass dies kein Passwort ist, welches Sie auch für andere Webseiten nutzen. Sonst können Unbefugte, die dieses Passwort abhören, sich auch auf anderen Benutzerkonten von Ihnen anmelden. [weniger]",
     "description": "Info https: user enters login data."
   },
-  "riskTooltipSummary4100Data": {
+  "riskTooltipSummary100Data": {
     "message": "Ihre eingegebenen Daten würden über eine unsichere Verbindung an einen anderen Server übertragen werden. ",
     "description": "Tooltip summary"
   },
-  "riskText4100Data": {
+  "riskText100Data": {
     "message": "<div class='passSecHighlight'>Hohes Risiko:</div> Das Risiko für die Eingabe sensibler Daten wird als hoch eingestuft, da die Webseite, die eingegebenen Daten nicht über eine sichere Verbindung und zusätzlich an einen anderen Server überträgt.",
     "description": ""
   },
-  "riskRecommendation4100Data": {
+  "riskRecommendation100Data": {
     "message": "Geben Sie hier keine sensiblen Daten ein. [mehr]",
     "description": "Recommendation info"
   },
-  "moreRecommendation4100Data": {
+  "moreRecommendation100Data": {
     "message": "Geben Sie hier keine sensiblen Daten ein. Kontaktieren Sie ggf. den Betreiber der Webseite und bitten darum, die Einstellungen auf dieser Webseite zu überprüfen. [weniger]",
     "description": "More recommendations info"
   },
-  "moreInfo4100Data": {
+  "moreInfo100Data": {
     "message": "Die Webseite übertragt Ihre Daten mittels „http“ statt „https“. Diese Webseite bietet also keine Möglichkeit, Ihre hier eingegebenen Daten vor dem Abhören durch Unbefugte zu schützen. Außerdem werden die sensiblen Daten an einen anderen Server übertragen. [weniger]",
     "description": "Info https: user enters login data."
   },
-  "riskTooltipSummary4100Password": {
+  "riskTooltipSummary100Password": {
     "message": "Das Passwort würde über eine unsichere Verbindung an einen anderen Server übertragen werden. ",
     "description": "Tooltip summary"
   },
-  "riskText4100Password": {
+  "riskText100Password": {
     "message": "<div class='passSecHighlight'>Hohes Risiko:</div> Das Risiko für die Eingabe Ihres Passworts wird als hoch eingestuft, da die Webseite, das eingegebene Passwort nicht über eine sichere Verbindung und zusätzlich an einen anderen Server überträgt.",
     "description": ""
   },
-  "riskRecommendation4100Password": {
+  "riskRecommendation100Password": {
     "message": "Geben Sie hier kein Passwort ein. [mehr]",
     "description": "Recommendation info"
   },
-  "moreRecommendation4100Password": {
+  "moreRecommendation100Password": {
     "message": "Geben Sie hier kein Passwort ein. Kontaktieren Sie ggf. den Betreiber der Webseite und bitten darum, die Einstellungen auf dieser Webseite zu überprüfen. [weniger]",
     "description": "More recommendations info"
   },
-  "moreInfo4100Password": {
+  "moreInfo100Password": {
     "message": "Die Webseite übertragt das Passwort mittels „http“ statt „https“. Diese Webseite bietet also keine Möglichkeit, Ihr Passwort vor dem Abhören durch Unbefugte zu schützen. Außerdem wird das Passwort an einen anderen Server übertragen. Falls Sie sich entscheiden sollten, hier doch ein Passwort einzugeben, stellen Sie sicher, dass dies kein Passwort ist, welches Sie auch für andere Webseiten nutzen. Sonst können Unbefugte, die dieses Passwort abhören, sich auch auf anderen Benutzerkonten von Ihnen anmelden. [weniger]",
     "description": "Info https: user enters login data."
   },
