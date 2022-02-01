@@ -236,8 +236,9 @@ function processTooltip(tooltip, securityStatus, timerType, fieldType, element, 
 }
 
 
-function updateSecurityClass(prevSecurityStatus) {
-    let updateElem = $('[data-passSec-security=' + prevSecurityStatus + ']');
+function updateSecurityClass(prevSecurityStatus, exception) {
+    let updateElementsObj = $('[data-passSec-security=' + prevSecurityStatus + ']');
+    // let updateElementsObj = getElementsToUpdateAfterAddingException(prevSecurityStatus, exception);
     let classToRemove = "";
     let classToAdd = "";
 
@@ -249,21 +250,22 @@ function updateSecurityClass(prevSecurityStatus) {
         classToAdd = "passSec-redException";
     }
 
-    updateElem.removeClass(classToRemove);
-    updateElem.addClass(classToAdd);
-    updateElem.attr("data-passSec-security-class", classToAdd);
+    for (let updateElem of Object.entries(updateElementsObj)) {
+        $(updateElem[1]).removeClass(classToRemove);
+        $(updateElem[1]).addClass(classToAdd);
+        $(updateElem[1]).attr("data-passSec-security-class", classToAdd);
+        if(elementHasTooltip(updateElem[1])) {
+            $(updateElem[1]).qtip('api').destroy(true);    
+        }
+    }
 };
 
 function addUserException(tooltip, securityStatus, exception, storageListName) {
-    chrome.storage.local.get(storageListName, function (item) {
+    chrome.storage.local.get(null, function (item) {
         let updatedExceptions = item[storageListName].slice(0);
         updatedExceptions.push(exception);
         chrome.storage.local.set({ [storageListName]: updatedExceptions }, function () {
-            updateSecurityClass(securityStatus);
-
-            if (tooltip) {
-                passSec.api.destroy(true);
-            }
+            updateSecurityClass(securityStatus, exception);
         });
     });
 };
