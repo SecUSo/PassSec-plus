@@ -14,10 +14,10 @@
  function isKnownDomain(trustedList, userTrustedList, userExceptions, siteProtocol, siteDomain, formProtocol, formDomain, trustedListIsActivated) {
     if (trustedListIsActivated && trustedList.includes(siteDomain)) {
         return 1;
+    } else if (userExceptionArrIncludesObj(userExceptions, { "siteProtocol": siteProtocol, "siteDom": siteDomain, "formProtocol": formProtocol, "formDom": formDomain  })) {// { "formDom": formDomain, "formProtocol": formProtocol, "siteDom": siteDomain, "siteProtocol": siteProtocol })) {
+        return 3;
     } else if (userTrustedList.includes(siteDomain)) {
         return 2;
-    } else if (userExceptionArrIncludesObj(userExceptions, { "formDom": formDomain, "formProtocol": formProtocol, "siteDom": siteDomain, "siteProtocol": siteProtocol })) {
-        return 3;
     } else {
         return 4;
     }
@@ -49,7 +49,6 @@ function getSecurityStatus(storage, formElem) {
         let siteProtocolStatus = getProtocolStatus(passSec.url);
         let sameDomainStatus = getSameDomainStatus(passSec.domain, formActionDomain);
         let formProtocolStatus = getProtocolStatus(formAction);
-
         securityStatus = `${getDomainStatus}${siteProtocolStatus}${formProtocolStatus}${sameDomainStatus}`;
 
         if (passSec.url.startsWith("http://")) {
