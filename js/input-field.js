@@ -44,7 +44,7 @@
     if (!dynamicStyle) {
         let secureImageStyle = '' +
             '.passSec-green, [data-passSec-security-class=passSec-green] {' +
-            '    background-image: url("' + chrome.extension.getURL("skin/check/gruen/gr_icon" + storage.secureImage + ".png") + '") !important;' +
+            '    background-image: url("' + chrome.runtime.getURL("skin/check/gruen/gr_icon" + storage.secureImage + ".png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +
             '    background-position: right center !important;' +
@@ -53,7 +53,7 @@
 
         let userTrustedImageStyle = '' +
             '.passSec-blue, [data-passSec-security-class=passSec-blue] {' +
-            '    background-image: url("' + chrome.extension.getURL("skin/check/blue/blue_icon" + storage.secureImage + ".png") + '") !important;' +
+            '    background-image: url("' + chrome.runtime.getURL("skin/check/blue/blue_icon" + storage.secureImage + ".png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +
             '    background-position: right center !important;' +
@@ -62,7 +62,7 @@
 
         let httpsImageStyle = '' +
             '.passSec-grey, [data-passSec-security-class=passSec-grey] {' +
-            '    background-image: url("' + chrome.extension.getURL("skin/check/grey/gr_icon" + storage.secureImage + ".png") + '") !important;' +
+            '    background-image: url("' + chrome.runtime.getURL("skin/check/grey/gr_icon" + storage.secureImage + ".png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +
             '    background-position: right center !important;' +
@@ -71,7 +71,7 @@
 
         let warningImageStyle = '' +
             '.passSec-red, [data-passSec-security-class=passSec-red] {' +
-            '    background-image: url("' + chrome.extension.getURL("skin/yellow_triangle.png") + '") !important;' +
+            '    background-image: url("' + chrome.runtime.getURL("skin/yellow_triangle.png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +
             '    background-position: right center !important;' +
@@ -81,7 +81,7 @@
 
         let warningExceptionImageStyle = '' +
             '.passSec-redException, [data-passSec-security-class=passSec-redException] {' +
-            '    background-image: url("' + chrome.extension.getURL("skin/yellow_triangle.png") + '") !important;' +
+            '    background-image: url("' + chrome.runtime.getURL("skin/yellow_triangle.png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +
             '    background-position: right center !important;' +
