@@ -34,7 +34,7 @@ chrome.storage.local.get(null, function (items) {
 chrome.browserAction.setIcon({ path: "skin/redirectActive.png" });
 
 // handle left-click on browser action icon
-chrome.browserAction.onClicked.addListener(function (tab) {
+/* chrome.browserAction.onClicked.addListener(function (tab) {
     redirectsActive = !redirectsActive;
     if (redirectsActive) {
         chrome.browserAction.setIcon({ path: "skin/redirectActive.png" });
@@ -44,7 +44,7 @@ chrome.browserAction.onClicked.addListener(function (tab) {
         chrome.browserAction.setTitle({ title: chrome.i18n.getMessage("browserActionRedirectInactive") });
     }
     manageRedirectHandler();
-});
+});*/
 
 function transferOfTrustworthyDomainsSetByUser() {
     chrome.storage.local.get("exceptions", function (storageExceptionObj) {
