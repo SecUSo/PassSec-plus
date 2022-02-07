@@ -247,19 +247,18 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, timerName, 
 function getElementsToUpdateAfterAddingException(prevSecurityStatus, exception) {
     let elementsWithSameSecStatObj = $('[data-passSec-security=' + prevSecurityStatus + ']');
     let elementsToUpdateAfterAddingExceptionArr = [];
-    for (let elem of Object.entries(elementsWithSameSecStatObj)) {
-        let formElem = elem[1].form;
+    for (let i= 0; i < elementsWithSameSecStatObj.length; i++) {
+        let formElem = elementsWithSameSecStatObj[i].form;
         let formDomain = getDomainFromFormActionAttr(formElem);
         if(formDomain && exception.formDom == formDomain) {
-            elementsToUpdateAfterAddingExceptionArr.push(elem[1]);
+            elementsToUpdateAfterAddingExceptionArr.push(elementsWithSameSecStatObj[i]);
         }
     }
     return elementsToUpdateAfterAddingExceptionArr;
 }
 
 function updateSecurityClass(prevSecurityStatus, exception) {
-    let updateElementsObj = $('[data-passSec-security=' + prevSecurityStatus + ']');
-    // let updateElementsObj = getElementsToUpdateAfterAddingException(prevSecurityStatus, exception);
+    let updateElementsArr = getElementsToUpdateAfterAddingException(prevSecurityStatus, exception);
     let classToRemove = "";
     let classToAdd = "";
 
@@ -270,13 +269,12 @@ function updateSecurityClass(prevSecurityStatus, exception) {
         classToRemove = "passSec-red";
         classToAdd = "passSec-redException";
     }
-
-    for (let updateElem of Object.entries(updateElementsObj)) {
-        $(updateElem[1]).removeClass(classToRemove);
-        $(updateElem[1]).addClass(classToAdd);
-        $(updateElem[1]).attr("data-passSec-security-class", classToAdd);
-        if(elementHasTooltip(updateElem[1])) {
-            $(updateElem[1]).qtip('api').destroy(true);    
+    for (let updateElem of updateElementsArr) {
+        $(updateElem).removeClass(classToRemove);
+        $(updateElem).addClass(classToAdd);
+        $(updateElem).attr("data-passSec-security-class", classToAdd);
+        if(elementHasTooltip(updateElem)) {
+            $(updateElem).qtip('api').destroy(true);    
         }
     }
 };
