@@ -1,9 +1,9 @@
 class PassSecTimer {
-  constructor(timerName, time, timerIntervall, qtipIDsArr) {
+  constructor(timerName, time, timerIntervall, dialogIDsArr) {
     this.name = timerName;
     this.time = time;
     this.timerIntervall = timerIntervall;
-    this.qtipIDs = qtipIDsArr;
+    this.dialogIDs = dialogIDsArr;
   }
 
   decreaseTimer(elementToDisplayTimer, inputField, elementsToDisableWhenTimerIsActivated, isDialog) {
@@ -20,9 +20,9 @@ class PassSecTimer {
     }
   }
 
-  showTime(elementToDisplayTimer) {
+  showTime() {
     try {
-      this.qtipIDs.forEach(qtipID => $("#" + qtipID).find("#passSecTimer")[0].textContent = chrome.i18n.getMessage("verbleibendeZeit", "" + this.time));
+      this.dialogIDs.forEach(dialogID => $("#" + dialogID).find("#passSecTimer")[0].textContent = chrome.i18n.getMessage("verbleibendeZeit", "" + this.time));
     } catch (e) {
       console.log("Error: " + e);
     }

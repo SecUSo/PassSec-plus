@@ -95,10 +95,14 @@ function extractDomain(hostname) {
 }
 
 function getDomainFromFormActionAttr(formElem) {
-    var formAction = formElem.action;
-    var formActionURL = new URL(formAction);
-    var formActionDomain = extractDomain(formActionURL.host);
-    return formActionDomain;
+    try {
+        var formAction = formElem.action;
+        var formActionURL = new URL(formAction);
+        var formActionDomain = extractDomain(formActionURL.host);
+        return formActionDomain;
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 function constructURL(urlStr) {
@@ -188,7 +192,7 @@ function applyTooltip(element, event) {
                     var elementToDisplayTimer = passSec.tooltip.find("#passSecTimer")[0];
                     let timer = passSecTimer.getTimer(timerName);
                     if (timer != null) {
-                        timer.qtipIDs.push(qtipID);
+                        timer.dialogIDs.push(qtipID);
                     }
                     passSecTimer.startCountdown(timerName, elementToDisplayTimer, element, elementsToDisableWhenTimerIsActivated, false, qtipID);
                 },
