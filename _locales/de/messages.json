@@ -131,6 +131,10 @@
     "message": "Liste leeren",
     "description": "Empty list"
   },
+  "listIsEmpty": {
+    "message": "Die Liste ist leer.",
+    "description": "List is empty"
+  },
   "deleteAllEntriesWarning": {
     "message": "Möchten Sie wirklich alle Einträge der Liste löschen?",
     "description": "Warn user before deleting all list entries"

@@ -152,7 +152,7 @@ function addEvents(storage) {
                 redirectsDialog.$content.find('#clearList').on("mousedown", function () {
                     var removeAllEntriesDialogFunc = function () {
                         removeAll("redirects");
-                        redirectsDialog.setContent("Die Liste ist leer.");
+                        redirectsDialog.setContent(chrome.i18n.getMessage("listIsEmpty"));
                     }
                     openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteAllEntriesWarning"), removeAllEntriesDialogFunc, chrome.i18n.getMessage("cancelButton"));
                 });
@@ -200,7 +200,7 @@ function addEvents(storage) {
                 this.$content.find('#clearList').on("mousedown", function (event) {
                     var removeAllEntriesDialogFunc = function () {
                         removeAll("userTrustedDomains");
-                        userTrustedDialog.setContent("Die Liste ist leer.");
+                        userTrustedDialog.setContent(chrome.i18n.getMessage("listIsEmpty"));
                     }
                     openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteAllEntriesWarning"), removeAllEntriesDialogFunc, chrome.i18n.getMessage("cancelButton"));
                 });
@@ -243,7 +243,7 @@ function addEvents(storage) {
                 this.$content.find('#clearList').on("mousedown", function (event) {
                     var removeAllEntriesDialogFunc = function () {
                         removeAll("userExceptions");
-                        userExceptionsDialog.setContent("Die Liste ist leer.");
+                        userExceptionsDialog.setContent(chrome.i18n.getMessage("listIsEmpty"));
                     }
                     openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteAllEntriesWarning"), removeAllEntriesDialogFunc, chrome.i18n.getMessage("cancelButton"));
                 });
@@ -330,7 +330,7 @@ function getListHTML(id, listElements, userInputOpt, deleteOpt, deleteAllOpt) {
         listHTML += "<br><br>";
     } 
     if (listElements.length == 0) {
-        listHTML += "Die Liste ist leer.";
+        listHTML += chrome.i18n.getMessage("listIsEmpty");
     } else {
         listHTML += "<table id='" + id + "'>";
         for (let i = 0; i < listElements.length; i++) {
