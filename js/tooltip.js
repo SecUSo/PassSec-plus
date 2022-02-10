@@ -153,7 +153,7 @@ function assignText(tooltip, url, securityStatus, fieldType, formURLObj, qtipID)
     }
 }
 
-function addFunctionalityForTooltipElements(tooltip, securityStatus, timerName, fieldType, element, formURLObj, creatUserException) {
+function addFunctionalityForTooltipElements(tooltip, securityStatus, fieldType, element, formURLObj, creatUserException) {
     let passSecInfoTextElem = $(tooltip.find("#passSecInfoText")[0]);
     let passSecRecommendationTextElem = $(tooltip.find("#passSecRecommendationText")[0]);
     let exceptionButton = $(tooltip.find("#passSecButtonException")[0]);
@@ -199,7 +199,7 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, timerName, 
         // site protocol is https
         case "111":
             exceptionButton.on("mouseup", function () {
-                addUserException(true, securityStatus, passSec.domain, "userTrustedDomains");
+                addUserException(securityStatus, passSec.domain, "userTrustedDomains", false);
             });
 
             break;
@@ -207,7 +207,7 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, timerName, 
         case "100": case "110": case "101":
             exceptionButton.on("mouseup", function () {
                 let exception = creatUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
-                openConfirmAddingHttpExceptionDialog("confirmAddingHttpException", tooltip, securityStatus, exception, "userExceptions");
+                openConfirmAddingExceptionWithAnomalyDialog("confirmAddingHttpException", securityStatus, exception, "userExceptions");
             });
 
             break;
@@ -215,7 +215,7 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, timerName, 
         case "000": case "001": case "010": case "011":
             exceptionButton.on("mouseup", function () {
                 let exception = creatUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
-                openConfirmAddingHttpExceptionDialog("confirmAddingHttpException", tooltip, securityStatus, exception, "userExceptions");
+                openConfirmAddingExceptionWithAnomalyDialog("confirmAddingHttpException", securityStatus, exception, "userExceptions");
             });
 
             if (passSec.httpsAvailable) {
@@ -244,31 +244,40 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, timerName, 
     }
 };
 
-function getElementsToUpdateAfterAddingException(prevSecurityStatus, exception) {
-    let elementsWithSameSecStatObj = $('[data-passSec-security=' + prevSecurityStatus + ']');
+function getElementsWithSameSecurityStatus(securityStatus) {
+    return $('[data-passSec-security=' + securityStatus + ']');
+}
+
+function getElementsToUpdateAfterAddingException(prevSecurityStatus, exception, inputHasAnomaly) {
+    let elementsWithSameSecStatObj = getElementsWithSameSecurityStatus(prevSecurityStatus);
     let elementsToUpdateAfterAddingExceptionArr = [];
     for (let i= 0; i < elementsWithSameSecStatObj.length; i++) {
-        let formElem = elementsWithSameSecStatObj[i].form;
-        let formDomain = getDomainFromFormActionAttr(formElem);
-        if(formDomain && exception.formDom == formDomain) {
+        if(inputHasAnomaly) {
+            let formElem = elementsWithSameSecStatObj[i].form;
+            let formDomain = getDomainFromFormActionAttr(formElem);     
+            if(formDomain && exception.formDom == formDomain) {
+                elementsToUpdateAfterAddingExceptionArr.push(elementsWithSameSecStatObj[i]);
+            } 
+        } else if (exception != "") {
             elementsToUpdateAfterAddingExceptionArr.push(elementsWithSameSecStatObj[i]);
         }
     }
     return elementsToUpdateAfterAddingExceptionArr;
 }
 
-function updateSecurityClass(prevSecurityStatus, exception) {
-    let updateElementsArr = getElementsToUpdateAfterAddingException(prevSecurityStatus, exception);
+function updateSecurityClass(prevSecurityStatus, exception, inputHasAnomaly) {
+    let updateElementsArr = getElementsToUpdateAfterAddingException(prevSecurityStatus, exception, inputHasAnomaly);
     let classToRemove = "";
     let classToAdd = "";
 
-    if (prevSecurityStatus == "4111") {
+    if (!inputHasAnomaly) {
         classToRemove = "passSec-grey";
         classToAdd = "passSec-blue";
     } else {
         classToRemove = "passSec-red";
         classToAdd = "passSec-redException";
     }
+    
     for (let updateElem of updateElementsArr) {
         $(updateElem).removeClass(classToRemove);
         $(updateElem).addClass(classToAdd);
@@ -279,18 +288,18 @@ function updateSecurityClass(prevSecurityStatus, exception) {
     }
 };
 
-function addUserException(tooltip, securityStatus, exception, storageListName) {
+function addUserException(securityStatus, exception, storageListName, inputHasAnomaly) {
     chrome.storage.local.get(null, function (item) {
         let updatedExceptions = item[storageListName].slice(0);
         updatedExceptions.push(exception);
         chrome.storage.local.set({ [storageListName]: updatedExceptions }, function () {
-            updateSecurityClass(securityStatus, exception);
+            updateSecurityClass(securityStatus, exception, inputHasAnomaly);
         });
     });
 };
 
 
-function openConfirmAddingHttpExceptionDialog(message, tooltip, securityStatus, exception, storageListName) {
+function openConfirmAddingExceptionWithAnomalyDialog(message, securityStatus, exception, storageListName) {
     var confirmDialog = $.confirm({
         title: chrome.i18n.getMessage("confirmAddingHttpExceptionTitle"),
         titleClass: "passSecConfirmTitle",
@@ -302,7 +311,7 @@ function openConfirmAddingHttpExceptionDialog(message, tooltip, securityStatus, 
                 isHidden: false,
                 isDisabled: false,
                 action: function () {
-                    addUserException(true, securityStatus, exception, storageListName);
+                    addUserException(securityStatus, exception, storageListName, true);
                 }
             },
             cancel: {
