@@ -14,7 +14,7 @@
  function isKnownDomain(trustedList, userTrustedList, userExceptions, siteProtocol, siteDomain, formProtocol, formDomain, trustedListIsActivated) {
     if (trustedListIsActivated && trustedList.includes(siteDomain)) {
         return 1;
-    } else if (userExceptionArrIncludesObj(userExceptions, { "siteProtocol": siteProtocol, "siteDom": siteDomain, "formProtocol": formProtocol, "formDom": formDomain  })) {// { "formDom": formDomain, "formProtocol": formProtocol, "siteDom": siteDomain, "siteProtocol": siteProtocol })) {
+    } else if (userExceptionArrIncludesObj(userExceptions, { "siteProtocol": siteProtocol, "siteDom": siteDomain, "formProtocol": formProtocol, "formDom": formDomain })) {// { "formDom": formDomain, "formProtocol": formProtocol, "siteDom": siteDomain, "siteProtocol": siteProtocol })) {
         return 3;
     } else if (userTrustedList.includes(siteDomain)) {
         return 2;
@@ -45,17 +45,18 @@ function getSecurityStatus(storage, formElem) {
         var formActionURL = new URL(formAction);
         var formActionDomain = extractDomain(formActionURL.host);
 
-        let getDomainStatus = isKnownDomain(storage.trustedDomains, storage.userTrustedDomains, storage.userExceptions, passSec.websiteProtocol, passSec.domain, formActionURL.protocol, formActionDomain, storage.trustedListActivated);
-        let siteProtocolStatus = getProtocolStatus(passSec.url);
-        let sameDomainStatus = getSameDomainStatus(passSec.domain, formActionDomain);
-        let formProtocolStatus = getProtocolStatus(formAction);
-        securityStatus = `${getDomainStatus}${siteProtocolStatus}${formProtocolStatus}${sameDomainStatus}`;
-
-        if (passSec.url.startsWith("http://")) {
-            passSec.httpsAvailable = false;
-            chrome.runtime.sendMessage({ type: "checkHttpsAvailable", httpsURL: passSec.url }, function (httpsAvailable) {
-                passSec.httpsAvailable = httpsAvailable;
-            });
+        if (formActionDomain != "") {
+            let getDomainStatus = isKnownDomain(storage.trustedDomains, storage.userTrustedDomains, storage.userExceptions, passSec.websiteProtocol, passSec.domain, formActionURL.protocol, formActionDomain, storage.trustedListActivated);
+            let siteProtocolStatus = getProtocolStatus(passSec.url);
+            let sameDomainStatus = getSameDomainStatus(passSec.domain, formActionDomain);
+            let formProtocolStatus = getProtocolStatus(formAction);
+            securityStatus = `${getDomainStatus}${siteProtocolStatus}${formProtocolStatus}${sameDomainStatus}`;
+            if (passSec.url.startsWith("http://")) {
+                passSec.httpsAvailable = false;
+                chrome.runtime.sendMessage({ type: "checkHttpsAvailable", httpsURL: passSec.url }, function (httpsAvailable) {
+                    passSec.httpsAvailable = httpsAvailable;
+                });
+            }
         }
     }
 

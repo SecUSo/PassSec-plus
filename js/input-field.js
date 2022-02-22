@@ -12,7 +12,9 @@
         if (typeof fieldType !== "undefined") {
             let securityStatus = getSecurityStatus(storage, this.form);
             let securityStatusClass = getSecurityStatusClass(securityStatus);
-            $(this).addClass(securityStatusClass);
+            if(securityStatusClass != "passSec-None") {
+                $(this).addClass(securityStatusClass);
+            }
             // add security status as attribute, so we have a backup selector for websites that
             // reset the 'class' attribute for styling, instead of only adding/removing classes
             $(this).attr("data-passSec-security-class", securityStatusClass);
@@ -105,7 +107,9 @@ function getSecurityStatusClass(securityStatus) {
         return "passSec-grey";
         // exception set by user: here only the first position is relevant (it has been already checked before, if it is in the exceptions set by the user).
     } else if (securityStatus.startsWith("3")) {
-        return "passSec-redException"
+        return "passSec-redException";
+    } else if (securityStatus == "0000") {
+        return "passSec-None";
     } else {
         return "passSec-red";
     }
