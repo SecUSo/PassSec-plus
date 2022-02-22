@@ -100,8 +100,18 @@ function openConfirmDialog(title, content, confirmButtonFunction, cancelButtonTe
             }
         },
     });
-}
+};
 
+var passSecOptions = {
+    updateHTMLTable(id, listElements, userInputOpt, deleteOpt, deleteAllOpt, dialog) {
+        var listHTMLStr = getListHTML(id, listElements, userInputOpt, deleteOpt, deleteAllOpt);
+        dialog.setContent(listHTMLStr);
+        dialog.onContentReady();
+    },
+    isTableEmpty(tableID) {
+        return document.getElementById(tableID).getElementsByTagName("td").length == 0;
+    }
+};
 
 /**
  *   Adds functionality for the option page elements
@@ -141,8 +151,11 @@ function addEvents(storage) {
                         var elementToDelete = this.$content.find('#redirectList' + i);
                         elementToDelete.on("mousedown", function () {
                             var removeEntryDialogAcceptFunc = function () {
-                                $(redirectsDialog).parent().parent().parent().remove();
+                                elementToDelete.parent().parent().parent().remove();
                                 removeUserException("redirects", i);
+                                if (passSecOptions.isTableEmpty('redirectList')) {
+                                    passSecOptions.updateHTMLTable("redirectList", [], false, true, true, redirectsDialog);
+                                }
                             }
                             var deleteEntryWarning = chrome.i18n.getMessage("deleteEntryWarning", elementToDelete.next().text());
                             openConfirmDialog("PassSec+", deleteEntryWarning, removeEntryDialogAcceptFunc, chrome.i18n.getMessage("cancelButton"));
@@ -177,7 +190,7 @@ function addEvents(storage) {
             title: chrome.i18n.getMessage("domainsTab") + ": " + chrome.i18n.getMessage("userTrustedDomains"),
             onOpenBefore: function () {
                 chrome.storage.local.get("userTrustedDomains", function (item) {
-                    var listHTMLStr = getListHTML("userTrustedList", item.userTrustedDomains, true, true, true);             
+                    var listHTMLStr = getListHTML("userTrustedList", item.userTrustedDomains, true, true, true);
                     userTrustedDialog.setContent(listHTMLStr);
                 });
             },
@@ -189,8 +202,11 @@ function addEvents(storage) {
                         let elementToDelete = this.$content.find('#userTrustedList' + i);
                         elementToDelete.on("mousedown", function (event) {
                             var removeEntryDialogAcceptFunc = function () {
-                                elementToDelete.parent().parent().parent().remove();
                                 removeUserException("userTrustedDomains", i);
+                                elementToDelete.parent().parent().parent().remove();
+                                if (passSecOptions.isTableEmpty('userTrustedList')) {
+                                    passSecOptions.updateHTMLTable("userTrustedList", [], true, true, true, userTrustedDialog);
+                                } 
                             }
                             var deleteEntryWarning = chrome.i18n.getMessage("deleteEntryWarning", elementToDelete.next().text());
                             openConfirmDialog("PassSec+", deleteEntryWarning, removeEntryDialogAcceptFunc, chrome.i18n.getMessage("cancelButton"));
@@ -200,16 +216,15 @@ function addEvents(storage) {
                 this.$content.find('#clearList').on("mousedown", function (event) {
                     var removeAllEntriesDialogFunc = function () {
                         removeAll("userTrustedDomains");
-                        userTrustedDialog.setContent(chrome.i18n.getMessage("listIsEmpty"));
+                        passSecOptions.updateHTMLTable("userTrustedList", [], true, true, true, userTrustedDialog);
                     }
                     openConfirmDialog("PassSec+", chrome.i18n.getMessage("deleteAllEntriesWarning"), removeAllEntriesDialogFunc, chrome.i18n.getMessage("cancelButton"));
                 });
 
-                this.$content.find('#addUserDefined').on("mousedown", function (event) {
+                userTrustedDialog.$content.find('#addUserDefined').on("mousedown", function (event) {
                     var userInput = $("#userDefinedInput").val().replace(" ", "");
-                    addUserDefined(userInput, "userTrustedDomains");
+                    addUserDefined(userInput, "userTrustedDomains", userTrustedDialog);
                     $("#userDefinedInput").val("");
-                    userTrustedDialog.close();
                 });
             }
         });
@@ -232,8 +247,11 @@ function addEvents(storage) {
                         var elementToDelete = this.$content.find('#userExceptionList' + i);
                         elementToDelete.on("mousedown", function (event) {
                             var removeEntryDialogAcceptFunc = function () {
-                                $(userExceptionsDialog).parent().parent().parent().remove();
+                                elementToDelete.parent().parent().parent().remove();
                                 removeUserException("userExceptions", i);
+                                if (passSecOptions.isTableEmpty('userExceptionList')) {
+                                    passSecOptions.updateHTMLTable("userExceptionList", [], false, true, true, userExceptionsDialog);
+                                }
                             }
                             var deleteEntryWarning = chrome.i18n.getMessage("deleteEntryWarning", elementToDelete.next().text());
                             openConfirmDialog("PassSec+", deleteEntryWarning, removeEntryDialogAcceptFunc, chrome.i18n.getMessage("cancelButton"));
@@ -328,7 +346,7 @@ function getListHTML(id, listElements, userInputOpt, deleteOpt, deleteAllOpt) {
         buttonText = chrome.i18n.getMessage("addEntries");
         listHTML += "<div><input id='userDefinedInput' type='text' autofocus/><button id='addUserDefined'>" + buttonText + "</button></div>";
         listHTML += "<br><br>";
-    } 
+    }
     if (listElements.length == 0) {
         listHTML += chrome.i18n.getMessage("listIsEmpty");
     } else {
@@ -355,7 +373,7 @@ function getListHTML(id, listElements, userInputOpt, deleteOpt, deleteAllOpt) {
         if (deleteAllOpt) {
             listHTML += "<br><br>";
             listHTML += "<div><button id='clearList'>Liste leeren</button></div>";
-        } 
+        }
     }
     return listHTML;
 }
@@ -373,12 +391,13 @@ function setImage(secureImage) {
 }
 
 
-function addUserDefined(exception, storageListName) {
+function addUserDefined(exception, storageListName, userTrustedDialog) {
     chrome.storage.local.get(storageListName, function (item) {
         let updatedExceptions = item[storageListName].slice(0);
         if (!updatedExceptions.includes(exception)) {
             updatedExceptions.push(exception);
             chrome.storage.local.set({ [storageListName]: updatedExceptions });
+            passSecOptions.updateHTMLTable("userTrustedList", updatedExceptions, true, true, true, userTrustedDialog);
         }
     });
 }
