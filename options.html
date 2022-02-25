@@ -54,10 +54,11 @@
             </div>
             <div id="domainsTab" class="tab">
                 <h4 id="trustedListText"></h4>
-                <div>
-                    <input id="trustedListActivated" class="left" type="checkbox">
-                    <p id="activateTrustedList" class="right"></p>
+                <div class="checkbox">
+                    <input id="trustedListActivated" type="checkbox">
+                    <label for="trustedListActivated" id="activateTrustedList"></label>
                 </div>
+                <br>
                 <button id="showTrustedDomains"></button>
                 <br><br>
                 <hr>
@@ -74,9 +75,9 @@
                 <br><br>
             </div>
             <div id="timerTab" class="tab">
-                <div>
-                    <input id="timerCheckbox" class="left" type="checkbox">
-                    <p id="timerCheckboxText" class="right"></p>
+                <div class="checkbox">
+                    <input id="timerCheckbox" type="checkbox">
+                    <label for="timerCheckbox" id="timerCheckboxText"></label>
                 </div>
                 <div class="clear">
                     <p id="timerAmountText" class="left"></p>
