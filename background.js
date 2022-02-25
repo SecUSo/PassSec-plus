@@ -49,7 +49,7 @@ chrome.browserAction.setIcon({ path: "skin/redirectActive.png" });
 function transferOfTrustworthyDomainsSetByUser() {
     chrome.storage.local.get("exceptions", function (storageExceptionObj) {
         let prevExceptionsSetByUserArr = storageExceptionObj["exceptions"];
-        let httpsExceptionsArr = prevExceptionsSetByUserArr.filter(exception => (exception.split("passSec-")[1]) == "https");
+        let httpsExceptionsArr = prevExceptionsSetByUserArr.filter(exception => (exception.split("passSec-")[1]) == "https" || (exception.split("passSec-")[1]) == "all");
         let exceptionHttpsDomainsArr = httpsExceptionsArr.map(exception => exception.split("passSec-")[0]);
         chrome.storage.local.set({ userTrustedDomains: exceptionHttpsDomainsArr });
     });
