@@ -185,7 +185,7 @@ function applyTooltip(element, event) {
                     let qtipID = $(this).attr('id');
 
                     assignText(passSec.tooltip, passSec.url, securityStatus, fieldType, formURLObj, qtipID);
-                    addFunctionalityForTooltipElements(passSec.tooltip, securityStatus, fieldType, element, formURLObj, creatUserException);
+                    addFunctionalityForTooltipElements(passSec.tooltip, securityStatus, fieldType, element, formURLObj);
 
                     var exceptionButton = $(passSec.tooltip.find("#passSecButtonException")[0]);
                     var elementsToDisableWhenTimerIsActivated = [$(element), exceptionButton];

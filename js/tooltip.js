@@ -37,10 +37,6 @@ function getTooltipHTML(securityStatus, httpsAvailable, fieldType) {
         '</div>';
 }
 
-function creatUserException(websiteProtocol, websiteDomain, formProtocol, formDomain) {
-    return { "siteProtocol": websiteProtocol, "siteDom": websiteDomain, "formProtocol": formProtocol, "formDom": formDomain };
-}
-
 function disableElements(elemArr) {
     for (let elem of elemArr) {
         elem.prop("disabled", true);
@@ -79,6 +75,28 @@ function getFieldTypeForText(fieldType) {
     // text currently distinguishes only between password and (sensitive) data
     return (fieldType == "password" ? "Password" : "Data");
 };
+
+var passSecTooltip = {
+    changeHTMLTextWhenElemIsClicked(elem, firstText, secondText) {
+        if ($(elem).html() === secondText) {
+            $(elem).html(firstText);
+        } else {
+            $(elem).html(secondText);
+        }
+    },
+    addUserException(securityStatus, exception, storageListName, inputHasAnomaly) {
+        chrome.storage.local.get(null, function (item) {
+            let updatedExceptions = item[storageListName].slice(0);
+            updatedExceptions.push(exception);
+            chrome.storage.local.set({ [storageListName]: updatedExceptions }, function () {
+                updateSecurityClass(securityStatus, exception, inputHasAnomaly);
+            });
+        });
+    },
+    createUserException(websiteProtocol, websiteDomain, formProtocol, formDomain) {
+        return { "siteProtocol": websiteProtocol, "siteDom": websiteDomain, "formProtocol": formProtocol, "formDom": formDomain };
+    }
+}
 
 function getTooltipText(securityStatus, httpsAvailable, fieldType) {
     let statusCodeForText = getStatusCodeForText(securityStatus, httpsAvailable);
@@ -153,7 +171,7 @@ function assignText(tooltip, url, securityStatus, fieldType, formURLObj, qtipID)
     }
 }
 
-function addFunctionalityForTooltipElements(tooltip, securityStatus, fieldType, element, formURLObj, creatUserException) {
+function addFunctionalityForTooltipElements(tooltip, securityStatus, fieldType, element, formURLObj) {
     let passSecInfoTextElem = $(tooltip.find("#passSecInfoText")[0]);
     let passSecRecommendationTextElem = $(tooltip.find("#passSecRecommendationText")[0]);
     let exceptionButton = $(tooltip.find("#passSecButtonException")[0]);
@@ -174,22 +192,20 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, fieldType, 
     let fieldTypeForText = getFieldTypeForText(fieldType);
     let statusCodeForText = getStatusCodeForText(securityStatus, passSec.httpsAvailable);
 
-    // Click Event Recommendation Element
+    let moreRecommendationText = chrome.i18n.getMessage("moreRecommendation" + statusCodeForText + fieldTypeForText);
+    let riskRecommendationText = chrome.i18n.getMessage("riskRecommendation" + statusCodeForText + fieldTypeForText);
     passSecRecommendationTextElem.click(function (e) {
-        if ($(this).html() === chrome.i18n.getMessage("moreRecommendation" + statusCodeForText + fieldTypeForText)) {
-            $(this).html(chrome.i18n.getMessage("riskRecommendation" + statusCodeForText + fieldTypeForText));
-        } else {
-            $(this).html(chrome.i18n.getMessage("moreRecommendation" + statusCodeForText + fieldTypeForText));
-        }
-    }).addClass("passSecClickable");
+        passSecTooltip.changeHTMLTextWhenElemIsClicked(this, riskRecommendationText, moreRecommendationText);
+    });
 
-    // Click Event Info Element
+    if (moreRecommendationText != riskRecommendationText) {
+        passSecRecommendationTextElem.addClass("passSecClickable");
+    }
+
+    let infoText = chrome.i18n.getMessage("moreInfo");
+    let moreInfoText = chrome.i18n.getMessage("moreInfo" + statusCodeForText + fieldTypeForText);
     passSecInfoTextElem.click(function (e) {
-        if ($(this).html() === chrome.i18n.getMessage("moreInfo")) {
-            $(this).html(chrome.i18n.getMessage("moreInfo" + statusCodeForText + fieldTypeForText));
-        } else {
-            $(this).html(chrome.i18n.getMessage("moreInfo"));
-        }
+        passSecTooltip.changeHTMLTextWhenElemIsClicked(this, infoText, moreInfoText);
     });
 
     let siteUseHttps = securityStatus[1];
@@ -199,14 +215,14 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, fieldType, 
         // site protocol is https
         case "111":
             exceptionButton.on("mouseup", function () {
-                addUserException(securityStatus, passSec.domain, "userTrustedDomains", false);
+                passSecTooltip.addUserException(securityStatus, passSec.domain, "userTrustedDomains", false);
             });
 
             break;
         // site protocol is https
         case "100": case "110": case "101":
             exceptionButton.on("mouseup", function () {
-                let exception = creatUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
+                let exception = passSecTooltip.createUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
                 $(element).qtip("hide");
                 openConfirmAddingExceptionWithAnomalyDialog("confirmAddingHttpException", securityStatus, exception, "userExceptions");
             });
@@ -215,7 +231,7 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, fieldType, 
         // site protocol is http
         case "000": case "001": case "010": case "011":
             exceptionButton.on("mouseup", function () {
-                let exception = creatUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
+                let exception = passSecTooltip.createUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
                 $(element).qtip("hide");
                 openConfirmAddingExceptionWithAnomalyDialog("confirmAddingHttpException", securityStatus, exception, "userExceptions");
             });
@@ -253,13 +269,13 @@ function getElementsWithSameSecurityStatus(securityStatus) {
 function getElementsToUpdateAfterAddingException(prevSecurityStatus, exception, inputHasAnomaly) {
     let elementsWithSameSecStatObj = getElementsWithSameSecurityStatus(prevSecurityStatus);
     let elementsToUpdateAfterAddingExceptionArr = [];
-    for (let i= 0; i < elementsWithSameSecStatObj.length; i++) {
-        if(inputHasAnomaly) {
+    for (let i = 0; i < elementsWithSameSecStatObj.length; i++) {
+        if (inputHasAnomaly) {
             let formElem = elementsWithSameSecStatObj[i].form;
-            let formDomain = getDomainFromFormActionAttr(formElem);     
-            if(formDomain && exception.formDom == formDomain) {
+            let formDomain = getDomainFromFormActionAttr(formElem);
+            if (formDomain && exception.formDom == formDomain) {
                 elementsToUpdateAfterAddingExceptionArr.push(elementsWithSameSecStatObj[i]);
-            } 
+            }
         } else if (exception != "") {
             elementsToUpdateAfterAddingExceptionArr.push(elementsWithSameSecStatObj[i]);
         }
@@ -279,27 +295,16 @@ function updateSecurityClass(prevSecurityStatus, exception, inputHasAnomaly) {
         classToRemove = "passSec-red";
         classToAdd = "passSec-redException";
     }
-    
+
     for (let updateElem of updateElementsArr) {
         $(updateElem).removeClass(classToRemove);
         $(updateElem).addClass(classToAdd);
         $(updateElem).attr("data-passSec-security-class", classToAdd);
-        if(elementHasTooltip(updateElem)) {
-            $(updateElem).qtip('api').destroy(true);    
+        if (elementHasTooltip(updateElem)) {
+            $(updateElem).qtip('api').destroy(true);
         }
     }
 };
-
-function addUserException(securityStatus, exception, storageListName, inputHasAnomaly) {
-    chrome.storage.local.get(null, function (item) {
-        let updatedExceptions = item[storageListName].slice(0);
-        updatedExceptions.push(exception);
-        chrome.storage.local.set({ [storageListName]: updatedExceptions }, function () {
-            updateSecurityClass(securityStatus, exception, inputHasAnomaly);
-        });
-    });
-};
-
 
 function openConfirmAddingExceptionWithAnomalyDialog(message, securityStatus, exception, storageListName) {
     var confirmDialog = $.confirm({
@@ -313,7 +318,7 @@ function openConfirmAddingExceptionWithAnomalyDialog(message, securityStatus, ex
                 isHidden: false,
                 isDisabled: false,
                 action: function () {
-                    addUserException(securityStatus, exception, storageListName, true);
+                    passSecTooltip.addUserException(securityStatus, exception, storageListName, true);
                 }
             },
             cancel: {
