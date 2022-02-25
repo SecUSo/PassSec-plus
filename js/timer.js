@@ -37,7 +37,6 @@ class PassSecTimer {
       } else {
         enableElements(elementsToDisableWhenTimerIsActivated);
       }
-      return;
     } else {
       if (isDialog) {
         disableDialogButtons(elementsToDisableWhenTimerIsActivated);
