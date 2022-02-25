@@ -207,6 +207,7 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, fieldType, 
         case "100": case "110": case "101":
             exceptionButton.on("mouseup", function () {
                 let exception = creatUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
+                $(element).qtip("hide");
                 openConfirmAddingExceptionWithAnomalyDialog("confirmAddingHttpException", securityStatus, exception, "userExceptions");
             });
 
@@ -215,6 +216,7 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, fieldType, 
         case "000": case "001": case "010": case "011":
             exceptionButton.on("mouseup", function () {
                 let exception = creatUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
+                $(element).qtip("hide");
                 openConfirmAddingExceptionWithAnomalyDialog("confirmAddingHttpException", securityStatus, exception, "userExceptions");
             });
 
