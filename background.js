@@ -46,20 +46,43 @@ chrome.browserAction.setIcon({ path: "skin/redirectActive.png" });
     manageRedirectHandler();
 });*/
 
+/*
+Compares versionToCompare with version
+returns true if version is higher/newer than versionToCompare
+*/
+function isNewerVersion(versionToCompare, version) {
+    let versionToCompareParts = versionToCompare.split('.');
+    let versionParts = version.split('.');
+
+    while (versionToCompareParts.length < versionParts.length) versionToCompareParts.push("0");
+    while (versionParts.length < versionToCompareParts.length) versionParts.push("0");
+
+    for (var i = 0; i < versionParts.length; i++) {
+        const a = parseInt(versionParts[i]);
+        const b = parseInt(versionToCompareParts[i]);
+        if (a > b) return true
+        if (a < b) return false
+    }
+    return false
+}
+
 function transferOfTrustworthyDomainsSetByUser() {
-    chrome.storage.local.get(null, function (storageExceptionObj) {
-        let prevExceptionsSetByUserArr = storageExceptionObj["exceptions"];
+    chrome.storage.local.get(null, function (storageObj) {
+        let prevExceptionsSetByUserArr = storageObj["exceptions"];
+        let newExceptionSetByUserArr = storageObj["userTrustedDomains"];
         let httpsExceptionsArr = prevExceptionsSetByUserArr.filter(exception => (exception.split("passSec-")[1]) == "https" || (exception.split("passSec-")[1]) == "all");
         let exceptionHttpsDomainsArr = httpsExceptionsArr.map(exception => exception.split("passSec-")[0]);
-        chrome.storage.local.set({ userTrustedDomains: exceptionHttpsDomainsArr });
+        let userTrustedDomainsArr = Array.from(new Set(newExceptionSetByUserArr.concat(exceptionHttpsDomainsArr)));
+        chrome.storage.local.set({ userTrustedDomains: userTrustedDomainsArr });
     });
 }
 
 chrome.runtime.onInstalled.addListener(function (details) {
     if (details.reason == "update") {
-      if(details.previousVersion <= 2.11) {
-          transferOfTrustworthyDomainsSetByUser();
-      }
+        let prevVersion = details.previousVersion;
+        if (!isNewerVersion("3.3", prevVersion)) {
+            transferOfTrustworthyDomainsSetByUser();
+        }
     }
 });
 
