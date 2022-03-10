@@ -83,6 +83,9 @@ chrome.runtime.onInstalled.addListener(function (details) {
         if (!isNewerVersion("3.3", prevVersion)) {
             transferOfTrustworthyDomainsSetByUser();
         }
+        // update list of trusted domains set by developer
+        let updatedTrustedDomains = PassSec.trustedDomains;
+        chrome.storage.local.set({trustedDomains: updatedTrustedDomains});
     }
 });
 
