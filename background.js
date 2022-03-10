@@ -69,7 +69,9 @@ function isNewerVersion(versionToCompare, version) {
 function transferOfTrustworthyDomainsSetByUser() {
     chrome.storage.local.get(null, function (storageObj) {
         let prevExceptionsSetByUserArr = storageObj["exceptions"];
-        let newExceptionSetByUserArr = storageObj["userTrustedDomains"];
+        let newExceptionSetByUserArr = [];
+        if("userTrustedDomains" in storageObj)
+            newExceptionSetByUserArr = storageObj["userTrustedDomains"];
         let httpsExceptionsArr = prevExceptionsSetByUserArr.filter(exception => (exception.split("passSec-")[1]) == "https" || (exception.split("passSec-")[1]) == "all");
         let exceptionHttpsDomainsArr = httpsExceptionsArr.map(exception => exception.split("passSec-")[0]);
         let userTrustedDomainsArr = Array.from(new Set(newExceptionSetByUserArr.concat(exceptionHttpsDomainsArr)));
