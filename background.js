@@ -31,31 +31,66 @@ chrome.storage.local.get(null, function (items) {
 // set correct browser action icon on startup, because Chrome sometimes switches the set default_icon
 // to the last used one, which can produce undesired behaviour: browser action icon was red when
 // closing the browser -> active redirecting, but red icon on next startup
-chrome.browserAction.setIcon({path: "skin/redirectActive.png"});
+chrome.browserAction.setIcon({ path: "skin/redirectActive.png" });
 
 // handle left-click on browser action icon
-chrome.browserAction.onClicked.addListener(function (tab) {
+/* chrome.browserAction.onClicked.addListener(function (tab) {
     redirectsActive = !redirectsActive;
     if (redirectsActive) {
-        chrome.browserAction.setIcon({path: "skin/redirectActive.png"});
-        chrome.browserAction.setTitle({title: chrome.i18n.getMessage("browserActionRedirectActive")});
+        chrome.browserAction.setIcon({ path: "skin/redirectActive.png" });
+        chrome.browserAction.setTitle({ title: chrome.i18n.getMessage("browserActionRedirectActive") });
     } else {
-        chrome.browserAction.setIcon({path: "skin/redirectInactive.png"});
-        chrome.browserAction.setTitle({title: chrome.i18n.getMessage("browserActionRedirectInactive")});
+        chrome.browserAction.setIcon({ path: "skin/redirectInactive.png" });
+        chrome.browserAction.setTitle({ title: chrome.i18n.getMessage("browserActionRedirectInactive") });
     }
     manageRedirectHandler();
+});*/
+
+/*
+Compares versionToCompare with version
+returns true if version is higher/newer than versionToCompare
+*/
+function isNewerVersion(versionToCompare, version) {
+    let versionToCompareParts = versionToCompare.split('.');
+    let versionParts = version.split('.');
+
+    while (versionToCompareParts.length < versionParts.length) versionToCompareParts.push("0");
+    while (versionParts.length < versionToCompareParts.length) versionParts.push("0");
+
+    for (var i = 0; i < versionParts.length; i++) {
+        const a = parseInt(versionParts[i]);
+        const b = parseInt(versionToCompareParts[i]);
+        if (a > b) return true
+        if (a < b) return false
+    }
+    return false
+}
+
+function transferOfTrustworthyDomainsSetByUser() {
+    chrome.storage.local.get(null, function (storageObj) {
+        let prevExceptionsSetByUserArr = storageObj["exceptions"];
+        let newExceptionSetByUserArr = [];
+        if("userTrustedDomains" in storageObj)
+            newExceptionSetByUserArr = storageObj["userTrustedDomains"];
+        let httpsExceptionsArr = prevExceptionsSetByUserArr.filter(exception => (exception.split("passSec-")[1]) == "https" || (exception.split("passSec-")[1]) == "all");
+        let exceptionHttpsDomainsArr = httpsExceptionsArr.map(exception => exception.split("passSec-")[0]);
+        let userTrustedDomainsArr = Array.from(new Set(newExceptionSetByUserArr.concat(exceptionHttpsDomainsArr)));
+        chrome.storage.local.set({ userTrustedDomains: userTrustedDomainsArr });
+    });
+}
+
+chrome.runtime.onInstalled.addListener(function (details) {
+    if (details.reason == "update") {
+        let prevVersion = details.previousVersion;
+        if (!isNewerVersion("3.3", prevVersion)) {
+            transferOfTrustworthyDomainsSetByUser();
+        }
+        // update list of trusted domains set by developer
+        let updatedTrustedDomains = PassSec.trustedDomains;
+        chrome.storage.local.set({trustedDomains: updatedTrustedDomains});
+    }
 });
 
-// create context menu for browser action
-/*chrome.contextMenus.create({
-    contexts: ["browser_action"],
-    onclick: function () {
-        chrome.tabs.query({currentWindow: true, active: true}, function (tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, {type: "addException"}, {frameId: 0});
-        });
-    },
-    title: chrome.i18n.getMessage("exceptionHTTP") + " (PassSec+)"
-});*/
 chrome.contextMenus.create({
     contexts: ["browser_action"],
     onclick: function () {
@@ -64,63 +99,51 @@ chrome.contextMenus.create({
     title: chrome.i18n.getMessage("options") + " (PassSec+)"
 });
 
-// execute options if set
-
-    // count browser starts and do exceptions checking
-    // let check = item.checkExceptionsAfter20Starts;
-    // if (check && check.doCheck) {
-    //     let starts = check.count + 1;
-    //     if (starts === 20) {
-    //         // reset counter
-    //         chrome.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: 0}});
-    //         // check exceptions
-    //         // TODO
-    //     } else {
-    //         // increase counter
-    //         chrome.storage.local.set({checkExceptionsAfter20Starts: {doCheck: true, count: starts}});
-    //     }
-    // }
-
-
 // listen for messages from content script
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     switch (message.type) {
         case "doRedirect":
             manageRedirectHandler();
             // this is only to directly execute a redirect when the user clicked the 'Secure Mode' button
-            chrome.tabs.update({url: message.httpsURL});
+            chrome.tabs.update({ url: message.httpsURL });
             break;
+        case "checkHttpsAvailable":
+            let httpsUrl = message.httpsURL.replace("http://", "https://");
+            let httpsRequest = new XMLHttpRequest();
+            httpsRequest.open("HEAD", httpsUrl);
+            httpsRequest.onreadystatechange = function () {
+                if (this.readyState === this.DONE) {
+                    var httpsAvailable = this.status >= 200 && this.status <= 299 && this.responseURL.startsWith("https");
+                    // if there is an open tooltip while httpsAvailable switches to true, trigger focus event to reopen tooltip with correct content
+                    if (httpsAvailable === true)
+                        sendResponse(true);
+                    //$(':focus').focus();
+                }
+            };
+            httpsRequest.send();
+            return true;
         case "manageRedirectHandler":
             manageRedirectHandler();
             break;
-        case "extractDomain":
-            if (tldList === null) {
-                // tldList is not yet present -> add request to queue
-                domainExtractionQueue.push([message.host, sender.tab.id, sender.frameId]);
-            } else {
-                let domain = extractDomain(message.host, tldList);
-                chrome.tabs.sendMessage(sender.tab.id, {type: "extractedDomain", domain: domain}, {frameId: sender.frameId});
-            }
-            break;
-    }
-});
-
-// get top level domains (for domain extraction in urls)
-let getTLDs = new Promise(function (resolve, reject) {
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (xhttp.readyState === 4)
-            resolve(xhttp.response);
-    };
-    xhttp.open('GET', "https://publicsuffix.org/list/public_suffix_list.dat", true);
-    xhttp.send(null);
-});
-getTLDs.then(function (tld) {
-    tldList = tld;
-    // if there are any content scripts waiting for domain extraction, process them now
-    for (let i = 0; i < domainExtractionQueue.length; i++) {
-        let domain = extractDomain(domainExtractionQueue[i][0], tldList);
-        chrome.tabs.sendMessage(domainExtractionQueue[i][1], {type: "extractedDomain", domain: domain}, {frameId: domainExtractionQueue[i][2]});
+        case "domain":
+            let domain = extractDomain(message.host);
+            sendResponse({ domain: domain });
+            return true;
+        case "TLD":
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4) {
+                    sendResponse(xhttp.response);
+                }
+            };
+            xhttp.open(
+                "GET",
+                "https://publicsuffix.org/list/public_suffix_list.dat",
+                true
+            );
+            xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            xhttp.send(null);
+            return true;
     }
 });
 
@@ -136,7 +159,7 @@ function manageRedirectHandler() {
         if (item.redirects) {
             chrome.webRequest.onBeforeRequest.removeListener(handleRedirect);
             if (redirectsActive && item.redirects.length > 0)
-                chrome.webRequest.onBeforeRequest.addListener(handleRedirect, {urls: item.redirects}, ["blocking"]);
+                chrome.webRequest.onBeforeRequest.addListener(handleRedirect, { urls: item.redirects }, ["blocking"]);
         }
     });
 }
@@ -149,29 +172,5 @@ function manageRedirectHandler() {
  */
 function handleRedirect(requestDetails) {
     let httpsURL = requestDetails.url.replace("http://", "https://");
-    return {redirectUrl: httpsURL};
-}
-
-/**
- * Extracts the domain out of a given URL
- *
- * @param url The URL of which the domain should be extracted
- * @param tld A list of known top level domains
- */
-function extractDomain(url, tld) {
-    let split = url.split(".");
-    if (split.length > 2) url = split[split.length - 2] + "." + split[split.length - 1];
-
-    let arr = tld.split("\n").filter(function (value) {
-        return value !== "" && !value.startsWith("//") && value.split(".").length >= 3
-    });
-    if (arr.toString().indexOf(url) > -1) {
-        let arr2 = tld.split("\n").filter(function (value) {
-            return value !== "" && !value.startsWith("//") && value.indexOf(url) > -1
-        });
-        let temp = "bla";
-        if (split.length >= 3) temp = split[split.length - 3] + "." + split[split.length - 2] + "." + split[split.length - 1];
-        if (arr2.indexOf(temp) > -1 || (arr2.indexOf("*." + url) > -1 && arr2.indexOf("!" + temp) === -1)) return temp;
-    }
-    return url;
+    return { redirectUrl: httpsURL };
 }

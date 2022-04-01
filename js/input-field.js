@@ -4,18 +4,21 @@
  *
  * @param storage Object containing the set options at the time of calling this function
  */
-function processInputs(storage) {
+ function processInputs(storage) {
     // exclude input elements from analysis that cannot be used to input meaningful data (type submit|reset|button|image)
     // and that cannot be styled appropriately (type radio|checkbox)
     $('input:not([type=submit],[type=reset],[type=button],[type=image],[type=radio],[type=checkbox]),textarea').each(function (index) {
         let fieldType = determineFieldType(this, storage);
         if (typeof fieldType !== "undefined") {
-			getSecurityStatus(storage, this.form);
-			let borderType = "passSec-" + passSec.security;
-			$(this).addClass(borderType);
-            // add border type as attribute, so we have a backup selector for websites that
+            let securityStatus = getSecurityStatus(storage, this.form);
+            let securityStatusClass = getSecurityStatusClass(securityStatus);
+            if(securityStatusClass != "passSec-None") {
+                $(this).addClass(securityStatusClass);
+            }
+            // add security status as attribute, so we have a backup selector for websites that
             // reset the 'class' attribute for styling, instead of only adding/removing classes
-            $(this).attr("data-passSec-security", borderType);
+            $(this).attr("data-passSec-security-class", securityStatusClass);
+            $(this).attr("data-passSec-security", securityStatus);
             // add field type as attribute, so we don't have to do the check a second time when opening the tooltip
             switch (fieldType) {
                 case "password":
@@ -36,49 +39,79 @@ function processInputs(storage) {
                     break;
             }
         }
-		
+
     });
     let dynamicStyle = document.getElementById("addedPassSecCSS");
     //If the css is not in the document, add the css to the current document
     if (!dynamicStyle) {
         let secureImageStyle = '' +
-            '.passSec-https, [data-passSec-security=passSec-https] {' +
-            '    background-image: url("' + chrome.extension.getURL("skin/check/orange/o_icon" + storage.secureImage + ".png") + '") !important;' +
-            '    background-repeat: no-repeat !important;' +
-            '    background-size: contain !important;' +
-            '    background-position: right center !important;' +
-            '    border: 2px solid #fdb000 !important;' +
-            '}\n';
-
-        let secureEVImageStyle = '' +
-            '.passSec-httpsEV, [data-passSec-security=passSec-httpsEV] {' +
-            '    background-image: url("' + chrome.extension.getURL("skin/check/gruen/gr_icon" + storage.secureImage + ".png") + '") !important;' +
+            '.passSec-green, [data-passSec-security-class=passSec-green] {' +
+            '    background-image: url("' + chrome.runtime.getURL("skin/check/gruen/gr_icon" + storage.secureImage + ".png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +
             '    background-position: right center !important;' +
             '    border: 2px solid #4dbc4f !important;' +
             '}\n';
 
+        let userTrustedImageStyle = '' +
+            '.passSec-blue, [data-passSec-security-class=passSec-blue] {' +
+            '    background-image: url("' + chrome.runtime.getURL("skin/check/blue/blue_icon" + storage.secureImage + ".png") + '") !important;' +
+            '    background-repeat: no-repeat !important;' +
+            '    background-size: contain !important;' +
+            '    background-position: right center !important;' +
+            '    border: 2px solid #1a509d !important;' +
+            '}\n';
+
+        let httpsImageStyle = '' +
+            '.passSec-grey, [data-passSec-security-class=passSec-grey] {' +
+            '    background-image: url("' + chrome.runtime.getURL("skin/check/grey/gr_icon" + storage.secureImage + ".png") + '") !important;' +
+            '    background-repeat: no-repeat !important;' +
+            '    background-size: contain !important;' +
+            '    background-position: right center !important;' +
+            '    border: 2px solid #bfb9b9 !important;' +
+            '}\n';
+
         let warningImageStyle = '' +
-            '.passSec-http, [data-passSec-security=passSec-http] {' +
-            '    background-image: url("' + chrome.extension.getURL("skin/yellow_triangle.png") + '") !important;' +
+            '.passSec-red, [data-passSec-security-class=passSec-red] {' +
+            '    background-image: url("' + chrome.runtime.getURL("skin/yellow_triangle.png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +
             '    background-position: right center !important;' +
             '    background-color: red !important;' +
             '    border: 2px solid red !important;' +
             '}\n';
-		
-		let warningExceptionImageStyle = '' +
-            '.passSec-none, [data-passSec-security=passSec-none] {' +
-            '    background-image: url("' + chrome.extension.getURL("skin/yellow_triangle.png") + '") !important;' +
+
+        let warningExceptionImageStyle = '' +
+            '.passSec-redException, [data-passSec-security-class=passSec-redException] {' +
+            '    background-image: url("' + chrome.runtime.getURL("skin/yellow_triangle.png") + '") !important;' +
             '    background-repeat: no-repeat !important;' +
             '    background-size: contain !important;' +
             '    background-position: right center !important;' +
+            '    background-color: red !important;' +
+            '    border: 2px solid red !important;' +
             '}\n';
 
-        let css = secureImageStyle + warningImageStyle + secureEVImageStyle + warningExceptionImageStyle;
+        let css = secureImageStyle + userTrustedImageStyle + httpsImageStyle + warningImageStyle + warningExceptionImageStyle;
         $('head').append('<style id="addedPassSecCSS" type="text/css">' + css + '</style>');
+    }
+}
+
+function getSecurityStatusClass(securityStatus) {
+    // trusted case: trusted domain, site protocol == https, form protocol == https and same domain
+    if (securityStatus == "1111") {
+        return "passSec-green";
+        // trusted case: user trusted domain, site protocol == https, form protocol == https and same domain
+    } else if (securityStatus == "2111") {
+        return "passSec-blue";
+    } else if (securityStatus == "4111") {
+        return "passSec-grey";
+        // exception set by user: here only the first position is relevant (it has been already checked before, if it is in the exceptions set by the user).
+    } else if (securityStatus.startsWith("3")) {
+        return "passSec-redException";
+    } else if (securityStatus == "0000") {
+        return "passSec-None";
+    } else {
+        return "passSec-red";
     }
 }
 

@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "PassSec+",
-  "version": "2.1",
+  "version": "3.3.2",
   "author": "SECUSO",
   "homepage_url": "https://www.secuso.org/passsec",
   "description": "__MSG_addOnDescription__",
@@ -9,6 +9,9 @@
   "background": {
     "scripts": [
       "js/default-preferences.js",
+      "js/jquery-3.4.1.min.js",
+      "js/publicsuffixlist.js",
+      "js/punycode.min.js",
       "background.js"
     ],
     "persistent": true
@@ -18,9 +21,7 @@
     "storage",
     "webRequest",
     "webRequestBlocking",
-    "contextMenus",
-    "browsingData",
-    "notifications"
+    "contextMenus"
   ],
   "options_ui": {
     "page": "options.html"
@@ -42,11 +43,14 @@
         "css/tooltip.css"
       ],
       "js": [
-        "js/jquery-3.2.1.min.js",
+        "js/jquery-3.4.1.min.js",
         "js/jquery.qtip.min.js",
+        "js/punycode.min.js",
         "js/jquery-confirm.min.js",
+        "js/publicsuffixlist.js",
         "js/security-status.js",
         "js/tooltip.js",
+        "js/timer.js",
         "js/input-field.js",
         "js/content-script.js"
       ],

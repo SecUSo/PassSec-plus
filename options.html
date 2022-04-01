@@ -1,104 +1,102 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <title id="title"></title>
-    <link type="text/css" rel="stylesheet" href="css/options.css"/>
-    <link type="text/css" rel="stylesheet" href="css/jquery-confirm.min.css"/>
-    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/options.css" />
+    <link type="text/css" rel="stylesheet" href="css/jquery-confirm.min.css" />
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-confirm.min.js"></script>
     <script type="text/javascript" src="js/default-preferences.js"></script>
     <script type="text/javascript" src="js/options.js"></script>
 </head>
+
 <body>
-<h1 id="options"></h1>
-<div class="tabs">
-    <ul class="tab-links">
-        <li class="active"><a href="#tab1" id="general"></a></li>
-        <li><a href="#tab2" id="redirects"></a></li>
-        <li><a href="#tab3" id="exceptions"></a></li>
-        <li><a href="#tab4" id="fields"></a></li>
-    </ul>
+    <h1 id="options"></h1>
+    <div class="tabs">
+        <ul class="tab-links">
+            <li class="active"><a href="#fieldsTab" id="fields"></a></li>
+            <li><a href="#symbolTab" id="general"></a></li>
+            <li><a href="#domainsTab" id="exceptions"></a></li>
+            <li><a href="#timerTab" id="passSecTimer"></a></li>
+        </ul>
 
-    <div class="tab-content">
-        <div id="tab1" class="tab active">
-            <h3 id="appearance"></h3>
-            <p id="appearanceSecure"></p>
-            <input id="secureInputType" type="text" value="***"></p>
-            <p id="appearanceNotSecure"></p>
-            <input id="notSecureInputType" type="text" value="***"></p>
-            <p id="changeIconText"></p>
-            <div id="changeIconGroup">
-                <button id="changeIconButton" class="float"></button>
-                <img id="iconImg" alt="Icon">
+        <div class="tab-content">
+            <div id="fieldsTab" class="tab active">
+                <h3 id="fieldTypes"></h3>
+                <div class="tableWrapper">
+                    <div class="checkbox">
+                        <input id="pwField" type="checkbox">
+                        <label for="pwField" id="passwordField"></label>
+                    </div>
+                    <div class="checkbox">
+                        <input id="pyField" type="checkbox">
+                        <label for="pyField" id="paymentField"></label>
+                    </div>
+                    <div class="checkbox">
+                        <input id="perField" type="checkbox">
+                        <label for="perField" id="personalField"></label>
+                    </div>
+                    <div class="checkbox">
+                        <input id="sField" type="checkbox" class="float">
+                        <label for="sField" id="searchField"></label>
+                    </div>
+                </div>
+            </div>
+            <div id="symbolTab" class="tab">
+                <p id="changeIconText"></p>
+                <p id="iconHint"></p>
+                <div id="changeIconGroup">
+                    <button id="changeIconButton" class="float"></button>
+                    <img id="iconImg" alt="Icon">
+                </div>
+            </div>
+            <div id="domainsTab" class="tab">
+                <h4 id="trustedListText"></h4>
+                <div class="checkbox">
+                    <input id="trustedListActivated" type="checkbox">
+                    <label for="trustedListActivated" id="activateTrustedList"></label>
+                </div>
+                <br>
+                <button id="showTrustedDomains"></button>
+                <br><br>
+                <hr>
+                <h4 id="userListText"></h4>
+                <button id="editUserDefined"></button>
+                <br><br>
+                <hr>
+                <h4 id="userHttpListText"></h4>
+                <button id="editHttpUserDefined"></button>
+                <br><br>
+                <hr>
+                <h4 id="httpsRedirects"></h4>
+                <button id="showRedirects"></button>
+                <br><br>
+            </div>
+            <div id="timerTab" class="tab">
+                <div class="checkbox">
+                    <input id="timerCheckbox" type="checkbox">
+                    <label for="timerCheckbox" id="timerCheckboxText"></label>
+                </div>
+                <div class="clear">
+                    <p id="timerAmountText" class="left"></p>
+                    <input id="timerInput" class="left right" type="number" value="3" min="0" max="100">
+                    <p id="seconds" class="last"></p>
+                </div>
             </div>
         </div>
 
-        <div id="tab2" class="tab">
-            <h3 id="httpsRedirects"></h3>
-            <button id="showRedirects"></button>
-            <br><br>
-            <button id="clearRedirectionList"></button>
+        <div id="optionButtons">
+            <button id="revertChanges"></button>
+            <button id="defaultSettings"></button>
         </div>
 
-        <div id="tab3" class="tab">
-            <h3 id="websiteExceptions"></h3>
-            <button id="showWebsiteExceptions"></button>
-            <br><br>
-            <button id="clearExceptionList"></button>
-            <!--
-            <br><br>
-            <button id="checkExceptions"></button>
-            <br><br>
-            <div class="checkbox">
-                <input id="checkAfter20Checkbox" type="checkbox">
-                <label for="checkAfter20Checkbox" id="checkAfter20"></label>
-            </div>
-            -->
-        </div>
+        <p id="statusSettings"></p>
 
-        <div id="tab4" class="tab">
-            <h3 id="fieldTypes"></h3>
-            <div class="tableWrapper">
-                <div class="checkbox">
-                    <input id="pwField" type="checkbox">
-                    <label for="pwField" id="passwordField"></label>
-                </div>
-                <div class="checkbox">
-                    <input id="pyField" type="checkbox">
-                    <label for="pyField" id="paymentField"></label>
-                </div>
-                <div class="checkbox">
-                    <input id="perField" type="checkbox">
-                    <label for="perField" id="personalField"></label>
-                </div>
-                <div class="checkbox">
-                    <input id="sField" type="checkbox" class="float">
-                    <label for="sField" id="searchField"></label>
-                </div>
-            </div>
+        <div class="lists">
         </div>
     </div>
-
-    <div id="optionButtons">
-        <button id="revertChanges"></button>
-        <button id="defaultSettings"></button>
-    </div>
-
-    <p id="statusSettings"></p>
-
-    <div class="lists">
-        <table id="redirectList">
-            <tr>
-                <th id="redirectListTitle"></th>
-            </tr>
-        </table>
-        <table id="exceptionList">
-            <tr>
-                <th id="exceptionListTitle"></th>
-            </tr>
-        </table>
-    </div>
-</div>
 </body>
+
 </html>
