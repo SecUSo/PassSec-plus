@@ -34,7 +34,7 @@
     "description": "Add an http exception"
   },
   "exceptionHTTPS": {
-    "message": "Ich habe die Angabe geprüft",
+    "message": "Angaben geprüft, zur Liste hinzufügen",
     "description": "Add an https exception"
   },
   "secureMode": {

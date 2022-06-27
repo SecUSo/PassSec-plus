@@ -34,7 +34,7 @@
     "description": "Add an http exception"
   },
   "exceptionHTTPS": {
-    "message": "I have checked the information",
+    "message": "Information checked, add to list",
     "description": "Add an https exception"
   },
   "secureMode": {
