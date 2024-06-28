@@ -11,7 +11,7 @@
  */
 
 
- function isKnownDomain(trustedList, userTrustedList, userExceptions, siteProtocol, siteDomain, formProtocol, formDomain, trustedListIsActivated) {
+function isKnownDomain(trustedList, userTrustedList, userExceptions, siteProtocol, siteDomain, formProtocol, formDomain, trustedListIsActivated) {
     if (trustedListIsActivated && trustedList.includes(siteDomain)) {
         return 1;
     } else if (userExceptionArrIncludesObj(userExceptions, { "siteProtocol": siteProtocol, "siteDom": siteDomain, "formProtocol": formProtocol, "formDom": formDomain })) {// { "formDom": formDomain, "formProtocol": formProtocol, "siteDom": siteDomain, "siteProtocol": siteProtocol })) {
@@ -52,8 +52,9 @@ function getSecurityStatus(storage, formElem) {
             let formProtocolStatus = getProtocolStatus(formAction);
             securityStatus = `${getDomainStatus}${siteProtocolStatus}${formProtocolStatus}${sameDomainStatus}`;
             if (passSec.url.startsWith("http://")) {
-                passSec.httpsAvailable = false;
+                chrome.storage.local.set({ httpsAvailable: false });
                 chrome.runtime.sendMessage({ type: "checkHttpsAvailable", httpsURL: passSec.url }, function (httpsAvailable) {
+                    chrome.storage.local.set({ httpsAvailable: httpsAvailable });
                     passSec.httpsAvailable = httpsAvailable;
                 });
             }

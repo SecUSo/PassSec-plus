@@ -206,7 +206,7 @@ function addEvents(storage) {
                                 elementToDelete.parent().parent().parent().remove();
                                 if (passSecOptions.isTableEmpty('userTrustedList')) {
                                     passSecOptions.updateHTMLTable("userTrustedList", [], true, true, true, userTrustedDialog);
-                                } 
+                                }
                             }
                             var deleteEntryWarning = chrome.i18n.getMessage("deleteEntryWarning", elementToDelete.next().text());
                             openConfirmDialog("PassSec+", deleteEntryWarning, removeEntryDialogAcceptFunc, chrome.i18n.getMessage("cancelButton"));
@@ -384,9 +384,9 @@ function getListHTML(id, listElements, userInputOpt, deleteOpt, deleteAllOpt) {
  * @param secureImage Integer indicating the current secure image
  */
 function setImage(secureImage) {
-    let imgAddress = chrome.extension.getURL("skin/check/gruen/gr_icon" + secureImage + ".png");
+    let imgAddress = chrome.runtime.getURL("skin/check/gruen/gr_icon" + secureImage + ".png");
     $("#secureInputType").css("background-image", "url('" + imgAddress + "')");
-    $("#notSecureInputType").css("background-image", "url('" + chrome.extension.getURL("skin/yellow_triangle.png") + "')");
+    $("#notSecureInputType").css("background-image", "url('" + chrome.runtime.getURL("skin/yellow_triangle.png") + "')");
     $("#iconImg").attr("src", imgAddress);
 }
 

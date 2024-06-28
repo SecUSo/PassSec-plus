@@ -144,7 +144,6 @@ function applyTooltip(element, event) {
         var formURLObj = getURLInfos(form.action);
         var timerName = passSecTimer.determineNameOfTimer(fieldType, passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
         // $(element).attr("data-passSec-timer", timerName);
-
         $(element).qtip({
             overwrite: true,
             suppress: true,
@@ -222,4 +221,5 @@ function applyTooltip(element, event) {
             }
         }, event);
     }
+
 }

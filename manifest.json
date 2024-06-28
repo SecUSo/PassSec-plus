@@ -1,28 +1,35 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "PassSec+",
-  "version": "3.3.3",
+  "version": "3.4",
   "author": "SECUSO",
   "homepage_url": "https://www.secuso.org/passsec",
   "description": "__MSG_addOnDescription__",
   "default_locale": "de",
   "background": {
     "scripts": [
-      "js/default-preferences.js",
-      "js/jquery-3.4.1.min.js",
-      "js/publicsuffixlist.js",
-      "js/punycode.min.js",
-      "background.js"
+      "service_worker.js"
     ],
-    "persistent": true
+    "service_worker": "service_worker.js"
   },
   "permissions": [
-    "<all_urls>",
     "storage",
     "webRequest",
-    "webRequestBlocking",
+    "declarativeNetRequest",
     "contextMenus"
   ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "net_request_ruleset",
+        "enabled": true,
+        "path": "net_request_ruleset.json"
+      }
+    ]
+  },
   "options_ui": {
     "page": "options.html"
   },
@@ -30,7 +37,14 @@
     "64": "skin/logo.png"
   },
   "web_accessible_resources": [
-    "skin/*.png"
+    {
+      "resources": [
+        "skin/*.png"
+      ],
+      "matches": [
+        "*://*/*"
+      ]
+    }
   ],
   "content_scripts": [
     {
@@ -58,7 +72,7 @@
       "all_frames": true
     }
   ],
-  "browser_action": {
+  "action": {
     "default_icon": {
       "16": "skin/redirectActive.png"
     },
