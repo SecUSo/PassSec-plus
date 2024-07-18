@@ -21,15 +21,6 @@
   "host_permissions": [
     "<all_urls>"
   ],
-  "declarative_net_request": {
-    "rule_resources": [
-      {
-        "id": "net_request_ruleset",
-        "enabled": true,
-        "path": "net_request_ruleset.json"
-      }
-    ]
-  },
   "options_ui": {
     "page": "options.html"
   },

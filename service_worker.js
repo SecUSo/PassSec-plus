@@ -578,6 +578,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
     }
 });
 
+
 chrome.contextMenus.create({
     id: 'options',
     contexts: ["action"],
@@ -596,7 +597,6 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
 // listen for messages from content script
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-    console.log(message);
     switch (message.type) {
         case "doRedirect":
             manageRedirectHandler();
@@ -605,7 +605,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             break;
         case "checkHttpsAvailable":
             let httpsUrl = message.httpsURL.replace("http://", "https://");
-            console.log(httpsUrl);
             const fetchPromise = fetch(httpsUrl, { method: "HEAD" });
 
             fetchPromise.then(response => {
@@ -655,29 +654,41 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 });
 
 // initial setup of the redirect handler
-//manageRedirectHandler();
+manageRedirectHandler();
 
 /**
- * Registers or removes a webRequest listener to handle redirects set by the user
+ * Adds or removes declarativeNetQuest rules to handle redirects set by the user
  * This function has to be executed each time the list of redirects changed
  */
 function manageRedirectHandler() {
     chrome.storage.local.get("redirects", function (item) {
-        if (item.redirects) {
-            chrome.webRequest.onBeforeRequest.removeListener(handleRedirect);
-            if (redirectsActive && item.redirects.length > 0)
-                chrome.webNavigation.onBeforeNavigate.addListener(handleRedirect, { urls: item.redirects }, ["blocking"]);
-        }
-    });
-}
+        const newRules = [];
+        if (item.redirects.length > 0) {
+            newRules.push({
+                id: 2,
+                condition: {
+                    regexFilter: "^http://([^?]+)",
+                    requestDomains: item.redirects,
+                    resourceTypes: [
+                        "main_frame"
+                    ]
+                },
+                action: {
+                    type: "redirect",
+                    redirect: {
+                        regexSubstitution: "https://\\1"
+                    }
+                }
+            });
 
-/**
- * Callback for webRequest listener
- *
- * @param requestDetails The details of the request
- * @returns {{redirectUrl: string}}
- */
-function handleRedirect(requestDetails) {
-    let httpsURL = requestDetails.url.replace("http://", "https://");
-    return { redirectUrl: httpsURL };
+        }
+        chrome.declarativeNetRequest.getDynamicRules(previousRules => {
+            const previousRuleIds = previousRules.map(rule => rule.id);
+            chrome.declarativeNetRequest.updateDynamicRules({
+                removeRuleIds: previousRuleIds,
+                addRules: newRules
+            });
+        });
+    });
+
 }
