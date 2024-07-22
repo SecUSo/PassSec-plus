@@ -1,3 +1,4 @@
+// moved from default preferences, as only 1 background script allowed in MV3
 let PassSec = {
     secureImage: 1,
     redirects: [],
@@ -486,11 +487,11 @@ let PassSec = {
 };
 
 // used as a switch activating/disabling saved redirects
-let redirectsActive = true;
+// let redirectsActive = true;
 // list of top level domains for domain extraction
-let tldList = null;
+// let tldList = null;
 // queue of content scripts (as [host, tabId, frameId]) waiting for domain extraction
-let domainExtractionQueue = [];
+// let domainExtractionQueue = [];
 
 // initialize storage
 chrome.storage.local.get(null, function (items) {
@@ -576,23 +577,23 @@ chrome.runtime.onInstalled.addListener(function (details) {
         let updatedTrustedDomains = PassSec.trustedDomains;
         chrome.storage.local.set({ trustedDomains: updatedTrustedDomains });
     }
+    chrome.contextMenus.create({
+        id: 'options',
+        contexts: ["action"],
+        title: chrome.i18n.getMessage("options") + " (PassSec+)"
+    });
+
+    // add listener for context menu and check for id
+    chrome.contextMenus.onClicked.addListener(function (info, tab) {
+        const { menuItemId } = info
+        if (menuItemId === 'options') {
+            chrome.runtime.openOptionsPage();
+        }
+
+    });
+
 });
 
-
-chrome.contextMenus.create({
-    id: 'options',
-    contexts: ["action"],
-    title: chrome.i18n.getMessage("options") + " (PassSec+)"
-});
-
-// add listener for context menu and check for id
-chrome.contextMenus.onClicked.addListener(function (info, tab) {
-    const { menuItemId } = info
-    if (menuItemId === 'options') {
-        chrome.runtime.openOptionsPage();
-    }
-
-});
 
 
 // listen for messages from content script
@@ -614,24 +615,10 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                 if (httpsAvailable === true)
                     sendResponse(true);
                 //$(':focus').focus();
+            }).catch((error) => {
+                console.log("Info: no https available")
             });
             return true;
-        /*
-        let httpsUrl = message.httpsURL.replace("http://", "https://");
-        let httpsRequest = new XMLHttpRequest();
-        httpsRequest.open("HEAD", httpsUrl);
-        httpsRequest.onreadystatechange = function () {
-            if (this.readyState === this.DONE) {
-                var httpsAvailable = this.status >= 200 && this.status <= 299 && this.responseURL.startsWith("https");
-                // if there is an open tooltip while httpsAvailable switches to true, trigger focus event to reopen tooltip with correct content
-                if (httpsAvailable === true)
-                    sendResponse(true);
-                //$(':focus').focus();
-            }
-        };
-        httpsRequest.send();
-        return true;
-        */
         case "manageRedirectHandler":
             manageRedirectHandler();
             break;
@@ -665,7 +652,7 @@ function manageRedirectHandler() {
         const newRules = [];
         if (item.redirects.length > 0) {
             newRules.push({
-                id: 2,
+                id: 1,
                 condition: {
                     regexFilter: "^http://([^?]+)",
                     requestDomains: item.redirects,
