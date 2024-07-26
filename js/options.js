@@ -361,7 +361,7 @@ function getListHTML(id, listElements, userInputOpt, deleteOpt, deleteAllOpt) {
                     var displayedContent = obj.siteProtocol.toString() + obj.siteDom.toString() + "<em> nach </em>" + obj.formProtocol.toString() + obj.formDom.toString();
                     break;
                 case "redirectList":
-                    var displayedContent = listElements[i];
+                    var displayedContent = listElements[i].substring(9, listElements[i].length - 2);
             }
             if (deleteOpt) {
                 listHTML += '<tr><td><div><button id="' + id + i + '" style="margin-right:10px;color:red">X</button><span>' + displayedContent + '</span></div></td></tr>';

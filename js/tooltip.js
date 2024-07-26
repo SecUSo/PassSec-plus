@@ -241,7 +241,7 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, fieldType, 
                 let changeToHttpsButton = $(tooltip.find("#passSecButtonSecureMode")[0]);
                 changeToHttpsButton.on("mousedown", function () {
                     chrome.storage.local.get("redirects", function (item) {
-                        let redirectPattern = passSec.domain;
+                        let redirectPattern = "http://*." + passSec.domain + "/*";
                         if (!item.redirects.includes(redirectPattern)) {
                             let updatedRedirects = item.redirects.slice(0);
                             updatedRedirects.push(redirectPattern);

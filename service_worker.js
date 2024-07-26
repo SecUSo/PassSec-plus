@@ -609,7 +609,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             const fetchPromise = fetch(httpsUrl, { method: "HEAD" });
 
             fetchPromise.then(response => {
-                console.log(response);
                 var httpsAvailable = response.status >= 200 && response.status <= 299 && response.url.startsWith("https");
                 // if there is an open tooltip while httpsAvailable switches to true, trigger focus event to reopen tooltip with correct content
                 if (httpsAvailable === true)
@@ -644,18 +643,25 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 manageRedirectHandler();
 
 /**
- * Adds or removes declarativeNetQuest rules to handle redirects set by the user
+ * Adds or removes declarativeNetRequest rules to handle redirects set by the user
  * This function has to be executed each time the list of redirects changed
  */
 function manageRedirectHandler() {
     chrome.storage.local.get("redirects", function (item) {
+        redirectDomains = [];
+        item.redirects.forEach(function (listElements) {
+            // get domain out of direct pattern in form of "http://*." + domain + "/*"
+            var domain = listElements.substring(9, listElements.length - 2);
+            redirectDomains.push(domain);
+        });
+
         const newRules = [];
-        if (item.redirects.length > 0) {
+        if (redirectDomains.length > 0) {
             newRules.push({
                 id: 1,
                 condition: {
                     regexFilter: "^http://([^?]+)",
-                    requestDomains: item.redirects,
+                    requestDomains: redirectDomains,
                     resourceTypes: [
                         "main_frame"
                     ]
@@ -663,6 +669,7 @@ function manageRedirectHandler() {
                 action: {
                     type: "redirect",
                     redirect: {
+                        // replaces http with https by inserting the first part in parenthesis of the regex filter \\1
                         regexSubstitution: "https://\\1"
                     }
                 }
