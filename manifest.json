@@ -7,9 +7,6 @@
   "description": "__MSG_addOnDescription__",
   "default_locale": "de",
   "background": {
-    "scripts": [
-      "service_worker.js"
-    ],
     "service_worker": "service_worker.js"
   },
   "permissions": [
