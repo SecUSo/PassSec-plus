@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 2rem;
+    background-image: -webkit-gradient(linear, left top, right bottom, from(white), color-stop(20%, whitesmoke), to(#c9c9c9));
+    background-image: linear-gradient(to bottom right, white, whitesmoke 20%, #c9c9c9);
+    height: 100vh;
+}
+
+h2 {
+    font-size: 4rem;
+    margin: 2rem 1rem 3rem 1rem;
+}
+
+h3 {
+    font-size: 2.5rem;
+    margin: 2rem 1rem;
+}
+
+h4 {
+    font-size: 2rem;
+    margin: 1.5rem 1rem;
+}
+
+p {
+    margin: 1rem 1rem 2rem 1rem;
+}
+
+ol {
+    margin: 1rem inherit;
+}
+
+li {
+    padding: 1rem 0;
+}
+
+.fat {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.underlined {
+    text-decoration: underline;
+}
+
+.link-like {
+    color: blue;
+    text-decoration: underline;
+}
+
+.green {
+    color: green;
+}
+
+.grey {
+    color: #bfb9b9;
+}
+
+.blue {
+    color: #1a509d;
+}
+
+.red {
+    color: red;
+}
+
+#logo {
+    width: 5vw;
+}
+
+.card {
+    background-color: white;
+    width: 100%;
+    padding: 2rem 5rem;
+    border-radius: 20px;
+    -webkit-box-shadow: 0.5rem 0.5rem 2rem rgba(0, 0, 0, 0.2), 0.5rem 0.5rem 2rem rgba(0, 0, 0, 0.4);
+    box-shadow: 0.5rem 0.5rem 2rem rgba(0, 0, 0, 0.2), 0.5rem 0.5rem 2rem rgba(0, 0, 0, 0.4);
+}
+
+
+.tut-content-wrapper {
+    min-height: 83vh;
+    padding: 6rem 0 12rem 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+.tut-content {
+    margin: auto;
+    width: 85%;
+}
+
+#settings-button {
+    font-size: 2rem;
+}

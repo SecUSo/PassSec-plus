@@ -612,5 +612,21 @@
   "inputDelayTextPassword": {
     "message": "Das Passwortfeld wurde deaktiviert, damit Sie in Ruhe überlegen können, wie Sie fortfahren möchten.",
     "description": "Tooltip summary"
+  },
+  "update_title": {
+    "message": "Wichtige Ankündigung",
+    "description": "Title on update tab that is created when extension is updated"
+  },
+  "update_txt": {
+    "message": "Die Erweiterung PassSec+ wird ab dem 1.12.2025 nicht mehr im Chrome Web Store verfügbar sein. Durch die Entfernung aus dem Chrome Web Store wird die Erweiterung in Ihrem Browser automatisch deaktiviert. Es wird danach nicht mehr möglich sein, die Erweiterung erneut zu aktivieren. PassSec+ wird weiterhin für Mozilla Firefox verfügbar sein.",
+    "description": "Notice about removal of web-extension"
+  },
+  "update_domains": {
+    "message": "Wenn Sie Domains, die Sie als 'geringes Risiko' (blauer Fall) eingestuft haben, zu Firefox übertragen möchten, können Sie sich diese in Chrome in den PassSec+-Einstellungen unter „Domains“ anzeigen lassen und anschließend manuell wieder in denselben Einstellungen in Firefox eingeben.",
+    "description": "Notice about transfer of blue case domains"
+  },
+  "update_contact": {
+    "message": "Kontakt: ",
+    "description": "Contact, followed by mail adress."
   }
 }

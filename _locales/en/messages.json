@@ -612,5 +612,21 @@
   "inputDelayTextPassword": {
     "message": "The password entry has been disabled so that you can consider how to continue.",
     "description": "Tooltip summary"
+  },
+  "update_title": {
+    "message": "Important Notice",
+    "description": "Title on update tab that is created when extension is updated"
+  },
+  "update_txt": {
+    "message": "The PassSec+ Browser extension will no longer be available in the Chrome Web Store starting from December 1, 2025. Removal from the Chrome Web Store will automatically disable the extension in your browser. It will not be possible to reactivate the extension after that. PassSec+ will continue to be available for Mozilla Firefox.",
+    "description": "Notice about removal of web-extension"
+  },
+  "update_domains": {
+    "message": "If you want to transfer domains that you have classified as 'low risk' (blue case) to Firefox, you can display them in the PassSec+ settings under \"Domains\" and then manually re-enter them in these same settings in Firefox.",
+    "description": "Notice about transfer of blue case domains"
+  },
+  "update_contact": {
+    "message": "Contact: ",
+    "description": "Contact, followed by mail adress."
   }
 }

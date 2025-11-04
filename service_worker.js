@@ -510,9 +510,11 @@ chrome.storage.local.get(null, function (items) {
     });
     if (Object.keys(newOptions).length > 0)
         chrome.storage.local.set(newOptions, function () {
+            /* commented out for chrome removal update, so update page is opened instead of options.
             if (storageKeys.length === 0)
                 // storage was empty -> first run of this WebExtensions version (install or update)
                 chrome.runtime.openOptionsPage();
+            */
         });
 });
 
@@ -568,7 +570,12 @@ function transferOfTrustworthyDomainsSetByUser() {
 }
 
 chrome.runtime.onInstalled.addListener(function (details) {
+    // show update.html eitherway as it continas important information
+    chrome.tabs.create({
+        url: chrome.runtime.getURL("update.html"),
+    });
     if (details.reason == "update") {
+
         let prevVersion = details.previousVersion;
         if (!isNewerVersion("3.3", prevVersion)) {
             transferOfTrustworthyDomainsSetByUser();
