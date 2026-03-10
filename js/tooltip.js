@@ -4,6 +4,7 @@ var timerArr = [];
  * Returns the HTML skeleton for a tooltip
  */
 function getTooltipHTML(securityStatus, httpsAvailable, fieldType) {
+
     let textObj = getTooltipText(securityStatus, httpsAvailable, fieldType);
 
     return '<span id="passSecTooltipSummary" class="highRisk passSecTooltipText">' + textObj.tooltipSummary + '</span>' +
@@ -142,7 +143,7 @@ function assignText(tooltip, url, securityStatus, fieldType, formURLObj, qtipID)
             $(tooltip.find(".http-warning")).hide();
             $(tooltip.find(".https")).show();
 
-            // Data is transferred to another server 
+            // Data is transferred to another server
             if (securityStatus[3] == 0) {
                 passSecFormURLTextElem.html(chrome.i18n.getMessage("formURLInfoText" + fieldTypeForText));
                 let formURLStr = formURLObj.url;
@@ -179,6 +180,7 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, fieldType, 
 
     [exceptionButton, closeButton].forEach(function (element) {
         element.on("mousedown", function (event) {
+            if (e.originalEvent && !e.originalEvent.isTrusted) { return; } // Deny trigger using JavaScript (not by actual the mouse)
             // prevent input element losing focus
             event.stopImmediatePropagation();
             event.preventDefault();
@@ -186,6 +188,7 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, fieldType, 
     });
     // Close Button Event
     closeButton.on("mouseup", function (event) {
+        if (e.originalEvent && !e.originalEvent.isTrusted) { return; } // Deny trigger using JavaScript (not by actual the mouse)
         $(element).qtip("hide");
     });
 
@@ -214,14 +217,16 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, fieldType, 
     switch (siteUseHttps + formUseHttps + sameDomain) {
         // site protocol is https
         case "111":
-            exceptionButton.on("mouseup", function () {
-                passSecTooltip.addUserException(securityStatus, passSec.domain, "userTrustedDomains", false);
+            exceptionButton.on("mouseup", function (e) {
+              if (e.originalEvent && !e.originalEvent.isTrusted) { return; } // Deny trigger using JavaScript (not by actual the mouse)
+              passSecTooltip.addUserException(securityStatus, passSec.domain, "userTrustedDomains", false);
             });
 
             break;
         // site protocol is https
         case "100": case "110": case "101":
-            exceptionButton.on("mouseup", function () {
+            exceptionButton.on("mouseup", function (e) {
+                if (e.originalEvent && !e.originalEvent.isTrusted) { return; } // Deny trigger using JavaScript (not by actual the mouse)
                 let exception = passSecTooltip.createUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
                 $(element).qtip("hide");
                 openConfirmAddingExceptionWithAnomalyDialog("confirmAddingHttpException", securityStatus, exception, "userExceptions");
@@ -230,7 +235,8 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, fieldType, 
             break;
         // site protocol is http
         case "000": case "001": case "010": case "011":
-            exceptionButton.on("mouseup", function () {
+            exceptionButton.on("mouseup", function (e) {
+                if (e.originalEvent && !e.originalEvent.isTrusted) { return; } // Deny trigger using JavaScript (not by actual the mouse)
                 let exception = passSecTooltip.createUserException(passSec.websiteProtocol, passSec.domain, formURLObj.protocol, formURLObj.domain);
                 $(element).qtip("hide");
                 openConfirmAddingExceptionWithAnomalyDialog("confirmAddingHttpException", securityStatus, exception, "userExceptions");
@@ -239,7 +245,8 @@ function addFunctionalityForTooltipElements(tooltip, securityStatus, fieldType, 
             if (passSec.httpsAvailable) {
                 // "Switch to HTTPS" Event
                 let changeToHttpsButton = $(tooltip.find("#passSecButtonSecureMode")[0]);
-                changeToHttpsButton.on("mousedown", function () {
+                changeToHttpsButton.on("mousedown", function (e) {
+                    if (e.originalEvent && !e.originalEvent.isTrusted) { return; } // Deny trigger using JavaScript (not by actual the mouse)
                     chrome.storage.local.get("redirects", function (item) {
                         let redirectPattern = "http://*." + passSec.domain + "/*";
                         if (!item.redirects.includes(redirectPattern)) {
