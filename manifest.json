@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "PassSec+",
-  "version": "3.4",
+  "version": "3.4.1",
   "author": "SECUSO",
   "homepage_url": "https://www.secuso.org/passsec",
   "description": "__MSG_addOnDescription__",

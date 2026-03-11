@@ -14,6 +14,33 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 const showTooltipEvent = jQuery.Event('showTooltip');
 const timerIsZeroEvent = jQuery.Event('timerIsZero');
 
+// Observe if relevant input field is added
+function registerElementChangeObserver(selector, callback) {
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        // Nur Element-Knoten prüfen (keine Text-Knoten)
+        if (node.nodeType === 1) {
+
+          // 1. Direktes Match prüfen
+          if (node.matches(selector)) {
+              callback();
+          }
+
+          // 2. Innerhalb von Containern suchen
+          const nestedMatches = node.querySelectorAll(selector);
+          nestedMatches.forEach(match => callback());
+        }
+      });
+    });
+  });
+
+  // Observe if relevant input field is added
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+};
 
 // processing starts here and is continued when the background script sends the extracted domain
 passSec.url = document.location.href;
@@ -26,7 +53,14 @@ $(document).ready(function () {
     passSec.websiteProtocol = document.location.protocol;
 
     chrome.storage.local.get(null, function (items) {
+        // Process ones on pagelaod
         processInputs(items);
+
+        // Register observer
+        registerElementChangeObserver(
+          'input:not([type=submit],[type=reset],[type=button],[type=image],[type=radio],[type=checkbox]):read-write,textarea:read-write',
+          () => processInputs(items)
+        );
 
         // normally the focus event handler would be enough here, but we need the mousedown down handler
         // and the 'inputElementClicked' flag to accomplish the following: When the user closes the tooltip
