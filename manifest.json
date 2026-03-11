@@ -24,7 +24,7 @@
     "page": "options.html"
   },
   "icons": {
-    "64": "skin/logo.png"
+    "64": "skin/logo64.png"
   },
   "web_accessible_resources": [
     {
@@ -67,5 +67,8 @@
       "16": "skin/redirectActive.png"
     },
     "default_title": "__MSG_browserActionRedirectActive__"
+        "required": ["none"]
+      }
+    }
   }
 }
