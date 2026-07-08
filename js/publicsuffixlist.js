@@ -18,7 +18,6 @@
 /******************************************************************************/
 
 // A single instance of PublicSuffixList is enough.
-var passSec = passSec || {};
 ;(function(root) {
     
     /******************************************************************************/
@@ -52,7 +51,7 @@ var passSec = passSec || {};
         if ( !hostname || hostname.charAt(0) === '.' ) {
             return '';
         }
-        hostname = hostname.toLowerCase();
+        hostname = String(hostname).toLowerCase();
         var suffix = getPublicSuffix(hostname);
         if ( suffix === hostname ) {
             return '';
@@ -158,8 +157,8 @@ var passSec = passSec || {};
         // http://publicsuffix.org/list/:
         // "... all rules must be canonicalized in the normal way
         // for hostnames - lower-case, Punycode ..."
-        text = text.toLowerCase();
-    
+        text = String(text).toLowerCase();
+
         var lineBeg = 0, lineEnd;
         var textEnd = text.length;
         var line, store, pos, tld;
@@ -297,7 +296,7 @@ var passSec = passSec || {};
     
     // Public API
     
-    root = passSec || window;
+    root = PassSec || window;
     
     root.publicSuffixList = {
         'version': '1.0',
@@ -308,12 +307,12 @@ var passSec = passSec || {};
         'fromSelfie': fromSelfie
     };
     
-    if ( typeof module !== "undefined" ) { 
+    if ( typeof module !== "undefined" ) {
         module.exports = root.publicSuffixList;
     } else if ( typeof exports !== "undefined" ) {
         exports = root.publicSuffixList;
     }
     
     /******************************************************************************/
-    
+
     })(this);
