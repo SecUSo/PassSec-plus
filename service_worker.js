@@ -1,10 +1,9 @@
-// moved from default preferences, as only 1 background script allowed in MV3
-let PassSec = {
-    secureImage: 1,
-    redirects: [],
-    timer: 3,
-    trustedListActivated: true,
-    trustedDomains: [
+const initialStorage = new Map([
+    ['secureImage', 1],  // used
+    ['redirects', []],
+    ['timer', 3],
+    ['trustedListActivated', true],  // used
+    ['trustedDomains', [
         "kit.edu",
         "secuso.org",
         "amazon.com",
@@ -475,86 +474,77 @@ let PassSec = {
         "vspk-neustadt.de",
         "wartburg-sparkasse.de",
         "wespa.de",
-    ],
-    userTrustedDomains: [],
-    userExceptions: [],
-    exceptions: [],
-    passwordField: true,
-    personalField: false,
-    paymentField: true,
-    searchField: false,
-    checkExceptionsAfter20Starts: { doCheck: false, count: 0 }
-};
+    ]],  // used
+    ['userTrustedDomains', []],  // used
+    ['userExceptions', []],
+    ['exceptions', []],
+    ['passwordField', true],  // used
+    ['personalField', false],  // used
+    ['paymentField', true],  // used
+    ['searchField', false],  // used
+    ['checkExceptionsAfter20Starts', { doCheck: false, count: 0 }]
+]);
 
-// used as a switch activating/disabling saved redirects
-// let redirectsActive = true;
-// list of top level domains for domain extraction
-// let tldList = null;
-// queue of content scripts (as [host, tabId, frameId]) waiting for domain extraction
-// let domainExtractionQueue = [];
 
-// initialize storage
-chrome.storage.local.get(null, function (items) {
-    let storageKeys = Object.keys(items);
-    // init storage with all options that are not present
-    let newOptions = {};
-    Object.keys(PassSec).forEach(function (key) {
-        if (!storageKeys.includes(key)) {
+// Time-to-live for the TLD cache in milliseconds (24 hours)
+const TLD_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+
+
+/**
+ *
+ * @returns {Promise<void>}
+ */
+const initializeStorage = async () => {
+    const currentStorage = await browser.storage.local.get(null);
+    const newStorage = {};
+
+    for (const [key, value] of initialStorage.entries()) {
+        if (currentStorage[key] === undefined) {
             if (key === "secureImage") {
-                // set a random secure-image instead of the default one
-                newOptions[key] = Math.floor(Math.random() * 10) + 1;
+                newStorage[key] = Math.floor(Math.random() * 10) + 1;
             } else {
-                newOptions[key] = PassSec[key];
+                newStorage[key] = value;
             }
         }
-    });
-    if (Object.keys(newOptions).length > 0)
-        chrome.storage.local.set(newOptions, function () {
-            if (storageKeys.length === 0)
-                // storage was empty -> first run of this WebExtensions version (install or update)
-                chrome.runtime.openOptionsPage();
-        });
-});
-
-// set correct browser action icon on startup, because Chrome sometimes switches the set default_icon
-// to the last used one, which can produce undesired behaviour: browser action icon was red when
-// closing the browser -> active redirecting, but red icon on next startup
-chrome.action.setIcon({ path: "skin/redirectActive.png" });
-
-// handle left-click on browser action icon
-/* chrome.browserAction.onClicked.addListener(function (tab) {
-    redirectsActive = !redirectsActive;
-    if (redirectsActive) {
-        chrome.browserAction.setIcon({ path: "skin/redirectActive.png" });
-        chrome.browserAction.setTitle({ title: chrome.i18n.getMessage("browserActionRedirectActive") });
-    } else {
-        chrome.browserAction.setIcon({ path: "skin/redirectInactive.png" });
-        chrome.browserAction.setTitle({ title: chrome.i18n.getMessage("browserActionRedirectInactive") });
     }
-    manageRedirectHandler();
-});*/
 
-/*
-Compares versionToCompare with version
-returns true if version is higher/newer than versionToCompare
-*/
-function isNewerVersion(versionToCompare, version) {
-    let versionToCompareParts = versionToCompare.split('.');
-    let versionParts = version.split('.');
-
-    while (versionToCompareParts.length < versionParts.length) versionToCompareParts.push("0");
-    while (versionParts.length < versionToCompareParts.length) versionParts.push("0");
-
-    for (var i = 0; i < versionParts.length; i++) {
-        const a = parseInt(versionParts[i]);
-        const b = parseInt(versionToCompareParts[i]);
-        if (a > b) return true
-        if (a < b) return false
+    if (Object.keys(newStorage).length > 0) {
+        await browser.storage.local.set(newStorage);
     }
-    return false
 }
 
-function transferOfTrustworthyDomainsSetByUser() {
+
+/**
+ *
+ * @param targetVersion
+ * @param compareVersion
+ * @returns {boolean} True if the ``targetVersion`` is newer (greater) than the ``compareVersion``.
+ */
+function isVersionNewer(targetVersion, compareVersion) {
+    if (targetVersion === compareVersion) return false;
+
+    const targetParts = targetVersion.split(".");
+    const currentParts = compareVersion.split(".");
+    const maxLength = Math.max(targetParts.length, currentParts.length);
+
+    for (let i = 0; i < maxLength; i++) {
+        const targetNum = parseInt(targetParts[i] || "0", 10);
+        const currentNum = parseInt(currentParts[i] || "0", 10);
+
+        if (targetNum > currentNum) return true;
+        if (targetNum < currentNum) return false;
+    }
+
+    return false;
+}
+
+
+// not finished!!!
+async function transferOfTrustworthyDomainsSetByUser() {
+    const storage = await browser.storage.local.get(null);
+    const prevExceptionsByUser = storage.exceptions;
+    const newExceptionsByUser = 'userTrustedDomains' in storage ? storage.userTrustedDomains : [];
+
     chrome.storage.local.get(null, function (storageObj) {
         let prevExceptionsSetByUserArr = storageObj["exceptions"];
         let newExceptionSetByUserArr = [];
@@ -567,33 +557,123 @@ function transferOfTrustworthyDomainsSetByUser() {
     });
 }
 
-chrome.runtime.onInstalled.addListener(function (details) {
-    if (details.reason == "update") {
-        let prevVersion = details.previousVersion;
-        if (!isNewerVersion("3.3", prevVersion)) {
-            transferOfTrustworthyDomainsSetByUser();
-        }
-        // update list of trusted domains set by developer
-        let updatedTrustedDomains = PassSec.trustedDomains;
-        chrome.storage.local.set({ trustedDomains: updatedTrustedDomains });
-    }
-    chrome.contextMenus.create({
-        id: 'options',
+
+/**
+ *
+ * @returns {Promise<void>}
+ */
+async function initializeToolbarIcon() {
+    await browser.action.setIcon({ path: "skin/redirectActive.png" });
+
+    await browser.contextMenus.create({
+        id: "options",
         contexts: ["action"],
-        title: chrome.i18n.getMessage("options") + " (PassSec+)"
+        title: browser.i18n.getMessage("contextMenuOptions")
     });
 
-    // add listener for context menu and check for id
-    chrome.contextMenus.onClicked.addListener(function (info, tab) {
-        const { menuItemId } = info
-        if (menuItemId === 'options') {
-            chrome.runtime.openOptionsPage();
+    browser.contextMenus.onClicked.addListener((info) => {
+        if (info.menuItemId === "options") {
+            browser.runtime.openOptionsPage();
+        }
+    });
+}
+
+
+/**
+ *
+ * @param details
+ * @returns {Promise<void>}
+ */
+const onInstalledHandler = async (details) => {
+    await initializeStorage();
+
+    if (details.reason === "install") {
+        await browser.runtime.openOptionsPage();
+
+    } else if (details.reason === "update") {
+        const prevVersion = details.previousVersion;
+
+        if (!isVersionNewer(prevVersion, "3.3")) {
+            await transferOfTrustworthyDomainsSetByUser();
         }
 
-    });
+        await browser.storage.local.set({ trustedDomains: initialStorage.get("trustedDomains") });
+    }
 
-});
+    await initializeToolbarIcon();
+}
 
+
+/**
+ *
+ * @returns {Promise<*|string>}
+ */
+const fetchTLDWithCache = async () => {
+    const cache = await browser.storage.local.get(["tldData", "tldCacheTime"]);
+
+    if (cache.tldData && cache.tldCacheTime && (Date.now() - cache.tldCacheTime) < TLD_CACHE_TTL_MS) {
+        return cache.tldData;
+    }
+
+    const res = await fetch("https://publicsuffix.org/list/public_suffix_list.dat");
+    if (!res.ok) throw new Error(`TLD fetch failed: ${res.status}`);
+
+    const text = await res.text();
+    await browser.storage.local.set({ tldData: text, tldCacheTime: Date.now() });
+
+    return text;
+}
+
+
+/**
+ *
+ * @param httpURL
+ * @returns {Promise<boolean>}
+ */
+async function checkHttpsAvailability(httpURL) {
+    const httpsURL = httpURL.replace('http://', 'https://');
+
+    try {
+        const response = await fetch(httpsURL, {method: "HEAD"});
+        return response.status >= 200 && response.status < 299 && response.url.startsWith("https");
+    } catch (e) {
+        return false;
+    }
+}
+
+
+// not finished!!!
+const onMessageHandler = (message, sender, sendResponse) => {
+    (async () => {
+        try {
+            switch (message.type) {
+
+                case "TLD": {
+                    const text = await fetchTLDWithCache();
+                    sendResponse(text);
+                    break;
+                }
+
+                case "checkHttpsAvailable": {
+                    console.log("checkHttpsAvailability for httpURL: ", message.httpURL);
+                    const result = await checkHttpsAvailability(message.httpURL);
+                    sendResponse(result);
+                    break;
+                }
+
+                default:
+                    console.warn(`Received message with unknown type: "${message.type}"`);
+                    sendResponse(null);
+            }
+
+        } catch (error) {
+            console.error(`Error handling message "${message.type}":`, error);
+            sendResponse(null);
+        }
+    })();
+
+    return true;  // Indicates that the response will be sent asynchronously
+};
 
 
 // listen for messages from content script
@@ -604,7 +684,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             // this is only to directly execute a redirect when the user clicked the 'Secure Mode' button
             chrome.tabs.update({ url: message.httpsURL });
             break;
-        case "checkHttpsAvailable":
+        /*case "checkHttpsAvailable":
             let httpsUrl = message.httpsURL.replace("http://", "https://");
             const fetchPromise = fetch(httpsUrl, { method: "HEAD" });
 
@@ -617,7 +697,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             }).catch((error) => {
                 console.log("Info: no https available")
             });
-            return true;
+            return true;*/
         case "manageRedirectHandler":
             manageRedirectHandler();
             break;
@@ -625,27 +705,17 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             let domain = extractDomain(message.host);
             sendResponse({ domain: domain });
             return true;
-        case "TLD": {
-            const fetchPromise = fetch("https://publicsuffix.org/list/public_suffix_list.dat", {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            });
-            fetchPromise.then(response => {
-                sendResponse(response);
-            });
-            return true;
-        }
     }
 });
 
 // initial setup of the redirect handler
-manageRedirectHandler();
+// manageRedirectHandler();
 
 /**
  * Adds or removes declarativeNetRequest rules to handle redirects set by the user
  * This function has to be executed each time the list of redirects changed
  */
+// not finished!!!
 function manageRedirectHandler() {
     chrome.storage.local.get("redirects", function (item) {
         redirectDomains = [];
@@ -686,3 +756,7 @@ function manageRedirectHandler() {
     });
 
 }
+
+
+browser.runtime.onInstalled.addListener(onInstalledHandler);
+browser.runtime.onMessage.addListener(onMessageHandler);

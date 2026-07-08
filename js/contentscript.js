@@ -1,66 +1,54 @@
-var passSec = passSec || {};
-let inputElementClicked = false;
+/**
+ *
+ */
+(async function init() {
+    PassSec.location = document.location.href;
+    PassSec.websiteProtocol = document.location.protocol;
+    console.log("current location url: ", PassSec.location);
+
+    const suffixListData = await browser.runtime.sendMessage({ type: "TLD" });
+    PassSec.publicSuffixList.parse(suffixListData, punycode.toASCII);
+    PassSec.domain = PassSec.publicSuffixList.getDomain(document.location.host);
+
+    PassSec.info();
+
+    const storage = await browser.storage.local.get(null);
+    await InputField.processInputs(storage);
+
+    Observer.start(storage);
+
+    /*console.log("Spamming DOM mutations rapidly...");
+    let count = 0;
+    const interval = setInterval(() => {
+        const div = document.createElement('div');
+        // Mix in some target inputs
+        if (count % 2 === 0) {
+            div.innerHTML = `<input type="password" value="Test ${count}">`;
+        } else {
+            div.innerHTML = `<p>Just a random paragraph ${count}</p>`;
+        }
+
+        document.body.appendChild(div);
+        count++;
+
+        if (count >= 10) {
+            clearInterval(interval);
+            console.log("Stopped spamming. Waiting for debounce timer to clear...");
+        }
+    }, 50);*/
+})();
+
+
+/*var passSec = passSec || {};
 var activeElement = null;
 
-// listen for messages from background script
-chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-    switch (message.type) {
-        case "addException":
-            addException(false, "none");
-            break;
-    }
-});
 
 const showTooltipEvent = jQuery.Event('showTooltip');
 const timerIsZeroEvent = jQuery.Event('timerIsZero');
 
-// Observe if relevant input field is added
-function registerElementChangeObserver(selector, callback) {
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      mutation.addedNodes.forEach((node) => {
-        // Nur Element-Knoten prüfen (keine Text-Knoten)
-        if (node.nodeType === 1) {
-
-          // 1. Direktes Match prüfen
-          if (node.matches(selector)) {
-              callback();
-          }
-
-          // 2. Innerhalb von Containern suchen
-          const nestedMatches = node.querySelectorAll(selector);
-          nestedMatches.forEach(match => callback());
-        }
-      });
-    });
-  });
-
-  // Observe if relevant input field is added
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
-};
-
 // processing starts here and is continued when the background script sends the extracted domain
-passSec.url = document.location.href;
 $(document).ready(function () {
-    chrome.runtime.sendMessage({ type: "TLD" }, function (r) {
-        passSec.publicSuffixList.parse(r, punycode.toASCII);
-    });
-
-    passSec.domain = passSec.publicSuffixList.getDomain(document.location.host);
-    passSec.websiteProtocol = document.location.protocol;
-
     chrome.storage.local.get(null, function (items) {
-        // Process ones on pagelaod
-        processInputs(items);
-
-        // Register observer
-        registerElementChangeObserver(
-          'input:not([type=submit],[type=reset],[type=button],[type=image],[type=radio],[type=checkbox]):read-write,textarea:read-write',
-          () => processInputs(items)
-        );
 
         // normally the focus event handler would be enough here, but we need the mousedown down handler
         // and the 'inputElementClicked' flag to accomplish the following: When the user closes the tooltip
@@ -117,7 +105,7 @@ function isIP(address) {
 
 /**
  * get domain out of hostname
- */
+
 function extractDomain(hostname) {
     if (isIP(hostname)) {
         return hostname;
@@ -165,7 +153,7 @@ function getURLInfos(urlStr) {
  *
  * @param element The element the tooltips should be displayed for
  * @param event The event that triggered the call of this function
- */
+
 function applyTooltip(element, event) {
     let securityStatus = $(element).attr("data-passSec-security");
     let securityStatusClass = $(element).attr("data-passSec-security-class");
@@ -256,4 +244,4 @@ function applyTooltip(element, event) {
         }, event);
     }
 
-}
+}*/
