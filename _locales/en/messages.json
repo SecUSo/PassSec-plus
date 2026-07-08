@@ -1,8 +1,18 @@
 {
-  "addOnDescription": {
+  "extensionName": {
+    "message": "PassSec+",
+    "description": "Name of the extension"
+  },
+  "extensionDescription": {
     "message": "PassSec+ alerts the user to enter passwords on websites where they could be compromised.",
     "description": "Short description of the add-on's functionality"
   },
+
+  "contextMenuOptions": {
+    "message": "Options (PassSec+)",
+    "description": "Context menu item for options"
+  },
+
   "urlInfoText": {
     "message": "You are visiting the website using the following URL:",
     "description": "Info about webpage"

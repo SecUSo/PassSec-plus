@@ -1,8 +1,18 @@
 {
-  "addOnDescription": {
+  "extensionName": {
+    "message": "PassSec+",
+    "description": "Name of the extension"
+  },
+  "extensionDescription": {
     "message": "PassSec+ warnt den Benutzer davor Kennwörter auf unsicheren Webseiten einzugeben.",
     "description": "Short description of the add-on's functionality"
   },
+
+  "contextMenuOptions": {
+    "message": "Optionen (PassSec+)",
+    "description": "Context menu item for options"
+  },
+
   "urlInfoText": {
     "message": "Sie besuchen die folgende Webseite:",
     "description": "Info about webpage"

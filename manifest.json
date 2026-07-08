@@ -1,11 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "PassSec+",
-  "version": "3.4.1",
   "author": "SECUSO",
-  "homepage_url": "https://www.secuso.org/passsec",
-  "description": "__MSG_addOnDescription__",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{53319828-3750-4619-836e-10f3c736a61f}"
+    }
+  },
+  "name": "__MSG_extensionName__",
+  "version": "1.4.1",
   "default_locale": "de",
+  "description": "__MSG_extensionDescription__",
   "background": {
     "scripts": [
       "service_worker.js"
@@ -32,7 +36,7 @@
         "skin/*.png"
       ],
       "matches": [
-        "*://*/*"
+        "<all_urls>"
       ]
     }
   ],
@@ -47,28 +51,27 @@
         "css/tooltip.css"
       ],
       "js": [
+        "js/browser-polyfill.min.js",
+        "js/passSec.js",
+        "js/punycode.js",
+        "js/publicsuffixlist.js",
+        "js/contentscript.js",
+        "js/inputfield.js",
+        "js/securitystatus.js",
+        "js/observer.js",
         "js/jquery-3.4.1.min.js",
         "js/jquery.qtip.min.js",
-        "js/punycode.min.js",
         "js/jquery-confirm.min.js",
-        "js/publicsuffixlist.js",
-        "js/security-status.js",
         "js/tooltip.js",
-        "js/timer.js",
-        "js/input-field.js",
-        "js/content-script.js"
+        "js/timer.js"
       ],
-      "run_at": "document_end",
       "all_frames": true
     }
   ],
   "action": {
+    "default_title": "__MSG_browserActionRedirectActive__",
     "default_icon": {
-      "16": "skin/redirectActive.png"
-    },
-    "default_title": "__MSG_browserActionRedirectActive__"
-        "required": ["none"]
-      }
+      "64": "skin/logo64.png"
     }
   }
 }
