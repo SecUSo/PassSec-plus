@@ -8,6 +8,10 @@ const PassSec = {
     //
     publicSuffixList: null,
     //
+    target: null,
+    //
+    tooltip: null,
+    //
     websiteProtocol: null,
 
     /**

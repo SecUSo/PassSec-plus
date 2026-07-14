@@ -13,6 +13,11 @@
     "description": "Context menu item for options"
   },
 
+  "tooltipHeader" : {
+    "message": "Sie besuchen die folgende Webseite:",
+    "description": "Header of the tooltip"
+  },
+
   "urlInfoText": {
     "message": "Sie besuchen die folgende Webseite:",
     "description": "Info about webpage"

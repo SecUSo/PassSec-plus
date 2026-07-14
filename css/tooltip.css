@@ -1,9 +1,10 @@
-.passSecTooltip {
-    max-width: 450px !important;
-    border: solid 0.3rem #bfb9b9;
-    border-radius: 5px;
-    background-color: white !important;
-    z-index: 2147483647 !important;
+.passSec-tooltip {
+    position: absolute;
+    max-width: 450px;
+    border: 4px solid #bfb9b9;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .passSecHighRisk {

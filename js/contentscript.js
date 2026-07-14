@@ -17,25 +17,14 @@
 
     Observer.start(storage);
 
-    /*console.log("Spamming DOM mutations rapidly...");
-    let count = 0;
-    const interval = setInterval(() => {
-        const div = document.createElement('div');
-        // Mix in some target inputs
-        if (count % 2 === 0) {
-            div.innerHTML = `<input type="password" value="Test ${count}">`;
-        } else {
-            div.innerHTML = `<p>Just a random paragraph ${count}</p>`;
-        }
+    const handleInteraction = async (event) => {
+        const target = event.target;
 
-        document.body.appendChild(div);
-        count++;
-
-        if (count >= 10) {
-            clearInterval(interval);
-            console.log("Stopped spamming. Waiting for debounce timer to clear...");
+        if (target instanceof HTMLElement && target.matches(InputField.SELECTOR)) {
+            await Tooltip.open(target);
         }
-    }, 50);*/
+    };
+    document.body.addEventListener("focusin", handleInteraction);
 })();
 
 

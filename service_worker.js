@@ -661,6 +661,15 @@ const onMessageHandler = (message, sender, sendResponse) => {
                     break;
                 }
 
+                case "loadResource": {
+                    const url = browser.runtime.getURL(message.path);
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error(`Failed to load resource: ${message.path}`);
+
+                    sendResponse(await res.text());
+                    break;
+                }
+
                 default:
                     console.warn(`Received message with unknown type: "${message.type}"`);
                     sendResponse(null);

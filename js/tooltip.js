@@ -1,3 +1,132 @@
+/**
+ *
+ * @type {{}}
+ */
+const Tooltip = {
+    _open: null,
+
+    /**
+     *
+     * @param fileName
+     * @returns {Promise<Element|null>}
+     * @private
+     */
+    async _createTooltipSkeleton(fileName) {
+        const tooltipHTML = await browser.runtime.sendMessage({ type: "loadResource", path: fileName });
+
+        if (!tooltipHTML) {
+            console.error("Failed to load tooltip HTML from background script.");
+            return;
+        }
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(tooltipHTML, "text/html");
+
+        const firstEl = doc.body.firstElementChild;
+        if (!firstEl) return null;
+
+        return document.importNode(firstEl, true);
+    },
+
+    /**
+     *
+     * @param tooltipElement
+     */
+    setURL(tooltipElement) {
+        let url = PassSec.location;
+        tooltipElement.querySelector(".passSec-URL").href = url;
+
+        const urlObject = new URL(url);
+        const pathSuffix = urlObject.pathname + urlObject.search + urlObject.hash;
+
+        if (pathSuffix.length > 100) {
+            url = url.replace(pathSuffix, pathSuffix.substring(0, 100) + "...");
+        }
+
+        const urlSplit = url.split(PassSec.domain);
+
+        const textContentMap = {
+            "passSec-URL-prefix": urlSplit[0],
+            "passSec-URL-domain": PassSec.domain,
+            "passSec-URL-suffix": urlSplit[1] || ""
+        };
+
+        for (const [id, value] of Object.entries(textContentMap)) {
+            const el = tooltipElement.querySelector(`#${id}`);
+            if (el) el.textContent = value;
+        }
+    },
+
+    /**
+     *
+     * @param tooltipElement
+     * @returns {Promise<void>}
+     */
+    async fillTooltip(tooltipElement) {
+        const textContentMap = {
+            "passSec-header": "tooltipHeader"
+        };
+
+        for (const [id, messageId] of Object.entries(textContentMap)) {
+            const el = tooltipElement.querySelector(`#${id}`);
+            if (el) el.textContent = await browser.i18n.getMessage(messageId);
+        }
+    },
+
+    /**
+     *
+     */
+    close() {
+        if (!this._open) return;
+        const { element, tooltipEl, stopAutoUpdate, hideOnBlur } = this._open;
+        stopAutoUpdate();
+        tooltipEl.remove();
+        element.removeEventListener("focusout", hideOnBlur);
+        this._open = null;
+    },
+
+    /**
+     *
+     * @param element
+     * @returns {Promise<void>}
+     */
+    async open(element) {
+        const securityStatusClass = element.getAttribute("data-passsec-security-class");
+        if (securityStatusClass !== "passSec-red" && securityStatusClass !== "passSec-grey") return;
+        if (this._open) return;
+
+        const tooltipEl = await this._createTooltipSkeleton("tooltip.html");
+        document.body.appendChild(tooltipEl);
+
+        this.setURL(tooltipEl);
+        await this.fillTooltip(tooltipEl);
+
+        console.log(tooltipEl);
+
+        const { autoUpdate, computePosition, flip, shift } = globalThis.FloatingUIDOM;
+        const updatePosition = async () => {
+            const { x, y } = await computePosition(element, tooltipEl, {
+                placement: "bottom-start",
+                middleware: [flip(), shift({ padding: 5 })]
+            });
+            Object.assign(tooltipEl.style, { left: `${x}px`, top: `${y}px` });
+        };
+        const stopAutoUpdate = autoUpdate(element, tooltipEl, updatePosition);
+
+        const hideOnBlur = (event) => {
+            if (tooltipEl.contains(event.relatedTarget)) return;
+            this.close();
+        };
+        element.addEventListener("focusout", hideOnBlur);
+
+        PassSec.target = element;
+        PassSec.tooltip = tooltipEl;
+
+        this._open = { element, tooltipEl, stopAutoUpdate, hideOnBlur };
+    }
+}
+
+
 var timerArr = [];
 
 /**
