@@ -2,6 +2,8 @@ const PassSec = {
     //
     domain: null,
     //
+    elementSecurityStates: new WeakMap(),
+    //
     httpsAvailable: null,
     // the location href of the website on which the extension works atm
     location: null,

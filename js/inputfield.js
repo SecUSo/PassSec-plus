@@ -168,6 +168,8 @@ const InputField = {
                 element.classList.add(securityStateClass);
             }
 
+            PassSec.elementSecurityStates.set(element, securityState);
+
             // Added as attributes too, so we have a backup selector for websites
             // that reset the 'class' attribute for styling instead of only adding/removing classes.
             element.setAttribute("data-passsec-security-class", securityStateClass);
