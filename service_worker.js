@@ -670,6 +670,23 @@ const onMessageHandler = (message, sender, sendResponse) => {
                     break;
                 }
 
+                case "getImageData": {
+                    const url = browser.runtime.getURL(message.path);
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error(`Failed to load image: ${message.path}`);
+                    const blob = await res.blob();
+
+                    const dataUrl = await new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onloadend = () => resolve(reader.result);
+                        reader.onerror = () => reject(new Error("FileReader failed"));
+                        reader.readAsDataURL(blob);
+                    });
+
+                    sendResponse(dataUrl);
+                    break;
+                }
+
                 default:
                     console.warn(`Received message with unknown type: "${message.type}"`);
                     sendResponse(null);
