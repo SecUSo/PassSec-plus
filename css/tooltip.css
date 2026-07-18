@@ -1,167 +1,114 @@
 .passSec-tooltip {
     position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2147483647;
     max-width: 450px;
     border: 4px solid #bfb9b9;
     border-radius: 8px;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 10px;
 }
 
-.passSecHighRisk {
-    border: 0.3rem solid red !important;
-  }
-
-.passSecTooltip div {
-    margin: 0 0 10px 0;
+.passSec-high-risk {
+    border-color: red;
 }
 
-.passSecTooltip img {
-    float: left;
-    width: 25px;
-    height: 25px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    margin-bottom: 5px;
+.passSec-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
 }
 
-.qtip-content {
-    background-color: white !important;
-    cursor: default;
-    text-rendering: optimizeLegibility;
+.passSec-section:last-child {
+    margin-bottom: 0;
 }
 
-.passSecTooltipText {
-    font-size: 14px !important;
-    line-height: 130% !important;
-    max-width: 450px !important;
-}
-
-.passSecHighlight {
-    font-weight: bold;
-    display: inline;
-    margin-bottom: 0px !important;
-    margin-right: 2px;
-  }
-
-.passSecConfirm {
-    font-size: 14px !important;
-}
-
-.passSecTooltipText, .passSecConfirmTitle, .passSecConfirm {
-    color: black !important;
-    font-family: Helvetica !important;
-}
-
-.passSecTooltipText#passSecDomain, .passSecDomain.passSecDomainConfirm {
-    font-family: Helvetica !important;
-}
-
-p.passSecTooltipText {
-    margin: 13px 0;
-}
-
-hr.http-warning {
-    margin: 5px 0;
-    border: 0;
-    height: 1px;
-    color: black;
-    background-color: black;
-}
-
-hr.https {
-    margin: 5px 0;
-    border: 0;
-    height: 1px;
-    color: black;
-    background-color: black;
-}
-
-#passSecPhishingText, #passSecConsequenceText, #passSecRecommendationText, #passSecInfoText, #passSecTooltipSummary {
-    overflow: hidden !important;
-}
-
-#passSecPhishingImage, #passSecConsequenceImage, #passSecRecommendationImage, #passSecInfoImage {
-    float: left !important;
-    width: 30px !important;
-    height: 30px !important;
-    padding-right: 10px !important;
-}
-
-.passSecTooltip > .littleText {
-    padding-top: 1px !important;
-    padding-bottom: 1px !important;
-}
-
-#passSecTooltipSummary {
-    font-weight: bold !important;
-    margin-bottom: 2px !important;
-    max-width: 450px !important;
-    word-break: break-word;
-}
-
-#passSecDomain, .passSecDomain {
-    margin: 2px 0 2px 4px !important;
-    font-weight: bold !important;
-    color: black !important;
-    letter-spacing: 3px !important;
-}
-
-.passSecDomainConfirm {
-    display: inline;
-}
-
-#passSecRiskText {
-    display: block !important;
-}
-
-#passSecPhishing, #passSecConsequence, #passSecRiskText, #passSecTooltipSummary, #passSecURL, .passSecTooltipText {
-    max-width: 450px !important;
-}
-
-#passSecRecommendation, #passSecInfo, #passSecButtons, #passSecInputDelayText, #passSecTooltipSummary {
-    text-decoration: none !important;
-    clear: both !important;
-    max-width: 450px !important;
-    margin-top: 10px !important;
-}
-
-#passSecURL {
-    margin-top: 10px !important;
+.passSec-URL {
+    word-wrap: break-word;
     word-break: break-all;
-    margin-bottom: 13px;
     text-decoration: none;
 }
 
-.passSecClickable:hover {
-    text-decoration: underline !important;
-    cursor: pointer !important;
+.passSec-URL #passSec-URL-domain {
+    font-weight: bold;
+    letter-spacing: 3px;
 }
 
-#passSecButtonSecureMode {
-    color: white !important;
+#passSec-recommendation-span-long {
+    display: none;
 }
 
-#passSecButtonException, #passSecButtonClose {
-    color: black !important;
+#passSec-recommendation-text.show-long #passSec-recommendation-span-short {
+    display: none;
 }
 
-#passSecButtonException, #passSecButtonClose, #passSecButtonSecureMode {
-    float: left !important;
-    border: 1px solid black !important;
-    background-color: white !important;
-    margin: 4px 5px 0 0 !important;
-    display: inline-block;
-    padding: 2px 4px !important;
-    font-family: Helvetica !important;
-    text-decoration: none !important;
-    box-shadow: none !important;
-    cursor: default !important;
+#passSec-recommendation-text.show-long #passSec-recommendation-span-long {
+    display: inline;
 }
 
-#passSecButtonException.redButton {
+#passSec-info-span-long {
+    display: none;
+}
+
+#passSec-info-text.show-long #passSec-info-span-short {
+    display: none;
+}
+
+#passSec-info-text.show-long #passSec-info-span-long {
+    display: inline;
+}
+
+.passSec-hr {
+    border: none;
+    border-top: 1px solid black;
+    width: 98%;
+    margin: 10px auto;
+}
+
+.passSec-tooltip p {
+    font-size: 14px;
+    margin: 0;
+    color: black;
+}
+
+.passSec-tooltip img {
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.passSec-tooltip button {
+    padding: 8px;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 4px;
+    color: black;
+    background-color: white;
+    font-size: 12px;
+}
+
+.passSec-bold {
+    font-weight: bold;
+}
+
+.passSec-clickable:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.passSec-red-button {
     background-color: red !important;
 }
 
-#passSecButtonSecureMode.greenButton {
+.passSec-green-button {
     background-color: green !important;
+}
+
+.passSec-not-active {
+    display: none;
 }

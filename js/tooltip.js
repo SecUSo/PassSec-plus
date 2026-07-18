@@ -34,8 +34,6 @@ const Tooltip = {
      */
     setURL(tooltipElement) {
         let url = PassSec.location;
-        tooltipElement.querySelector(".passSec-URL").href = url;
-
         const urlObject = new URL(url);
         const pathSuffix = urlObject.pathname + urlObject.search + urlObject.hash;
 
@@ -60,16 +58,117 @@ const Tooltip = {
     /**
      *
      * @param tooltipElement
+     * @param securityState
      * @returns {Promise<void>}
      */
-    async fillTooltip(tooltipElement) {
-        const textContentMap = {
-            "passSec-header": "tooltipHeader"
-        };
-
-        for (const [id, messageId] of Object.entries(textContentMap)) {
+    async fillTooltip(tooltipElement, securityState) {
+        const setTextContent = async (id, messageId) => {
             const el = tooltipElement.querySelector(`#${id}`);
             if (el) el.textContent = await browser.i18n.getMessage(messageId);
+        };
+
+        securityState.isSiteHttps = false;
+        // securityState.isSameDomain = false;
+        // securityState.isFormHttps = false;
+        PassSec.httpsAvailable = true;
+
+        // todo next: exceptionButton (red button)
+
+        await setTextContent("passSec-info-span-short", "tooltipInfoText");
+        tooltipElement.querySelector("#passSec-info-text").classList.add("passSec-clickable");
+        await setTextContent("passSec-button-exception", "tooltipExceptionButton");
+        await setTextContent("passSec-button-https", "tooltipHTTPSButton");
+        await setTextContent("passSec-button-close", "tooltipCloseButton");
+
+
+
+        if (securityState.isFullySecure) {
+            await setTextContent("passSec-header", "tooltipHeaderSafe");
+            await setTextContent("passSec-risk-state", "tooltipRiskStateUnknown");
+            await setTextContent("passSec-risk-text", "tooltipRiskTextSafe");
+            await setTextContent("passSec-recommendation-span-short", "tooltipRecommendationSafe");
+            await setTextContent("passSec-info-span-long", "tooltipMoreInfoSafe");
+            await setTextContent("passSec-link-delay", "tooltipLinkDelaySafe");
+
+
+        } else {
+            tooltipElement.querySelector("#passSec-header").classList.add("passSec-bold");
+            tooltipElement.querySelector("#passSec-recommendation-text").classList.add("passSec-clickable");
+            tooltipElement.querySelector("#passSec-button-exception").classList.add("passSec-red-button");
+            tooltipElement.classList.add("passSec-high-risk");
+            await setTextContent("passSec-risk-state", "tooltipRiskStateHighRisk");
+            await setTextContent("passSec-recommendation-span-short", "tooltipRecommendationUnsafe");
+            await setTextContent("passSec-link-delay", "tooltipLinkDelayUnsafe");
+
+            if (!securityState.isSiteHttps) {
+                await setTextContent("passSec-header", "tooltipHeaderHTTPWebsite");
+                await setTextContent("passSec-risk-text", "tooltipRiskTextHTTPWebsite");
+                await setTextContent("passSec-recommendation-span-long", "tooltipMoreRecommendationAskForHTTPS");
+                await setTextContent("passSec-info-span-long", "tooltipMoreInfoHTTPWebsite");
+
+                if (PassSec.httpsAvailable) {
+                    tooltipElement.querySelector("#passSec-button-https").classList.remove("passSec-not-active");
+                    await setTextContent("passSec-recommendation-span-short", "tooltipRecommendationHTTPSAvailable");
+                    await setTextContent("passSec-recommendation-span-long", "tooltipMoreRecommendationHTTPSAvailable");
+                    await setTextContent("passSec-info-span-long", "tooltipMoreInfoHTTPWebsiteHTTPSAvailable");
+                }
+
+            } else if (!securityState.isFormHttps && !securityState.isSameDomain) {
+                await setTextContent("passSec-header", "tooltipHeaderHTTPFormDifferentDomain");
+                await setTextContent("passSec-risk-text", "tooltipRiskTextHTTPFormDifferentDomain");
+                await setTextContent("passSec-recommendation-span-long", "tooltipMoreRecommendationCheckSettings");
+                await setTextContent("passSec-info-span-long", "tooltipMoreInfoHTTPFormDifferentDomain");
+
+            } else if (!securityState.isFormHttps) {
+                await setTextContent("passSec-header", "tooltipHeaderHTTPForm");
+                await setTextContent("passSec-risk-text", "tooltipRiskTextHTTPForm");
+                await setTextContent("passSec-recommendation-span-long", "tooltipMoreRecommendationAskForHTTPS");
+                await setTextContent("passSec-info-span-long", "tooltipMoreInfoHTTPForm");
+
+            } else if (!securityState.isSameDomain) {
+                await setTextContent("passSec-header", "tooltipHeaderDifferentDomain");
+                await setTextContent("passSec-risk-text", "tooltipRiskTextDifferentDomain");
+                await setTextContent("passSec-recommendation-span-long", "tooltipMoreRecommendationCheckSettings");
+                await setTextContent("passSec-info-span-long", "tooltipMoreInfoDifferentDomain");
+            }
+        }
+    },
+
+    /**
+     *
+     * @param tooltipElement
+     * @returns {Promise<void>}
+     */
+    async addImages(tooltipElement) {
+        const textContentMap = {
+            "passSec-recommendation-img": "skin/recommendation.png",
+            "passSec-info-img": "skin/more_info.png"
+        };
+
+        for (const [id, path] of Object.entries(textContentMap)) {
+            const el = tooltipElement.querySelector(`#${id}`);
+            if (el) el.src = await browser.runtime.sendMessage({ type: "getImageData", path: path });
+        }
+    },
+
+    /**
+     *
+     * @param tooltipElement
+     * @returns {Promise<void>}
+     */
+    async wireUpButtons(tooltipElement) {
+        const recommendationTextEl = tooltipElement.querySelector("#passSec-recommendation-text");
+        if (recommendationTextEl.classList.contains("passSec-clickable")) {
+            recommendationTextEl.addEventListener("click", () => {
+                recommendationTextEl.classList.toggle("show-long");
+            });
+        }
+
+        const infoTextEl = tooltipElement.querySelector("#passSec-info-text");
+        if (infoTextEl.classList.contains("passSec-clickable")) {
+            infoTextEl.addEventListener("click", () => {
+               infoTextEl.classList.toggle("show-long");
+            });
         }
     },
 
@@ -98,20 +197,37 @@ const Tooltip = {
         const tooltipEl = await this._createTooltipSkeleton("tooltip.html");
         document.body.appendChild(tooltipEl);
 
+        const securityState = PassSec.elementSecurityStates.get(element);
+
         this.setURL(tooltipEl);
-        await this.fillTooltip(tooltipEl);
+        await this.fillTooltip(tooltipEl, securityState);
+        await this.addImages(tooltipEl);
+        await this.wireUpButtons(tooltipEl);
 
         console.log(tooltipEl);
 
-        const { autoUpdate, computePosition, flip, shift } = globalThis.FloatingUIDOM;
+        const { autoUpdate, computePosition, flip, shift, hide } = globalThis.FloatingUIDOM;
         const updatePosition = async () => {
-            const { x, y } = await computePosition(element, tooltipEl, {
+            if (!this._open) return;
+
+            const { x, y, middlewareData } = await computePosition(element, tooltipEl, {
                 placement: "bottom-start",
-                middleware: [flip(), shift({ padding: 5 })]
+                middleware: [flip(), shift({ padding: 5 }), hide()]
             });
+
+            // instant close to prevent repositioning to the top left when element out of view
+            if (middlewareData.hide && middlewareData.hide.referenceHidden) {
+                this.close();
+                return;
+            }
+
             Object.assign(tooltipEl.style, { left: `${x}px`, top: `${y}px` });
         };
         const stopAutoUpdate = autoUpdate(element, tooltipEl, updatePosition);
+
+        tooltipEl.addEventListener("mousedown", (event) => {
+            event.preventDefault();
+        });
 
         const hideOnBlur = (event) => {
             if (tooltipEl.contains(event.relatedTarget)) return;
@@ -126,8 +242,6 @@ const Tooltip = {
     }
 }
 
-
-var timerArr = [];
 
 /**
  * Returns the HTML skeleton for a tooltip
@@ -191,21 +305,6 @@ function enableDialogButtons(dialogButtonsArr) {
     }
 }
 
-function getStatusCodeForText(securityStatus, httpsAvailable) {
-    let siteProtocolStatus = securityStatus[1];
-    // check if the site uses https or http
-    if (siteProtocolStatus == 0) {
-        return (httpsAvailable ? "HttpsAvailable" : "HttpOnly");
-    } else {
-        return securityStatus[1] + securityStatus[2] + securityStatus[3];
-    }
-};
-
-function getFieldTypeForText(fieldType) {
-    // text currently distinguishes only between password and (sensitive) data
-    return (fieldType == "password" ? "Password" : "Data");
-};
-
 var passSecTooltip = {
     changeHTMLTextWhenElemIsClicked(elem, firstText, secondText) {
         if ($(elem).html() === secondText) {
@@ -225,79 +324,6 @@ var passSecTooltip = {
     },
     createUserException(websiteProtocol, websiteDomain, formProtocol, formDomain) {
         return { "siteProtocol": websiteProtocol, "siteDom": websiteDomain, "formProtocol": formProtocol, "formDom": formDomain };
-    }
-}
-
-function getTooltipText(securityStatus, httpsAvailable, fieldType) {
-    let statusCodeForText = getStatusCodeForText(securityStatus, httpsAvailable);
-    let fieldTypeForText = getFieldTypeForText(fieldType);
-
-    return {
-        "tooltipSummary": chrome.i18n.getMessage("riskTooltipSummary" + statusCodeForText + fieldTypeForText),
-        "riskText": chrome.i18n.getMessage("riskText" + statusCodeForText + fieldTypeForText),
-        "recommendation": chrome.i18n.getMessage("riskRecommendation" + statusCodeForText + fieldTypeForText),
-        "moreRecommendation": chrome.i18n.getMessage("moreRecommendation" + statusCodeForText + fieldTypeForText)
-    }
-};
-
-function assignText(tooltip, url, securityStatus, fieldType, formURLObj, qtipID) {
-    let passSecURLElem = $(tooltip.find("#passSecURL")[0]);
-    let passSecFormURLTextElem = $(tooltip.find("#passSecFormURLText")[0]);
-    let passSecFormURLElem = $(tooltip.find("#passSecFormURL")[0]);
-    let inputDelayTextElem = $(tooltip.find("#passSecInputDelayText")[0]);
-    let exceptionButton = $(tooltip.find("#passSecButtonException")[0]);
-
-    passSecURLElem.html(url.replace(passSec.domain, '<span id="passSecDomain">' + passSec.domain + "</span>"));
-    let fieldTypeForText = getFieldTypeForText(fieldType);
-
-    let siteUseHttps = securityStatus[1];
-    let formUseHttps = securityStatus[2];
-    let sameDomain = securityStatus[3];
-    switch (siteUseHttps + formUseHttps + sameDomain) {
-        // site protocol is https
-        case "111":
-            $(tooltip.find(".http-warning")).hide();
-            $(tooltip.find(".highRisk")).hide();
-            $(tooltip.find(".unknownRisk")).show();
-            exceptionButton.html(chrome.i18n.getMessage("exceptionHTTPS"));
-            inputDelayTextElem.html(chrome.i18n.getMessage("inputDelayText111" + fieldTypeForText));
-            break;
-        // site protocol is https
-        case "100": case "110": case "101":
-            $("#" + qtipID).addClass("passSecHighRisk");
-            exceptionButton.addClass("redButton");
-            exceptionButton.html(chrome.i18n.getMessage("exceptionHTTP"));
-            inputDelayTextElem.html(chrome.i18n.getMessage("inputDelayText" + fieldTypeForText));
-
-            $(tooltip.find(".http-warning")).hide();
-            $(tooltip.find(".https")).show();
-
-            // Data is transferred to another server
-            if (securityStatus[3] == 0) {
-                passSecFormURLTextElem.html(chrome.i18n.getMessage("formURLInfoText" + fieldTypeForText));
-                let formURLStr = formURLObj.url;
-                let formDomain = formURLObj.domain
-                formURLHTML = formURLStr.replace(formDomain, '<span id="passSecDomain">' + formURLObj.domain + "</span>");
-                passSecFormURLElem.html(formURLHTML);
-                $(tooltip.find(".otherServer")).show();
-            }
-            break;
-        // site protocol is http
-        case "000": case "001": case "010": case "011":
-            $("#" + qtipID).addClass("passSecHighRisk");
-            exceptionButton.addClass("redButton");
-            exceptionButton.html(chrome.i18n.getMessage("exceptionHTTP"));
-            inputDelayTextElem.html(chrome.i18n.getMessage("inputDelayText" + fieldTypeForText));
-
-            $(tooltip.find(".http-warning")).show();
-            $(tooltip.find(".https")).hide();
-
-            if (passSec.httpsAvailable) {
-                let changeToHttpsButton = $(tooltip.find("#passSecButtonSecureMode")[0]);
-                changeToHttpsButton.show();
-                changeToHttpsButton.addClass("greenButton");
-            }
-            break;
     }
 }
 
