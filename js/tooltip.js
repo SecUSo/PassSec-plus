@@ -118,7 +118,7 @@ function assignText(tooltip, url, securityStatus, fieldType, formURLObj, qtipID)
     let inputDelayTextElem = $(tooltip.find("#passSecInputDelayText")[0]);
     let exceptionButton = $(tooltip.find("#passSecButtonException")[0]);
 
-    passSecURLElem.html(url.replace(passSec.domain, '<span id="passSecDomain">' + passSec.domain + "</span>"));
+    passSecURLElem.html('<span id="passSecDomain">' + passSec.domain + '</span>');
     let fieldTypeForText = getFieldTypeForText(fieldType);
 
     let siteUseHttps = securityStatus[1];
