@@ -67,8 +67,5 @@
       "16": "skin/redirectActive.png"
     },
     "default_title": "__MSG_browserActionRedirectActive__"
-        "required": ["none"]
-      }
-    }
   }
 }
