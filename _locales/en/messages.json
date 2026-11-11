@@ -4,7 +4,7 @@
     "description": "Short description of the add-on's functionality"
   },
   "urlInfoText": {
-    "message": "You are visiting the website using the following URL:",
+    "message": "You are visiting the website using the following Domain:",
     "description": "Info about webpage"
   },
   "formURLInfoTextData": {
